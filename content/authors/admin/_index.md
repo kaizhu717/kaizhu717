@@ -46,7 +46,7 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: mailto:kaizhublcu@gmail.com  # For a direct email link, use "mailto:test@example.org".
+  link: kaizhublcu@gmail.com  # For a direct email link, use "mailto:test@example.org".
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/kaizhu717
@@ -60,7 +60,7 @@ social:
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
 - icon: cv
   icon_pack: ai
-  link: files/cv.pdf
+  link: files/kaizhu-cv.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: ""
