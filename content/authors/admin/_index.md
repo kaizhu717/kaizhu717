@@ -10,15 +10,15 @@ authors:
 superuser: true
 
 # Role/position
-role: PhD student in Information Systems
+role: PhD student at Boston University
 
 # Organizations/Affiliations
 organizations:
-- name: Boston University
+- name: 
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: I am broadly interested in how technology impacts our economy, culture, and society
 
 interests:
 - Computational Social Science
@@ -32,12 +32,15 @@ education:
   - course: PhD in Information System
     institution: Bosotn University
     year: 2020 (expected)
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: Master of Arts in Economics (Paased Comprehensive exams with high honor)
+    institution: Indiana University
+    year: 2015
+  - course: Bachelors of Arts in Economics
+    institution: Peking University
+    year: 2013
+  - course: Bachelors of Engineering in Computer Science
+    institution: Beijing Culture and Language University
+    year: 2011
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -72,6 +75,4 @@ user_groups:
 - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+I am broadly interested in how technology impacts our economy, culture, and society. In particular, my work during the PhD program focus on bias, inequality, and polarization in digital information systems.
