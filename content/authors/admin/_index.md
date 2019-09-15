@@ -39,7 +39,7 @@ education:
     institution: Peking University
     year: 2013
   - course: B.S. in Computer Science
-    institution: Beijing Culture and Language University
+    institution: Beijing Language and Culture University
     year: 2011
 
 # Social/Academic Networking
