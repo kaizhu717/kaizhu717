@@ -29,18 +29,18 @@ interests:
 
 education:
   courses:
-  - course: Ph.D. in Information Systems
+  - course: Ph.D. Candidate in Information Systems
     institution: Bosotn University
-    year: 2020 (expected)
+    year: 
   - course: M.A. in Economics 
     institution: Indiana University
-    year: 2015 (Pass all PhD Qualfy Exams with high honor)
+    year: Pass all PhD Qualfy Exams with high honor
   - course: B.A. in Economics
     institution: Peking University
-    year: 2013
+    year: 
   - course: B.S. in Computer Science
     institution: Beijing Language and Culture University
-    year: 2011
+    year: 
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
