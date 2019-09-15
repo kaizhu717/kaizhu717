@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: PhD student at Boston University
+role: Ph.D. student at Boston University
 
 # Organizations/Affiliations
 organizations:
@@ -32,9 +32,9 @@ education:
   - course: Ph.D. in Information Systems
     institution: Bosotn University
     year: 2020 (expected)
-  - course: M.A. in Economics (Pass all PhD Qualfy Exams with high honor)
+  - course: M.A. in Economics 
     institution: Indiana University
-    year: 2015
+    year: 2015 (Pass all PhD Qualfy Exams with high honor)
   - course: B.A. in Economics
     institution: Peking University
     year: 2013
