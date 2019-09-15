@@ -75,4 +75,4 @@ user_groups:
 - Visitors
 ---
 
-I am broadly interested in how technology impacts our economy, culture, and society. In particular, my work during the PhD program focus on bias, inequality, and polarization in digital information systems.
+I am broadly interested in how technology impacts our economy, culture, and society. Have training in both economics and computer science, I apply statistical modeling, causal inference, and machine learning to large-scale empirical and data-oriented research. In particular, my work during Ph.D. focus on bias, inequality, and polarization in digital information systems and how can we address these issues and design better online social systems
