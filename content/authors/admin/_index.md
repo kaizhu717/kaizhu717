@@ -29,16 +29,16 @@ interests:
 
 education:
   courses:
-  - course: PhD in Information System
+  - course: Ph.D. in Information Systems
     institution: Bosotn University
     year: 2020 (expected)
-  - course: Master of Arts in Economics (Paased Comprehensive exams with high honor)
+  - course: M.A. in Economics (Pass all PhD Qualfy Exams with high honor)
     institution: Indiana University
     year: 2015
-  - course: Bachelors of Arts in Economics
+  - course: B.A. in Economics
     institution: Peking University
     year: 2013
-  - course: Bachelors of Engineering in Computer Science
+  - course: B.S. in Computer Science
     institution: Beijing Culture and Language University
     year: 2011
 
