@@ -4,11 +4,11 @@ authors:
 - Kai Zhu
 - Dylan Walker
 - Lev Muchnick
-date: "2015-09-01T00:00:00Z"
+date: ""
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: ""
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
@@ -17,8 +17,8 @@ publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["3"]
 
 # Publication name and optional abbreviated publication name.
-publication: "*Journal of Source Themes, 1*(1)"
-publication_short: ""
+publication: "Information Systems Research"
+publication_short: "ISR"
 
 
 # Summary. An optional shortened abstract.
@@ -39,6 +39,7 @@ url_project: ''
 url_slides: ''
 url_source: ''
 url_video: ''
+url_tweets: ''
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
