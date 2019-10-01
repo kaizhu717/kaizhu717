@@ -36,7 +36,7 @@ attention flow to clusters of disadvantaged articles. Our findings have importan
 open collaboration platforms and information networks. 
 
 # Summary. An optional shortened abstract.
-summary: 
+# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
 
 tags:
 - Source Themes
