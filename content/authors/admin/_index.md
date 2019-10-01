@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Ph.D. student at Boston University
+role: Ph.D student at Boston University
 
 # Organizations/Affiliations
 organizations:
@@ -22,10 +22,11 @@ bio: I am broadly interested in how technology impacts our economy, culture, and
 
 interests:
 - Computational Social Science
+- Causal Inference
+- Text as Data
 - Digital Experimentation
 - Complex Network
-- Text as Data
-- Causal Inference
+
 
 education:
   courses:
@@ -34,7 +35,7 @@ education:
     year: 
   - course: M.A. in Economics 
     institution: Indiana University
-    year: Pass all PhD Qualfy Exams with high honor
+    year: 
   - course: B.A. in Economics
     institution: Peking University
     year: 
