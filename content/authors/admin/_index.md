@@ -18,7 +18,7 @@ organizations:
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: I am broadly interested in how technology impacts our economy, culture, and society
+bio: I am broadly interested in how technology impacts our economy, culture, and society.
 
 interests:
 - Computational Social Science
@@ -75,6 +75,7 @@ user_groups:
 - Visitors
 ---
 
-My research broadly seeks to understand the impact of technology on our economy, culture, and society. Having training in both economics and computer science, I combine machine learning, natural language processing, and causal inference to learn about human behavior and system dynamics in the real-world. I aim to advance our understanding of these dynamic processes using large-scale empirical and data-oriented research, so that we can better leverage our knowledge to facilitate greater business and societal success. 
+My research broadly seeks to understand the impact of technology on our economy, culture, and society. Having training in both economics and computer science, I combine machine learning, natural language processing, and causal inference to learn about human behavior and system dynamics in the real-world using large-scale structural and undstructual data. One topic that I am particularly passionate about is measuring the bias, inequality, and polarization that exist in many digital information systems and learning how we can overcome them to facilitate greater business and societal success.
 
-One topic that I am particularly interested in is bias, inequality, and polarization in many digital information systems. Modern digital technology presents the opportunity for the "democratization of information" -  ideas, opinions, cultural diversity, knowledge, and education will be accessible anywhere, anytime, and to everybody. As the penetration of digital technology in our every day life continues to advance, we cannot stop ourselves from asking the questions that has it hold up this grand  promise? Whether there exist information skewness that we need to be cautious of? I would like to dedicate my research to answer some of these fascinating questions.
+
+
