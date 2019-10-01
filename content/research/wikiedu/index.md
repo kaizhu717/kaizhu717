@@ -20,7 +20,6 @@ links:
 
 url_code: ""
 url_pdf: ""
-url_ssrn: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3191128"
 url_slides: ""
 url_video: ""
 
