@@ -31,9 +31,9 @@ summary: Forthcoming at *Information Systems Research*
 #- Source Themes
 #eatured: false
 
-# links:
-# - name: ""
-#   url: ""
+links:
+ - name: "SSRN"
+   url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3191128"
 url_pdf: files/wikiedu.pdf
 url_code: ''
 url_dataset: ''
