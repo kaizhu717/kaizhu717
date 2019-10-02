@@ -6,7 +6,7 @@ event_url:
 location: 
 address:
 
-summary: Instructor rating: Mean - 4.5 out of 5, Media - 5 out of 5
+summary: Instructor rating - Mean 4.5 out of 5, Media 5 out of 5
 abstract: ""
 
 # Talk start and end times.
