@@ -52,8 +52,9 @@ projects:
 math: true
 ---
 
-Human-centered Digital Design
-  * Instructor: Dylan Walker
-  * Year: 2017, 2018, 2019
-
 My responsibility as teaching assistant for the these courses including teaching lab sessions, tutoring Python programming, consulting digital projects development, hosting Q&A hours, and grading homework and final exams.
+
+Human-centered Digital Design
+* Instructor: Dylan Walker
+* Year: 2017, 2018, 2019
+
