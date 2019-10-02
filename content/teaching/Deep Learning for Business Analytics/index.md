@@ -1,12 +1,12 @@
 ---
-title: Introduction to Information Systems
+title: Deep Learning for Business Analytics
 event: Academic Theme Conference
 event_url: 
 
 location: 
 address:
 
-summary: Instructor rating: Mean - 4.5 out of 5, Media - 5 out of 5
+summary: I help design and develop a new course about Python and Neural Network for business analytics as part of the recently launched Master of Science in Business Analytics program at Questrom School of Business, Boston University
 abstract: ""
 
 # Talk start and end times.
