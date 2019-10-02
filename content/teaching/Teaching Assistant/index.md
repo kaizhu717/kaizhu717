@@ -6,8 +6,7 @@ event_url:
 location: 
 address:
 
-summary: My responsibility as teaching assistant for the these courses including teaching lab sessions, tutoring Python programming, consulting digital projects
-development, hosting Q&A hours, and grading homework and final exams.
+summary: My responsibility as teaching assistant for the these courses including teaching lab sessions, tutoring Python programming, consulting digital projects development, hosting Q&A hours, and grading homework and final exams.
 abstract: ""
 
 # Talk start and end times.
