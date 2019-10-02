@@ -1,9 +1,8 @@
 ---
-title: "Content Growth and Attention Contagion in Information Networks: A Natural Experiment on Wikipedia"
+title: "Media Coverage of Gun Violence in the United States"
 authors:
 - Kai Zhu
 - Dylan Walker
-- Lev Muchnick
 date: ""
 doi: ""
 
@@ -22,16 +21,16 @@ publication_short: "ISR"
 
 
 # Summary. An optional shortened abstract.
-summary: Open collaboration platforms have fundamentally changed the way knowledge is produced, disseminated  and consumed. In these systems, contributions arise organically with little to no central governance. While  such decentralization provides many benefits, a lack of broad oversight and coordination can leave  questions of information poverty and skewness to the mercy of the system’s natural dynamics. Unfortunately, we still lack a basic understanding of the dynamics at play in these systems, and specifically, how contribution and attention interact and propagate through information networks. We leverage a large scale natural experiment to study how exogenous content contributions to Wikipedia articles affect the attention they attract and how that attention spills over to other articles in the network. Results reveal that exogenously added content leads to significant, substantial and long-term increases in both content consumption and subsequent contributions. Furthermore, we find significant attention spillover to downstream hyperlinked articles. Through both analytical estimation and empirically-informed simulation, we evaluate policies to harness this attention contagion to address the problem of information poverty and skewness. We find that harnessing attention contagion can lead to as much as a twofold increase in the total attention flow to clusters of disadvantaged articles. Our findings have important policy implications for open collaboration platforms and information networks. 
+summary: Abstract: Gun violence in the United States has reached epidemic proportions, where guns have been implicated as the cause of more than 30,000 fatalities and 80,000 injuries annually, according to the Centers for Disease Control and Prevention and the American Public Health Association. The dozens of Mass shooting incidents over the past several years have provoked a national conversation about gun violence, regulation, public policy, and mental health with particular attention to how the media covers and frames gun violence incidents. Despite this attention, our empirical understanding of how the media covers gun violence is remarkably limited, in part due to a lack of comprehensive data on the detailed incidence of gun violence events and of coverage of gun violence events in news media throughout the United States. Our collaboration with a private firm that tracks local and national televised news content has placed us in a position to overcome this hurdle. Using the complete transcript data of all news from local television stations in the United States over a six year timespan and comprehensive records of gun violence incidents throughout the country compiled by Gun Violence Archive, we investigate how media cover gun violence incidents
 
-tags:
-- Source Themes
+# tags:
+# - Source Themes
 featured: false
 
 # links:
 # - name: ""
 #   url: ""
-url_pdf: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3191128
+url_pdf: 
 url_code: ''
 url_dataset: ''
 url_poster: ''
