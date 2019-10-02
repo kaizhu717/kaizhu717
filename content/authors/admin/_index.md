@@ -18,7 +18,7 @@ organizations:
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: I am broadly interested in how technology impacts our economy, culture, and society.
+bio: 
 
 interests:
 - Computational Social Science
@@ -76,7 +76,6 @@ user_groups:
 - Visitors
 ---
 
-My research broadly seeks to understand the impact of technology on our economy, culture, and society. Having training in both economics and computer science, I combine machine learning, natural language processing, and causal inference to learn about human behavior and system dynamics in the real-world using large-scale structural and undstructual data. One topic that I am particularly passionate about is measuring the bias, inequality, and polarization that exist in many digital information systems and learning how we can overcome them to facilitate greater business and societal success.
-
+My research seek to understand the impact of technology on our economy, culture, and society. I combine machine learning, natural language processing, and causal inference to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data. One topic I am particularly passionate about is to investigate the bias, inequality, and polarization that exist in many digital information systems and learn how we can overcome them to facilitate greater economic and societal success.
 
 
