@@ -1,5 +1,5 @@
 ---
-title: Example Talk
+title: Introduction to Information Systems
 event: Academic Theme Conference
 event_url: https://example.org
 
