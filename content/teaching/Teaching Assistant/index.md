@@ -1,5 +1,5 @@
 ---
-title: Deep Learning for Business Analytics
+title: Teaching Assistant
 event: Academic Theme Conference
 event_url: 
 

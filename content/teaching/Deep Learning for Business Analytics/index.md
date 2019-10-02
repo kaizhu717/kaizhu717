@@ -6,7 +6,7 @@ event_url:
 location: 
 address:
 
-summary: I help design and develop a new course about Python and Neural Network for business analytics as part of the recently launched Master of Science in Business Analytics program at Questrom School of Business, Boston University
+summary: I help design and develop a new course about Python and Neural Network for business analytics...
 abstract: ""
 
 # Talk start and end times.
@@ -52,5 +52,4 @@ projects:
 math: true
 ---
 
-*Instructor rating*: Mean - 4.5 out of 5, Media - 5 out of 5 \\
-*Description*: The course is designed to provides students with an understanding of the important role that information and information technology play in supporting the effective operation and management of business. We look at how information systems solve problems, create opportunities, and can be a disruptor of traditional business  odels.To achieve this, the course utilizes case materials, outside readings, e-Learning tools, and hands on MS Access database exercises. The goal is to engage students in understanding how the effective management of information adds value to a business and how to apply information technologies to that process. The four main modules of this course are: Foundations of Management Information Systems, Database and Analytics Skills, and Information Technology as a Disruptor of Traditional Business Models, Business System Skills.
+*Description*: I help design and develop a new course about Python and Neural Network for business analytics as part of the recently launched Master of Science in Business Analytics program at Questrom School of Business, Boston University. The course teaches student using Python for data science and deep learning as a tool for business analytics. It covers topics such as theory and fundamentals of Neural Network, Convolutional Neural Network, Recurrent Neural Network, and a Capstone project of application of deep learning methods for business data. The course is comprised of 20 sessions and each session is a 3.5 hour long intensive class including both lecture and hands-on exercise and projects. 
