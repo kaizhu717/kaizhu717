@@ -15,12 +15,12 @@
 
 [[main]]
   name = "Teaching"
-  url = "#teaching"
+  url = "teaching"
   weight = 40
 
 [[main]]
   name = "Post"
-  url = "#post"
+  url = "post"
   weight = 50
 
 # Link to a PDF of your resume/CV from the menu.
