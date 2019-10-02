@@ -76,6 +76,6 @@ user_groups:
 - Visitors
 ---
 
-I am a PhD student of Information Systems at Boston Universtiy, advised by [Dylan Walker](http://www.dylantwalker.com/). My research seek to understand the impact of technology on our economy, culture, and society. I combine machine learning, natural language processing, and causal inference to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data. One topic I am particularly passionate about is to investigate the bias, inequality, and polarization that exist in many digital information systems and learn how we can overcome them to facilitate greater economic and societal success.
+I am a PhD student of Information Systems at Boston Universtiy, advised by [Dylan Walker](http://www.dylantwalker.com/). I am interested in understanding the impact of technology on our economy, culture, politics, and society. I am particularly passionate about investigating the bias, inequality, and polarization that exist in many digital systems that are enabled by modern information technology and learning how we can overcome them to facilitate greater economic and societal success. In my research, I combine machine learning, natural language processing, causal inference, and other computational tools to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data. 
 
 

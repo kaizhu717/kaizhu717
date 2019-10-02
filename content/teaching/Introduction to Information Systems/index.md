@@ -52,6 +52,6 @@ projects:
 math: true
 ---
 
-*Instructor rating*: Mean - 4.5 out of 5, Media - 5 out of 5 \\
+*Instructor rating*: Mean - 4.5 out of 5, Median - 5 out of 5 \\
 \\
 *Description*: The course is designed to provides students with an understanding of the important role that information and information technology play in supporting the effective operation and management of business. We look at how information systems solve problems, create opportunities, and can be a disruptor of traditional business  odels.To achieve this, the course utilizes case materials, outside readings, e-Learning tools, and hands on MS Access database exercises. The goal is to engage students in understanding how the effective management of information adds value to a business and how to apply information technologies to that process. The four main modules of this course are: Foundations of Management Information Systems, Database and Analytics Skills, and Information Technology as a Disruptor of Traditional Business Models, Business System Skills.
