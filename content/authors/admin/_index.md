@@ -10,11 +10,11 @@ authors:
 superuser: true
 
 # Role/position
-role: Assistant Professor at McGill University
+role: McGill University
 
 # Organizations/Affiliations
 organizations:
-- name: 
+- name: McGill University
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
@@ -78,6 +78,6 @@ user_groups:
 ---
 
 <div style="text-align:justify">
-I am an Assistant Professor of Information Systems at McGill University. My research broadly seek to understand the impact of digital technology on our society. I am particularly concerned with bias, inequality, and polarization that may exist in many digital information systems (e.g. Wikipedia, social media, broadcast media, online platforms). I am passionate about working on exposing and understanding such inequities as well as toward learning how we can overcome them to facilitate greater economic and societal success. In my research, I combine machine learning, natural language processing, causal inference, and other computational tools to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data. 
+I am an Assistant Professor of Information Systems at McGill University. My research broadly seek to understand the impact of digital technology on our society. I am particularly concerned with bias, inequality, and polarization that may exist in many digital information systems (e.g. Wikipedia, social media, broadcast media, online platforms). I am passionate about working on exposing and understanding such inequities as well as toward learning how we can overcome them to facilitate greater economic and societal outcomes. In my research, I combine machine learning, natural language processing, causal inference, and other computational tools to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data. 
 </div>
 
