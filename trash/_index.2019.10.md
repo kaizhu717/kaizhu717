@@ -30,7 +30,7 @@ interests:
 
 education:
   courses:
-  - course: Ph.D. Candidate in Information Systems
+  - course: Ph.D. in Information Systems
     institution: Bosotn University
     year: 
   - course: M.A. in Economics 
