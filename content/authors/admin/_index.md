@@ -14,7 +14,7 @@ role: McGill University
 
 # Organizations/Affiliations
 organizations:
-- name: McGill University
+- name: 
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
@@ -30,7 +30,7 @@ interests:
 
 education:
   courses:
-  - course: Ph.D. Candidate in Information Systems
+  - course: Ph.D. in Information Systems
     institution: Bosotn University
     year: 
   - course: M.A. in Economics 
