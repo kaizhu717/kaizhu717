@@ -20,6 +20,29 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 bio: 
 
+interests:
+- Computational Social Science
+- Causal Inference
+- Text as Data
+- Digital Experimentation
+- Complex Network
+
+
+education:
+  courses:
+  - course: Ph.D. Candidate in Information Systems
+    institution: Bosotn University
+    year: 
+  - course: M.A. in Economics 
+    institution: Indiana University
+    year: 
+  - course: B.A. in Economics
+    institution: Peking University
+    year: 
+  - course: B.S. in Computer Science
+    institution: Beijing Language and Culture University
+    year: 
+
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
