@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: McGill University
+role: Bocconi University
 
 # Organizations/Affiliations
 organizations:
@@ -77,6 +77,6 @@ user_groups:
 ---
 
 <div style="text-align:justify">
-I am an Assistant Professor at Desautels Faculty of Management at McGill University. My research broadly seek to understand how digital technologies change market, media, politics, and society. I am particularly concerned with bias, inequality, and polarization that may exist in many large-scale socio-technical systems (e.g. Wikipedia, social media, broadcast media, online platforms). I am passionate about working on exposing and understanding such inequities as well as toward learning how we can overcome them to facilitate greater economic and societal outcomes. In my research, I combine machine learning, natural language processing, causal inference, and other computational tools to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data.
+I am an Assistant Professor at Bocconi University in Milan Italy. I obtained my PhD in Information Systems from Boston University. My research broadly seek to understand how digital technologies change market, media, politics, and society. In my research, I combine machine learning, natural language processing, causal inference, and other computational tools to learn about human behavior and system dynamics in the real-world using large-scale structured and unstructured data.
 </div>
 
