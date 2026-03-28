@@ -8,3 +8,8 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "*.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
