@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kai Zhu — Assistant Professor, Bocconi University</title>
+<meta name="description" content="Kai Zhu (朱开) is an Assistant Professor at Bocconi University studying the economics of digitization, AI, and digital platforms.">
+<meta property="og:title" content="Kai Zhu — Assistant Professor, Bocconi University">
+<meta property="og:description" content="Research on economics of digitization, artificial intelligence, and digital platforms.">
+<meta property="og:image" content="img/kaizhu-profile.png">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kaizhu.me/">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #2D2D2D; background: #fff; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  :root {
+    --primary: #1B3A4B;
+    --accent: #2E86AB;
+    --subtle: #6B7B8D;
+    --body: #2D2D2D;
+    --light-bg: #F4F7FA;
+    --lightrule: #D0DCE5;
+  }
+
+  /* Navigation */
+  nav { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--lightrule); padding: 14px 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  nav .inner { max-width: 1060px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
+  nav .name { font-weight: 700; font-size: 18px; color: var(--primary); text-decoration: none; }
+  nav .links { display: flex; gap: 28px; }
+  nav .links a { color: var(--subtle); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
+  nav .links a:hover { color: var(--accent); }
+
+  /* Layout */
+  .container { max-width: 1060px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 48px 0; }
+  section + section { border-top: 1px solid var(--lightrule); }
+
+  /* Hero / About */
+  .hero { padding: 56px 0 48px; }
+  .hero-content { display: flex; gap: 36px; align-items: flex-start; }
+  .avatar { width: 170px; height: 170px; border-radius: 50%; flex-shrink: 0; object-fit: cover; border: 3px solid var(--lightrule); }
+  .hero-text h1 { font-size: 32px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+  .hero-text .chinese { font-size: 16px; color: var(--subtle); margin-top: 2px; }
+  .hero-text .role { font-size: 16px; color: var(--accent); font-weight: 500; margin-top: 6px; }
+  .hero-text .bio { margin-top: 16px; color: var(--body); font-size: 17px; line-height: 1.75; }
+  .hero-text .bio + .bio { margin-top: 10px; }
+  .hero-text .interests { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-text .interests span { background: var(--light-bg); color: var(--primary); padding: 5px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+  .hero-links { margin-top: 18px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .hero-links a { color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .hero-links a:hover { text-decoration: underline; }
+  .hero-links a i { font-size: 16px; }
+  .hero-links .sep { color: var(--lightrule); font-size: 14px; user-select: none; }
+
+  /* Section headers */
+  .section-title { font-size: 26px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .section-rule { width: 48px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 28px; }
+
+  /* Subsection */
+  .subsection-title { font-size: 15px; font-weight: 600; color: var(--subtle); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; margin-top: 36px; }
+  .subsection-title:first-child { margin-top: 0; }
+
+  /* Publication entry */
+  .pub { margin-bottom: 24px; }
+  .pub-header { cursor: pointer; }
+  .pub-header:hover .pub-title { color: var(--primary); }
+  .pub .pub-title { font-size: 17px; font-weight: 600; color: var(--accent); line-height: 1.5; transition: color 0.2s; }
+  .pub .pub-title-static { font-size: 17px; font-weight: 600; color: var(--primary); line-height: 1.5; }
+  .pub .expand-icon { font-size: 11px; color: var(--lightrule); margin-left: 6px; transition: all 0.25s; display: inline-block; }
+  .pub.expanded .expand-icon { transform: rotate(90deg); color: var(--accent); }
+  .pub .pub-venue { font-size: 15px; color: var(--body); margin-top: 3px; }
+  .pub .pub-venue em { font-style: italic; }
+  .pub .pub-authors { font-size: 14px; color: var(--subtle); margin-top: 2px; }
+  .pub .pub-links { margin-top: 6px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .pub .pub-links a { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; padding: 3px 12px; border: 1px solid var(--lightrule); border-radius: 4px; transition: all 0.2s; }
+  .pub .pub-links a:hover { background: var(--light-bg); border-color: var(--accent); }
+
+  /* Abstract expand/collapse */
+  .pub .pub-abstract { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, margin 0.3s ease, padding 0.3s ease; padding: 0 18px; background: var(--light-bg); border-radius: 8px; font-size: 15px; line-height: 1.7; color: #444; border-left: 3px solid var(--accent); margin-top: 0; }
+  .pub.expanded .pub-abstract { max-height: 500px; padding: 14px 18px; margin-top: 10px; }
+
+  /* Status badges */
+  .pub .pub-status { margin-top: 4px; }
+  .status { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 12px; }
+  .status.review { background: #FFF3CD; color: #856404; }
+  .status.rr { background: #D4EDDA; color: #155724; }
+  .status.wip { background: var(--light-bg); color: var(--subtle); }
+
+  /* Footer */
+  footer { padding: 32px 0; text-align: center; color: var(--subtle); font-size: 14px; border-top: 1px solid var(--lightrule); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .hero-content { flex-direction: column; align-items: center; text-align: center; }
+    .avatar { width: 130px; height: 130px; }
+    .hero-text h1 { font-size: 28px; }
+    .hero-text .interests { justify-content: center; }
+    .hero-links { justify-content: center; }
+    .container { padding: 0 20px; }
+    nav .inner { padding: 0 20px; }
+    nav .links { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="inner">
+    <a href="#" class="name">Kai Zhu</a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="blog/">Blog</a>
+      <a href="files/kaizhu-cv.pdf">CV ↓</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- About -->
+  <section class="hero" id="about">
+    <div class="hero-content">
+      <img class="avatar" src="img/kaizhu-profile.png" alt="Kai Zhu">
+      <div class="hero-text">
+        <h1>Kai Zhu</h1>
+        <div class="chinese">朱开 · /kai joo/</div>
+        <div class="role">Assistant Professor, Bocconi University</div>
+        <p class="bio">I study the economics of digitization, with a focus on how digitization and artificial intelligence transform markets, media, and society. My research investigates fundamental questions at the intersection of technology and economics: How does AI reshape knowledge production and information access? How do platform design choices affect market outcomes and creator livelihoods? How do digital media shape public discourse?</p>
+        <p class="bio">To answer these questions, I combine economic theory with computational methods&mdash;including causal inference, machine learning, and natural language processing&mdash;to extract insights from large-scale structured and unstructured data. My work has been published in <em>Management Science</em>, <em>Information Systems Research</em>, and <em>Production and Operations Management</em>, among others.</p>
+        <div class="interests">
+          <span>Digital Platforms</span>
+          <span>Economics of Digitization</span>
+          <span>Artificial Intelligence</span>
+          <span>Computational Social Science</span>
+        </div>
+        <div class="hero-links">
+          <a href="mailto:kai.zhu@unibocconi.it"><i class="fas fa-envelope"></i> kai.zhu@unibocconi.it</a>
+          <span class="sep">|</span>
+          <a href="https://scholar.google.com/citations?user=bqgXjNgAAAAJ" target="_blank"><i class="ai ai-google-scholar"></i> Google Scholar</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/kaizhu717" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <span class="sep">|</span>
+          <a href="files/kaizhu-cv.pdf"><i class="fas fa-file-pdf"></i> CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <h2 class="section-title">Research</h2>
+    <div class="section-rule"></div>
+
+    <div class="subsection-title">Publications</div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">The AI Democratization Paradox: Evidence from Decentralized Knowledge Communities <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-venue"><em>Management Science</em> (2026)</div>
+      <div class="pub-authors">with Dylan Walker (Chapman University)</div>
+      <div class="pub-abstract">This paper studies the deployment of neural machine translation across more than 100 Wikipedia language communities and uncovers what we term the &ldquo;AI Democratization Paradox,&rdquo; where the technology simultaneously drives democratizing and concentrating forces. AI lowered barriers, leading to a substantial increase in content creation across diverse target languages without sacrificing quality or readership. However, the benefits were concentrated: well-resourced communities captured disproportionate gains&mdash;3&ndash;4 times larger than mid-tier editions. While editors actively leveraged AI to address representation gaps, translating female biographies at twice the expected rate, structural constraints limited the impact in high-need areas.</div>
+      <div class="pub-links">
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4708614" target="_blank">Paper</a>
+        <a href="https://www.dropbox.com/scl/fi/nbnsdhrofqq27h3xkxj3n/wiki_gt_slides.pdf?rlkey=n07rsev3x9vj4717d8zik3woq&st=e9xi3410&dl=0" target="_blank">Slides</a>
+        <a href="https://www.dropbox.com/scl/fi/d6mntohq4xi0qrcmydyeu/wiki_gt_poster.png?rlkey=jsifvq91sdj8cdh9su5u6u85w&st=2wllzorv&dl=0" target="_blank">AI Poster</a>
+        <a href="https://www.youtube.com/watch?v=BRoJ3mMg5Ko&ab_channel=KaiZhu" target="_blank">AI Overview</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">Monetizing Platforms: An Empirical Analysis of Supply and Demand Responses to Entry Costs in Two-sided Markets <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-venue"><em>Management Science</em> (2025)</div>
+      <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Shrabastee Banerjee (Tilburg University)</div>
+      <div class="pub-abstract">This paper investigates the consequences of monetizing a marketplace for product promotion within a digital platform, specifically the Giveaways program on Goodreads.com. Using a natural experiment and fine-grained platform data from 2016 to 2020, we examine how introducing a fixed entry cost for content creators affected both supply and demand. We find a substantial decrease in overall program participation, particularly among indie publishers and self-published authors, leading to increased market concentration. We also document reduced genre diversity, with popular genres becoming more dominant at the expense of niche categories, and intensified promotional effects characterized by higher review volume but lower average ratings.</div>
+      <div class="pub-links">
+        <a href="https://pubsonline.informs.org/doi/full/10.1287/mnsc.2023.01390" target="_blank">Paper</a>
+        <a href="https://www.dropbox.com/scl/fi/qd9jfd33x95u9qtr29lyo/giveaways_slides.pdf?rlkey=k3jahyhnuqcra7j32obijnpn1&st=lq6mk5t9&dl=0" target="_blank">Slides</a>
+        <a href="https://www.dropbox.com/scl/fi/gexbi4ikq1vmhomkmcp7h/goodreads_giveaways_poster.png?rlkey=dxbm72xubg9iuzy5cehtd1jzv&st=xftw0k4u&dl=0" target="_blank">AI Poster</a>
+        <a href="https://www.youtube.com/watch?v=TQEomIfi5c0&t=9s&ab_channel=KaiZhu" target="_blank">AI Overview</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">Negative Peer Feedback and User Content Generation: Evidence from a Restaurant Review Platform <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-venue"><em>Production and Operations Management</em> (2024)</div>
+      <div class="pub-authors">with Warut Khern-Am-Nual (McGill University) and Yinan Yu (University of Oklahoma)</div>
+      <div class="pub-abstract">This paper investigates how negative peer feedback shapes user behavior in an online review platform. Leveraging fine-grained digital trace data of users throughout their tenure on the platform, we find that negative feedback improves user retention on the platform relative to users who receive no feedback at all. For users who are retained and write their next reviews, negative feedback improves review frequency and quality. These findings demonstrate that, contrary to conventional wisdom, negative peer feedback can benefit the platform&rsquo;s welfare as it increases user engagement and retention, and that no feedback can be a worse alternative.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">If a Tree Falls in the Forest: Presidential Press Conferences and Early Media Narratives about the COVID-19 Crisis <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-venue"><em>Journal of Quantitative Description</em> (2022)</div>
+      <div class="pub-authors">with Masha Krupenkin (Boston College), Dylan Walker (Chapman University), David Rothschild (Microsoft)</div>
+      <div class="pub-abstract">Throughout the COVID-19 crisis, as we confronted questions about social distancing, mask wearing, and vaccines, public safety experts warned that the consequences of a misinformed population would be particularly dire. Through automated text analysis of complete transcripts of national cable, network, and local news, we explore their narratives surrounding the COVID-19 pandemic and characterize the differences in which topics were covered and how they were covered by various media sources. Our analysis reveals polarized narratives around blame, racial and economic disparities, and scientific conclusions about COVID-19.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">Content Growth and Attention Contagion in Information Networks: Addressing Information Poverty on Wikipedia <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-venue"><em>Information Systems Research</em> (2020)</div>
+      <div class="pub-authors">with Dylan Walker (Chapman University) and Lev Muchnik (Hebrew University)</div>
+      <div class="pub-abstract">Open collaboration platforms have fundamentally changed the way that knowledge is produced, disseminated, and consumed. We leverage a large-scale natural experiment to study how exogenous content contributions to Wikipedia articles affect the attention that they attract and how that attention spills over to other articles in the network. Results reveal that exogenously added content leads to significant, substantial, and long-term increases in both content consumption and subsequent contributions. Furthermore, we find significant attention spillover to downstream hyperlinked articles.</div>
+    </div>
+
+    <!-- Working Papers -->
+    <div class="subsection-title">Working Papers</div>
+
+    <div class="pub">
+      <div class="pub-title-static">Adverse Selection in the AI Data Commons</div>
+      <div class="pub-status"><span class="status review">Under Review</span></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">Monetizing through Subscriptions: Evidence from Creators in the Long Tail <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-status"><span class="status rr">Revise &amp; Resubmit &middot; Marketing Science</span></div>
+      <div class="pub-authors">with Xin Zhou (Bocconi University)</div>
+      <div class="pub-abstract">This paper studies how platforms are increasingly offering direct monetization opportunities through creator-viewer subscriptions, contrasting with traditional reach-focused advertising models. We examine the impact of the Twitch Affiliate Program, which significantly lowered entry barriers to paid channel subscriptions and micro-donations. Using a time-shifted difference-in-differences design, we find that the program substantially increased content supply, with smaller creators more than doubling their streaming hours. Monetization access professionalizes creator behavior, leading to more deliberate content strategies and improved performance.</div>
+      <div class="pub-links">
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5810724" target="_blank">Paper</a>
+        <a href="https://www.dropbox.com/scl/fi/scsu4w0weyrpdrmit3wzc/tap_slides.pdf?rlkey=o6r0zh4v3xdcboojw0nigndna&st=726zm6qt&dl=0" target="_blank">Slides</a>
+        <a href="https://www.dropbox.com/scl/fi/ytsydnf0nbuwcojzpnsl0/tap_poster.png?rlkey=q9rif5bwkl22of9t0dtlhcqw8&st=gqyc16p7&dl=0" target="_blank">AI Poster</a>
+        <a href="https://youtu.be/sbu7RfhJtQw" target="_blank">AI Overview</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">Quantifying Consumer-Product Fit: A Representation Learning Approach <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-status"><span class="status rr">Revise &amp; Resubmit &middot; Journal of Marketing Research</span></div>
+      <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Christian Hotz-Behofsits (WU Vienna)</div>
+      <div class="pub-abstract">We develop a novel representation learning framework to quantify the fit between consumers and products using large-scale observational data. Our approach learns latent representations that capture nuanced preference patterns beyond traditional collaborative filtering. We demonstrate the method on book consumption data and show that our learned representations substantially improve prediction of consumer choices and reveal interpretable dimensions of consumer-product compatibility.</div>
+      <div class="pub-links">
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5513598" target="_blank">Paper</a>
+        <a href="https://www.dropbox.com/scl/fi/h7p5iy8x1pgph16oncg32/goodreads_embedding_deck.pdf?rlkey=s6k6yie2ptpuwpcopidtrs24q&st=c41pgxoq&dl=0" target="_blank">Slides</a>
+        <a href="https://www.dropbox.com/scl/fi/bkh2m6pdxgohw6cmdkwyd/goodreads_embedding_poster.png?rlkey=wxedpw4paxjecfdvb7x241hsx&st=9dos4vq7&dl=0" target="_blank">AI Poster</a>
+        <a href="https://youtu.be/m38zrK5-DL4" target="_blank">AI Overview</a>
+      </div>
+    </div>
+
+    <!-- Work in Progress -->
+    <div class="subsection-title">Work in Progress</div>
+
+    <div class="pub">
+      <div class="pub-title-static">AI Search and Web Traffic</div>
+      <div class="pub-status"><span class="status wip">In Progress</span></div>
+      <div class="pub-authors">with Qiaoni Shi (Bocconi University)</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title-static">Welfare Effects of AI-powered Digital Content</div>
+      <div class="pub-status"><span class="status wip">In Progress</span></div>
+      <div class="pub-authors">with Joel Waldfogel (University of Minnesota) and Luis Aguiar (University of Zurich)</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title-static">Social Network, Political Identity, and Demand for Firearms</div>
+      <div class="pub-status"><span class="status wip">In Progress</span></div>
+      <div class="pub-authors">with Jessica Kim (Bocconi University)</div>
+    </div>
+
+  </section>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    Kai Zhu &middot; Bocconi University &middot; Milan, Italy
+  </div>
+</footer>
+
+</body>
+</html>
