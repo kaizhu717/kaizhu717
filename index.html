@@ -11,11 +11,12 @@
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://kaizhu.me/">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #2D2D2D; background: #fff; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif; color: #2D2D2D; background: #fff; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
   :root {
     --primary: #1B3A4B;
@@ -29,9 +30,9 @@
   /* Navigation */
   nav { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--lightrule); padding: 14px 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   nav .inner { max-width: 1060px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
-  nav .name { font-weight: 700; font-size: 18px; color: var(--primary); text-decoration: none; }
+  nav .name { font-weight: 700; font-size: 18px; color: var(--primary); text-decoration: none; font-family: 'Computer Modern Serif', serif; }
   nav .links { display: flex; gap: 28px; }
-  nav .links a { color: var(--subtle); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
+  nav .links a { color: var(--subtle); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; font-family: 'Inter', sans-serif; }
   nav .links a:hover { color: var(--accent); }
 
   /* Layout */
@@ -43,13 +44,13 @@
   .hero { padding: 56px 0 48px; }
   .hero-content { display: flex; gap: 36px; align-items: flex-start; }
   .avatar { width: 170px; height: 170px; border-radius: 50%; flex-shrink: 0; object-fit: cover; border: 3px solid var(--lightrule); }
-  .hero-text h1 { font-size: 32px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+  .hero-text h1 { font-size: 32px; font-weight: 700; color: var(--primary); line-height: 1.2; font-family: 'Computer Modern Serif', serif; }
   .hero-text .chinese { font-size: 16px; color: var(--subtle); margin-top: 2px; }
   .hero-text .role { font-size: 16px; color: var(--accent); font-weight: 500; margin-top: 6px; }
   .hero-text .bio { margin-top: 16px; color: var(--body); font-size: 17px; line-height: 1.75; }
   .hero-text .bio + .bio { margin-top: 10px; }
   .hero-text .interests { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .hero-text .interests span { background: var(--light-bg); color: var(--primary); padding: 5px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+  .hero-text .interests span { background: var(--light-bg); color: var(--primary); padding: 5px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; }
   .hero-links { margin-top: 18px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
   .hero-links a { color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
   .hero-links a:hover { text-decoration: underline; }
@@ -76,7 +77,7 @@
   .pub .pub-venue em { font-style: italic; }
   .pub .pub-authors { font-size: 14px; color: var(--subtle); margin-top: 2px; }
   .pub .pub-links { margin-top: 6px; display: flex; gap: 10px; flex-wrap: wrap; }
-  .pub .pub-links a { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; padding: 3px 12px; border: 1px solid var(--lightrule); border-radius: 4px; transition: all 0.2s; }
+  .pub .pub-links a { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; padding: 3px 12px; border: 1px solid var(--lightrule); border-radius: 4px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .pub .pub-links a:hover { background: var(--light-bg); border-color: var(--accent); }
 
   /* Abstract expand/collapse */
@@ -85,7 +86,7 @@
 
   /* Status badges */
   .pub .pub-status { margin-top: 4px; }
-  .status { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 12px; }
+  .status { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 12px; font-family: 'Inter', sans-serif; }
   .status.review { background: #FFF3CD; color: #856404; }
   .status.rr { background: #D4EDDA; color: #155724; }
   .status.wip { background: var(--light-bg); color: var(--subtle); }
@@ -132,7 +133,7 @@
         <h1>Kai Zhu</h1>
         <div class="chinese">朱开 · /kai joo/</div>
         <div class="role">Assistant Professor, Bocconi University</div>
-        <p class="bio">I study the economics of digitization, with a focus on how digitization and artificial intelligence transform markets, media, and society. My research investigates fundamental questions at the intersection of technology and economics: How does AI reshape knowledge production and information access? How do platform design choices affect market outcomes and creator livelihoods? How do digital media shape public discourse?</p>
+        <p class="bio">I study the economics of digitization, with a focus on how digitization and artificial intelligence transform markets, media, and society. My research investigates questions at the intersection of technology and economics: How does AI reshape knowledge production and information access? How do platform design choices affect market outcomes and creator livelihoods? How do digital media shape public discourse?</p>
         <p class="bio">To answer these questions, I combine economic theory with computational methods&mdash;including causal inference, machine learning, and natural language processing&mdash;to extract insights from large-scale structured and unstructured data. My work has been published in <em>Management Science</em>, <em>Information Systems Research</em>, and <em>Production and Operations Management</em>, among others.</p>
         <div class="interests">
           <span>Digital Platforms</span>
@@ -170,7 +171,7 @@
       <div class="pub-links">
         <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4708614" target="_blank">Paper</a>
         <a href="https://www.dropbox.com/scl/fi/nbnsdhrofqq27h3xkxj3n/wiki_gt_slides.pdf?rlkey=n07rsev3x9vj4717d8zik3woq&st=e9xi3410&dl=0" target="_blank">Slides</a>
-        <a href="https://www.dropbox.com/scl/fi/d6mntohq4xi0qrcmydyeu/wiki_gt_poster.png?rlkey=jsifvq91sdj8cdh9su5u6u85w&st=2wllzorv&dl=0" target="_blank">AI Poster</a>
+        <a href="app/wikimt_gt.html" target="_blank">Interactive App</a>
         <a href="https://www.youtube.com/watch?v=BRoJ3mMg5Ko&ab_channel=KaiZhu" target="_blank">AI Overview</a>
       </div>
     </div>
