@@ -24,6 +24,8 @@
     --body: #2D2D2D;
     --light-bg: #F4F7FA;
     --lightrule: #D0DCE5;
+    --wp-color: #B8860B;
+    --wip-color: #7A8B99;
   }
 
   /* Navigation */
@@ -61,8 +63,11 @@
   .section-rule { width: 48px; height: 3px; background: var(--accent); border-radius: 2px; margin-bottom: 28px; }
 
   /* Subsection */
-  .subsection-title { font-size: 15px; font-weight: 600; color: var(--subtle); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; margin-top: 36px; }
+  .subsection-title { font-size: 18px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 24px; margin-top: 44px; padding: 10px 0 10px 18px; border-left: 4px solid var(--accent); font-family: 'Inter', sans-serif; }
   .subsection-title:first-child { margin-top: 0; }
+  .subsection-title.pub-section { border-left-color: var(--accent); }
+  .subsection-title.wp-section { border-left-color: var(--wp-color); }
+  .subsection-title.wip-section { border-left-color: var(--wip-color); }
 
   /* Publication entry */
   .pub { margin-bottom: 24px; }
@@ -132,7 +137,7 @@
         <h1>Kai Zhu</h1>
         <div class="chinese">朱开 · /kai joo/</div>
         <div class="role">Assistant Professor, Bocconi University</div>
-        <p class="bio">I study the economics of digitization, with a focus on how digitization and artificial intelligence transform markets, media, and society. My research investigates questions at the intersection of technology and economics: How does AI reshape knowledge production and information access? How do platform design choices affect market outcomes and creator livelihoods? How do digital media shape public discourse?</p>
+        <p class="bio">I study the economics of digitization, with a focus on how digital technology and artificial intelligence transform markets, media, and society. My research investigates questions at the intersection of technology and economics: How does AI reshape knowledge production and information access? How do platform design choices affect market outcomes and creator livelihoods? How do digital media shape public discourse?</p>
         <p class="bio">To answer these questions, I combine economic theory with computational methods&mdash;including causal inference, machine learning, and natural language processing&mdash;to extract insights from large-scale structured and unstructured data. My work has been published in <em>Management Science</em>, <em>Information Systems Research</em>, and <em>Production and Operations Management</em>, among others.</p>
         <div class="interests">
           <span>Digital Platforms</span>
@@ -158,7 +163,7 @@
     <h2 class="section-title">Research</h2>
     <div class="section-rule"></div>
 
-    <div class="subsection-title">Publications</div>
+    <div class="subsection-title pub-section">Publications</div>
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
@@ -218,7 +223,7 @@
     </div>
 
     <!-- Working Papers -->
-    <div class="subsection-title">Working Papers</div>
+    <div class="subsection-title wp-section">Working Papers</div>
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
@@ -265,7 +270,7 @@
     </div>
 
     <!-- Work in Progress -->
-    <div class="subsection-title">Work in Progress</div>
+    <div class="subsection-title wip-section">Work in Progress (Selected)</div>
 
     <div class="pub">
       <div class="pub-title-static">AI Search and Web Traffic</div>
