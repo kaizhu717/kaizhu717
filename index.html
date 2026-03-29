@@ -71,12 +71,15 @@
 
   /* Publication entry */
   .pub { margin-bottom: 24px; }
-  .pub-header { cursor: pointer; }
+  .pub-header { cursor: pointer; position: relative; }
   .pub-header:hover .pub-title { color: var(--primary); }
   .pub .pub-title { font-size: 17px; font-weight: 600; color: var(--accent); line-height: 1.5; transition: color 0.2s; }
   .pub .pub-title-static { font-size: 17px; font-weight: 600; color: var(--primary); line-height: 1.5; }
-  .pub .expand-icon { font-size: 11px; color: var(--lightrule); margin-left: 6px; transition: all 0.25s; display: inline-block; }
-  .pub.expanded .expand-icon { transform: rotate(90deg); color: var(--accent); }
+  .pub .expand-icon { display: none; }
+  .pub-header .hover-hint { display: inline-block; font-size: 12px; font-family: 'Inter', sans-serif; color: var(--subtle); opacity: 0; transition: opacity 0.3s; margin-left: 10px; font-weight: 500; vertical-align: middle; }
+  .pub-header:hover .hover-hint { opacity: 1; }
+  .pub.expanded .pub-header .hover-hint::after { content: 'click to collapse'; }
+  .pub:not(.expanded) .pub-header .hover-hint::after { content: 'click for abstract'; }
   .pub .pub-venue { font-size: 15px; color: var(--body); margin-top: 3px; }
   .pub .pub-venue em { font-style: normal; font-weight: 700; color: var(--primary); }
   .pub .pub-authors { font-size: 14px; color: var(--subtle); margin-top: 2px; }
@@ -167,7 +170,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">The AI Democratization Paradox: Evidence from Decentralized Knowledge Communities <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">The AI Democratization Paradox: Evidence from Decentralized Knowledge Communities</span><span class="hover-hint"></span>
       </div>
       <div class="pub-venue"><em>Management Science</em> (2026)</div>
       <div class="pub-authors">with Dylan Walker (Chapman University)</div>
@@ -182,7 +185,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Monetizing Platforms: An Empirical Analysis of Supply and Demand Responses to Entry Costs in Two-sided Markets <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Monetizing Platforms: An Empirical Analysis of Supply and Demand Responses to Entry Costs in Two-sided Markets</span><span class="hover-hint"></span>
       </div>
       <div class="pub-venue"><em>Management Science</em> (2025)</div>
       <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Shrabastee Banerjee (Tilburg University)</div>
@@ -197,7 +200,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Negative Peer Feedback and User Content Generation: Evidence from a Restaurant Review Platform <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Negative Peer Feedback and User Content Generation: Evidence from a Restaurant Review Platform</span><span class="hover-hint"></span>
       </div>
       <div class="pub-venue"><em>Production and Operations Management</em> (2024)</div>
       <div class="pub-authors">with Warut Khern-Am-Nual (McGill University) and Yinan Yu (University of Oklahoma)</div>
@@ -206,7 +209,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">If a Tree Falls in the Forest: Presidential Press Conferences and Early Media Narratives about the COVID-19 Crisis <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">If a Tree Falls in the Forest: Presidential Press Conferences and Early Media Narratives about the COVID-19 Crisis</span><span class="hover-hint"></span>
       </div>
       <div class="pub-venue"><em>Journal of Quantitative Description</em> (2022)</div>
       <div class="pub-authors">with Masha Krupenkin (Boston College), Dylan Walker (Chapman University), David Rothschild (Microsoft)</div>
@@ -215,7 +218,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Content Growth and Attention Contagion in Information Networks: Addressing Information Poverty on Wikipedia <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Content Growth and Attention Contagion in Information Networks: Addressing Information Poverty on Wikipedia</span><span class="hover-hint"></span>
       </div>
       <div class="pub-venue"><em>Information Systems Research</em> (2020)</div>
       <div class="pub-authors">with Dylan Walker (Chapman University) and Lev Muchnik (Hebrew University)</div>
@@ -227,7 +230,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Adverse Selection in the AI Data Commons <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Adverse Selection in the AI Data Commons</span><span class="hover-hint"></span>
       </div>
       <div class="pub-status"><span class="status review">Under Review</span></div>
       <div class="pub-abstract">Generative AI derives its power from high-quality web content, yet no systematic market compensates its producers. We document adverse selection in this AI data commons: facing a binary opt-out choice, the highest-quality producers exit first, degrading what remains. Studying 9,611 media and news sites, we find that high-factual outlets block AI crawlers at nearly six times the rate of low-factual sources, while misinformation sources remain most accessible. Event studies trace this divergence to the introduction of AI-specific opt-out mechanisms. Simulations confirm that the quality degradation stems from the compositional pattern of exit. These findings demonstrate that current opt-out regimes produce adverse selection by design, systematically tilting AI data commons toward less credible content; replacing binary opt-out with functioning compensation markets is necessary to reverse this degradation.</div>
@@ -241,7 +244,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Monetizing through Subscriptions: Evidence from Creators in the Long Tail <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Monetizing through Subscriptions: Evidence from Creators in the Long Tail</span><span class="hover-hint"></span>
       </div>
       <div class="pub-status"><span class="status rr">Revise &amp; Resubmit &middot; Marketing Science</span></div>
       <div class="pub-authors">with Xin Zhou (Bocconi University)</div>
@@ -256,7 +259,7 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
-        <div class="pub-title">Quantifying Consumer-Product Fit: A Representation Learning Approach <span class="expand-icon">&#9654;</span></div>
+        <span class="pub-title">Quantifying Consumer-Product Fit: A Representation Learning Approach</span><span class="hover-hint"></span>
       </div>
       <div class="pub-status"><span class="status rr">Revise &amp; Resubmit &middot; Journal of Marketing Research</span></div>
       <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Christian Hotz-Behofsits (WU Vienna)</div>
