@@ -76,7 +76,7 @@
   .pub .pub-title { font-size: 17px; font-weight: 600; color: var(--accent); line-height: 1.5; transition: color 0.2s; }
   .pub .pub-title-static { font-size: 17px; font-weight: 600; color: var(--primary); line-height: 1.5; }
   .pub .expand-icon { display: none; }
-  .pub-header .hover-hint { display: inline-block; font-size: 12px; font-family: 'Inter', sans-serif; color: var(--subtle); opacity: 0; transition: opacity 0.3s; margin-left: 10px; font-weight: 500; vertical-align: middle; }
+  .pub-header .hover-hint { position: absolute; bottom: -18px; left: 0; font-size: 12px; font-family: 'Inter', sans-serif; color: var(--subtle); opacity: 0; transition: opacity 0.3s; font-weight: 500; pointer-events: none; }
   .pub-header:hover .hover-hint { opacity: 1; }
   .pub.expanded .pub-header .hover-hint::after { content: 'click to collapse'; }
   .pub:not(.expanded) .pub-header .hover-hint::after { content: 'click for abstract'; }
