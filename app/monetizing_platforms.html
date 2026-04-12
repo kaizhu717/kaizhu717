@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monetizing Platforms — Interactive Explorer</title>
+<style>
+:root {
+  --bg-page: #f7f8fc;
+  --bg-white: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f0f2f8;
+  --bg-hero: linear-gradient(160deg, #eef1f8 0%, #f0eef8 35%, #f7f0eb 65%, #eef5f2 100%);
+  --text-primary: #1a1d2e;
+  --text-secondary: #4a5068;
+  --text-muted: #8b90a5;
+  --accent: #2563eb;
+  --accent-light: #60a5fa;
+  --accent-bg: rgba(37,99,235,0.06);
+  --accent-border: rgba(37,99,235,0.15);
+  --teal: #0d9488;
+  --teal-bg: rgba(13,148,136,0.06);
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.07);
+  --red: #dc2626;
+  --red-bg: rgba(220,38,38,0.06);
+  --red-border: rgba(220,38,38,0.15);
+  --orange: #ea580c;
+  --orange-bg: rgba(234,88,12,0.06);
+  --purple: #7c3aed;
+  --purple-bg: rgba(124,58,237,0.06);
+  --purple-border: rgba(124,58,237,0.15);
+  --blue: #2563eb;
+  --blue-bg: rgba(37,99,235,0.06);
+  --blue-border: rgba(37,99,235,0.15);
+  --border: #e2e5ef;
+  --border-hover: #c7cce0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-accent: 0 4px 20px rgba(37,99,235,0.12);
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Cascadia Code', Consolas, 'SF Mono', Monaco, monospace;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --transition-smooth: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); background: var(--bg-page); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: #c7cce0; border-radius: 4px; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; background: rgba(247,248,252,0.82); backdrop-filter: blur(16px) saturate(1.4); border-bottom: 1px solid var(--border); transition: var(--transition-smooth); }
+.nav.scrolled { background: rgba(255,255,255,0.92); box-shadow: var(--shadow-sm); }
+.nav-brand { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+.nav-links { display: flex; gap: 0.15rem; overflow-x: auto; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.76rem; font-weight: 500; padding: 0.3rem 0.65rem; border-radius: var(--radius-sm); transition: var(--transition-smooth); white-space: nowrap; }
+.nav-links a:hover { color: var(--accent); background: var(--accent-bg); }
+.nav-links a.active { color: var(--accent); background: var(--accent-bg); font-weight: 600; }
+
+/* SECTIONS */
+section { position: relative; z-index: 1; padding: 5rem 2rem; }
+.si { max-width: 1100px; margin: 0 auto; }
+.sl { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.6rem; }
+.sl::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 1px; }
+.st { font-family: var(--font-display); font-size: clamp(1.8rem, 3.8vw, 2.8rem); font-weight: 800; line-height: 1.18; color: var(--text-primary); margin-bottom: 0.7rem; letter-spacing: -0.02em; }
+.ss { font-size: 1rem; color: var(--text-secondary); max-width: 700px; line-height: 1.7; }
+
+/* HERO */
+#hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 56px; text-align: center; position: relative; overflow: hidden; background: var(--bg-hero); }
+.hero-bg-lines { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.hero-bg-lines .line { position: absolute; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(37,99,235,0.05), transparent); }
+.hc { position: relative; z-index: 1; max-width: 880px; }
+.hero-eyebrow { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.8rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.4rem; color: var(--text-primary); letter-spacing: -0.03em; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+.hero-title em { font-style: italic; background: linear-gradient(135deg, var(--accent), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc { font-size: 1.05rem; color: var(--text-secondary); max-width: 660px; margin: 0 auto 2.8rem; line-height: 1.8; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+.hero-stats { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+.hero-stat { text-align: center; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); padding: 1rem 1.3rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.8); box-shadow: var(--shadow-sm); }
+.hero-stat-value { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.hero-stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 500; }
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+.hero-scroll span { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.scroll-arrow { width: 16px; height: 16px; border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted); transform: rotate(45deg); animation: bounceDown 2s infinite; }
+
+/* ALTERNATING */
+#problem { background: var(--bg-white); }
+#setting { background: var(--bg-page); }
+#supply { background: var(--bg-white); }
+#diversity { background: var(--bg-page); }
+#demand { background: var(--bg-white); }
+#mechanism { background: var(--bg-page); }
+#implications { background: var(--bg-white); }
+
+/* PROBLEM/SOLUTION */
+.ps-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.ps-col { border-radius: var(--radius-lg); padding: 1.8rem; position: relative; overflow: hidden; }
+.ps-col.problem { background: linear-gradient(145deg, #fef2f2, #fff7ed); border: 1px solid #fecaca; }
+.ps-col.solution { background: linear-gradient(145deg, #eff6ff, #f5f3ff); border: 1px solid #bfdbfe; }
+.ps-col-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+.ps-col h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+.ps-col.problem h3 { color: #b91c1c; }
+.ps-col.solution h3 { color: #1d4ed8; }
+.ps-col p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.4rem; }
+.ps-highlights { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.ps-highlights li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; }
+.ps-highlights .hl-icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; margin-top: 0.15rem; font-family: var(--font-mono); }
+.ps-col.problem .hl-icon { background: rgba(185,28,28,0.08); color: #b91c1c; }
+.ps-col.solution .hl-icon { background: rgba(29,78,216,0.08); color: #1d4ed8; }
+.ps-arrow-row { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; padding: 1.2rem 1.4rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.ps-arrow-text { font-size: 0.9rem; color: var(--text-primary); font-weight: 600; }
+.ps-arrow-text em { color: var(--accent); font-style: normal; font-family: var(--font-mono); font-size: 0.82rem; }
+
+/* RESULT CARDS */
+.rg { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.rc { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.4rem; text-align: center; transition: var(--transition-smooth); box-shadow: var(--shadow-sm); }
+.rc:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.rv { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+.rv.purple { color: var(--purple); }
+.rv.red { color: var(--red); }
+.rv.green { color: var(--green); }
+.rv.blue { color: var(--accent); }
+.rv.orange { color: var(--orange); }
+.rl { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.7rem; }
+.rbt { width: 100%; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+.rbf { height: 100%; border-radius: 3px; width: 0; transition: width 1.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.rbf.purple { background: linear-gradient(90deg, rgba(124,58,237,0.4), var(--purple)); }
+.rbf.red { background: linear-gradient(90deg, rgba(220,38,38,0.4), var(--red)); }
+.rbf.green { background: linear-gradient(90deg, rgba(22,163,74,0.4), var(--green)); }
+.rbf.blue { background: linear-gradient(90deg, rgba(37,99,235,0.4), var(--accent)); }
+.rbf.orange { background: linear-gradient(90deg, rgba(234,88,12,0.4), var(--orange)); }
+
+/* CALLOUT */
+.co { margin-top: 2rem; padding: 1.2rem 1.4rem; border-radius: var(--radius-md); font-size: 0.86rem; line-height: 1.7; color: var(--text-secondary); }
+.co strong { color: var(--text-primary); }
+.co.purple { background: var(--purple-bg); border: 1px solid var(--purple-border); }
+.co.red { background: var(--red-bg); border: 1px solid var(--red-border); }
+.co.green { background: var(--green-bg); border: 1px solid rgba(22,163,74,0.18); }
+.co.blue { background: var(--blue-bg); border: 1px solid var(--blue-border); }
+
+/* CARDS GRID */
+.cg { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.cd { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; transition: var(--transition-smooth); position: relative; overflow: hidden; }
+.cd::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--teal)); opacity: 0; transition: var(--transition-smooth); }
+.cd:hover { border-color: var(--accent-border); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.cd:hover::before { opacity: 1; }
+.cd h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; }
+.cd p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; }
+.cd-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+
+/* DUAL COL */
+.dual-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+
+/* TIMELINE */
+.timeline { position: relative; margin-top: 2rem; padding-left: 3rem; }
+.timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), rgba(37,99,235,0.2), transparent); border-radius: 1px; }
+.ts { position: relative; margin-bottom: 1.2rem; padding: 1.1rem 1.3rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.ts::before { content: attr(data-step); position: absolute; left: -3rem; top: 1.1rem; transform: translateX(-50%); width: 24px; height: 24px; border-radius: 50%; background: var(--bg-white); border: 2px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; color: var(--accent); z-index: 1; }
+.ts.highlight::before { background: var(--red); color: #fff; border-color: var(--red); }
+.ts h4 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.15rem; }
+.ts p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+.badge { display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.5rem; border-radius: 100px; margin-left: 0.3rem; }
+.badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.badge-blue { background: var(--blue-bg); color: var(--accent); border: 1px solid var(--blue-border); }
+
+/* TAKEAWAYS */
+.takeaways { margin-top: 2rem; counter-reset: tk; }
+.tk { display: flex; align-items: flex-start; gap: 1rem; padding: 1.1rem 1.3rem; margin-bottom: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); transition: var(--transition-smooth); box-shadow: var(--shadow-sm); }
+.tk:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); transform: translateX(4px); }
+.tk-num { counter-increment: tk; font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; width: 34px; height: 34px; border-radius: 50%; background: var(--accent-bg); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tk-num::after { content: counter(tk); }
+.tk-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.tk-text strong { color: var(--text-primary); }
+
+/* CLOSING */
+.closing { margin-top: 2.5rem; padding: 2rem; background: linear-gradient(145deg, #eff6ff, #f5f3ff, #fff7ed); border: 1px solid #bfdbfe; border-radius: var(--radius-lg); text-align: center; }
+.closing p { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--text-primary); line-height: 1.7; font-style: italic; max-width: 720px; margin: 0 auto; }
+
+/* STACKED BAR */
+.stacked-bar-container { margin-top: 2rem; }
+.bar-label { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem; }
+.stacked-bar { display: flex; height: 40px; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.2rem; box-shadow: var(--shadow-sm); }
+.bar-segment { display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: #fff; transition: var(--transition-smooth); cursor: default; }
+.bar-segment:hover { filter: brightness(1.1); }
+.bar-legend { display: flex; gap: 1.2rem; margin-top: 0.8rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.76rem; color: var(--text-secondary); }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+/* COMPARISON TABLE */
+.comp-table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 0.84rem; }
+.comp-table th { text-align: left; padding: 0.8rem 1rem; background: var(--bg-elevated); border-bottom: 2px solid var(--border); font-weight: 700; color: var(--text-primary); }
+.comp-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+.comp-table tr:hover td { background: var(--accent-bg); }
+.comp-table .val-down { color: var(--red); font-weight: 700; }
+.comp-table .val-up { color: var(--green); font-weight: 700; }
+
+/* FOOTER */
+footer { position: relative; z-index: 1; padding: 2.5rem 2rem; border-top: 1px solid var(--border); text-align: center; background: var(--bg-white); }
+footer p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounceDown { 0%,100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(6px); } }
+
+/* FADE-IN */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  section { padding: 3.5rem 1.2rem; }
+  .ps-columns, .dual-col { grid-template-columns: 1fr; }
+  .rg { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 1rem; }
+  .nav-brand { font-size: 0.85rem; }
+  .nav-links a { padding: 0.25rem 0.45rem; font-size: 0.66rem; }
+  .hero-stats { gap: 0.8rem; }
+  .hero-stat { padding: 0.7rem 1rem; }
+  .hero-stat-value { font-size: 1.6rem; }
+  .stacked-bar { height: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">Monetizing Platforms</div>
+  <div class="nav-links">
+    <a href="#problem" data-section="problem">Problem</a>
+    <a href="#setting" data-section="setting">Setting</a>
+    <a href="#supply" data-section="supply">Supply</a>
+    <a href="#diversity" data-section="diversity">Diversity</a>
+    <a href="#demand" data-section="demand">Demand</a>
+    <a href="#mechanism" data-section="mechanism">Mechanism</a>
+    <a href="#implications" data-section="implications">Implications</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"><div class="line" style="left:10%"></div><div class="line" style="left:25%"></div><div class="line" style="left:50%"></div><div class="line" style="left:75%"></div><div class="line" style="left:90%"></div></div>
+  <div class="hc">
+    <div class="hero-eyebrow">Kai Zhu, Qiaoni Shi &amp; Shrabastee Banerjee &middot; Management Science 2025</div>
+    <h1 class="hero-title">Monetizing <em>Platforms</em></h1>
+    <p class="hero-desc">When Goodreads began charging authors $119 to participate in its book Giveaways program, it triggered a cascade of unintended consequences across a two-sided market: supply concentration, diversity collapse, and reader-book mismatch.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value" data-count="101684" data-comma="true">0</div><div class="hero-stat-label">Giveaway Events</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" data-count="82552" data-comma="true">0</div><div class="hero-stat-label">Unique Books</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" data-count="36" data-suffix="M">0</div><div class="hero-stat-label">Book Ratings</div></div>
+      <div class="hero-stat"><div class="hero-stat-value" data-count="119" data-prefix="$">0</div><div class="hero-stat-label">Entry Cost</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Explore the Findings</span><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="si fade-in">
+    <div class="sl">The Core Question</div>
+    <h2 class="st">The Monetization Dilemma in Two-Sided Markets</h2>
+    <p class="ss">Digital platforms must balance revenue generation against ecosystem health. Introducing entry costs can reshape participation, composition, and ultimately value creation for all sides of the market.</p>
+    <div class="ps-columns">
+      <div class="ps-col problem">
+        <div class="ps-col-icon">&#x26A0;&#xFE0F;</div>
+        <h3>The Hidden Costs</h3>
+        <p>A flat entry fee disproportionately affects participants with fewer resources, creating <strong>selection effects</strong> that ripple through the ecosystem.</p>
+        <ul class="ps-highlights">
+          <li><span class="hl-icon">1</span><span><strong>Small publishers exit</strong> &mdash; Indie authors and self-publishers are priced out first</span></li>
+          <li><span class="hl-icon">2</span><span><strong>Supply concentrates</strong> &mdash; Large publishers dominate what remains</span></li>
+          <li><span class="hl-icon">3</span><span><strong>Diversity shrinks</strong> &mdash; Niche genres disappear as popular genres consolidate</span></li>
+          <li><span class="hl-icon">4</span><span><strong>Readers mismatch</strong> &mdash; Fewer choices lead to worse consumer-product fit</span></li>
+        </ul>
+      </div>
+      <div class="ps-col solution">
+        <div class="ps-col-icon">&#x1F50D;</div>
+        <h3>Our Approach</h3>
+        <p>We exploit a <strong>natural experiment</strong> on Goodreads.com to trace how a single monetization decision cascades through a two-sided market.</p>
+        <ul class="ps-highlights">
+          <li><span class="hl-icon">1</span><span><strong>101,684 Giveaway campaigns</strong> from 2016&ndash;2020 (2 years pre/post policy)</span></li>
+          <li><span class="hl-icon">2</span><span><strong>Difference-in-Differences</strong> using historical data as control group</span></li>
+          <li><span class="hl-icon">3</span><span><strong>BERT text classification</strong> to identify fit-related negative reviews</span></li>
+          <li><span class="hl-icon">4</span><span><strong>Multi-level analysis</strong>: publisher, genre, and book-level outcomes</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ps-arrow-row">
+      <span style="font-size:1.4rem;">&#x1F4A1;</span>
+      <div class="ps-arrow-text">Key insight: <em>Entry costs don't just reduce participation</em> &mdash; they reshape who participates and what gets promoted</div>
+    </div>
+  </div>
+</section>
+
+<!-- SETTING -->
+<section id="setting">
+  <div class="si fade-in">
+    <div class="sl">Empirical Setting</div>
+    <h2 class="st">Goodreads Giveaways: A Natural Experiment</h2>
+    <p class="ss">Goodreads.com, with 125 million users, hosts the world's largest book community. Its Giveaways program lets authors distribute free copies to generate reviews and visibility.</p>
+    <div class="dual-col">
+      <div class="cd" style="border-top:4px solid var(--green);">
+        <div class="cd-icon">&#x1F4D6;</div>
+        <h3>Before January 2018</h3>
+        <p><strong>Free participation.</strong> Any author or publisher could list books for giveaway at no cost. ~3,000 campaigns per month. Diverse participation from Big 5 publishers, indie houses, and self-published authors alike.</p>
+      </div>
+      <div class="cd" style="border-top:4px solid var(--red);">
+        <div class="cd-icon">&#x1F4B0;</div>
+        <h3>After January 2018</h3>
+        <p><strong>$119 per campaign.</strong> Goodreads introduced a fixed participation cost, announced Nov 28, 2017 and effective Jan 9, 2018. Campaigns dropped to ~1,000/month overnight. The short announcement-to-implementation window precluded strategic reactions.</p>
+      </div>
+    </div>
+    <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.5rem;">The Experiment Timeline</div>
+    <div class="timeline">
+      <div class="ts" data-step="1"><h4>2016&ndash;2017 &mdash; Pre-monetization Period</h4><p>Giveaways program is free. Average ~3,000 campaigns per month. Diverse publisher mix. Over 120,000 unique books listed across all genres.</p></div>
+      <div class="ts highlight" data-step="!"><h4>January 2018 &mdash; $119 Fee Introduced <span class="badge badge-red">Policy Shock</span></h4><p>Goodreads begins charging $119 (basic) or $599 (premium) per campaign. Immediate and dramatic drop in participation. Estimated $5&ndash;8M revenue generated over two years.</p></div>
+      <div class="ts" data-step="3"><h4>2018&ndash;2020 &mdash; Post-monetization Period</h4><p>Campaigns stabilize at ~1,000/month. Publisher composition shifts dramatically. Genre diversity declines. Reader engagement drops ~50%.</p></div>
+    </div>
+    <div class="co blue">
+      <strong>Why this works as a natural experiment:</strong> The policy change was unanticipated, applied universally, and the short timeline precluded strategic pre-positioning. We use 2015&ndash;2016 historical data as a control group in a DiD framework.
+    </div>
+  </div>
+</section>
+
+<!-- SUPPLY -->
+<section id="supply">
+  <div class="si fade-in">
+    <div class="sl">Result 1</div>
+    <h2 class="st">Supply Side: Who Gets Priced Out?</h2>
+    <p class="ss">The flat $119 fee had vastly different implications for large publishing houses versus independent authors operating under tight budget constraints.</p>
+    <div class="rg">
+      <div class="rc"><div class="rv red">-67%</div><div class="rl">Overall campaign decline (3,000 to 1,000/month)</div><div class="rbt"><div class="rbf red" data-width="67"></div></div></div>
+      <div class="rc"><div class="rv orange">-96%</div><div class="rl">Self-publisher campaigns (529 to 22/month)</div><div class="rbt"><div class="rbf orange" data-width="96"></div></div></div>
+      <div class="rc"><div class="rv blue">-81%</div><div class="rl">Indie publisher campaigns (2,083 to 400/month)</div><div class="rbt"><div class="rbf blue" data-width="81"></div></div></div>
+      <div class="rc"><div class="rv purple">+200%</div><div class="rl">Market concentration (HHI from 0.01 to 0.03)</div><div class="rbt"><div class="rbf purple" data-width="100"></div></div></div>
+    </div>
+
+    <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.5rem;">Publisher Composition Shift</div>
+    <div class="stacked-bar-container">
+      <div class="bar-label">Pre-Monetization (before Jan 2018)</div>
+      <div class="stacked-bar">
+        <div class="bar-segment" style="width:12%;background:#2563eb;" title="Big 5: 12%">12%</div>
+        <div class="bar-segment" style="width:71%;background:#0d9488;" title="Indie: 71%">71%</div>
+        <div class="bar-segment" style="width:17%;background:#ea580c;" title="Self-publishing: 17%">17%</div>
+      </div>
+      <div class="bar-label">Post-Monetization (after Jan 2018)</div>
+      <div class="stacked-bar">
+        <div class="bar-segment" style="width:30%;background:#2563eb;" title="Big 5: 30%">30%</div>
+        <div class="bar-segment" style="width:67%;background:#0d9488;" title="Indie: 67%">67%</div>
+        <div class="bar-segment" style="width:3%;background:#ea580c;" title="Self-publishing: 3%">3%</div>
+      </div>
+      <div class="bar-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2563eb;"></div>Big 5 Publishers</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0d9488;"></div>Indie Publishers</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ea580c;"></div>Self-Publishing</div>
+      </div>
+    </div>
+
+    <div class="co red">
+      <strong>Disproportionate impact:</strong> While Big 5 publishers show a larger <em>per-publisher</em> reduction (43 fewer campaigns monthly), their small number (only 5 entities) means limited aggregate impact. Thousands of indie publishers each losing a few campaigns produces the vast majority of marketplace contraction. Female authors are also disproportionately affected, with 187 fewer campaigns per month relative to male authors.
+    </div>
+  </div>
+</section>
+
+<!-- DIVERSITY -->
+<section id="diversity">
+  <div class="si fade-in">
+    <div class="sl">Result 2</div>
+    <h2 class="st">Genre Diversity Collapses</h2>
+    <p class="ss">With fewer and more homogeneous publishers participating, the variety of books offered through Giveaways narrows dramatically. Popular genres consolidate; niche genres vanish.</p>
+    <div class="rg">
+      <div class="rc"><div class="rv red">-1.13</div><div class="rl">Standard deviations drop in genre entropy</div><div class="rbt"><div class="rbf red" data-width="85"></div></div></div>
+      <div class="rc"><div class="rv green">+11%</div><div class="rl">Popular genre share increase</div><div class="rbt"><div class="rbf green" data-width="55"></div></div></div>
+      <div class="rc"><div class="rv orange">-26%</div><div class="rl">Niche genre share decline</div><div class="rbt"><div class="rbf orange" data-width="65"></div></div></div>
+    </div>
+
+    <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.5rem;">Rich Get Richer, Poor Get Poorer</div>
+    <table class="comp-table">
+      <thead>
+        <tr><th>Genre Type</th><th>Examples</th><th>Change Post-Monetization</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Popular (Top 25%)</strong></td><td>Thriller, Mystery, Historical Fiction, Romance</td><td class="val-up">+1.2 pp raw / +11% relative</td></tr>
+        <tr><td><strong>Niche (Bottom 25%)</strong></td><td>Science, Psychology, Poetry, Philosophy</td><td class="val-down">-0.1 pp raw / -26% relative</td></tr>
+      </tbody>
+    </table>
+
+    <div class="co purple">
+      <strong>Why this matters:</strong> Cultural product markets exhibit "preference externalities" (Waldfogel, 2003) &mdash; when fixed costs are present, the market systematically underserves minority tastes. Monetization amplifies this dynamic, leading to welfare losses for readers with non-mainstream preferences.
+    </div>
+  </div>
+</section>
+
+<!-- DEMAND -->
+<section id="demand">
+  <div class="si fade-in">
+    <div class="sl">Result 3</div>
+    <h2 class="st">Demand Side: Intensified Promotional Effects</h2>
+    <p class="ss">Supply-side contraction and diversity loss ripple into demand. Readers face fewer choices and worse matches, even as remaining books attract more attention.</p>
+    <div class="rg">
+      <div class="rc"><div class="rv red">-50%</div><div class="rl">Reader requests for Giveaway books</div><div class="rbt"><div class="rbf red" data-width="100"></div></div></div>
+      <div class="rc"><div class="rv orange">-0.05</div><div class="rl">Additional star-rating decline per book</div><div class="rbt"><div class="rbf orange" data-width="50"></div></div></div>
+      <div class="rc"><div class="rv blue">+14.5</div><div class="rl">Additional reviews per book per month</div><div class="rbt"><div class="rbf blue" data-width="72"></div></div></div>
+    </div>
+
+    <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.5rem;">The Paradox of Monetization</div>
+    <div class="cg">
+      <div class="cd">
+        <div class="cd-icon">&#x1F4C8;</div>
+        <h3>More Reviews</h3>
+        <p>Books participating post-monetization receive <strong>14.5 more ratings per month</strong> than pre-monetization participants. With fewer campaigns but more copies per campaign, each remaining book gets more attention.</p>
+      </div>
+      <div class="cd">
+        <div class="cd-icon">&#x1F4C9;</div>
+        <h3>Lower Ratings</h3>
+        <p>Despite more engagement, average ratings drop an <strong>additional 0.05 stars</strong> beyond the baseline Giveaway effect. More readers &#x2260; better-matched readers. The ratings decline is not explained by book quality differences.</p>
+      </div>
+      <div class="cd">
+        <div class="cd-icon">&#x1F465;</div>
+        <h3>Fewer Participants</h3>
+        <p>Reader requests dropped <strong>~50%</strong> even as copies per campaign increased. The reduction in campaign variety reduced the program's attractiveness as a book discovery tool.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MECHANISM -->
+<section id="mechanism">
+  <div class="si fade-in">
+    <div class="sl">Mechanism</div>
+    <h2 class="st">Consumer-Book Mismatch Increases</h2>
+    <p class="ss">Why do ratings decline? Using BERT-based text classification on negative reviews, we distinguish fit-related complaints ("it just wasn't for me") from quality complaints ("poorly written").</p>
+    <div class="rg">
+      <div class="rc"><div class="rv purple">65%</div><div class="rl">Of negative reviews are fit-related (not quality)</div><div class="rbt"><div class="rbf purple" data-width="65"></div></div></div>
+      <div class="rc"><div class="rv orange">+12.5%</div><div class="rl">Rise in fit-related reviews post-monetization</div><div class="rbt"><div class="rbf orange" data-width="62"></div></div></div>
+    </div>
+
+    <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-top:2.5rem;margin-bottom:0.5rem;">The Mismatch Chain</div>
+    <div class="timeline">
+      <div class="ts" data-step="1"><h4>Supply Concentrates</h4><p>Fewer publishers, dominated by Big 5. Self-publishers and indie houses exit the marketplace.</p></div>
+      <div class="ts" data-step="2"><h4>Genre Diversity Shrinks</h4><p>Popular genres consolidate. Niche readers have fewer options matching their tastes.</p></div>
+      <div class="ts" data-step="3"><h4>Readers Enter Mismatched Giveaways</h4><p>With fewer campaigns across fewer genres, readers enter giveaways for books less aligned with their preferences.</p></div>
+      <div class="ts highlight" data-step="!"><h4>Mismatch Reviews Increase <span class="badge badge-red">+12.5%</span></h4><p>Negative reviews increasingly reflect "this wasn't for me" rather than "this was bad." Rating dispersion also rises, confirming heterogeneous reader reactions.</p></div>
+    </div>
+
+    <div class="co blue">
+      <strong>Methodology:</strong> We fine-tuned a BERT model (F1 = 0.78) on 3,000 MTurk-labeled negative reviews to classify fit-related vs. quality-related complaints. High-confidence fit reviews contain phrases like "it just didn't work for me" while quality reviews address plot and writing craft.
+    </div>
+  </div>
+</section>
+
+<!-- IMPLICATIONS -->
+<section id="implications">
+  <div class="si fade-in">
+    <div class="sl">Implications</div>
+    <h2 class="st">Designing Platform Monetization</h2>
+    <p class="ss">Our findings demonstrate that entry costs don't merely reduce participation &mdash; they fundamentally reshape marketplace composition and value creation in two-sided markets.</p>
+    <div class="takeaways">
+      <div class="tk"><div class="tk-num"></div><div class="tk-text"><strong>Entry costs have distributional effects.</strong> A flat fee that seems modest relative to book production costs still prices out smaller creators who lack marketing budgets. Self-publishers lost 96% of their presence.</div></div>
+      <div class="tk"><div class="tk-num"></div><div class="tk-text"><strong>Supply-side contraction cascades to demand.</strong> Fewer diverse suppliers means less product variety, worse consumer matching, and ultimately lower satisfaction &mdash; undermining the network effects that make the platform valuable.</div></div>
+      <div class="tk"><div class="tk-num"></div><div class="tk-text"><strong>Short-term revenue vs. long-term ecosystem health.</strong> Goodreads generated an estimated $5&ndash;8M from the fee, but at the cost of a 50% decline in reader engagement and significant homogenization of their marketplace.</div></div>
+      <div class="tk"><div class="tk-num"></div><div class="tk-text"><strong>Consider tiered or graduated pricing.</strong> Platforms monetizing participation should consider mechanisms that preserve access for smaller players &mdash; sliding-scale fees, freemium tiers, or revenue-sharing models.</div></div>
+      <div class="tk"><div class="tk-num"></div><div class="tk-text"><strong>Monitor composition, not just volume.</strong> Aggregate participation metrics can mask dangerous compositional shifts. A marketplace that shrinks by two-thirds while concentrating among a few large players has fundamentally changed character.</div></div>
+    </div>
+
+    <div class="closing">
+      <p>"A seemingly straightforward monetization policy can reshape the entire ecosystem &mdash; from who participates to what gets promoted and how readers respond."</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Kai Zhu, Qiaoni Shi &amp; Shrabastee Banerjee &middot; <em>Management Science</em> (2025)<br>
+    "Monetizing Platforms: An Empirical Analysis of Supply and Demand Responses to Entry Costs in Two-sided Markets"<br>
+    <a href="https://pubsonline.informs.org/doi/full/10.1287/mnsc.2023.01390" target="_blank" style="color:var(--accent);">Read the Paper</a> &middot;
+    <a href="https://kaizhu.me" target="_blank" style="color:var(--accent);">kaizhu.me</a>
+  </p>
+</footer>
+
+<script>
+// Animated counters
+function animateCounters() {
+  document.querySelectorAll('.hero-stat-value').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const comma = el.dataset.comma === 'true';
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      let current = Math.round(target * eased);
+      if (comma) current = current.toLocaleString();
+      el.textContent = prefix + current + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// Progress bars
+function animateBars() {
+  document.querySelectorAll('.rbf').forEach(bar => {
+    const width = bar.dataset.width;
+    if (width) bar.style.width = width + '%';
+  });
+}
+
+// Scroll-based nav highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+function updateNav() {
+  const scrollY = window.scrollY + 100;
+  let cur = '';
+  sections.forEach(s => { if (s.offsetTop <= scrollY) cur = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.dataset.section === cur); });
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+}
+
+// Fade-in on scroll
+const fadeEls = document.querySelectorAll('.fade-in');
+function checkFadeIn() {
+  fadeEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+  });
+}
+
+// Initialize
+window.addEventListener('scroll', () => { updateNav(); checkFadeIn(); });
+window.addEventListener('load', () => {
+  animateCounters();
+  setTimeout(animateBars, 500);
+  checkFadeIn();
+  updateNav();
+});
+</script>
+</body>
+</html>
