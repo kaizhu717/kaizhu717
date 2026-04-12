@@ -1514,7 +1514,7 @@ code.inline,
                 <h2>Overview</h2>
             </div>
             <div class="study-section__body">
-                <p>The purpose of this exercise is to <em>feel</em> what context management actually looks like. You will write a <span class="glossary-term" data-term="load-bearing">load-bearing</span> <code>CLAUDE.md</code> for a research project, configure a <span class="glossary-term" data-term="status line">status line</span> that shows <span class="glossary-term" data-term="context window">context</span> usage live in your terminal, deliberately fill the context window with a small corpus of abstracts, observe how Claude's behavior changes as usage climbs, and then run <code>/compact</code> with a protocol-preserving instruction to reclaim room. The fifth step is a stretch goal in which you dispatch a <span class="glossary-term" data-term="subagent">subagent</span> to do verbose work without polluting your main session.</p>
+                <p>The purpose of this exercise is to <em>feel</em> what context management actually looks like. You will write a <span class="glossary-term" data-term="load-bearing">load-bearing</span> <code>CLAUDE.md</code> for a research project, configure a <span class="glossary-term" data-term="status line">status line</span> that shows <span class="glossary-term" data-term="context window">context</span> usage live in your terminal, deliberately fill the context window with a small corpus of abstracts, observe how Claude's behavior changes as usage climbs, and then run <code>/compact</code> with a protocol-preserving instruction to reclaim room. The sixth step is a stretch goal in which you dispatch a <span class="glossary-term" data-term="subagent">subagent</span> to do verbose work without polluting your main session.</p>
                 <p>By the end of the hour, you will have (a) a protocol-focused <code>CLAUDE.md</code>, (b) a working status line that shows your context usage percentage, (c) three screenshots showing the window at three different fill levels, and (d) a short written reflection on which technique you will adopt first in your dissertation workflow.</p>
             </div>
         </section>
@@ -1551,7 +1551,7 @@ code.inline,
         <section class="study-section" id="s-3">
             <div class="study-section__header">
                 <span class="study-section__num">03</span>
-                <h2>Step 1: Write a Load-Bearing <code>CLAUDE.md</code> <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(5 min)</span></h2>
+                <h2>Step 1: Write a Load-Bearing <code>CLAUDE.md</code></h2>
             </div>
             <div class="study-section__body">
                 <p>Open <code>CLAUDE.md</code> in your project folder. If it has content from Session 2, leave it for now — we are going to rewrite it to reflect today's reframe.</p>
@@ -1635,7 +1635,7 @@ written product reviews? (PhD dissertation, Chapter 2)
         <section class="study-section" id="s-4">
             <div class="study-section__header">
                 <span class="study-section__num">04</span>
-                <h2>Step 2: Ask Claude Code to Build a Status Line <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(5 min)</span></h2>
+                <h2>Step 2: Ask Claude Code to Build a Status Line</h2>
             </div>
             <div class="study-section__body">
                 <p>You cannot manage what you cannot see. In this step you will add a <span class="glossary-term" data-term="status line">status line</span> to Claude Code that shows your context usage live — but you will not write any shell code yourself. Instead, you will describe what you want in plain English and let Claude Code build it.</p>
@@ -1695,7 +1695,7 @@ can open it later.</code></pre>
         <section class="study-section" id="s-5">
             <div class="study-section__header">
                 <span class="study-section__num">05</span>
-                <h2>Step 3: Fill the Context Window Deliberately <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(10 min)</span></h2>
+                <h2>Step 3: Fill the Context Window Deliberately</h2>
             </div>
             <div class="study-section__body">
                 <p>Now we are going to push the window. Pick a research topic close to your dissertation area, then paste 5–8 abstracts into Claude Code one by one. You can grab abstracts from Google Scholar, from your own bibliography, or from any journal homepage. Aim for abstracts between 200 and 400 words each — real ones, not toy text.</p>
@@ -1746,7 +1746,7 @@ identification strategy, and why?</code></pre>
         <section class="study-section" id="s-6">
             <div class="study-section__header">
                 <span class="study-section__num">06</span>
-                <h2>Step 4: Manual <code>/compact</code> with a Protocol-Preserving Instruction <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(5 min)</span></h2>
+                <h2>Step 4: Manual <code>/compact</code> with a Protocol-Preserving Instruction</h2>
             </div>
             <div class="study-section__body">
                 <p>You are now going to recover room with <code>/compact</code> — but you will instruct Claude to preserve what matters.</p>
@@ -1803,12 +1803,67 @@ inclusion criteria from my CLAUDE.md.</code></pre>
         </section>
 
         <!-- ============================================================
-             Section 7: Step 5 (Stretch) — Delegate to a Subagent
+             Section 7: Step 5 — Save Your Work to Disk as Markdown
              ============================================================ -->
         <section class="study-section" id="s-7">
             <div class="study-section__header">
                 <span class="study-section__num">07</span>
-                <h2>Step 5 (Stretch Goal): Delegate Verbose Work to a Subagent <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(5 min)</span></h2>
+                <h2>Step 5: Save Your Work to Disk as Markdown</h2>
+            </div>
+            <div class="study-section__body">
+                <p>Before moving on, practice the save-to-disk technique from the lecture. The goal: externalize the valuable output from Steps 3&ndash;4 so it survives a <code>/clear</code> or a new session next week.</p>
+
+                <p>Ask Claude:</p>
+
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">&#x1F4AC;</span>
+                        <span class="prompt-card__label">Prompt &mdash; save abstracts to disk</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="prompt-card__prompt"><code>Save a summary of the abstracts we have reviewed so far to
+notes/session03-abstract-notes.md. Use one section heading
+per abstract, with the title, a one-sentence method summary,
+and whether it passed my inclusion criteria. At the end,
+add a section called "Status" noting how many abstracts
+we screened and how many survived.</code></pre>
+                </div>
+
+                <p>Claude will create the file. Verify it exists:</p>
+
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">&#x1F4AC;</span>
+                        <span class="prompt-card__label">Prompt &mdash; verify the saved file</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="prompt-card__prompt"><code>Read notes/session03-abstract-notes.md and confirm the
+content matches what we discussed.</code></pre>
+                </div>
+
+                <div class="callout callout--concept">
+                    <div class="callout__sticker" aria-hidden="true">&#x1F4A1;</div>
+                    <h4 class="callout__title">Tip</h4>
+                    <div class="callout__body">
+                        <p>This file is now outside the context window. You could <code>/clear</code> the entire session, start fresh next week, and ask Claude to &ldquo;read notes/session03-abstract-notes.md and continue the review&rdquo; &mdash; you would be right back where you left off, in a clean window.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Section 8: Step 6 (Stretch) — Delegate to a Subagent
+             ============================================================ -->
+        <section class="study-section" id="s-8">
+            <div class="study-section__header">
+                <span class="study-section__num">08</span>
+                <h2>Step 6 (Stretch Goal): Delegate Verbose Work to a Subagent</h2>
             </div>
             <div class="study-section__body">
                 <p>If you have time after Step 4, try dispatching a <span class="glossary-term" data-term="subagent">subagent</span>. The goal is to feel how subagent isolation keeps your main window clean.</p>
@@ -1844,12 +1899,12 @@ not any intermediate reasoning.</code></pre>
         </section>
 
         <!-- ============================================================
-             Section 8: Discussion Questions (Paper Discussion module)
+             Section 9: Discussion Questions (Paper Discussion module)
              ============================================================ -->
-        <section class="study-section" id="s-8">
+        <section class="study-section" id="s-9">
             <div class="study-section__header">
-                <span class="study-section__num">08</span>
-                <h2>Discussion Questions <span style="font-weight:500; font-size:0.75em; color:var(--color-ink-soft);">(30 minutes)</span></h2>
+                <span class="study-section__num">09</span>
+                <h2>Discussion Questions</h2>
             </div>
             <div class="study-section__body">
                 <p>Use these questions to prepare for the 30-minute paper discussion on Hong, Troynikov, &amp; Huber (2025), <em>"Context Rot."</em></p>
@@ -1920,7 +1975,7 @@ not any intermediate reasoning.</code></pre>
                         <li class="paper__question">
                             <button type="button" class="paper__question-toggle">
                                 <span class="paper__question-num">4</span>
-                                <span class="paper__question-text"><strong>Which technique will you actually adopt first?</strong> Of the five techniques (<code>CLAUDE.md</code>, <code>/clear</code>, <code>/compact</code>, status line, subagents), which will you actually adopt first in your own work, and why? Which feels like overkill?</span>
+                                <span class="paper__question-text"><strong>Which technique will you actually adopt first?</strong> Of the six techniques (<code>CLAUDE.md</code>, <code>/clear</code>, <code>/compact</code>, status line, save-to-disk, subagents), which will you actually adopt first in your own work, and why? Which feels like overkill?</span>
                                 <svg class="paper__question-chev" aria-hidden="true"><use href="#icon-expand"/></svg>
                             </button>
                             <div class="paper__answer" hidden>
@@ -1930,7 +1985,7 @@ not any intermediate reasoning.</code></pre>
                                     <li><code>CLAUDE.md</code> is second-cheapest and highest-leverage for anyone working on a dissertation that spans months of sessions.</li>
                                     <li><code>/clear</code> is underused because it feels wasteful — but it is the right move when starting a genuinely new task. No amount of compaction beats a fresh start.</li>
                                     <li>Subagents feel like overkill for small tasks but become essential as soon as you are reading 20+ PDFs or doing large code reviews. Name the threshold at which you will start using them.</li>
-                                    <li>Push back on "I'll adopt all five" — the honest answer is usually one or two. Which one you pick reveals what you think your bottleneck actually is.</li>
+                                    <li>Push back on "I'll adopt all six" — the honest answer is usually one or two. Which one you pick reveals what you think your bottleneck actually is.</li>
                                 </ul>
                             </div>
                         </li>
@@ -1941,20 +1996,20 @@ not any intermediate reasoning.</code></pre>
         </section>
 
         <!-- ============================================================
-             Section 9: Submission
+             Section 10: Submission
              ============================================================ -->
-        <section class="study-section" id="s-9">
+        <section class="study-section" id="s-10">
             <div class="study-section__header">
-                <span class="study-section__num">09</span>
+                <span class="study-section__num">10</span>
                 <h2>Submission</h2>
             </div>
             <div class="study-section__body">
-                <p>Submit a single file named <code>session03_[lastname]_context.md</code> (for example, <code>session03_rossi_context.md</code>) containing the five items below. If your screenshots are images, zip them with the Markdown file as <code>session03_[lastname]_context.zip</code>. Upload to Blackboard before the start of Session 4. Tick each item as you complete it — your progress is saved automatically.</p>
+                <p>Submit a single file named <code>session03_[lastname]_context.md</code> (for example, <code>session03_rossi_context.md</code>) containing the six items below. If your screenshots are images, zip them with the Markdown file as <code>session03_[lastname]_context.zip</code>. Upload to Blackboard before the start of Session 4. Tick each item as you complete it — your progress is saved automatically.</p>
 
                 <div class="checklist" data-checklist-id="s03-submission">
                     <div class="checklist__header">
                         <h4 class="checklist__title">📋 Submission checklist</h4>
-                        <span class="checklist__progress">0 / 5 done</span>
+                        <span class="checklist__progress">0 / 6 done</span>
                     </div>
                     <ul class="checklist__items">
                         <li class="checklist__item" data-item-id="claude-md-content">
@@ -1969,13 +2024,17 @@ not any intermediate reasoning.</code></pre>
                             <span class="checklist__checkbox" aria-hidden="true"></span>
                             <span class="checklist__label"><strong>Short before/after comparison</strong> (2–3 sentences) — how did the quality of Claude's answers change between mid-exercise and after compaction? Did any of your rules from <code>CLAUDE.md</code> get lost or paraphrased?</span>
                         </li>
+                        <li class="checklist__item" data-item-id="saved-markdown-file">
+                            <span class="checklist__checkbox" aria-hidden="true"></span>
+                            <span class="checklist__label"><strong>The saved Markdown file</strong> from Step 5 (<code>notes/session03-abstract-notes.md</code>), or paste its contents under a heading <code>## Saved Notes</code>.</span>
+                        </li>
                         <li class="checklist__item" data-item-id="adoption-reflection">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>One-paragraph reflection</strong> on which of the five techniques from the lecture you plan to adopt first in your dissertation workflow, and why.</span>
+                            <span class="checklist__label"><strong>One-paragraph reflection</strong> on which of the six techniques from the lecture you plan to adopt first in your dissertation workflow, and why.</span>
                         </li>
                         <li class="checklist__item" data-item-id="subagent-note-optional">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>(Optional, if you did Step 5)</strong> — a two-sentence note on how subagent dispatch affected your main-window usage percentage.</span>
+                            <span class="checklist__label"><strong>(Optional, if you did Step 6)</strong> — a two-sentence note on how subagent dispatch affected your main-window usage percentage.</span>
                         </li>
                     </ul>
                 </div>
