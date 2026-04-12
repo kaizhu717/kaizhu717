@@ -1698,45 +1698,52 @@ can open it later.</code></pre>
                 <h2>Step 3: Fill the Context Window Deliberately</h2>
             </div>
             <div class="study-section__body">
-                <p>Now we are going to push the window. Pick a research topic close to your dissertation area, then paste 5–8 abstracts into Claude Code one by one. You can grab abstracts from Google Scholar, from your own bibliography, or from any journal homepage. Aim for abstracts between 200 and 400 words each — real ones, not toy text.</p>
+                <p>Now we are going to push the window — not with toy text, but with real research PDFs. Gather 3–5 papers relevant to your dissertation (or any marketing/IS topic). These should be full papers, not just abstracts — the point is to fill the window fast.</p>
 
-                <p>After pasting each abstract, ask Claude a question that requires it to <em>re-read</em> the already-seen ones. Examples:</p>
+                <p>Ask Claude to read them one by one and answer questions that force it to synthesize across papers:</p>
 
                 <div class="prompt-card">
                     <div class="prompt-card__header">
                         <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Prompt — cross-abstract comparison cycle</span>
+                        <span class="prompt-card__label">Prompt — cross-paper comparison cycle</span>
                         <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
                             <svg aria-hidden="true"><use href="#icon-copy"/></svg>
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="prompt-card__prompt"><code>Claude, here is abstract #1: [paste]
-Summarize the method in one sentence.
+                    <pre class="prompt-card__prompt"><code>Read paper1.pdf and summarize the research question,
+method, and key finding in three sentences.
 
-Claude, here is abstract #2: [paste]
-Compare this method to the one in abstract #1.
+Now read paper2.pdf. Compare the identification strategy
+in this paper to the one in paper1.pdf.
 
-Claude, here is abstract #3: [paste]
-Which of the three abstracts so far has the strongest
-identification strategy, and why?</code></pre>
+Read paper3.pdf. Of the three papers so far, which has
+the most convincing causal argument, and why?</code></pre>
                 </div>
 
-                <p>Keep going until you have added 5–8 abstracts and asked at least one cross-abstract comparison question after each. Every few turns, glance at your status line.</p>
+                <p>Each PDF Claude reads dumps thousands of tokens into your context window. After two or three papers, your status line will climb fast. Keep going — ask cross-paper questions after each new read. Every few turns, glance at the colored bar.</p>
 
                 <div class="callout callout--key">
                     <div class="callout__sticker" aria-hidden="true">🔑</div>
                     <h4 class="callout__title">Hint: what to watch for</h4>
                     <div class="callout__body">
                         <ul>
-                            <li>The percentage climbs monotonically — it does not go down on its own.</li>
-                            <li>Somewhere between 30% and 50%, Claude's answers start hedging: longer, more qualified, less specific. This is not your imagination. This is context pressure starting to affect reasoning.</li>
-                            <li>If you hit 70% and keep going, you may see Claude drop a rule you gave earlier (e.g., forget the inclusion criteria). If you do, note the turn number — that is valuable data for the reflection.</li>
+                            <li>The percentage climbs steeply — a single 20-page PDF can add 15,000–30,000 tokens.</li>
+                            <li>Somewhere between 30% and 50%, Claude's answers start hedging: longer, more qualified, less specific. This is context pressure, not laziness.</li>
+                            <li>If you hit 70% and keep going, Claude may drop a rule from your CLAUDE.md or invent a citation. Note when it happens — that is valuable data for the reflection.</li>
                         </ul>
                     </div>
                 </div>
 
                 <p>Run <code>/context</code> mid-way through this step to see the breakdown of what is using your window. <strong>Take your second screenshot</strong> when the status line shows roughly 50–60%.</p>
+
+                <div class="callout callout--prompt">
+                    <div class="callout__sticker" aria-hidden="true">💬</div>
+                    <h4 class="callout__title">No PDFs handy?</h4>
+                    <div class="callout__body">
+                        <p>Download 3–5 open-access papers from Google Scholar before class. Any topic works — the exercise is about feeling the window fill, not about the content of the papers.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1763,11 +1770,11 @@ identification strategy, and why?</code></pre>
                         </button>
                     </div>
                     <pre class="prompt-card__prompt"><code>/compact preserve the research question, the inclusion
-criteria from CLAUDE.md, and the list of abstract titles
+criteria from CLAUDE.md, and the list of paper titles
 I have already reviewed, along with my one-sentence
-method summary for each. Drop long tool outputs, verbose
-reasoning, and any content that is not either a paper
-title or a methodological judgment.</code></pre>
+method summary for each. Drop the full PDF contents,
+verbose reasoning, and any content that is not either
+a paper title or a methodological judgment.</code></pre>
                 </div>
 
                 <p>Watch the status-line percentage drop. It should fall substantially — typically from the 50–60% range back to 20–30%.</p>
@@ -1783,7 +1790,7 @@ title or a methodological judgment.</code></pre>
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="prompt-card__prompt"><code>List the abstract titles you have seen so far, with your
+                    <pre class="prompt-card__prompt"><code>List the paper titles you have read so far, with your
 one-sentence method summary for each. Then restate the
 inclusion criteria from my CLAUDE.md.</code></pre>
                 </div>
@@ -1899,108 +1906,11 @@ not any intermediate reasoning.</code></pre>
         </section>
 
         <!-- ============================================================
-             Section 9: Discussion Questions (Paper Discussion module)
+             Section 9: Submission
              ============================================================ -->
         <section class="study-section" id="s-9">
             <div class="study-section__header">
                 <span class="study-section__num">09</span>
-                <h2>Discussion Questions</h2>
-            </div>
-            <div class="study-section__body">
-                <p>Use these questions to prepare for the 30-minute paper discussion on Hong, Troynikov, &amp; Huber (2025), <em>"Context Rot."</em></p>
-
-                <section class="paper">
-                    <div class="paper__header">
-                        <span class="paper__badge">📄 Paper Discussion</span>
-                    </div>
-                    <article class="paper__card">
-                        <h3 class="paper__title">Context Rot: How Increasing Input Tokens Impacts LLM Performance</h3>
-                        <p class="paper__authors">Hong, K., Troynikov, A., &amp; Huber, J. (2025).</p>
-                        <p class="paper__venue">Chroma Research Technical Report.</p>
-                        <div class="paper__summary">
-                            <p><strong>Main argument.</strong> Even when the "needle" fact is nominally within the <span class="glossary-term" data-term="context window">context window</span>, model performance on retrieval and reasoning tasks degrades as input length grows — holding task difficulty constant. The degradation is not just a "lost in the middle" curve; it is a systematic decline in answer quality that varies by model, prompt structure, and distractor density.</p>
-                            <p><strong>Relevance to today's exercise.</strong> You just felt this in Step 3. Your abstracts are all "in the window" by any naive measure, yet Claude's answers got hedgier, more qualified, and occasionally dropped rules from <code>CLAUDE.md</code>. The Chroma paper provides the empirical scaffolding for what you observed qualitatively.</p>
-                        </div>
-                    </article>
-
-                    <ol class="paper__questions">
-                        <li class="paper__question">
-                            <button type="button" class="paper__question-toggle">
-                                <span class="paper__question-num">1</span>
-                                <span class="paper__question-text"><strong>When did you first feel it?</strong> At what status-line percentage did you first notice Claude's answer quality degrade in Step 3? Does your observation match the <span class="glossary-term" data-term="lost in the middle">"lost in the middle"</span> curve the paper's authors reference? If not, how is it different?</span>
-                                <svg class="paper__question-chev" aria-hidden="true"><use href="#icon-expand"/></svg>
-                            </button>
-                            <div class="paper__answer" hidden>
-                                <p><strong>Talking points to draw out:</strong></p>
-                                <ul>
-                                    <li>Students often report degradation earlier than they expected — somewhere in the 30–50% range, not at 90%. The threshold is task-dependent.</li>
-                                    <li>"Lost in the middle" predicts worse recall for tokens in the middle of the prompt. <span class="glossary-term" data-term="context rot">Context rot</span> as Hong et al. define it is broader: quality drops across the board, not just at middle positions.</li>
-                                    <li>Ask: was the degradation about <em>forgetting</em> facts, or about <em>over-hedging</em> responses? Those are different failure modes with different fixes.</li>
-                                    <li>Connect to research practice: if 30–50% is the danger zone, that is far below the "200K tokens" marketing number that frames how people talk about context windows.</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="paper__question">
-                            <button type="button" class="paper__question-toggle">
-                                <span class="paper__question-num">2</span>
-                                <span class="paper__question-text"><strong>Did <code>/compact</code> preserve your rules verbatim?</strong> In Step 4, did <code>/compact</code> preserve your inclusion criteria verbatim, or did it paraphrase them? If it paraphrased, would the paraphrase still guide correct behavior on a new task?</span>
-                                <svg class="paper__question-chev" aria-hidden="true"><use href="#icon-expand"/></svg>
-                            </button>
-                            <div class="paper__answer" hidden>
-                                <p><strong>Talking points to draw out:</strong></p>
-                                <ul>
-                                    <li>Verbatim preservation is rare. Compaction is itself a summarization step, and summarization loses boundary conditions ("never cite SSRN in the main text" often becomes "be cautious about SSRN drafts").</li>
-                                    <li>The load-bearing test: would a paraphrase produce the same behavior when Claude suggests a citation? If yes, the paraphrase is fine. If no, you have lost protocol.</li>
-                                    <li>Lesson: any rule whose exact wording matters belongs in <code>CLAUDE.md</code>, where it is re-injected every turn and does not depend on compaction fidelity.</li>
-                                    <li>Reviewer-facing point: if a reviewer asks "how did you ensure your coding rules stayed constant across a long session?" your honest answer should be "they lived in <code>CLAUDE.md</code>, not in conversation history."</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="paper__question">
-                            <button type="button" class="paper__question-toggle">
-                                <span class="paper__question-num">3</span>
-                                <span class="paper__question-text"><strong>Difficulty held constant in your workflow.</strong> The Chroma paper holds task difficulty constant while varying input length. In your own hypothetical dissertation workflow (e.g., systematic review of 200 papers), what would "difficulty held constant" look like — and what would you need to measure to know whether Claude is degrading?</span>
-                                <svg class="paper__question-chev" aria-hidden="true"><use href="#icon-expand"/></svg>
-                            </button>
-                            <div class="paper__answer" hidden>
-                                <p><strong>Talking points to draw out:</strong></p>
-                                <ul>
-                                    <li>Operationalizing "difficulty held constant": the same prompt applied to the same single paper should return a comparable summary regardless of how many papers came before it in the session.</li>
-                                    <li>A practical measurement protocol: designate a gold-standard paper, re-ask the same question about it at turn 10, 50, and 150. Compare the answers.</li>
-                                    <li>Connect to <span class="glossary-term" data-term="pre-registration">pre-registration</span>: if you pre-register the validation protocol, you are holding yourself to a standard a reviewer can later check.</li>
-                                    <li>Warning to surface: naive reliance on "context window size" as a capability metric is misleading. A 200K-token window that degrades at 40% usage is effectively an 80K-token window for reasoning tasks.</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="paper__question">
-                            <button type="button" class="paper__question-toggle">
-                                <span class="paper__question-num">4</span>
-                                <span class="paper__question-text"><strong>Which technique will you actually adopt first?</strong> Of the six techniques (<code>CLAUDE.md</code>, <code>/clear</code>, <code>/compact</code>, status line, save-to-disk, subagents), which will you actually adopt first in your own work, and why? Which feels like overkill?</span>
-                                <svg class="paper__question-chev" aria-hidden="true"><use href="#icon-expand"/></svg>
-                            </button>
-                            <div class="paper__answer" hidden>
-                                <p><strong>Talking points to draw out:</strong></p>
-                                <ul>
-                                    <li>Most students pick the status line first — it is the cheapest technique with the highest signal-to-effort ratio. You cannot manage what you cannot see.</li>
-                                    <li><code>CLAUDE.md</code> is second-cheapest and highest-leverage for anyone working on a dissertation that spans months of sessions.</li>
-                                    <li><code>/clear</code> is underused because it feels wasteful — but it is the right move when starting a genuinely new task. No amount of compaction beats a fresh start.</li>
-                                    <li>Subagents feel like overkill for small tasks but become essential as soon as you are reading 20+ PDFs or doing large code reviews. Name the threshold at which you will start using them.</li>
-                                    <li>Push back on "I'll adopt all six" — the honest answer is usually one or two. Which one you pick reveals what you think your bottleneck actually is.</li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ol>
-                </section>
-
-            </div>
-        </section>
-
-        <!-- ============================================================
-             Section 10: Submission
-             ============================================================ -->
-        <section class="study-section" id="s-10">
-            <div class="study-section__header">
-                <span class="study-section__num">10</span>
                 <h2>Submission</h2>
             </div>
             <div class="study-section__body">
