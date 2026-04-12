@@ -1032,30 +1032,7 @@ code.inline,
     </aside>
 </section>
 
-<!-- SLIDE 5: Why the Window is Fixed — The Transformer Bottleneck -->
-<section class="slide">
-    <h2 class="slide__title">Why the Window is Fixed: The Transformer Bottleneck</h2>
-    <div class="slide__body">
-        <p>The context window ceiling is not a software setting. It is an <strong>architectural constraint</strong> rooted in how transformers work.</p>
-        <ul>
-            <li class="reveal"><strong>Self-attention is quadratic.</strong> Every token "checks" every other token. For <em>n</em> tokens, that is <em>n</em><sup>2</sup> comparisons per layer. At 200k tokens: <strong>40 billion</strong> attention scores per layer.</li>
-            <li class="reveal"><strong>Memory scales with length.</strong> The model caches key-value pairs for every past token (the KV cache). For a large model, that is &approx;2&ndash;3 MB <em>per token</em> &mdash; at 200k tokens, hundreds of gigabytes of GPU RAM.</li>
-            <li class="reveal"><strong>Position encodings have a training range.</strong> The model learns positions up to a fixed ceiling (e.g., 200k). Beyond that, it encounters positions it has never seen, and performance degrades. Extensions exist (YaRN, position interpolation) but always trade off quality.</li>
-        </ul>
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">The dinner-party analogy</h4>
-            <div class="callout__body"><p><small>Imagine each token is a dinner guest who must have a brief one-on-one exchange with every other guest before dessert. With 10 guests: 45 exchanges. With 200,000 guests: 20 billion. Double the guests, quadruple the exchanges. That is why the bill grows so fast.</small></p></div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>This slide answers the natural question: why not just make the window bigger? The answer traces to Vaswani et al. (2017), the transformer paper. Self-attention computes a score between every pair of tokens — that is what makes it powerful, but the cost is quadratic: n² comparisons. At 1,000 tokens that is 1 million scores; at 200,000 it is 40 billion. Double the context, quadruple the compute.</p>
-        <p>On top of that, the KV cache stores key-value vectors from every previous token — roughly 2–3 MB per token for a large model. At 200k tokens, that is hundreds of gigabytes for a single conversation, more than any single GPU holds.</p>
-        <p>And positional encoding is trained, not mathematical law. Extrapolating beyond the training range degrades performance. The bottom line: the window is finite because physics and mathematics say so, not because Anthropic chose to limit it. When you manage context, you are working within a real constraint.</p>
-    </aside>
-</section>
-
-<!-- SLIDE 6: Mental Model — The Working Desk -->
+<!-- SLIDE 5: Mental Model — The Working Desk -->
 <section class="slide">
     <h2 class="slide__title">Mental Model: The Working Desk</h2>
     <div class="slide__body">
@@ -1105,7 +1082,30 @@ code.inline,
     </aside>
 </section>
 
-<!-- SLIDE 7: How Claude Code Loads Context -->
+<!-- SLIDE 7: Why the Window is Fixed — The Transformer Bottleneck -->
+<section class="slide">
+    <h2 class="slide__title">Why the Window is Fixed: The Transformer Bottleneck</h2>
+    <div class="slide__body">
+        <p>The context window ceiling is not a software setting. It is an <strong>architectural constraint</strong> rooted in how transformers work.</p>
+        <ul>
+            <li class="reveal"><strong>Self-attention is quadratic.</strong> Every token "checks" every other token. For <em>n</em> tokens, that is <em>n</em><sup>2</sup> comparisons per layer. At 200k tokens: <strong>40 billion</strong> attention scores per layer.</li>
+            <li class="reveal"><strong>Memory scales with length.</strong> The model caches key-value pairs for every past token (the KV cache). For a large model, that is &approx;2&ndash;3 MB <em>per token</em> &mdash; at 200k tokens, hundreds of gigabytes of GPU RAM.</li>
+            <li class="reveal"><strong>Position encodings have a training range.</strong> The model learns positions up to a fixed ceiling (e.g., 200k). Beyond that, it encounters positions it has never seen, and performance degrades. Extensions exist (YaRN, position interpolation) but always trade off quality.</li>
+        </ul>
+        <div class="callout callout--concept">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">The dinner-party analogy</h4>
+            <div class="callout__body"><p><small>Imagine each token is a dinner guest who must have a brief one-on-one exchange with every other guest before dessert. With 10 guests: 45 exchanges. With 200,000 guests: 20 billion. Double the guests, quadruple the exchanges. That is why the bill grows so fast.</small></p></div>
+        </div>
+    </div>
+    <aside class="slide-notes" hidden>
+        <p>This slide answers the natural question: why not just make the window bigger? The answer traces to Vaswani et al. (2017), the transformer paper. Self-attention computes a score between every pair of tokens — that is what makes it powerful, but the cost is quadratic: n² comparisons. At 1,000 tokens that is 1 million scores; at 200,000 it is 40 billion. Double the context, quadruple the compute.</p>
+        <p>On top of that, the KV cache stores key-value vectors from every previous token — roughly 2–3 MB per token for a large model. At 200k tokens, that is hundreds of gigabytes for a single conversation, more than any single GPU holds.</p>
+        <p>And positional encoding is trained, not mathematical law. Extrapolating beyond the training range degrades performance. The bottom line: the window is finite because physics and mathematics say so, not because Anthropic chose to limit it. When you manage context, you are working within a real constraint.</p>
+    </aside>
+</section>
+
+<!-- SLIDE 8: How Claude Code Loads Context -->
 <section class="slide">
     <h2 class="slide__title">How Claude Code Loads Context</h2>
     <div class="slide__body">
