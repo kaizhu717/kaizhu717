@@ -1505,22 +1505,13 @@ code.inline,
                 <h2>Pre-Class Materials</h2>
             </div>
             <div class="study-section__body">
-                <p>This session is built around a live demo by Paul Goldsmith-Pinkham (Yale). You should have engaged with the following <strong>before</strong> class — the exercise below assumes you have seen the workflow demonstrated in these materials.</p>
-
-                <div class="callout callout--prompt">
-                    <div class="callout__sticker" aria-hidden="true">📖</div>
-                    <h4 class="callout__title">Read</h4>
-                    <div class="callout__body">
-                        <p>"From an Empty Folder to a Figure" — Paul Goldsmith-Pinkham</p>
-                        <p><a href="https://paulgp.substack.com/p/from-an-empty-folder-to-a-figure" rel="noopener noreferrer">paulgp.substack.com/p/from-an-empty-folder-to-a-figure</a></p>
-                    </div>
-                </div>
+                <p>This session is built around a live demo by Paul Goldsmith-Pinkham (Yale). You should have watched the following video <strong>before</strong> class — the exercise below assumes you have seen the workflow demonstrated.</p>
 
                 <div class="callout callout--prompt">
                     <div class="callout__sticker" aria-hidden="true">🎬</div>
-                    <h4 class="callout__title">Watch</h4>
+                    <h4 class="callout__title">Watch before class</h4>
                     <div class="callout__body">
-                        <p>Markus Academy seminar (live demo segment)</p>
+                        <p>Paul Goldsmith-Pinkham (Yale), <strong>Using Claude Code for Data Analysis</strong> — a live demo showing how to go from an empty folder to a publication-quality figure in under 15 minutes, using Claude Code to find data, clean it, and produce a polished ggplot2 chart of US homeownership trends.</p>
                         <p><a href="https://www.youtube.com/watch?v=Rp17XUPxa4I" rel="noopener noreferrer">youtube.com/watch?v=Rp17XUPxa4I</a></p>
                     </div>
                 </div>
@@ -1557,7 +1548,7 @@ code.inline,
                 <h2>Context</h2>
             </div>
             <div class="study-section__body">
-                <p>In the pre-class blog post and video, you saw Paul Goldsmith-Pinkham go from an empty folder to a publication-quality figure about US homeownership — in under 15 minutes. He started with a single vague sentence and let Claude Code handle data discovery, parsing, and visualization. Today's in-class discussion unpacked why that workflow worked.</p>
+                <p>In the pre-class video, you saw Paul Goldsmith-Pinkham go from an empty folder to a publication-quality figure about US homeownership — in under 15 minutes. He started with a single vague sentence and let Claude Code handle data discovery, parsing, and visualization. Today's in-class discussion unpacked why that workflow worked.</p>
                 <p>You will now do the same with a marketing-relevant research question. The goal is not just to produce a figure, but to practice the five principles from the lecture: start vague, reference style authorities, iterate in small steps, request scripts, and retain research judgment.</p>
             </div>
         </section>
@@ -1749,14 +1740,58 @@ claude</code></pre>
         <section class="study-section" id="s-9">
             <div class="study-section__header">
                 <span class="study-section__num">09</span>
-                <h2>Bonus Challenge</h2>
+                <h2>Bonus Challenge: Write a Report with Claude Code</h2>
             </div>
             <div class="study-section__body">
-                <p>If you finish early, try one of these:</p>
-                <ol>
-                    <li><strong>Alternative visualization.</strong> Ask Claude to show the same data as a different chart type (heatmap, scatter plot, small multiples). Compare which framing tells the most compelling story.</li>
-                    <li><strong>Your dissertation question.</strong> Start a fresh Claude Code session with a question from your own research. See how far you get in 10 minutes.</li>
-                </ol>
+                <p>If you finish the main steps early, ask Claude Code to write a short report interpreting your figure. The report should exist in <strong>two formats</strong>: Markdown (for quick reading) and LaTeX (for a polished PDF).</p>
+
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">💬</span>
+                        <span class="prompt-card__label">Prompt — generate the report in both formats</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="prompt-card__prompt"><code>Write a short report (1–2 pages) interpreting the figure
+we just created. Include:
+  - A title and my name
+  - A brief description of the data source and method
+  - The key patterns visible in the figure
+  - A one-paragraph discussion of marketing implications
+
+Save it in two formats:
+  1. report/session04-report.md  (Markdown)
+  2. report/session04-report.tex (LaTeX, article class,
+     with the figure embedded via \includegraphics)</code></pre>
+                </div>
+
+                <p>Claude will generate both files. To compile the LaTeX version into a PDF locally:</p>
+
+                <div class="code-block" data-lang="bash">
+                    <div class="code-block__header">
+                        <span class="code-block__icon">💻</span>
+                        <span class="code-block__lang">bash — compile LaTeX to PDF</span>
+                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
+                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="code-block__code"><code>cd report
+pdflatex session04-report.tex
+pdflatex session04-report.tex   # run twice for cross-references</code></pre>
+                </div>
+
+                <div class="callout callout--concept">
+                    <div class="callout__sticker" aria-hidden="true">💡</div>
+                    <h4 class="callout__title">Why both formats?</h4>
+                    <div class="callout__body">
+                        <p><strong>Markdown</strong> is fast to read, renders in any editor, and diffs cleanly in git — ideal for working notes and quick sharing. <strong>LaTeX</strong> produces publication-quality PDFs with proper typesetting, embedded figures, and citation support — what you will use for your dissertation. Learning to move between both is a practical skill for AI-assisted research.</p>
+                    </div>
+                </div>
+
+                <p>If you do not have LaTeX installed locally, you can also ask Claude Code: <em>"Compile the LaTeX report to PDF for me"</em> — it will run <code>pdflatex</code> via the Bash tool.</p>
             </div>
         </section>
 

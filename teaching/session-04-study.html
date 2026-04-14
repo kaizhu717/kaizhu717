@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Session 04 — Data Analysis & Visualization — AI-Assisted Research Methods</title>
-<meta name="description" content="Session 4 self-study companion. A flipped-classroom discussion of Paul Goldsmith-Pinkham's 'From an Empty Folder to a Figure' demo, with five principles for AI-assisted data analysis and a paper discussion on Schwabish (2014).">
+<meta name="description" content="Session 4 self-study companion. A flipped-classroom discussion of Paul Goldsmith-Pinkham's 'From an Empty Folder to a Figure' demo, with five principles for AI-assisted data analysis and a paper discussion on Franconeri et al. (2021).">
 <meta name="description" content="Self-study mode template for the PhD course HTML lecture apps. Replace this comment block with the session content during generation.">
 
 <style>
@@ -1353,9 +1353,9 @@ code.inline,
         {
             "FRED": "Federal Reserve Economic Data, maintained by the St. Louis Fed. A free, well-documented database of U.S. and international macroeconomic time series — GDP, unemployment, consumer sentiment, retail sales, and tens of thousands more. Has a stable HTTP API with a free key, which makes it the default exploratory data source for economic research.",
             "ggplot2": "An R package for declarative graphics, written by Hadley Wickham. Implements Leland Wilkinson's 'grammar of graphics': you build a plot by layering data, geometric objects (points, lines, bars), and statistical transformations. The dominant visualization library in the R ecosystem and the standard for publication-quality figures in economics and marketing journals.",
-            "chartjunk": "A term coined by Edward Tufte for visual elements that add no information: 3D effects, gratuitous gridlines, decorative backgrounds, textured fills, redundant legends. The opposite principle is the data-ink ratio. Schwabish (2014) treats removing chartjunk as one of the three core principles of good economic visualization.",
+            "chartjunk": "A term coined by Edward Tufte for visual elements that add no information: 3D effects, gratuitous gridlines, decorative backgrounds, textured fills, redundant legends. The opposite principle is the data-ink ratio. Franconeri et al. (2021) classify chartjunk as a source of cognitive load that impairs accurate data extraction.",
             "data-ink ratio": "Tufte's metric for graphical efficiency: the proportion of a chart's ink devoted to representing data, divided by the total ink. Higher is better. Reducing chartjunk and removing non-data ink increases the ratio.",
-            "style reference": "A high-leverage prompting technique: instead of specifying twenty individual figure parameters (font size, palette, label placement, aspect ratio), you reference an authority Claude has read — 'follow Kieran Healy', 'match the style of the Journal of Marketing Research', 'follow Schwabish (2014)'. Claude translates the reference into specific design choices automatically.",
+            "style reference": "A high-leverage prompting technique: instead of specifying twenty individual figure parameters (font size, palette, label placement, aspect ratio), you reference an authority Claude has read — 'follow Kieran Healy', 'match the style of the Journal of Marketing Research', 'follow Franconeri et al. (2021)'. Claude translates the reference into specific design choices automatically.",
             "Kieran Healy": "Sociologist at Duke and author of 'Data Visualization: A Practical Introduction' (Princeton University Press, 2018). The book is one of the most widely cited modern references for ggplot2-based publication graphics. When Goldsmith-Pinkham told Claude to 'follow Kieran Healy', he was invoking this body of work as a style guide.",
             "front-loading": "A prompting strategy where you specify all the relevant details — API endpoint, file format, schema, validation rules — at the start of a session. The opposite of 'starting vague'. Front-loading is right for production pipelines you will run repeatedly; starting vague is right for exploratory analysis where you do not yet know which dataset exists or where it lives."
         }
@@ -1366,7 +1366,7 @@ code.inline,
         <header class="study-header">
             <span class="study-header__session">Session 04</span>
             <h1>Data Analysis &amp; Visualization</h1>
-            <p class="study-header__subtitle">A flipped-classroom discussion of Paul Goldsmith-Pinkham's "From an Empty Folder to a Figure" demo — five principles for AI-assisted analysis, plus the Schwabish (2014) paper discussion.</p>
+            <p class="study-header__subtitle">A flipped-classroom discussion of Paul Goldsmith-Pinkham's "From an Empty Folder to a Figure" demo — five principles for AI-assisted analysis, plus the Franconeri et al. (2021) paper discussion.</p>
             <div class="study-header__meta">
                 <span>👤 Kai Zhu</span>
                 <span>🏛️ Bocconi</span>
@@ -1381,37 +1381,28 @@ code.inline,
                 <h2>Before Today's Class</h2>
             </div>
             <div class="study-section__body">
-                <p>This is a flipped-classroom session. Today's lecture <strong>discusses</strong> a live demo you should already have seen — it does not present it fresh. You should have engaged with two resources before reading the rest of this page:</p>
-
-                <div class="callout callout--prompt">
-                    <div class="callout__sticker" aria-hidden="true">📖</div>
-                    <h4 class="callout__title">Read</h4>
-                    <div class="callout__body">
-                        <p>Paul Goldsmith-Pinkham (Yale), <em>From an Empty Folder to a Figure</em></p>
-                        <p><a href="https://paulgp.substack.com/p/from-an-empty-folder-to-a-figure" rel="noopener noreferrer">paulgp.substack.com/p/from-an-empty-folder-to-a-figure</a></p>
-                    </div>
-                </div>
+                <p>This is a flipped-classroom session. Today's lecture <strong>discusses</strong> a live demo you should already have seen — it does not present it fresh. You should have watched one video before reading the rest of this page:</p>
 
                 <div class="callout callout--prompt">
                     <div class="callout__sticker" aria-hidden="true">🎬</div>
-                    <h4 class="callout__title">Watch</h4>
+                    <h4 class="callout__title">Watch before class</h4>
                     <div class="callout__body">
-                        <p>Markus Academy, <em>Using Claude Code for Research</em> (live demo)</p>
+                        <p>Paul Goldsmith-Pinkham (Yale), <strong>Using Claude Code for Data Analysis</strong> — a live demo showing how to go from an empty folder to a publication-quality figure in under 15 minutes, using Claude Code to find data, clean it, and produce a polished ggplot2 chart of US homeownership trends.</p>
                         <p><a href="https://www.youtube.com/watch?v=Rp17XUPxa4I" rel="noopener noreferrer">youtube.com/watch?v=Rp17XUPxa4I</a></p>
                     </div>
                 </div>
 
                 <div class="callout callout--key">
                     <div class="callout__sticker" aria-hidden="true">🔑</div>
-                    <h4 class="callout__title">What today looks like</h4>
-                    <div class="callout__body"><p>The lecture unpacks <em>why</em> the workflow worked — and extracts five transferable principles. Then you apply them in the exercise. Then we discuss Schwabish (2014).</p></div>
+                    <h4 class="callout__title">Session Goal</h4>
+                    <div class="callout__body"><p>By the end of today, you will own five transferable principles for AI-assisted data analysis and have applied them to produce a publication-quality figure from your own marketing-relevant question.</p></div>
                 </div>
 
                 <p><strong>Three blocks, 30 minutes each:</strong></p>
                 <ol>
-                    <li><strong>Lecture (30 min)</strong> — discussion of the Goldsmith-Pinkham case, the visualization workflow, five principles, marketing applications.</li>
-                    <li><strong>Hands-on exercise (30 min)</strong> — replicate the workflow with your own marketing-relevant question, using FRED data, and write a one-paragraph interpretation.</li>
-                    <li><strong>Paper discussion (30 min)</strong> — Schwabish (2014), "An Economist's Guide to Visualizing Data."</li>
+                    <li><strong>Lecture (30 min)</strong> — Unpack Goldsmith-Pinkham's workflow and extract five principles for AI-assisted data analysis.</li>
+                    <li><strong>Paper Discussion (30 min)</strong> — Franconeri et al. (2021), "The Science of Visual Data Communication: What Works."</li>
+                    <li><strong>Hands-on Exercise (30 min)</strong> — Apply the five principles: pick a marketing question, find data, and produce a figure with Claude Code.</li>
                 </ol>
             </div>
             <details class="narrator">
@@ -1422,11 +1413,11 @@ code.inline,
                 </summary>
                 <div class="narrator__body">
                     <p>Today is about the core of what you do as a researcher: going from a question to a figure. Not in days — in minutes.</p>
-                    <p>Before this class, you should have (a) read Paul Goldsmith-Pinkham's Substack post and (b) watched his Markus Academy seminar video. Today's lecture is a structured discussion of what you saw there — I want to unpack <em>why</em> the workflow worked, not just <em>what</em> happened — and then extract five principles you can carry into your own research.</p>
+                    <p>Before this class, you should have watched Paul Goldsmith-Pinkham's Markus Academy seminar video. Today's lecture is a structured discussion of what you saw there — I want to unpack <em>why</em> the workflow worked, not just <em>what</em> happened — and then extract five principles you can carry into your own research.</p>
                     <p>Why flip this session? Because watching a 30-minute live demo passively in class is not a good use of your time — and it is hard for me to pause and discuss while a video is playing. By the time you arrive, you already have the shared visual reference. I can then ask: <em>what surprised you? what would you have done differently? where did the workflow feel fragile?</em> Those questions are much more productive than narrating a demo I did not run myself.</p>
                     <p>Goldsmith-Pinkham started with an empty folder and a single sentence about US homeownership. Six minutes later, he had clean data. A few minutes after that, a polished <span class="glossary-term" data-term="ggplot2">ggplot2</span> figure. The point is not that AI replaces your thinking. The point is that it eliminates the friction between having an idea and seeing it in the data.</p>
-                    <p>Take thirty seconds now to jot down one or two things that struck you from the blog or video — we will come back to them at the end.</p>
-                    <p>One last note on the plan: this session revisits the single case study you already saw in the pre-class materials, but the goal today is different from the goal of the video. In the video, you watched the workflow unfold. Today, we stop and interrogate it: why did the vague prompt work? what did Claude actually do behind the scenes? what would have gone wrong with a slightly different question? From those answers, we extract five transferable principles. Those principles are the thing I want you to walk out with — the demo itself is just the vehicle. The paper discussion covers Schwabish (2014) on visualization best practices for economists, which connects directly to how you instruct Claude to make figures.</p>
+                    <p>Take thirty seconds now to jot down one or two things that struck you from the video — we will come back to them at the end.</p>
+                    <p>One last note on the plan: this session revisits the single case study you already saw in the pre-class materials, but the goal today is different from the goal of the video. In the video, you watched the workflow unfold. Today, we stop and interrogate it: why did the vague prompt work? what did Claude actually do behind the scenes? what would have gone wrong with a slightly different question? From those answers, we extract five transferable principles. Those principles are the thing I want you to walk out with — the demo itself is just the vehicle. The paper discussion covers Franconeri et al. (2021) on the science of visual data communication — the perceptual research behind why some charts work and others mislead.</p>
                 </div>
             </details>
         </section>
@@ -1434,6 +1425,36 @@ code.inline,
         <section class="study-section" id="s-2">
             <div class="study-section__header">
                 <span class="study-section__num">02</span>
+                <h2>Today's Flow</h2>
+            </div>
+            <div class="study-section__body">
+                <ol>
+                    <li><strong>Lecture (30 min)</strong> — Unpack Goldsmith-Pinkham's workflow and extract five principles for AI-assisted data analysis.</li>
+                    <li><strong>Paper Discussion (30 min)</strong> — Franconeri et al. (2021), "The Science of Visual Data Communication: What Works."</li>
+                    <li><strong>Exercise (30 min)</strong> — Apply the five principles: pick a marketing question, find data, and produce a figure with Claude Code.</li>
+                </ol>
+
+                <div class="callout callout--concept">
+                    <div class="callout__sticker" aria-hidden="true">💡</div>
+                    <h4 class="callout__title">Why this order?</h4>
+                    <div class="callout__body"><p>The paper gives you the perceptual science before you start making figures. That way, you can evaluate your own output against research-backed principles, not just aesthetics.</p></div>
+                </div>
+            </div>
+            <details class="narrator">
+                <summary class="narrator__summary">
+                    <span class="narrator__icon">🎙️</span>
+                    <span class="narrator__label">Instructor's voice</span>
+                    <svg class="narrator__chevron" aria-hidden="true"><use href="#icon-expand"/></svg>
+                </summary>
+                <div class="narrator__body">
+                    <p>Note the switched order today. Usually we do lecture, exercise, then paper. Today the paper discussion comes before the exercise, because Franconeri et al. gives you the visual-perception toolkit you need to evaluate the figures Claude generates. Without it, you would be judging your output on "does it look nice" rather than "does it communicate accurately." Read the paper's channel-ranking hierarchy before you start the exercise.</p>
+                </div>
+            </details>
+        </section>
+
+        <section class="study-section" id="s-3">
+            <div class="study-section__header">
+                <span class="study-section__num">03</span>
                 <h2>From Concept to Figure</h2>
             </div>
             <div class="study-section__body">
@@ -1491,9 +1512,9 @@ code.inline,
             </details>
         </section>
 
-        <section class="study-section" id="s-3">
+        <section class="study-section" id="s-4">
             <div class="study-section__header">
-                <span class="study-section__num">03</span>
+                <span class="study-section__num">04</span>
                 <h2>Case Study: US Homeownership by Age</h2>
             </div>
             <div class="study-section__body">
@@ -1534,9 +1555,9 @@ the last 50 years.</code></pre>
             </details>
         </section>
 
-        <section class="study-section" id="s-4">
+        <section class="study-section" id="s-5">
             <div class="study-section__header">
-                <span class="study-section__num">04</span>
+                <span class="study-section__num">05</span>
                 <h2>The Visualization Workflow</h2>
             </div>
             <div class="study-section__body">
@@ -1563,15 +1584,15 @@ Kieran Healy.</code></pre>
                 <div class="callout callout--concept">
                     <div class="callout__sticker" aria-hidden="true">💡</div>
                     <h4 class="callout__title">The style reference trick</h4>
-                    <div class="callout__body"><p>Instead of specifying 20 individual formatting parameters, reference an authority Claude has already read: "follow Kieran Healy", "match the style of a top economics journal", "follow Schwabish (2014)". This is the highest-leverage move in the entire visualization workflow. See the glossary entry on <span class="glossary-term" data-term="style reference">style reference</span> for more.</p></div>
+                    <div class="callout__body"><p>Instead of specifying 20 individual formatting parameters, reference an authority Claude has already read: "follow Kieran Healy", "match the style of a top economics journal", "follow Franconeri et al. (2021)". This is the highest-leverage move in the entire visualization workflow. See the glossary entry on <span class="glossary-term" data-term="style reference">style reference</span> for more.</p></div>
                 </div>
             </div>
             <details class="narrator">
                 <summary class="narrator__summary"><span class="narrator__icon">🎙️</span><span class="narrator__label">Instructor's voice</span><svg class="narrator__chevron" aria-hidden="true"><use href="#icon-expand"/></svg></summary>
                 <div class="narrator__body">
                     <p>This is one of the most powerful techniques in the entire course. Instead of telling Claude "use font size 11, remove gridlines, use a colorblind-safe palette, add direct labels, set the aspect ratio to 4:3" — you say "follow Kieran Healy's best practices." Claude knows Healy's <em>Data Visualization</em> book and translates the reference into specific design choices.</p>
-                    <p>This works because Claude's training data includes these style guides. You can reference Tufte, Healy, Schwabish, The Economist's style guide, APA figure standards — and Claude applies the principles automatically.</p>
-                    <p>For marketing researchers, useful references include: "follow APA 7th edition figure formatting," "match the style of figures in the Journal of Marketing Research," or "follow Schwabish (2014) visualization principles." Experiment with different references to find what produces the output you prefer.</p>
+                    <p>This works because Claude's training data includes these style guides. You can reference Tufte, Healy, Franconeri, The Economist's style guide, APA figure standards — and Claude applies the principles automatically.</p>
+                    <p>For marketing researchers, useful references include: "follow APA 7th edition figure formatting," "match the style of figures in the Journal of Marketing Research," or "follow Franconeri et al. (2021) visualization principles." Experiment with different references to find what produces the output you prefer.</p>
                     <p>The 77 lines of R code included ggplot2 with custom themes, color scales, axis formatting, and annotations. All reproducible, all in a script file.</p>
                 </div>
             </details>
@@ -1609,9 +1630,9 @@ Kieran Healy.</code></pre>
             </div>
         </section>
 
-        <section class="study-section" id="s-5">
+        <section class="study-section" id="s-6">
             <div class="study-section__header">
-                <span class="study-section__num">05</span>
+                <span class="study-section__num">06</span>
                 <h2>Iteration: The Figure Is Never Right on the First Try</h2>
             </div>
             <div class="study-section__body">
@@ -1645,19 +1666,91 @@ is on the y-axis and there are different lines for each year.</code></pre>
             </details>
         </section>
 
-        <section class="study-section" id="s-6">
+        <section class="study-section" id="s-7">
             <div class="study-section__header">
-                <span class="study-section__num">06</span>
+                <span class="study-section__num">07</span>
                 <h2>What the Data Revealed</h2>
             </div>
             <div class="study-section__body">
                 <p>The final figure showed a substantive empirical pattern — and it is worth being clear about what is human work and what is AI work in producing it.</p>
+
+                <!-- Inline SVG chart: Homeownership Rate by Age -->
+                <div style="text-align:center; margin:1.2em 0;">
+                    <span style="font-size:0.95em; font-weight:700; color:#333; display:block; margin-bottom:6px;">Homeownership Rate by Age</span>
+                    <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:560px; background:#f7f5f0; border-radius:6px;">
+                        <!-- Y-axis gridlines -->
+                        <line x1="60" y1="255" x2="480" y2="255" stroke="#ccc" stroke-width="0.5"/>
+                        <line x1="60" y1="224.3" x2="480" y2="224.3" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="193.4" x2="480" y2="193.4" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="162.6" x2="480" y2="162.6" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="131.7" x2="480" y2="131.7" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="100.9" x2="480" y2="100.9" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="70.0" x2="480" y2="70.0" stroke="#eee" stroke-width="0.5"/>
+                        <line x1="60" y1="39.2" x2="480" y2="39.2" stroke="#eee" stroke-width="0.5"/>
+                        <!-- Y-axis labels -->
+                        <text x="55" y="258" text-anchor="end" font-size="10" fill="#666">20%</text>
+                        <text x="55" y="227" text-anchor="end" font-size="10" fill="#666">30%</text>
+                        <text x="55" y="196" text-anchor="end" font-size="10" fill="#666">40%</text>
+                        <text x="55" y="165" text-anchor="end" font-size="10" fill="#666">50%</text>
+                        <text x="55" y="135" text-anchor="end" font-size="10" fill="#666">60%</text>
+                        <text x="55" y="104" text-anchor="end" font-size="10" fill="#666">70%</text>
+                        <text x="55" y="73" text-anchor="end" font-size="10" fill="#666">80%</text>
+                        <text x="55" y="42" text-anchor="end" font-size="10" fill="#666">90%</text>
+                        <!-- X-axis labels -->
+                        <text x="60" y="272" text-anchor="middle" font-size="10" fill="#666">25</text>
+                        <text x="144" y="272" text-anchor="middle" font-size="10" fill="#666">35</text>
+                        <text x="228" y="272" text-anchor="middle" font-size="10" fill="#666">45</text>
+                        <text x="312" y="272" text-anchor="middle" font-size="10" fill="#666">55</text>
+                        <text x="396" y="272" text-anchor="middle" font-size="10" fill="#666">65</text>
+                        <text x="480" y="272" text-anchor="middle" font-size="10" fill="#666">75</text>
+                        <!-- X-axis tick marks -->
+                        <line x1="60" y1="255" x2="60" y2="259" stroke="#999" stroke-width="1"/>
+                        <line x1="144" y1="255" x2="144" y2="259" stroke="#999" stroke-width="1"/>
+                        <line x1="228" y1="255" x2="228" y2="259" stroke="#999" stroke-width="1"/>
+                        <line x1="312" y1="255" x2="312" y2="259" stroke="#999" stroke-width="1"/>
+                        <line x1="396" y1="255" x2="396" y2="259" stroke="#999" stroke-width="1"/>
+                        <line x1="480" y1="255" x2="480" y2="259" stroke="#999" stroke-width="1"/>
+                        <!-- Axes -->
+                        <line x1="60" y1="39.2" x2="60" y2="255" stroke="#999" stroke-width="1"/>
+                        <line x1="60" y1="255" x2="480" y2="255" stroke="#999" stroke-width="1"/>
+                        <!-- Axis labels -->
+                        <text x="270" y="290" text-anchor="middle" font-size="11" fill="#555">Age of household head</text>
+                        <text x="18" y="147" text-anchor="middle" font-size="11" fill="#555" transform="rotate(-90,18,147)">Ownership rate</text>
+                        <!-- Data lines -->
+                        <!-- 2004: solid blue (#0046ad) -->
+                        <polyline points="60,187.5 144,126.1 228,83.1 312,61.6 396,55.4 480,70.8" fill="none" stroke="#0046ad" stroke-width="2.5"/>
+                        <!-- 2009: dashed red (#c0392b) -->
+                        <polyline points="60,224.3 144,156.8 228,107.6 312,70.8 396,61.6 480,73.9" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="8,4"/>
+                        <!-- 2019: dash-dot green (#27ae60) -->
+                        <polyline points="60,218.2 144,150.6 228,101.5 312,70.8 396,58.5 480,70.8" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="10,3,2,3"/>
+                        <!-- 2024: dotted orange (#d48c00) -->
+                        <polyline points="60,233.5 144,169 228,113.8 312,76.9 396,64.7 480,76.9" fill="none" stroke="#d48c00" stroke-width="2.5" stroke-dasharray="2,4"/>
+                        <!-- Data point markers -->
+                        <!-- 2004 markers -->
+                        <circle cx="60" cy="187.5" r="3" fill="#0046ad"/><circle cx="144" cy="126.1" r="3" fill="#0046ad"/><circle cx="228" cy="83.1" r="3" fill="#0046ad"/><circle cx="312" cy="61.6" r="3" fill="#0046ad"/><circle cx="396" cy="55.4" r="3" fill="#0046ad"/><circle cx="480" cy="70.8" r="3" fill="#0046ad"/>
+                        <!-- 2009 markers -->
+                        <circle cx="60" cy="224.3" r="3" fill="#c0392b"/><circle cx="144" cy="156.8" r="3" fill="#c0392b"/><circle cx="228" cy="107.6" r="3" fill="#c0392b"/><circle cx="312" cy="70.8" r="3" fill="#c0392b"/><circle cx="396" cy="61.6" r="3" fill="#c0392b"/><circle cx="480" cy="73.9" r="3" fill="#c0392b"/>
+                        <!-- 2019 markers -->
+                        <circle cx="60" cy="218.2" r="3" fill="#27ae60"/><circle cx="144" cy="150.6" r="3" fill="#27ae60"/><circle cx="228" cy="101.5" r="3" fill="#27ae60"/><circle cx="312" cy="70.8" r="3" fill="#27ae60"/><circle cx="396" cy="58.5" r="3" fill="#27ae60"/><circle cx="480" cy="70.8" r="3" fill="#27ae60"/>
+                        <!-- 2024 markers -->
+                        <circle cx="60" cy="233.5" r="3" fill="#d48c00"/><circle cx="144" cy="169" r="3" fill="#d48c00"/><circle cx="228" cy="113.8" r="3" fill="#d48c00"/><circle cx="312" cy="76.9" r="3" fill="#d48c00"/><circle cx="396" cy="64.7" r="3" fill="#d48c00"/><circle cx="480" cy="76.9" r="3" fill="#d48c00"/>
+                        <!-- Legend (top-left inside chart) -->
+                        <rect x="70" y="44" width="115" height="72" rx="3" fill="#f7f5f0" fill-opacity="0.9" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="76" y1="56" x2="96" y2="56" stroke="#0046ad" stroke-width="2.5"/><text x="101" y="59" font-size="9.5" fill="#333">2004</text>
+                        <line x1="76" y1="72" x2="96" y2="72" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="8,4"/><text x="101" y="75" font-size="9.5" fill="#333">2009</text>
+                        <line x1="76" y1="88" x2="96" y2="88" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="10,3,2,3"/><text x="101" y="91" font-size="9.5" fill="#333">2019</text>
+                        <line x1="76" y1="104" x2="96" y2="104" stroke="#d48c00" stroke-width="2.5" stroke-dasharray="2,4"/><text x="101" y="107" font-size="9.5" fill="#333">2024</text>
+                    </svg>
+                    <span style="font-size:0.75em; color:#999; display:block; margin-top:4px;">Stylized from CPS/HVS data (Goldsmith-Pinkham demo). Approximate rates for illustration.</span>
+                </div>
+
+                <p><strong>Key findings:</strong></p>
                 <ul>
                     <li>Homeownership rates rise with age across all time periods.</li>
                     <li>The age distribution has shifted rightward — younger households are losing ownership share while older households gain.</li>
-                    <li>The 2008 financial crisis hit younger age groups disproportionately.</li>
-                    <li>2004 was peak homeownership across all demographics.</li>
-                    <li>2024 resembles the post-crisis 2009 period — not recovery.</li>
+                    <li>The <strong style="color:#c0392b;">2008 financial crisis</strong> hit younger age groups disproportionately.</li>
+                    <li><strong style="color:#0046ad;">2004</strong> was peak homeownership across all demographics.</li>
+                    <li><strong style="color:#d48c00;">2024</strong> resembles the post-crisis <strong style="color:#c0392b;">2009</strong> period — not recovery.</li>
                 </ul>
 
                 <div class="callout callout--concept">
@@ -1669,16 +1762,15 @@ is on the y-axis and there are different lines for each year.</code></pre>
             <details class="narrator">
                 <summary class="narrator__summary"><span class="narrator__icon">🎙️</span><span class="narrator__label">Instructor's voice</span><svg class="narrator__chevron" aria-hidden="true"><use href="#icon-expand"/></svg></summary>
                 <div class="narrator__body">
-                    <p>Let me be clear about what is human and what is AI in this workflow. Claude found the data, parsed the spreadsheets, and created the figure. But the research question (how has the age distribution of homeownership changed?), the interpretation (younger cohorts are losing ground, 2024 looks like the post-crisis period), and the policy implications — all of that is Goldsmith-Pinkham's expertise.</p>
-                    <p>For marketing researchers, the analogy is direct. Claude can find consumer spending data, parse it, and create figures. But deciding that the spending pattern reveals a shift in consumer preferences, connecting it to a theoretical framework, and designing a study to test the mechanism — that is your job. AI accelerates the path from question to evidence. It does not replace the thinking that turns evidence into knowledge.</p>
+                    <p>What is human and what is AI here? Claude found the data, parsed the spreadsheets, and drew the figure. But the research question, the interpretation, the connection to housing policy and generational wealth — that is Goldsmith-Pinkham's expertise. The analogy for marketing is direct: Claude can find and plot data, but deciding what the pattern means and connecting it to theory is your job.</p>
                     <p>This is also a proof of concept for exploratory research. Before committing months to a topic, you can use Claude to quickly check whether the data supports your intuition. Fifteen minutes of exploration can save months of pursuing a dead end.</p>
                 </div>
             </details>
         </section>
 
-        <section class="study-section" id="s-7">
+        <section class="study-section" id="s-8">
             <div class="study-section__header">
-                <span class="study-section__num">07</span>
+                <span class="study-section__num">08</span>
                 <h2>Five Principles for AI-Assisted Data Analysis</h2>
             </div>
             <div class="study-section__body">
@@ -1703,7 +1795,7 @@ is on the y-axis and there are different lines for each year.</code></pre>
                 <div class="narrator__body">
                     <p>These five principles distill the case study into transferable habits.</p>
                     <p>Principle 1 contrasts with the web scraping session, where we front-loaded API details. The difference is the research stage. For exploration — "does this data exist? does it show what I think?" — start vague. For production — "I need to collect this specific dataset reliably" — front-load everything.</p>
-                    <p>Principle 2 is the highest-leverage trick. Claude's training data includes Tufte, Healy, Schwabish, APA guidelines, and the style guides of major journals. One phrase activates all that knowledge.</p>
+                    <p>Principle 2 is the highest-leverage trick. Claude's training data includes Tufte, Healy, Franconeri, APA guidelines, and the style guides of major journals. One phrase activates all that knowledge.</p>
                     <p>Principle 3 reflects the new economics of iteration. When a figure takes an hour to code, you plan carefully. When it takes 30 seconds, you iterate. Let go of the instinct to get it right on the first try.</p>
                     <p>Principle 4 is about reproducibility. If Claude creates a beautiful figure interactively but you cannot re-run the code, the work is lost. Always ask for a script.</p>
                     <p>Principle 5 is the most important. The value of a research finding is not the figure — it is the insight. AI produces the figure; you produce the insight.</p>
@@ -1743,9 +1835,9 @@ is on the y-axis and there are different lines for each year.</code></pre>
             </div>
         </section>
 
-        <section class="study-section" id="s-8">
+        <section class="study-section" id="s-9">
             <div class="study-section__header">
-                <span class="study-section__num">08</span>
+                <span class="study-section__num">09</span>
                 <h2>Applying This to Marketing Research</h2>
             </div>
             <div class="study-section__body">
@@ -1794,9 +1886,9 @@ is on the y-axis and there are different lines for each year.</code></pre>
             </details>
         </section>
 
-        <section class="study-section study-section--takeaway" id="s-9">
+        <section class="study-section study-section--takeaway" id="s-10">
             <div class="study-section__header">
-                <span class="study-section__num">09</span>
+                <span class="study-section__num">10</span>
                 <h2>Key Takeaway</h2>
             </div>
             <div class="study-section__body">
@@ -1833,9 +1925,88 @@ is on the y-axis and there are different lines for each year.</code></pre>
             </details>
         </section>
 
-        <section class="study-section study-section--exercise" id="s-10">
+        <section class="study-section study-section--paper" id="s-11">
             <div class="study-section__header">
-                <span class="study-section__num">10</span>
+                <span class="study-section__num">11</span>
+                <h2>Paper Discussion: Franconeri et al. (2021)</h2>
+            </div>
+            <div class="study-section__body">
+                <div class="paper">
+                    <div class="paper__header">
+                        <span class="paper__badge">📄 Assigned reading</span>
+                    </div>
+                    <div class="paper__card">
+                        <h3 class="paper__title">The Science of Visual Data Communication: What Works</h3>
+                        <p class="paper__authors">Franconeri, S. L., Padilla, L. M., Shah, P., Zacks, J. M., &amp; Hullman, J. (2021)</p>
+                        <p class="paper__venue"><em>Psychological Science in the Public Interest</em>, 22(3), 110–161.</p>
+                        <div class="paper__summary">
+                            <h4>Key Findings</h4>
+                            <ul>
+                                <li><strong>Visual channels are ranked by perceptual accuracy:</strong> position &gt; length &gt; angle &gt; area &gt; intensity (Cleveland &amp; McGill hierarchy). The channel you choose determines what viewers can and cannot accurately extract.</li>
+                                <li><strong>Broad statistics are fast, comparisons are slow:</strong> viewers extract means and trends at a glance, but comparing individual values across groups taxes working memory and invites error.</li>
+                                <li><strong>Common illusions distort judgment:</strong> truncated axes, area/volume confusions, and misleading color mappings cause systematic misperception — even among experts.</li>
+                                <li><strong>Effective graphics reduce cognitive load:</strong> avoid unnecessary legends, use direct labels, respect familiar conventions, and design for the comparison your audience actually needs.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="paper__questions">
+                        <h4>Discussion Questions</h4>
+                        <ol>
+                            <li>
+                                <details>
+                                    <summary><strong>Channel choice and AI defaults.</strong> Franconeri et al. rank visual channels by perceptual accuracy. When Claude Code generates a figure, is it choosing the right channel for your data? How would you check?</summary>
+                                    <div style="padding: 0.75em 0 0.25em;">
+                                        <p>This connects the paper's hierarchy directly to today's exercise. Push for specifics: if your data is about magnitude comparisons, position (bar chart) beats area (bubble chart). If it is about trends, angle (line chart) wins. Ask students to identify the visual channel Claude chose for their exercise figure and evaluate whether it was the right one for the comparison they needed.</p>
+                                    </div>
+                                </details>
+                            </li>
+                            <li>
+                                <details>
+                                    <summary><strong>Illusions in your own work.</strong> The paper catalogs common visual distortions (truncated axes, area confusions, misleading color maps). Have you seen any of these in published marketing research — or in figures AI generated for you today?</summary>
+                                    <div style="padding: 0.75em 0 0.25em;">
+                                        <p>This is the most concrete question. The truncated-axis illusion appears regularly in economics and marketing journals. Ask students to find a real example — either from a published paper or from their own exercise output. Area-vs-length confusions (e.g., bubble charts where radius encodes value instead of area) are another common case. The point is that these are not rare mistakes; they are systematic patterns that even experts fall into.</p>
+                                    </div>
+                                </details>
+                            </li>
+                            <li>
+                                <details>
+                                    <summary><strong>Designing for comparison.</strong> The paper argues that broad statistics are fast but subset comparisons are slow and error-prone. When you instruct Claude to "make a figure," how do you ensure the figure supports the specific comparison your argument needs?</summary>
+                                    <div style="padding: 0.75em 0 0.25em;">
+                                        <p>This is the design-thinking question. A figure that shows "everything" usually communicates nothing. The key insight from Franconeri et al. is that you must design for the comparison the viewer needs to make. If your argument depends on comparing two groups, the figure should place those groups adjacent on a common axis — not buried in a multi-panel display. Prompt Claude explicitly: "the figure should make it easy to compare X and Y."</p>
+                                    </div>
+                                </details>
+                            </li>
+                            <li>
+                                <details>
+                                    <summary><strong>Science vs. convention.</strong> Some of the paper's recommendations conflict with journal norms (e.g., bar charts are perceptually suboptimal but ubiquitous). When the science says one thing and your target journal expects another, what do you do?</summary>
+                                    <div style="padding: 0.75em 0 0.25em;">
+                                        <p>This is the tension between science and convention. Bar charts with error bars are the norm in many marketing journals, but Franconeri et al. show that viewers struggle to extract precise comparisons from bar heights. The practical answer is usually a compromise: follow journal conventions for the main figures (reviewers expect them), but consider supplementary materials or appendices for more perceptually effective alternatives. If time is short, cut this question.</p>
+                                    </div>
+                                </details>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="callout callout--key" style="margin-top: 1.5em;">
+                        <div class="callout__sticker" aria-hidden="true">🔑</div>
+                        <h4 class="callout__title">Discussion leader prompt</h4>
+                        <div class="callout__body"><p>Five-minute summary of the Cleveland &amp; McGill hierarchy and the illusions catalog from Franconeri et al. Then ~5 minutes per question. If time is short, prioritize Q1 (channel choice and AI defaults) and Q2 (illusions in your own work) — those connect most directly to today's exercise.</p></div>
+                    </div>
+                </div>
+            </div>
+            <details class="narrator">
+                <summary class="narrator__summary"><span class="narrator__icon">🎙️</span><span class="narrator__label">Instructor's voice</span><svg class="narrator__chevron" aria-hidden="true"><use href="#icon-expand"/></svg></summary>
+                <div class="narrator__body">
+                    <p>Franconeri et al. is a comprehensive review synthesizing decades of perceptual and cognitive research on data visualization. Published in Psychological Science in the Public Interest, it is more rigorous and empirically grounded than practitioner guides like Schwabish or Tufte — it tells you why certain design choices work, not just that they do. The Cleveland &amp; McGill hierarchy (Figure 2 of the paper) is the key reference: position is the most accurate channel, intensity the least. When Claude generates a bar chart instead of a pie chart, it is implicitly following this hierarchy. The illusions section is especially useful for PhD students: truncated axes, 3D distortions, and area-vs-length confusions cause measurable misperception in controlled experiments.</p>
+                    <p>Question 1 connects the paper's hierarchy directly to today's exercise. Push for specifics: if your data is about magnitude comparisons, position (bar chart) beats area (bubble chart). If it is about trends, angle (line chart) wins. Question 2 is the most concrete: look at real examples. The truncated-axis illusion appears regularly in economics and marketing journals. Ask students to find one. Question 3 is the design-thinking question: a figure that shows "everything" usually communicates nothing. Design for the comparison the viewer needs. Question 4 is the tension between science and convention. If time is short, cut this one.</p>
+                </div>
+            </details>
+        </section>
+
+        <section class="study-section study-section--exercise" id="s-12">
+            <div class="study-section__header">
+                <span class="study-section__num">12</span>
                 <h2>Exercise Preview</h2>
             </div>
             <div class="study-section__body">
@@ -1862,89 +2033,6 @@ is on the y-axis and there are different lines for each year.</code></pre>
                     <p>I will provide a suggested research question and FRED series IDs as a starting point, but you are free to choose your own question. The FRED API is reliable and free — you need the API key from the previous exercise, or you can obtain one in two minutes.</p>
                     <p>The emphasis is on iteration. Your first figure will not be perfect. Give Claude specific feedback: "add a vertical line at March 2020," "use a different color for consumer sentiment," "make the title more descriptive." Each round takes seconds.</p>
                     <p>Step 4 — interpretation — is where you practice the skill AI cannot replace. What does the pattern mean? What events explain the changes? What marketing implications follow? A one-paragraph interpretation is sufficient for the exercise.</p>
-                </div>
-            </details>
-        </section>
-
-        <section class="study-section study-section--paper" id="s-11">
-            <div class="study-section__header">
-                <span class="study-section__num">11</span>
-                <h2>Paper Discussion: Schwabish (2014)</h2>
-            </div>
-            <div class="study-section__body">
-                <div class="paper">
-                    <div class="paper__header">
-                        <span class="paper__badge">📄 Assigned reading</span>
-                    </div>
-                    <div class="paper__card">
-                        <h3 class="paper__title">An Economist's Guide to Visualizing Data</h3>
-                        <p class="paper__authors">Schwabish, J. A. (2014)</p>
-                        <p class="paper__venue"><em>Journal of Economic Perspectives</em>, 28(1), 209–234. <a href="https://doi.org/10.1257/jep.28.1.209" rel="noopener noreferrer">doi.org/10.1257/jep.28.1.209</a></p>
-                        <div class="paper__summary">
-                            <h4>The central claim</h4>
-                            <p>Economists systematically <strong>underinvest in visualization</strong>. Default Excel charts and cluttered tables dominate published economics work, which is a self-inflicted communication problem: visualization is what determines whether your findings reach the audience, and economists treat it as a technical afterthought rather than a communication skill.</p>
-                            <h4>Three core principles</h4>
-                            <ul>
-                                <li><strong>Show the data</strong> — not just summary statistics. Distributions, individual observations, and the full picture beat point estimates with error bars.</li>
-                                <li><strong>Reduce the clutter</strong> — remove <span class="glossary-term" data-term="chartjunk">chartjunk</span>, gridlines, 3D effects, and decorative noise. Increase the <span class="glossary-term" data-term="data-ink ratio">data-ink ratio</span>.</li>
-                                <li><strong>Integrate text and graph</strong> — direct labels instead of distant legends, informative titles instead of generic ones.</li>
-                            </ul>
-                            <h4>Why it matters today</h4>
-                            <p>Schwabish's three principles are exactly what Claude implements when you reference a <span class="glossary-term" data-term="style reference">style reference</span> like "follow Schwabish's principles" or "follow Kieran Healy". The lecture's case study and Schwabish's prescriptions are two halves of the same point: the human reasoning about what makes a figure clear is what Claude needs as a prompt; the implementation of that reasoning is what Claude can automate.</p>
-                        </div>
-                    </div>
-
-                    <div class="paper__questions">
-                        <h4>Discussion Questions</h4>
-                        <ol>
-                            <li>
-                                <details>
-                                    <summary><strong>AI and visualization quality.</strong> Schwabish argues economists underinvest in figures. Does AI-assisted visualization solve this problem, or does it risk producing polished but misleading graphics?</summary>
-                                    <div style="padding: 0.75em 0 0.25em;">
-                                        <p>This is the critical question. A polished figure that misrepresents the data is worse than an ugly figure that is honest — polish lends false authority. Reasonable answers acknowledge both sides: AI lowers the cost of producing well-designed figures, which is genuinely good, but it also lowers the cost of producing well-designed misleading figures, which is genuinely bad. The defense is the same one as for any AI-assisted research output: human judgment on the substance, AI assistance on the implementation. You should be able to look at any figure Claude produced and articulate why each design choice — including the choice of chart type — serves the data.</p>
-                                    </div>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary><strong>Style references.</strong> Today you saw that saying "follow Kieran Healy" produces better figures than specifying individual parameters. What style references would you use for figures in your target journals?</summary>
-                                    <div style="padding: 0.75em 0 0.25em;">
-                                        <p>This is a practical exercise. Pick the journal you most want to publish in (JCR, JMR, JM, MS) and look at the figures in three recent papers there. What are the conventions? Are bars colored or filled with patterns? Are legends inside or outside? Is there gridding? Is there a uniform house style or does it vary by paper? Then convert what you see into a prompt: "match the figure conventions of recent <em>Journal of Consumer Research</em> papers." The point of the exercise is to make the implicit conventions of your target audience explicit.</p>
-                                    </div>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary><strong>The three principles in practice.</strong> Look at the figure you created in the exercise. Does it show the data, reduce clutter, and integrate text? Where could it improve?</summary>
-                                    <div style="padding: 0.75em 0 0.25em;">
-                                        <p>This connects directly to your own output. Walk through the three principles one at a time. Show the data: are you plotting summary statistics where you could plot the underlying observations? Reduce clutter: any gridlines that do not earn their ink? Any legend you could replace with direct labels? Integrate text: is your title informative or generic? Pair up with a neighbor and audit each other's figures using these three criteria.</p>
-                                    </div>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary><strong>Visualization as argument.</strong> Schwabish treats figures as communication tools. How does the choice of visualization (line chart vs. bar chart vs. heatmap) shape the argument a figure makes? Can AI help you explore alternative visual framings?</summary>
-                                    <div style="padding: 0.75em 0 0.25em;">
-                                        <p>This pushes deeper. Visualization is not neutral — it is an argument. The same data presented as a line chart emphasizes trends over time; as a bar chart, it emphasizes discrete comparisons; as a heatmap, it emphasizes structure across two dimensions. AI makes it trivial to try multiple visual framings — ask Claude to produce the same data three ways and pick the framing that best supports the claim you actually want to make. That is both an opportunity (you can now afford to explore framings systematically) and a responsibility (the choice of framing is now your accountability, not a constraint imposed by implementation cost).</p>
-                                    </div>
-                                </details>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="callout callout--key" style="margin-top: 1.5em;">
-                        <div class="callout__sticker" aria-hidden="true">🔑</div>
-                        <h4 class="callout__title">Discussion leader prompt</h4>
-                        <div class="callout__body"><p>Five-minute summary of Schwabish's three principles with one before-and-after example from the paper. Then ~5 minutes per question. If time is short, prioritize Q1 (AI and visualization quality) and Q3 (audit your own exercise figure) — those are the most directly useful for the cohort.</p></div>
-                    </div>
-                </div>
-            </div>
-            <details class="narrator">
-                <summary class="narrator__summary"><span class="narrator__icon">🎙️</span><span class="narrator__label">Instructor's voice</span><svg class="narrator__chevron" aria-hidden="true"><use href="#icon-expand"/></svg></summary>
-                <div class="narrator__body">
-                    <p>Schwabish's JEP paper is the standard reference on visualization for economists, and it connects directly to what we did today. His three principles — show the data, reduce the clutter, integrate text and graph — are exactly what Claude implements when you reference a style authority like "follow Schwabish's principles."</p>
-                    <p>The paper includes concrete before-and-after examples that are pedagogically powerful. The "before" versions look like default Excel output — cluttered, hard to read, 3D effects for no reason. The "after" versions communicate the same information clearly and immediately.</p>
-                    <p>Question 1 is the critical one: does AI make visualization better or just easier? A polished figure that misrepresents the data is worse than an ugly figure that is honest. Question 2 is practical — students should identify which journals they target and what figure conventions those journals use. Question 3 connects directly to the exercise — students evaluate their own output against Schwabish's criteria. Question 4 pushes deeper: visualization is not neutral, it is an argument. The same data presented as a line chart or a bar chart tells a different story. AI makes it trivial to try multiple visual framings, which is both an opportunity and a responsibility.</p>
                 </div>
             </details>
         </section>
