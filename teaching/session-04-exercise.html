@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Session 04 Exercise — From a Research Question to a Figure — AI-Assisted Research Methods</title>
-<meta name="description" content="Session 4 exercise handout. Replicate Paul Goldsmith-Pinkham's workflow on a marketing-relevant research question: start vague, let Claude discover FRED data, iterate on a publication-quality figure, and write a one-paragraph interpretation.">
+<meta name="description" content="Session 4 exercise handout. Replicate Paul Goldsmith-Pinkham's workflow on an interesting research question: start with what you know, let Claude discover FRED data, iterate on a publication-quality figure, and write a one-paragraph interpretation.">
 
 <style>
 /* ============================================================================
@@ -1489,7 +1489,7 @@ code.inline,
         <header class="study-header">
             <span class="study-header__session">Session 04 · Exercise</span>
             <h1>From a Research Question to a Figure</h1>
-            <p class="study-header__subtitle">Hands-on exercise — replicate Paul Goldsmith-Pinkham's workflow on a marketing-relevant question. Start vague, let Claude discover <span class="glossary-term" data-term="FRED">FRED</span> data, iterate on a publication-quality figure, and write a one-paragraph interpretation.</p>
+            <p class="study-header__subtitle">Hands-on exercise — replicate Paul Goldsmith-Pinkham's workflow on an interesting research question. Start with what you know, let Claude discover <span class="glossary-term" data-term="FRED">FRED</span> data, iterate on a publication-quality figure, and write a one-paragraph interpretation.</p>
             <div class="study-header__meta">
                 <span>👤 Kai Zhu</span>
                 <span>🏛️ Bocconi</span>
@@ -1524,7 +1524,7 @@ code.inline,
                 <h2>Overview</h2>
             </div>
             <div class="study-section__body">
-                <p>In this exercise, you will replicate the workflow demonstrated in the lecture: start with a vague research question, let Claude Code discover and download relevant data, create a publication-quality visualization, and iterate until the figure communicates clearly. By the end, you will have a reproducible script, a polished figure, and a brief written interpretation.</p>
+                <p>In this exercise, you will replicate the workflow demonstrated in the lecture: start with a research question — even if you do not yet know which dataset or source to use — let Claude Code discover and download relevant data, create a publication-quality visualization, and iterate until the figure communicates clearly. By the end, you will have a reproducible script, a polished figure, and a brief written interpretation.</p>
             </div>
         </section>
 
@@ -1537,7 +1537,7 @@ code.inline,
                 <ul>
                     <li>Claude Code installed and configured.</li>
                     <li>A <span class="glossary-term" data-term="FRED API key">FRED API key</span> (free; if you do not have one from a previous session, obtain it at <a href="https://fred.stlouisfed.org/docs/api/api_key.html" rel="noopener noreferrer">fred.stlouisfed.org/docs/api/api_key.html</a>).</li>
-                    <li>An empty working directory for this session (e.g., <code>session-analysis/</code>).</li>
+                    <li>An empty working directory for this session — choose a location that makes sense on your own laptop (e.g., <code>Documents/session-analysis/</code> or any folder you prefer).</li>
                 </ul>
             </div>
         </section>
@@ -1548,18 +1548,18 @@ code.inline,
                 <h2>Context</h2>
             </div>
             <div class="study-section__body">
-                <p>In the pre-class video, you saw Paul Goldsmith-Pinkham go from an empty folder to a publication-quality figure about US homeownership — in under 15 minutes. He started with a single vague sentence and let Claude Code handle data discovery, parsing, and visualization. Today's in-class discussion unpacked why that workflow worked.</p>
-                <p>You will now do the same with a marketing-relevant research question. The goal is not just to produce a figure, but to practice the five principles from the lecture: start vague, reference style authorities, iterate in small steps, request scripts, and retain research judgment.</p>
+                <p>In the pre-class video, you saw Paul Goldsmith-Pinkham go from an empty folder to a publication-quality figure about US homeownership — in under 15 minutes. He started with a single sentence — without specifying a dataset or source — and let Claude Code handle data discovery, parsing, and visualization. Today's in-class discussion unpacked why that workflow worked.</p>
+                <p>You will now do the same with an interesting research question of your own. The goal is not just to produce a figure, but to practice the five principles from the lecture: start with what you know, reference style authorities, iterate in small steps, request scripts, and retain research judgment.</p>
             </div>
         </section>
 
         <section class="study-section" id="s-5">
             <div class="study-section__header">
                 <span class="study-section__num">05</span>
-                <h2>Step 1 — Start with a Vague Question</h2>
+                <h2>Step 1 — Start with Your Research Question</h2>
             </div>
             <div class="study-section__body">
-                <p>Create an empty working directory and open Claude Code inside it:</p>
+                <p>Create an empty working directory and open Claude Code inside it. The path below is just an example — <strong>choose a directory that fits your own laptop's folder structure</strong>:</p>
 
                 <div class="code-block" data-lang="bash">
                     <div class="code-block__header">
@@ -1570,12 +1570,14 @@ code.inline,
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="code-block__code"><code>mkdir ~/session-analysis
-cd ~/session-analysis
+                    <pre class="code-block__code"><code># Pick your own path — these are just examples:
+mkdir ~/Documents/session04-analysis   # macOS / Linux
+mkdir ~/session04-analysis             # or any folder you like
+cd ~/Documents/session04-analysis      # cd into YOUR chosen folder
 claude</code></pre>
                 </div>
 
-                <p>Now give Claude a vague, exploratory prompt. You may use the suggested prompt below or write your own based on your research interests:</p>
+                <p>Now give Claude an exploratory prompt. You may use the suggested prompt below or write your own based on your research interests:</p>
 
                 <div class="prompt-card">
                     <div class="prompt-card__header">
@@ -1599,7 +1601,7 @@ claude</code></pre>
                             <li>"Which consumer spending categories were most affected by inflation in 2022–2023?"</li>
                             <li>"How does consumer confidence in the US compare across different time periods of economic stress?"</li>
                         </ul>
-                        <p>Or use a question related to your dissertation — the vaguer the better for this exercise.</p>
+                        <p>Or use a question related to your dissertation — you do not need to know the exact dataset upfront.</p>
                     </div>
                 </div>
 
