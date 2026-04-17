@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO — How to Dominate AI Search · Interactive Discussion Guide</title>
+<style>
+/* =========================================================
+   RESET & TOKENS
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F7F4EC;
+  --bg-alt: #EFEBE0;
+  --ink: #1A1F2E;
+  --ink-soft: #4A5266;
+  --ink-faint: #8A8F9E;
+  --rule: #D9D2C2;
+  --rule-soft: #E8E2D2;
+  --paper: #FDFBF5;
+
+  --brand: #D87B4C;
+  --earned: #3B5A7F;
+  --social: #8E7AB5;
+  --gold: #C9A961;
+  --danger: #B0503F;
+  --success: #4A7A56;
+
+  --serif: "Source Serif Pro", "Crimson Text", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --w-text: 680px;
+  --w-wide: 1100px;
+  --w-full: 1400px;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+h1, h2, h3, h4, .sans { font-family: var(--sans); letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 1.05; font-weight: 700; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.6em; }
+h3 { font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5em; }
+h4 { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 1em; }
+p { margin-bottom: 1.2em; }
+p + p { text-indent: 0; }
+
+a { color: var(--earned); text-decoration: none; border-bottom: 1px solid rgba(59, 90, 127, 0.3); transition: border-color 0.2s; }
+a:hover { border-bottom-color: var(--earned); }
+
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; }
+
+.mono { font-family: var(--mono); font-size: 0.88em; }
+.sc { font-variant-caps: all-small-caps; letter-spacing: 0.12em; font-weight: 600; }
+.hl { background: linear-gradient(180deg, transparent 55%, rgba(201, 169, 97, 0.35) 55%); padding: 0 2px; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.container { max-width: var(--w-wide); margin: 0 auto; padding: 0 2rem; }
+.text-col { max-width: var(--w-text); margin-left: auto; margin-right: auto; }
+section { padding: 6rem 0; position: relative; }
+section + section { border-top: 1px solid var(--rule-soft); }
+section.tight { padding: 4rem 0; }
+section.dark { background: var(--ink); color: var(--bg); }
+section.dark h2, section.dark h3, section.dark h4 { color: var(--bg); }
+section.dark .ink-soft { color: rgba(247, 244, 236, 0.7); }
+
+.eyebrow { font-family: var(--sans); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink-faint); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--ink-faint); }
+section.dark .eyebrow { color: rgba(247, 244, 236, 0.5); }
+section.dark .eyebrow::before { background: rgba(247, 244, 236, 0.5); }
+
+/* =========================================================
+   PROGRESS BAR + NAV
+   ========================================================= */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--brand), var(--gold), var(--earned));
+  z-index: 200; transition: width 0.1s linear;
+}
+
+#side-nav {
+  position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 0.6rem;
+  padding: 1rem 0.8rem; background: rgba(253, 251, 245, 0.85);
+  backdrop-filter: blur(10px); border: 1px solid var(--rule-soft);
+  border-radius: 24px; font-family: var(--sans); font-size: 0.8rem;
+}
+#side-nav a {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.5rem;
+  color: var(--ink-faint); border: none; border-radius: 12px;
+  transition: all 0.2s; white-space: nowrap; overflow: hidden;
+  max-width: 2rem; font-weight: 500;
+}
+#side-nav a .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); flex: none; transition: all 0.2s; }
+#side-nav a .label { opacity: 0; transition: opacity 0.2s; }
+#side-nav:hover a { max-width: 200px; padding: 0.3rem 0.8rem; }
+#side-nav:hover a .label { opacity: 1; }
+#side-nav a:hover { color: var(--ink); background: var(--bg-alt); }
+#side-nav a.active { color: var(--ink); }
+#side-nav a.active .dot { background: var(--brand); width: 8px; height: 8px; }
+
+@media (max-width: 900px) { #side-nav { display: none; } }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+#hero {
+  min-height: 92vh; display: flex; align-items: center;
+  background: var(--bg);
+  position: relative; overflow: hidden; padding: 4rem 0;
+}
+#hero::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(216, 123, 76, 0.06), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(59, 90, 127, 0.07), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(142, 122, 181, 0.05), transparent 55%);
+  pointer-events: none;
+}
+.hero-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 4rem; align-items: end; position: relative; z-index: 1; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+.hero-meta { font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2rem; }
+.hero-title { margin-bottom: 1.5rem; }
+.hero-sub { font-size: 1.25rem; color: var(--ink-soft); line-height: 1.55; margin-bottom: 2.5rem; max-width: 42rem; }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
+  padding: 1rem 1.8rem; background: var(--ink); color: var(--bg);
+  border: none; border-radius: 100px; cursor: pointer;
+  transition: all 0.3s var(--ease); letter-spacing: 0.02em;
+}
+.hero-cta:hover { background: var(--brand); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(216, 123, 76, 0.25); }
+.hero-cta .arr { transition: transform 0.3s var(--ease); }
+.hero-cta:hover .arr { transform: translateX(4px); }
+
+.hero-card {
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 1.8rem; border-radius: 4px; font-family: var(--sans); font-size: 0.85rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+.hero-card h4 { margin-bottom: 1rem; color: var(--ink-faint); font-size: 0.7rem; letter-spacing: 0.15em; }
+.hero-card dl { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1rem; font-size: 0.9rem; }
+.hero-card dt { color: var(--ink-faint); font-weight: 500; }
+.hero-card dd { color: var(--ink); font-weight: 500; }
+
+.authors { font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 0.5rem; }
+
+/* =========================================================
+   STATS
+   ========================================================= */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem; margin: 3rem 0;
+}
+.stat {
+  border-left: 3px solid var(--brand); padding-left: 1.2rem;
+}
+.stat.e { border-color: var(--earned); }
+.stat.s { border-color: var(--social); }
+.stat.g { border-color: var(--gold); }
+.stat-num { font-family: var(--sans); font-weight: 700; font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+.stat-unit { font-family: var(--sans); font-size: 1rem; color: var(--ink-soft); font-weight: 500; }
+.stat-lbl { font-family: var(--sans); font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.5rem; line-height: 1.4; }
+
+/* =========================================================
+   PULL QUOTE
+   ========================================================= */
+.pull {
+  font-family: var(--serif); font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.35; font-style: italic; color: var(--ink);
+  max-width: 40rem; margin: 3rem auto;
+  padding: 1.5rem 0; border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink); text-align: center;
+}
+.pull-cite { font-family: var(--sans); font-size: 0.85rem; font-style: normal; color: var(--ink-faint); margin-top: 1.2rem; letter-spacing: 0.05em; }
+
+/* =========================================================
+   BUTTONS / TABS / TOGGLES
+   ========================================================= */
+.tabs {
+  display: inline-flex; background: var(--bg-alt); padding: 4px;
+  border-radius: 100px; font-family: var(--sans); font-size: 0.85rem;
+  font-weight: 500; border: 1px solid var(--rule-soft);
+}
+.tabs button {
+  padding: 0.5rem 1.2rem; background: transparent; border: none;
+  color: var(--ink-soft); cursor: pointer; border-radius: 100px;
+  transition: all 0.2s; letter-spacing: 0.02em;
+}
+.tabs button.active { background: var(--ink); color: var(--bg); }
+.tabs button:hover:not(.active) { color: var(--ink); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--sans);
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.3rem 0.7rem; background: var(--bg-alt); color: var(--ink-soft);
+  border: 1px solid var(--rule-soft); border-radius: 100px;
+}
+.chip.b { color: var(--brand); border-color: rgba(216, 123, 76, 0.3); background: rgba(216, 123, 76, 0.08); }
+.chip.e { color: var(--earned); border-color: rgba(59, 90, 127, 0.3); background: rgba(59, 90, 127, 0.08); }
+.chip.s { color: var(--social); border-color: rgba(142, 122, 181, 0.3); background: rgba(142, 122, 181, 0.08); }
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.card {
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 2rem; border-radius: 6px;
+  transition: all 0.3s var(--ease);
+}
+.card:hover { border-color: var(--ink-faint); transform: translateY(-2px); }
+
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem; margin: 2rem 0;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+.pulse { animation: pulse-dot 2s infinite var(--ease); transform-origin: center; }
+
+/* =========================================================
+   SVG / VIZ COMMON
+   ========================================================= */
+.viz-wrap {
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 2rem; border-radius: 6px; margin: 2rem 0;
+}
+.viz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.viz-title { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; }
+.viz-caption { font-family: var(--sans); font-size: 0.82rem; color: var(--ink-soft); margin-top: 1rem; line-height: 1.5; }
+.legend { display: flex; gap: 1.2rem; font-family: var(--sans); font-size: 0.8rem; align-items: center; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+svg { display: block; overflow: visible; width: 100%; height: auto; }
+svg text { font-family: var(--sans); font-size: 12px; fill: var(--ink-soft); }
+svg .axis-lbl { font-size: 13px; fill: var(--ink); font-weight: 500; }
+
+/* =========================================================
+   UTILS
+   ========================================================= */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+.mt-0 { margin-top: 0; } .mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 2rem; } .mt-3 { margin-top: 3rem; }
+.mb-0 { margin-bottom: 0; } .mb-1 { margin-bottom: 1rem; } .mb-2 { margin-bottom: 2rem; }
+.ink-soft { color: var(--ink-soft); }
+.center { text-align: center; }
+.sep { height: 1px; background: var(--rule); margin: 3rem 0; max-width: 6rem; }
+
+/* =========================================================
+   CALLOUT
+   ========================================================= */
+.callout {
+  border-left: 3px solid var(--gold);
+  background: rgba(201, 169, 97, 0.07);
+  padding: 1.3rem 1.5rem; margin: 2rem 0; border-radius: 0 6px 6px 0;
+}
+.callout .label { font-family: var(--sans); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.5rem; }
+.callout p:last-child { margin-bottom: 0; }
+.callout.warn { border-color: var(--danger); background: rgba(176, 80, 63, 0.06); }
+.callout.warn .label { color: var(--danger); }
+.callout.note { border-color: var(--earned); background: rgba(59, 90, 127, 0.06); }
+.callout.note .label { color: var(--earned); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer {
+  background: var(--ink); color: var(--bg); padding: 5rem 0 3rem;
+  font-family: var(--sans); font-size: 0.9rem;
+}
+footer .container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; }
+@media (max-width: 700px) { footer .container { grid-template-columns: 1fr; } }
+footer h4 { color: var(--bg); margin-bottom: 1rem; }
+footer a { color: rgba(247, 244, 236, 0.8); border-color: rgba(247, 244, 236, 0.2); }
+footer a:hover { color: var(--gold); border-color: var(--gold); }
+footer .meta { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(247, 244, 236, 0.15); font-size: 0.8rem; color: rgba(247, 244, 236, 0.5); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PROGRESS + NAV
+     ============================================================ -->
+<div id="progress-bar"></div>
+
+<nav id="side-nav">
+  <a href="#hero" data-sec="hero"><span class="dot"></span><span class="label">Cover</span></a>
+  <a href="#moment" data-sec="moment"><span class="dot"></span><span class="label">The Moment</span></a>
+  <a href="#question" data-sec="question"><span class="dot"></span><span class="label">Core Question</span></a>
+  <a href="#methods" data-sec="methods"><span class="dot"></span><span class="label">Methodology</span></a>
+  <a href="#f1" data-sec="f1"><span class="dot"></span><span class="label">Earned Dominance</span></a>
+  <a href="#f2" data-sec="f2"><span class="dot"></span><span class="label">Social Vanishes</span></a>
+  <a href="#f3" data-sec="f3"><span class="dot"></span><span class="label">Low Overlap</span></a>
+  <a href="#f4" data-sec="f4"><span class="dot"></span><span class="label">Language Shift</span></a>
+  <a href="#f5" data-sec="f5"><span class="dot"></span><span class="label">Big-Brand Bias</span></a>
+  <a href="#f6" data-sec="f6"><span class="dot"></span><span class="label">Engine Profiles</span></a>
+  <a href="#agenda" data-sec="agenda"><span class="dot"></span><span class="label">GEO Agenda</span></a>
+  <a href="#critique" data-sec="critique"><span class="dot"></span><span class="label">Critique</span></a>
+  <a href="#discuss" data-sec="discuss"><span class="dot"></span><span class="label">Discussion</span></a>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-meta">Interactive Discussion Guide · Quantitative Marketing Seminar</div>
+        <h1 class="hero-title">Generative Engine Optimization<br><span style="color: var(--brand);">How to Dominate AI Search</span></h1>
+        <div class="authors">Mahe Chen, Xiaoxuan Wang, Kaiwen Chen & Nick Koudas · University of Toronto · 2025</div>
+        <p class="hero-sub">An interactive walkthrough of a large-scale audit of how ChatGPT, Claude, Perplexity and Gemini source information — and what that means when search is no longer a list of ten blue links, but a synthesized paragraph with a handful of citations.</p>
+        <button class="hero-cta" onclick="document.getElementById('moment').scrollIntoView()">
+          <span>Begin the discussion</span>
+          <span class="arr">→</span>
+        </button>
+      </div>
+      <div class="hero-card">
+        <h4>At a glance</h4>
+        <dl>
+          <dt>Scale</dt><dd>~1,000 prompts · 10 verticals · 4 AI engines + Google</dd>
+          <dt>Languages</dt><dd>EN · 中文 · 日本語 · DE · FR · ES</dd>
+          <dt>Personas</dt><dd>3 (young · family · retiree)</dd>
+          <dt>Collected</dt><dd>August 2025</dd>
+          <dt>Taxonomy</dt><dd><span class="chip b">Brand</span> <span class="chip e">Earned</span> <span class="chip s">Social</span></dd>
+          <dt>Acknowledged</dt><dd>ktau.ai (GEO vendor)</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 1: THE MOMENT
+     ============================================================ -->
+<section id="moment">
+  <div class="container text-col">
+    <div class="eyebrow">Part 1 · The Moment</div>
+    <h2>Search is quietly being rewritten.</h2>
+    <p>Google still holds roughly <strong>90% of traditional web search</strong>. On that headline number, nothing has changed. But if you look at the slice of queries people now resolve <em>without</em> a ten-blue-links page — the questions answered inside ChatGPT, the summaries that land above Google's organic results, the follow-ups inside Perplexity — a different picture emerges.</p>
+    <p>Users are still looking things up. They are just looking them up in systems that return a paragraph, not a list.</p>
+  </div>
+
+  <div class="container">
+    <div class="stat-grid reveal">
+      <div class="stat">
+        <div><span class="stat-num" data-count="34">0</span><span class="stat-unit">%</span></div>
+        <div class="stat-lbl">of U.S. adults have used ChatGPT (mid-2025), nearly double 2023.</div>
+      </div>
+      <div class="stat e">
+        <div><span class="stat-num" data-count="3.1">0</span><span class="stat-unit">B</span></div>
+        <div class="stat-lbl">visits to chat.openai.com in September 2024 (Similarweb).</div>
+      </div>
+      <div class="stat s">
+        <div><span class="stat-num" data-count="780">0</span><span class="stat-unit">M</span></div>
+        <div class="stat-lbl">monthly Perplexity queries disclosed in May 2025.</div>
+      </div>
+      <div class="stat g">
+        <div><span class="stat-num" data-count="81">0</span><span class="stat-unit">%</span></div>
+        <div class="stat-lbl">ChatGPT's share of global AI-chatbot traffic (StatCounter, July 2025).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>The zero-click problem</h3>
+    <p>When Google shows an AI summary, users click through far less. In a Pew field study of real-world searches:</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Click behavior on Google searches: with vs. without an AI summary</div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background: var(--earned);"></div>Clicked an organic link</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--gold);"></div>Clicked inside the AI box</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--danger);"></div>Ended session — no click</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--rule);"></div>Other behavior</div>
+        </div>
+      </div>
+      <svg id="zeroclick" viewBox="0 0 800 220" preserveAspectRatio="xMidYMid meet" style="max-width: 100%;">
+        <!-- WITHOUT AI -->
+        <text x="0" y="20" class="axis-lbl" font-weight="600">Without AI summary</text>
+        <g transform="translate(0, 40)">
+          <rect x="0" y="0" width="120" height="40" fill="var(--earned)"/>
+          <rect x="120" y="0" width="680" height="40" fill="var(--rule)" opacity="0.5"/>
+          <text x="60" y="25" fill="var(--paper)" font-weight="600" text-anchor="middle">15% clicked</text>
+          <text x="460" y="25" fill="var(--ink-soft)" text-anchor="middle">85% other behavior (read, scroll, leave without click)</text>
+        </g>
+        <!-- WITH AI -->
+        <text x="0" y="120" class="axis-lbl" font-weight="600">With AI summary</text>
+        <g transform="translate(0, 140)">
+          <rect x="0" y="0" width="64" height="40" fill="var(--earned)"/>
+          <rect x="64" y="0" width="8" height="40" fill="var(--gold)"/>
+          <rect x="72" y="0" width="208" height="40" fill="var(--danger)" opacity="0.75"/>
+          <rect x="280" y="0" width="520" height="40" fill="var(--rule)" opacity="0.5"/>
+          <text x="32" y="25" fill="var(--paper)" font-weight="600" text-anchor="middle" font-size="11">8%</text>
+          <text x="68" y="25" fill="var(--paper)" font-weight="600" text-anchor="middle" font-size="9">1%</text>
+          <text x="176" y="25" fill="var(--paper)" font-weight="600" text-anchor="middle">26% session ended</text>
+          <text x="540" y="25" fill="var(--ink-soft)" text-anchor="middle">65% other</text>
+        </g>
+      </svg>
+      <div class="viz-caption">Link-clicks nearly <strong>halved</strong> when Google showed an AI summary (from 15% → 8%). The AI box itself absorbed only ~1% of clicks. Most notably, ~26% of searches <strong>ended the session entirely</strong> — a classic zero-click outcome. Source: Pew Research field telemetry, cited in Chen et al. (2025).</div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout">
+      <div class="label">Think about this</div>
+      <p>If a quarter of users are satisfied by an AI summary and never click through, the entire SEO business model — <em>rank high, earn clicks, monetize attention</em> — fractures. Publishers lose traffic. Advertisers lose impressions. And brands lose their most direct channel to speak to customers in their own voice.</p>
+      <p><strong>The question is no longer "how do I rank on Google?" It is "how do I get mentioned in the answer?"</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: THE CORE QUESTION
+     ============================================================ -->
+<section id="question" class="dark">
+  <div class="container text-col">
+    <div class="eyebrow">Part 2 · The Core Question</div>
+    <h2>Does the SEO playbook still work — or do we need a new one?</h2>
+    <p class="ink-soft">For twenty years, the rules of winning attention online were remarkably stable. Know your keywords. Earn backlinks. Optimize page speed. Get on page one of Google. The game was called <strong style="color: var(--gold);">Search Engine Optimization (SEO)</strong>, and it was played against a ranking algorithm that produced ten blue links.</p>
+    <p class="ink-soft">AI search does not return ten blue links. It returns a paragraph with three to five citations. The entire topology of "visibility" has changed — from a ranked list a user can browse, to a synthesized shortlist the user never sees the sources of unless they click into a footnote.</p>
+  </div>
+
+  <div class="container" style="margin-top: 3rem;">
+    <div class="grid-2 reveal">
+      <div class="card" style="background: rgba(255,255,255,0.03); border-color: rgba(247,244,236,0.1); color: var(--bg);">
+        <div class="chip" style="background: rgba(247,244,236,0.1); color: var(--bg); border-color: rgba(247,244,236,0.2); margin-bottom: 1rem;">THE OLD GAME — SEO</div>
+        <h3 style="color: var(--bg);">Ten blue links</h3>
+        <ul style="font-family: var(--sans); font-size: 0.92rem; list-style: none; line-height: 1.9; opacity: 0.9;">
+          <li>→ Optimize for <strong>keywords</strong></li>
+          <li>→ Earn <strong>backlinks</strong> for rank</li>
+          <li>→ Target <strong>click-through rate</strong></li>
+          <li>→ Own the <strong>page-one listing</strong></li>
+          <li>→ Measure success in <strong>impressions</strong></li>
+          <li>→ Content strategy = <strong>long-tail coverage</strong></li>
+        </ul>
+      </div>
+      <div class="card" style="background: linear-gradient(135deg, rgba(216,123,76,0.15), rgba(201,169,97,0.08)); border-color: var(--gold); color: var(--bg);">
+        <div class="chip" style="background: var(--gold); color: var(--ink); border-color: var(--gold); margin-bottom: 1rem;">THE NEW GAME — GEO</div>
+        <h3 style="color: var(--bg);">A synthesized shortlist</h3>
+        <ul style="font-family: var(--sans); font-size: 0.92rem; list-style: none; line-height: 1.9; opacity: 0.95;">
+          <li>→ Engineer for <strong>machine scannability</strong></li>
+          <li>→ Earn <strong>citations in authoritative sources</strong></li>
+          <li>→ Target <strong>inclusion in the answer</strong></li>
+          <li>→ Own the <strong>justification attributes</strong></li>
+          <li>→ Measure success in <strong>AI mentions</strong></li>
+          <li>→ Content strategy = <strong>shortlist dominance</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col" style="margin-top: 3rem;">
+    <div class="callout note" style="background: rgba(201,169,97,0.08); border-color: var(--gold);">
+      <div class="label" style="color: var(--gold);">Empirical Question</div>
+      <p style="color: var(--bg);">Before the paper, almost nobody had actually <em>measured</em> whether traditional SEO signals — domain authority, page rank, keyword optimization — still produce visibility when the query goes through an LLM's web-search pipeline. Chen et al. ask the simplest possible version of this question:</p>
+      <p style="color: var(--bg);"><strong>Do AI search engines cite the same sources as Google — and if not, where do they diverge?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: METHODOLOGY
+     ============================================================ -->
+<section id="methods">
+  <div class="container text-col">
+    <div class="eyebrow">Part 3 · Methodology</div>
+    <h2>The audit pipeline</h2>
+    <p>The authors built a reproducible comparison pipeline and ran it across many conditions. Every experiment below is a variation on this core loop: generate prompts → run them on engines → extract citations → classify and aggregate.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Five-stage audit pipeline</div>
+        <div class="tabs" id="pipeline-tabs">
+          <button class="active" data-stage="0">① Prompt</button>
+          <button data-stage="1">② Execute</button>
+          <button data-stage="2">③ Extract</button>
+          <button data-stage="3">④ Classify</button>
+          <button data-stage="4">⑤ Aggregate</button>
+        </div>
+      </div>
+      <svg id="pipeline-svg" viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid meet">
+        <!-- Flow connectors -->
+        <line x1="120" y1="100" x2="260" y2="100" stroke="var(--rule)" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="340" y1="100" x2="480" y2="100" stroke="var(--rule)" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="560" y1="100" x2="700" y2="100" stroke="var(--rule)" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="780" y1="100" x2="920" y2="100" stroke="var(--rule)" stroke-width="2" stroke-dasharray="4,4"/>
+        <!-- Stage circles -->
+        <g class="stage" data-stage="0" style="cursor:pointer;">
+          <circle cx="60" cy="100" r="50" fill="var(--brand)" opacity="0.15"/>
+          <circle cx="60" cy="100" r="38" fill="var(--brand)"/>
+          <text x="60" y="106" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="14">Prompt</text>
+        </g>
+        <g class="stage" data-stage="1" style="cursor:pointer;">
+          <circle cx="300" cy="100" r="38" fill="var(--earned)" opacity="0.4"/>
+          <text x="300" y="106" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="14">Execute</text>
+        </g>
+        <g class="stage" data-stage="2" style="cursor:pointer;">
+          <circle cx="520" cy="100" r="38" fill="var(--earned)" opacity="0.4"/>
+          <text x="520" y="106" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="14">Extract</text>
+        </g>
+        <g class="stage" data-stage="3" style="cursor:pointer;">
+          <circle cx="740" cy="100" r="38" fill="var(--earned)" opacity="0.4"/>
+          <text x="740" y="106" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="12">Classify</text>
+        </g>
+        <g class="stage" data-stage="4" style="cursor:pointer;">
+          <circle cx="960" cy="100" r="38" fill="var(--earned)" opacity="0.4"/>
+          <text x="960" y="106" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="11">Aggregate</text>
+        </g>
+      </svg>
+      <div id="pipeline-detail" style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-alt); border-radius: 6px; min-height: 120px; font-family: var(--sans); font-size: 0.92rem; line-height: 1.7;">
+        <strong style="font-size: 1rem;">① Prompt generation.</strong> Ranking-style prompts ("Top 10 X brands in [region]") are generated and programmatically rewritten for experimental conditions — translated into 5 target languages, rephrased under 7 paraphrase templates, conditioned on 3 personas. All transformations use GPT-4o as an instruction-following rewriter (no web browsing).
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>The four AI engines + Google</h3>
+    <p>Each prompt is dispatched in parallel to one or more <strong>web-enabled</strong> AI engines. Web-enabled matters: these are not pure LLM knowledge lookups — the models query the live web and cite what they find.</p>
+  </div>
+
+  <div class="container">
+    <div class="card-grid">
+      <div class="card"><div class="chip e">Perplexity</div><h3 style="margin-top: 1rem;">sonar-pro</h3><p class="ink-soft" style="font-family: var(--sans); font-size: 0.88rem;">Web search enabled · medium context · designed as a search-first assistant.</p></div>
+      <div class="card"><div class="chip b">Claude</div><h3 style="margin-top: 1rem;">claude-3.5-sonnet</h3><p class="ink-soft" style="font-family: var(--sans); font-size: 0.88rem;">Anthropic's web_search_20250305 tool · conservative retrieval.</p></div>
+      <div class="card"><div class="chip s">Gemini</div><h3 style="margin-top: 1rem;">gemini-2.5-flash</h3><p class="ink-soft" style="font-family: var(--sans); font-size: 0.88rem;">Google Search grounding enabled via generation config.</p></div>
+      <div class="card"><div class="chip" style="background: rgba(74,122,86,0.08); color: var(--success); border-color: rgba(74,122,86,0.3);">GPT</div><h3 style="margin-top: 1rem;">gpt-4o-search-preview</h3><p class="ink-soft" style="font-family: var(--sans); font-size: 0.88rem;">OpenAI's web-enabled variant of GPT-4o.</p></div>
+      <div class="card" style="border-color: var(--ink); background: var(--bg-alt);"><div class="chip" style="background: var(--ink); color: var(--paper); border-color: var(--ink);">Google</div><h3 style="margin-top: 1rem;">Custom Search API</h3><p class="ink-soft" style="font-family: var(--sans); font-size: 0.88rem;">Top-10 web results · unmediated by an LLM · the baseline.</p></div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>The Brand / Earned / Social taxonomy</h3>
+    <p>Every cited URL is normalized to its registrable domain (<code class="mono">https://www.bankrate.com/...</code> → <code class="mono">bankrate.com</code>) and then classified by GPT-4o-search-preview into one of three categories. This three-way split is the central analytical frame of the entire paper — which means the story the data tells is shaped by this choice.</p>
+  </div>
+
+  <div class="container">
+    <div class="grid-3 reveal">
+      <div class="card" style="border-top: 4px solid var(--brand);">
+        <h4 style="color: var(--brand);">Brand</h4>
+        <p style="font-family: var(--sans); font-size: 0.9rem;">Official brand or retailer sites that directly provide products or services.</p>
+        <p class="mono" style="font-size: 0.8rem; color: var(--ink-faint);">apple.com · chase.com · toyota.com · bestbuy.com</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--earned);">
+        <h4 style="color: var(--earned);">Earned</h4>
+        <p style="font-family: var(--sans); font-size: 0.9rem;">Independent editorial, review, or comparison outlets — third-party authority.</p>
+        <p class="mono" style="font-size: 0.8rem; color: var(--ink-faint);">techradar.com · nerdwallet.com · forbes.com · consumerreports.org</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--social);">
+        <h4 style="color: var(--social);">Social</h4>
+        <p style="font-family: var(--sans); font-size: 0.9rem;">Community, forum, and user-generated content platforms.</p>
+        <p class="mono" style="font-size: 0.8rem; color: var(--ink-faint);">reddit.com · youtube.com · quora.com · tiktok.com</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout warn">
+      <div class="label">A caveat worth holding onto</div>
+      <p>The Brand/Earned/Social schema is a <em>constructed</em> frame. A different team with finer-grained categories (news vs. review vs. e-commerce vs. corporate blog) would produce different absolute shares. <strong>The relative patterns across engines are more robust than the exact percentages.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: FINDING 1 — EARNED DOMINANCE
+     ============================================================ -->
+<section id="f1">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 1 · The Central Result</div>
+    <h2>AI search is overwhelmingly Earned.</h2>
+    <p>When the same ranking-style query ("Top 10 smartphones in 2024") is issued to Google and to GPT, the distribution of cited domain types looks <em>completely different</em>. Google returns a balanced mix of brand, earned, and social sources. GPT — and Claude, similarly — strips out social almost entirely and concentrates on editorial third-party outlets.</p>
+    <p>The effect holds across regions (US + Canada), across verticals (Consumer Electronics, Automotive, Software), and becomes the dominant signature of the paper.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Source-type mix by vertical — Google vs. GPT (US/Canada)</div>
+        <div class="tabs" id="f1-tabs">
+          <button class="active" data-v="auto">Automotive</button>
+          <button data-v="ce">Consumer Electronics</button>
+          <button data-v="sw">Software Products</button>
+        </div>
+      </div>
+      <div class="grid-2" style="gap: 2rem;">
+        <div>
+          <h4 style="margin-bottom: 1rem;">Interactive distribution</h4>
+          <svg id="f1-chart" viewBox="0 0 520 340" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="legend" style="margin-top: 1rem;">
+            <div class="legend-item"><div class="legend-dot" style="background: var(--brand);"></div>Brand</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--earned);"></div>Earned</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--social);"></div>Social</div>
+          </div>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 1rem;">Original figure (paper)</h4>
+          <img id="f1-fig" src="TeX Source/sec4-2-1-3-fig2.png" alt="Automotive distribution figure" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+          <div class="viz-caption" id="f1-caption">Figure: Automotive distribution of source types (Brand, Earned, Social) across Google and GPT in Canada and USA.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>The pattern, in one sentence</h3>
+    <p>Across every tested combination of vertical × region, AI search is <strong>earned-heavy</strong> (often 70–90%) and <strong>social-sparse</strong> (often near zero), while Google remains <strong>balanced</strong> — with substantial brand and social presence alongside earned. The asymmetry is largest in consumer electronics, where GPT reaches <span class="hl">92.1% earned</span> in the US versus Google's 52.4%.</p>
+
+    <div class="callout">
+      <div class="label">Discussion</div>
+      <p><strong>Why might AI engines prefer editorial over brand-owned content?</strong> Candidate mechanisms to weigh: (a) RLHF training rewards "balanced" or "authoritative" sources; (b) retrieval ranking quietly inherits Google's E-E-A-T signals; (c) LLMs treat synthesis as a journalistic task and default to journalistic sources; (d) brand pages tend to be promotional prose that retrieval systems down-weight. Which do <em>you</em> find most plausible?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: FINDING 2 — SOCIAL VANISHES
+     ============================================================ -->
+<section id="f2" style="background: var(--bg-alt);">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 2 · A Structural Shift</div>
+    <h2>Social content nearly disappears.</h2>
+    <p>This is the finding with the largest second-order consequences. On Google, Reddit, Quora, YouTube and similar community-driven platforms can be <span class="hl">15–25% of top-10 results</span> for product-adjacent queries — a reflection of the fact that people often trust peer discussion more than a branded landing page.</p>
+    <p>When ChatGPT or Claude answer the same query, that share collapses to <strong>effectively zero</strong>. Perplexity is a partial exception — it does surface YouTube — but Reddit is absent almost everywhere.</p>
+  </div>
+
+  <div class="container">
+    <div class="grid-2 reveal">
+      <div>
+        <h4 style="margin-bottom: 1rem;">Overlap of cited links, Google vs. GPT</h4>
+        <img src="TeX Source/fig1.png" alt="Referenced Links Overlap Comparison" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <div class="viz-caption">Referenced link overlap at k=5 and k=10 between Google and GPT. Even where source-type distributions rhyme, the <strong>specific domains</strong> cited diverge — Jaccard often stays under 0.25 for product queries.</div>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 1rem;">Domain classification shares across engines</h4>
+        <img src="TeX Source/fig8.png" alt="Domain classification shares" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <div class="viz-caption">The <strong style="color: var(--social);">purple social slices</strong> are almost invisible for Claude and GPT. Perplexity retains a small social presence, driven largely by YouTube. Gemini sits between.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout warn">
+      <div class="label">A consequential asymmetry</div>
+      <p>This is not just a stylistic difference. Community discussion is where <em>lived experience, minority opinions, edge cases, and counter-consensus</em> live. If AI systems are systematically stripping that layer out of discovery, they may be producing answers that feel more authoritative and less idiosyncratic — but also flatter, more homogenized, and more susceptible to the biases of a small set of editorial gatekeepers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6: FINDING 3 — LOW INTER-ENGINE OVERLAP
+     ============================================================ -->
+<section id="f3">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 3 · Engine-Specific Ecosystems</div>
+    <h2>Each AI engine lives in a different information world.</h2>
+    <p>Suppose Claude, ChatGPT, and Perplexity all answer the question "Best family SUVs in 2024." How much do their cited domains overlap? The Jaccard similarity — <em>the fraction of unique domains common to both systems</em> — turns out to be strikingly low, often under 0.25.</p>
+    <p>In practical terms: a brand that dominates the citation pool on one engine can be <em>entirely absent</em> on another. Winning visibility on Perplexity says almost nothing about visibility on Claude.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Inter-engine domain overlap (Jaccard similarity)</div>
+        <div class="tabs" id="f3-tabs">
+          <button class="active" data-v="auto">Automotive</button>
+          <button data-v="ce">Consumer Electronics</button>
+        </div>
+      </div>
+      <div class="grid-2" style="gap: 2rem;">
+        <div>
+          <h4 style="margin-bottom: 1rem;">Pairwise overlap matrix</h4>
+          <svg id="f3-matrix" viewBox="0 0 400 340" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="viz-caption" id="f3-caption">Jaccard = |A ∩ B| / |A ∪ B|. A value of 0.15 means only ~15% of the combined domain universe is shared between the two engines.</div>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 1rem;">Domain-diversity breakdown (paper)</h4>
+          <img id="f3-img" src="TeX Source/fig11.png" alt="Domain diversity automotive" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+          <div class="viz-caption" id="f3-imgcap">Each engine contributes a large fraction of <strong>exclusive domains</strong>. Only a narrow "core" (<em>Car and Driver</em>, <em>Edmunds</em>, <em>Consumer Reports</em>) appears across all three.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <p>The same pattern appears in <strong>local services</strong> (auto repair, dentists, moving companies), where the fragmentation is even more pronounced — only a handful of review aggregators (<code class="mono">homestars.com</code>, <code class="mono">opencare.com</code>) appear in all four systems.</p>
+  </div>
+
+  <div class="container">
+    <div class="grid-3 reveal">
+      <figure style="margin: 0;">
+        <img src="TeX Source/auto_repair_domain_diversity.png" alt="Auto repair diversity" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <figcaption class="viz-caption"><strong>Auto Repair</strong> — Gemini & Perplexity surface ~2× the distinct domains of Claude & GPT.</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src="TeX Source/dentists_domain_diversity.png" alt="Dentists diversity" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <figcaption class="viz-caption"><strong>Dentists</strong> — 151 domains on Gemini vs. 51 on GPT. Exclusivity runs 40–68% per engine.</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src="TeX Source/moving_companies_domain_diversity.png" alt="Moving companies diversity" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <figcaption class="viz-caption"><strong>Moving Companies</strong> — GPT shows 61% unique domains; engines rarely consent on who's trustworthy.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout">
+      <div class="label">Think about this</div>
+      <p>If the information you see depends fundamentally on <em>which engine you picked</em>, consumer decisions start to carry a new kind of idiosyncratic risk. A shopper consulting Claude and a shopper consulting Perplexity may not be comparing the same brands — they may be comparing different <em>universes</em> of brands. What does "informed consumer" mean in that world?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7: FINDING 4 — LANGUAGE > PARAPHRASE
+     ============================================================ -->
+<section id="f4" style="background: var(--bg-alt);">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 4 · Fragility of Results</div>
+    <h2>Translating the query changes the answer more than rewording it.</h2>
+    <p>The authors run two sensitivity experiments. First: translate the same query into Chinese, Japanese, German, French, or Spanish — does the engine cite the same sites? Second: rephrase the query within English (add a justification constraint, compress to keywords, demand ranked order) — same question.</p>
+    <p>The result is clear. <strong>Paraphrases perturb results only modestly; language swaps restructure them wholesale</strong> — but how much depends dramatically on which engine you're asking.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Cross-language domain stability, by engine</div>
+        <div class="tabs" id="f4-tabs">
+          <button class="active" data-v="claude">Claude</button>
+          <button data-v="gpt">GPT</button>
+          <button data-v="perplexity">Perplexity</button>
+          <button data-v="gemini">Gemini</button>
+          <button data-v="google">Google</button>
+        </div>
+      </div>
+      <img id="f4-img" src="TeX Source/language_sensitivity_figs/domain_overlap_claude_heatmap.png" alt="Language sensitivity Claude" style="width: 100%; max-width: 700px; margin: 0 auto; display: block; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+      <div class="viz-caption" id="f4-cap" style="text-align: center; margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto;"><strong>Claude</strong> — The most stable engine across languages. Darker cells mean higher overlap between English and the target-language query's cited domains. Claude tends to re-use English-language authority domains even when the query is in Chinese or Japanese.</div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>Four distinct behaviors</h3>
+    <div class="grid-2" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="chip b" style="margin-bottom: 0.6rem;">Claude</div>
+        <p style="font-family: var(--sans); font-size: 0.92rem; margin-bottom: 0;"><strong>English anchor.</strong> Reuses a stable set of English-language authority domains across all tested languages. Think <em>Forbes</em>, <em>TechRadar</em>, <em>Consumer Reports</em> surfacing whether you ask in French or in Mandarin.</p>
+      </div>
+      <div class="card">
+        <div class="chip" style="background: rgba(74,122,86,0.08); color: var(--success); border-color: rgba(74,122,86,0.3); margin-bottom: 0.6rem;">GPT</div>
+        <p style="font-family: var(--sans); font-size: 0.92rem; margin-bottom: 0;"><strong>Full swap.</strong> Near-zero overlap across languages. Effectively taps a different website ecosystem per language — German queries hit <em>chip.de</em>, Spanish queries hit Spanish review sites.</p>
+      </div>
+      <div class="card">
+        <div class="chip e" style="margin-bottom: 0.6rem;">Perplexity</div>
+        <p style="font-family: var(--sans); font-size: 0.92rem; margin-bottom: 0;"><strong>Comparable to Google.</strong> Modest overlap with isolated vertical pockets. Brand lists are more stable than domain lists — the named products rhyme across languages even when the sources don't.</p>
+      </div>
+      <div class="card">
+        <div class="chip s" style="margin-bottom: 0.6rem;">Gemini</div>
+        <p style="font-family: var(--sans); font-size: 0.92rem; margin-bottom: 0;"><strong>Mixed, vertical-dependent.</strong> Noticeably higher overlap in some pairs (EN–DE laptops ≈ 0.32) but low elsewhere. Inherits Google's localization gradient given its search-grounding.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 3rem;">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Paraphrase sensitivity — same language, different wording</div>
+        <div class="tabs" id="para-tabs">
+          <button class="active" data-v="google">Google</button>
+          <button data-v="gpt">GPT</button>
+          <button data-v="perplexity">Perplexity</button>
+          <button data-v="gemini">Gemini</button>
+        </div>
+      </div>
+      <img id="para-img" src="TeX Source/paraphrase_sensitivity_figs/domain_overlap_google_heatmap.png" alt="Paraphrase sensitivity Google" style="width: 100%; max-width: 700px; margin: 0 auto; display: block; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+      <div class="viz-caption" id="para-cap" style="text-align: center; margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto;"><strong>Google</strong> — Moderately sensitive to paraphrasing, <em>except</em> when the rewrite is a pure format change (imperative/keyword list), which surprisingly yields the highest stability.</div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout note">
+      <div class="label">Takeaway for multilingual strategy</div>
+      <p>A brand that wants visibility in Japan cannot simply translate its English brand content and expect GPT to cite it — GPT will look for a Japanese <em>earned</em> source. But if the target engine is Claude, English-language authority may still be recognized. There is no single "multilingual SEO" solution; <strong>authority must be localized per engine</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8: FINDING 5 — BIG-BRAND BIAS
+     ============================================================ -->
+<section id="f5">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 5 · The Gravitational Pull</div>
+    <h2>When you don't specify, AI gives you Coca-Cola.</h2>
+    <p>The authors design a clean test for "big-brand bias." They take 50 unbranded prompts — <em>"most popular cola brand," "best selling soda in the world," "top cola brands everyone knows"</em> — and ask ChatGPT and Perplexity to answer. Every named brand is then mapped to one of three buckets: a curated list of 20 global <strong>majors</strong> (Coca-Cola, Pepsi, Dr Pepper, ...), a list of 20 <strong>niche/indie</strong> brands (Jones Soda, Faygo, Cheerwine, ...), or "other."</p>
+    <p>The result is a clean demonstration of the structural advantage large, well-covered brands enjoy in AI recommendations.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Cola brand mentions · unbranded prompts · ChatGPT vs. Perplexity</div>
+        <div class="tabs" id="f5-tabs">
+          <button class="active" data-v="combined">Combined</button>
+          <button data-v="gpt">ChatGPT</button>
+          <button data-v="perplexity">Perplexity</button>
+        </div>
+      </div>
+      <div class="grid-2" style="gap: 2rem;">
+        <div>
+          <h4 style="margin-bottom: 1rem;">Share of mentions</h4>
+          <svg id="f5-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="legend" style="margin-top: 1rem;">
+            <div class="legend-item"><div class="legend-dot" style="background: var(--brand);"></div>Major brands</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--social);"></div>Niche/indie brands</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--rule);"></div>Other</div>
+          </div>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 1rem;">Individual brand counts (paper)</h4>
+          <img id="f5-img" src="TeX Source/big_brand_bias/brand_distribution_combined.png" alt="Big brand bias combined" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+          <div class="viz-caption" id="f5-imgcap"><strong>Coca-Cola and Pepsi dominate the head</strong>; Dr Pepper occupies the next tier; niche brands like Jones Soda or Faygo surface but at 10–20× lower frequency.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="grid-2" style="margin-top: 1rem;">
+      <div class="card">
+        <h3>ChatGPT</h3>
+        <div style="font-family: var(--sans); font-size: 0.92rem; line-height: 1.9; color: var(--ink-soft);">
+          <div><span class="num" style="color: var(--brand); font-size: 1.8rem; font-weight: 700;">56.3%</span> major</div>
+          <div><span class="num" style="color: var(--social); font-size: 1.1rem; font-weight: 600;">12.3%</span> niche/indie</div>
+          <div><span class="num" style="font-size: 1.1rem; font-weight: 600;">31.4%</span> other</div>
+        </div>
+        <p style="font-family: var(--sans); font-size: 0.85rem; margin-top: 1rem; margin-bottom: 0;">Evidence base: <em>Wikipedia</em> dominates citations (~19.7%), supplemented by a concentrated set of food/review sites.</p>
+      </div>
+      <div class="card" style="border-color: var(--brand);">
+        <h3>Perplexity <span class="chip b" style="margin-left: 0.5rem;">Stronger bias</span></h3>
+        <div style="font-family: var(--sans); font-size: 0.92rem; line-height: 1.9; color: var(--ink-soft);">
+          <div><span class="num" style="color: var(--brand); font-size: 1.8rem; font-weight: 700;">67.9%</span> major</div>
+          <div><span class="num" style="color: var(--social); font-size: 1.1rem; font-weight: 600;">5.8%</span> niche/indie</div>
+          <div><span class="num" style="font-size: 1.1rem; font-weight: 600;">26.3%</span> other</div>
+        </div>
+        <p style="font-family: var(--sans); font-size: 0.85rem; margin-top: 1rem; margin-bottom: 0;">Evidence base: broader long tail (~60% "Other") with <em>YouTube</em> as top single source.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout warn">
+      <div class="label">The irony</div>
+      <p>Perplexity — the engine with the <em>most diverse source mix</em> — shows the <em>strongest</em> big-brand bias in recommendations. Source diversity does not translate to recommendation diversity. The gravitational pull of prominence operates at the synthesis stage, not the retrieval stage.</p>
+    </div>
+    <div class="callout">
+      <div class="label">Discussion</div>
+      <p><strong>Is big-brand bias a bug or a feature?</strong> Three framings worth weighing:<br>
+      <em>(a) Information quality frame</em> — Coca-Cola really is the most-mentioned cola; the model is accurately reflecting the world.<br>
+      <em>(b) Market-fairness frame</em> — niche brands are being foreclosed from consumer consideration sets by a synthesis step they cannot influence.<br>
+      <em>(c) Welfare frame</em> — consumers wanted "options they haven't heard of," and the model gave them options they already knew.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9: ENGINE PROFILES + PERSONAS + FRESHNESS
+     ============================================================ -->
+<section id="f6" style="background: var(--bg-alt);">
+  <div class="container text-col">
+    <div class="eyebrow">Finding 6 · Engine Identity Matters</div>
+    <h2>The engine you pick matters more than the persona you are.</h2>
+    <p>Across all experiments, one meta-finding emerges: <strong>variation <em>between engines</em> is consistently larger than variation within an engine across personas, paraphrases, or even freshness.</strong> In the banking experiment (three personas × four engines × ranking queries), who the engine is explains far more of the cited-domain distribution than who the user is.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Bank-ranking queries · source-type mix by engine × persona</div>
+      </div>
+      <img src="TeX Source/persona_impact/classification_by_model_persona_grid.png" alt="Classification by model x persona" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+      <div class="viz-caption">Rows = engines (Claude, Perplexity, ChatGPT, Gemini). Columns = personas (young professional, family, retiree). Note how each <em>row</em> is relatively uniform — the engine stamps its signature across personas — while <em>columns</em> differ dramatically. <strong>Engine &gt;&gt; persona</strong> as an explanatory variable.</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid-2 reveal" style="margin-top: 2rem;">
+      <div>
+        <h4 style="margin-bottom: 1rem;">Overall distribution (all personas/engines pooled)</h4>
+        <img src="TeX Source/persona_impact/overall_classification_distribution.png" alt="Overall distribution" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <div class="viz-caption">Pooled over all banking queries and engines: <strong>64.6% earned · 34.1% brand · 1.2% social.</strong> Social is effectively absent from financial queries.</div>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 1rem;">Top-10 domains for bank queries</h4>
+        <img src="TeX Source/persona_impact/overall_top10_domains_classification.png" alt="Top 10 domains" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white;">
+        <div class="viz-caption"><em>Bankrate</em> and <em>NerdWallet</em> lead; CNBC, Forbes, Yahoo Finance follow. The financial-information ecosystem is anchored by a few evergreen editorial hubs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>Freshness varies by vertical</h3>
+    <p>In <strong>consumer electronics</strong>, Claude's mean article age is ~117 days (median 62). Fresh enough. In <strong>automotive</strong>, the mean balloons to <span class="hl">~331 days</span> — Claude and GPT lean on static "best-of" ranking pages that don't age well. Perplexity compensates with more YouTube and retail content, which is fresher but more commercially entangled.</p>
+  </div>
+
+  <div class="container">
+    <div class="viz-wrap reveal">
+      <div class="viz-header">
+        <div class="viz-title">Article age distribution by vertical × engine</div>
+      </div>
+      <img src="TeX Source/fig7.png" alt="Article freshness distribution" style="width: 100%; border: 1px solid var(--rule); border-radius: 4px; background: white; max-width: 800px; margin: 0 auto; display: block;">
+      <div class="viz-caption" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; margin-top: 1rem;">Automotive is the freshness trouble zone. The reliance on editorial ranking articles means AI engines can confidently cite year-old comparisons as if they reflect the current market.</div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <h3>Four engine personalities</h3>
+  </div>
+  <div class="container">
+    <div class="grid-2 reveal">
+      <div class="card" style="border-top: 4px solid var(--brand);">
+        <h3>Claude <span class="chip b" style="margin-left: 0.5rem;">Conservative authority</span></h3>
+        <p style="font-family: var(--sans); font-size: 0.92rem;">Most earned-heavy (~87% in brand queries). English-anchored across languages. Narrow domain set — consistent, authoritative, and slow to freshness-update.</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--earned);">
+        <h3>ChatGPT <span class="chip e" style="margin-left: 0.5rem;">Editorial canon</span></h3>
+        <p style="font-family: var(--sans); font-size: 0.92rem;">Most earned-heavy (93%+). Swaps site ecosystems completely across languages. Leans on Wikipedia + canonical review outlets (TechRadar, Tom's Guide, Wikipedia, AP).</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--social);">
+        <h3>Perplexity <span class="chip s" style="margin-left: 0.5rem;">Diverse & commercial</span></h3>
+        <p style="font-family: var(--sans); font-size: 0.92rem;">Most heterogeneous — surfaces YouTube + retail (BestBuy, Cars.com) alongside editorial. Paradoxically shows the strongest big-brand bias despite source diversity.</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--gold);">
+        <h3>Gemini <span class="chip" style="background: rgba(201,169,97,0.1); color: var(--gold); border-color: rgba(201,169,97,0.3); margin-left: 0.5rem;">Brand-tolerant hybrid</span></h3>
+        <p style="font-family: var(--sans); font-size: 0.92rem;">Most brand-friendly of the four — 25–30% brand share in verticals where others drop to 5–10%. Search-grounding inherits Google's localization gradient.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 10: THE GEO AGENDA
+     ============================================================ -->
+<section id="agenda">
+  <div class="container text-col">
+    <div class="eyebrow">Part 5 · The Prescriptions</div>
+    <h2>The GEO Agenda — six strategic imperatives</h2>
+    <p>The descriptive findings anchor a prescriptive framework: <strong>six imperatives</strong> the authors argue brands must follow to remain visible in AI search. Click each to expand the reasoning.</p>
+    <p class="ink-soft" style="font-size: 0.92rem;"><em>Read these carefully. They are the industry-facing agenda the paper defends, and — because of the ktau.ai acknowledgment — they carry a particular framing that's worth noticing.</em></p>
+  </div>
+
+  <div class="container">
+    <div class="agenda-list reveal" id="agenda-list">
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">01</span>
+          <span class="agenda-title">Engineer for agency &amp; scannability</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>AI agents must parse, interpret, and cite information — they behave like clients of an API, not readers of a marketing brochure. Treat your website as an API: rigorous <code class="mono">Schema.org</code> markup for every entity (price, spec, warranty, rating), structured comparison tables, explicit pros/cons, bolded value propositions that a synthesis step can lift as "justification attributes."</p>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">02</span>
+          <span class="agenda-title">Dominate earned media across all engines</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>The single most-consistent finding. Shift PR budget from owned content and social engagement toward a systematic campaign of third-party features, reviews, and expert commentary. Backlinks from top-tier authoritative domains are not a Google ranking factor anymore — they are <strong>the direct input into AI's trust judgment</strong>.</p>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">03</span>
+          <span class="agenda-title">Engine-specific tactics for visibility</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>Claude/ChatGPT reward placement in the canonical earned-media set (<em>Forbes, Consumer Reports, TechRadar</em>). Perplexity rewards YouTube creator relationships + accurate retail listings. Gemini tolerates — even rewards — deep on-domain content. <strong>Allocate differently per engine based on where your category's audience is.</strong></p>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">04</span>
+          <span class="agenda-title">Localize authority, not just content</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>The language experiment settles this: you cannot win GPT in German by translating your English brand page. You need earned coverage in <em>German-language</em> publications. For Claude, English authority may still transfer. Multilingual GEO is dual-path — local-language earned media <em>and</em> English authority.</p>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">05</span>
+          <span class="agenda-title">Engineer for the shortlist (comparison + justification)</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>Ten blue links reward quantity. Shortlists reward <em>extractable justification</em>. Every product page should answer "why this one?" in a form a synthesizer can quote: "longest battery life," "most rugged build," "best value under $500." Structured comparison tables beat flowing prose.</p>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <button class="agenda-head">
+          <span class="agenda-num">06</span>
+          <span class="agenda-title">Overcome the big-brand bias (niche playbook)</span>
+          <span class="agenda-toggle">+</span>
+        </button>
+        <div class="agenda-body">
+          <p>For smaller brands, the head-of-distribution bias is a structural disadvantage. Strategy: over-invest in <em>specialty</em> earned media (niche publications the synthesizer has learned to trust for a specific category) and <em>YouTube expertise</em>, where authenticity substitutes for scale. The goal is to be <strong>Perplexity-visible first</strong>, with eventual migration to Claude/GPT.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.agenda-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.agenda-item { border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); overflow: hidden; transition: all 0.3s var(--ease); }
+.agenda-item.open { border-color: var(--ink); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+.agenda-head { width: 100%; display: flex; align-items: center; gap: 1.5rem; padding: 1.3rem 1.5rem; background: transparent; border: none; cursor: pointer; font-family: var(--sans); text-align: left; transition: background 0.2s; }
+.agenda-head:hover { background: var(--bg-alt); }
+.agenda-num { font-size: 0.85rem; font-weight: 700; color: var(--ink-faint); min-width: 2rem; letter-spacing: 0.05em; }
+.agenda-title { flex: 1; font-size: 1.1rem; font-weight: 600; color: var(--ink); }
+.agenda-toggle { font-size: 1.5rem; font-weight: 300; color: var(--ink-faint); transition: transform 0.3s var(--ease); }
+.agenda-item.open .agenda-toggle { transform: rotate(45deg); color: var(--brand); }
+.agenda-body { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+.agenda-item.open .agenda-body { max-height: 500px; }
+.agenda-body p { padding: 0 1.5rem 1.5rem 4.7rem; margin: 0; font-family: var(--sans); font-size: 0.95rem; color: var(--ink-soft); line-height: 1.65; }
+@media (max-width: 600px) { .agenda-head { gap: 0.8rem; padding: 1rem; } .agenda-body p { padding: 0 1rem 1.2rem 1rem; } }
+</style>
+
+<!-- ============================================================
+     SECTION 11: CRITIQUE
+     ============================================================ -->
+<section id="critique" class="dark">
+  <div class="container text-col">
+    <div class="eyebrow">Part 6 · A Critical Lens</div>
+    <h2>What the paper gets right — and what to question.</h2>
+    <p class="ink-soft">Good seminar discussion of an industry-adjacent paper means reading it with both appreciation and skepticism. The empirics here are genuine and large-scale. The normative framing, though, is worth interrogating.</p>
+  </div>
+
+  <div class="container">
+    <div class="grid-2 reveal" style="margin-top: 2rem;">
+      <div>
+        <h3 style="color: var(--gold);">Strengths</h3>
+        <ul style="font-family: var(--sans); font-size: 0.95rem; list-style: none; line-height: 1.9;">
+          <li>✓ <strong>Scale.</strong> ~1,000 prompts × 10 verticals × 5 languages × 4 engines is genuinely large.</li>
+          <li>✓ <strong>Controlled factorials.</strong> Language, paraphrase, persona dimensions are varied systematically.</li>
+          <li>✓ <strong>Dual metric.</strong> Jaccard on both domain sets <em>and</em> brand sets disentangles "what sources?" from "what recommendations?"</li>
+          <li>✓ <strong>Reproducibility-minded.</strong> Exact engine versions, prompt templates, and classification procedures documented.</li>
+          <li>✓ <strong>Honest limitations.</strong> Temporal specificity, classifier subjectivity, and black-box opacity are all flagged.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color: var(--danger);">Open concerns</h3>
+        <ul style="font-family: var(--sans); font-size: 0.95rem; list-style: none; line-height: 1.9;">
+          <li>✗ <strong>Industry framing.</strong> Acknowledged vendor partner (ktau.ai) sells exactly what the paper prescribes. Normative language ("dominate," "arms race") trends promotional.</li>
+          <li>✗ <strong>No causal claims.</strong> Correlational audit — we learn <em>what</em> AI cites, not <em>why</em>. Mechanistic claims would require interventions.</li>
+          <li>✗ <strong>Taxonomy load-bearing.</strong> Three-way Brand/Earned/Social split is doing a lot of analytical work. Alternative partitions (news vs. review vs. UGC) might tell a different story.</li>
+          <li>✗ <strong>No consumer welfare analysis.</strong> Paper treats visibility as the outcome; the downstream question — do AI-biased answers produce better or worse consumer choices? — is untouched.</li>
+          <li>✗ <strong>Ranking-style prompts only.</strong> Real users rarely ask "Top 10 smartphones" — they ask "phone with a good camera for my mom." Generalization is assumed, not demonstrated.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-col mt-3">
+    <div class="callout note" style="background: rgba(201,169,97,0.1); border-color: var(--gold); color: var(--bg);">
+      <div class="label" style="color: var(--gold);">Reading posture</div>
+      <p style="color: var(--bg);">The descriptive half of the paper is solid; the prescriptive half is a <em>marketing brief</em>. Separate them in your mind. The finding that "AI is earned-heavy" is robust. The implication that "therefore brands should hire a GEO firm" is an inference with commercial weight behind it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12: DISCUSSION QUESTIONS
+     ============================================================ -->
+<section id="discuss">
+  <div class="container text-col">
+    <div class="eyebrow">Part 7 · Discussion</div>
+    <h2>Ten questions for the seminar.</h2>
+    <p>Click each question to reveal framing suggestions — not answers, but directions the discussion could productively go.</p>
+  </div>
+
+  <div class="container">
+    <div class="q-list" id="q-list"></div>
+  </div>
+</section>
+
+<style>
+.q-list { display: flex; flex-direction: column; gap: 1rem; }
+.q-item { border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); overflow: hidden; }
+.q-item.open { border-color: var(--earned); }
+.q-head { display: flex; gap: 1.5rem; padding: 1.5rem; cursor: pointer; align-items: flex-start; transition: background 0.2s; }
+.q-head:hover { background: var(--bg-alt); }
+.q-num { font-family: var(--sans); font-size: 2rem; font-weight: 700; color: var(--earned); line-height: 1; min-width: 3rem; opacity: 0.4; letter-spacing: -0.05em; }
+.q-item.open .q-num { opacity: 1; }
+.q-text { flex: 1; font-family: var(--serif); font-size: 1.15rem; line-height: 1.5; color: var(--ink); padding-top: 0.2rem; }
+.q-body { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); background: var(--bg-alt); }
+.q-item.open .q-body { max-height: 800px; }
+.q-body-inner { padding: 1.5rem 1.5rem 1.5rem 4.5rem; font-family: var(--sans); font-size: 0.92rem; color: var(--ink-soft); line-height: 1.7; border-top: 1px solid var(--rule); }
+.q-body-inner em { color: var(--ink); font-style: italic; }
+@media (max-width: 600px) { .q-head { padding: 1rem; gap: 0.8rem; } .q-num { font-size: 1.5rem; min-width: 2rem; } .q-body-inner { padding: 1rem; } }
+</style>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div>
+      <h4>Interactive Discussion Guide</h4>
+      <p style="opacity: 0.75; margin-bottom: 1rem;">Built as a teaching companion for Chen, Wang, Chen &amp; Koudas (2025), <em>Generative Engine Optimization: How to Dominate AI Search</em>. All figures reproduced from the paper's public TeX source.</p>
+      <p style="opacity: 0.55; font-size: 0.85rem;">Quantitative Marketing seminar · Bocconi University</p>
+    </div>
+    <div>
+      <h4>Further reading</h4>
+      <ul style="list-style: none; line-height: 2; font-size: 0.88rem;">
+        <li>Aggarwal et al. (2024) — KDD "GEO" paper</li>
+        <li>Kumar &amp; Lakkaraju (2024) — LLM manipulation</li>
+        <li>Wan et al. (2024) — persuasion &amp; evidence</li>
+        <li>Yang (2025) — News citations in AI search</li>
+        <li>Kirsten et al. (2025) — AI Overviews analysis</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="meta">Figures © the paper's authors · used here for non-commercial scholarly discussion · guide layout by Kai Zhu</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const F1_DATA = {
+  auto: {
+    title: "Automotive",
+    caption: "Original figure: Automotive distribution of source types (Brand, Earned, Social) across Google and GPT in Canada and USA. Both Google and GPT earned-lean in this vertical, but GPT's share reaches ~82% in the US and 69% in Canada while social collapses to zero.",
+    img: "TeX Source/sec4-2-1-3-fig2.png",
+    bars: [
+      { label: "Google · US", B: 39.5, E: 45.1, S: 15.4 },
+      { label: "GPT · US",    B: 18.1, E: 81.9, S: 0.0 },
+      { label: "Google · CA", B: 36.6, E: 40.6, S: 22.8 },
+      { label: "GPT · CA",    B: 30.9, E: 69.1, S: 0.0 }
+    ]
+  },
+  ce: {
+    title: "Consumer Electronics",
+    caption: "Original figure: Consumer Electronics distribution. GPT reaches 92.1% earned in the US with negligible social — the starkest contrast of the three verticals.",
+    img: "TeX Source/sec4-2-1-3-fig3.png",
+    bars: [
+      { label: "Google · US", B: 32.2, E: 52.4, S: 15.4 },
+      { label: "GPT · US",    B: 7.9,  E: 92.1, S: 0.0 },
+      { label: "Google · CA", B: 22.8, E: 54.1, S: 23.1 },
+      { label: "GPT · CA",    B: 22.1, E: 77.6, S: 0.3 }
+    ]
+  },
+  sw: {
+    title: "Software Products",
+    caption: "Original figure: Software Products distribution. Google favors brand-owned domains (vendor sites); AI reverses the ratio toward earned reviews.",
+    img: "TeX Source/sec4-2-1-3-fig4.png",
+    bars: [
+      { label: "Google · US", B: 43.7, E: 45.4, S: 10.9 },
+      { label: "GPT · US",    B: 26.7, E: 72.7, S: 0.6 },
+      { label: "Google · CA", B: 53.8, E: 31.8, S: 14.4 },
+      { label: "GPT · CA",    B: 25.8, E: 74.2, S: 0.0 }
+    ]
+  }
+};
+
+const F3_DATA = {
+  auto: {
+    engines: ["Claude", "GPT", "Perplexity"],
+    matrix: [
+      [1.00, 0.147, 0.251],
+      [0.147, 1.00, 0.096],
+      [0.251, 0.096, 1.00]
+    ],
+    img: "TeX Source/fig11.png",
+    imgcap: "Automotive domain diversity: Claude 350 distinct domains, Perplexity 347, GPT 212. Only a narrow core (<em>Car and Driver</em>, <em>Edmunds</em>, <em>Consumer Reports</em>) appears universally."
+  },
+  ce: {
+    engines: ["Claude", "GPT", "Perplexity"],
+    matrix: [
+      [1.00, 0.150, 0.200],
+      [0.150, 1.00, 0.088],
+      [0.200, 0.088, 1.00]
+    ],
+    img: "TeX Source/fig10.png",
+    imgcap: "Consumer Electronics domain diversity: exclusivity runs 56% (Claude) to 68% (GPT, Perplexity). Shared core: <em>TechRadar</em>, <em>Tom's Guide</em>, <em>RTINGS</em>."
+  }
+};
+
+const F4_LANG = {
+  claude:     { img: "TeX Source/language_sensitivity_figs/domain_overlap_claude_heatmap.png",     cap: "<strong>Claude</strong> — Highest cross-language domain stability. Frequent darker cells indicate re-use of the same authority domains regardless of prompt language." },
+  gpt:        { img: "TeX Source/language_sensitivity_figs/domain_overlap_gpt_heatmap.png",        cap: "<strong>GPT</strong> — Near-zero overlap across the board. GPT effectively switches to a different site ecosystem per language." },
+  perplexity: { img: "TeX Source/language_sensitivity_figs/domain_overlap_perplexity_heatmap.png", cap: "<strong>Perplexity</strong> — Mostly comparable to Google's low baseline, with a few vertical-specific pockets of higher overlap." },
+  gemini:     { img: "TeX Source/language_sensitivity_figs/domain_overlap_gemini_heatmap.png",     cap: "<strong>Gemini</strong> — Modestly higher than Google in some pairs (EN–DE laptops ~0.32), but mostly low. Inherits some of Google's localization pattern." },
+  google:     { img: "TeX Source/language_sensitivity_figs/domain_overlap_google_heatmap.png",     cap: "<strong>Google</strong> — Baseline. Low cross-language overlap (mostly 0–0.1); Google swaps ecosystems by language almost as much as GPT does." }
+};
+
+const PARA_DATA = {
+  google:     { img: "TeX Source/paraphrase_sensitivity_figs/domain_overlap_google_heatmap.png",     cap: "<strong>Google</strong> — Most <em>sensitive</em> to paraphrasing except for format-only rewrites (imperative/keyword-only), which paradoxically yield the highest stability (peaks ~0.73)." },
+  gpt:        { img: "TeX Source/paraphrase_sensitivity_figs/domain_overlap_gpt_heatmap.png",        cap: "<strong>GPT</strong> — Moderately stable across paraphrases. Domain lists rotate more than brand lists, even when the underlying intent is preserved." },
+  perplexity: { img: "TeX Source/paraphrase_sensitivity_figs/domain_overlap_perplexity_heatmap.png", cap: "<strong>Perplexity</strong> — Highest domain stability across paraphrases of the AI engines, with many cells in the 0.4–0.7 range." },
+  gemini:     { img: "TeX Source/paraphrase_sensitivity_figs/domain_overlap_gemini_heatmap.png",     cap: "<strong>Gemini</strong> — Similarly high stability to Perplexity. Rewording the query rarely overturns the citation set." }
+};
+
+const F5_DATA = {
+  combined:   { major: 62.2, niche: 9.0,  other: 28.8, img: "TeX Source/big_brand_bias/brand_distribution_combined.png",   imgcap: "Combined brand counts across both systems. <strong>Coca-Cola</strong> and <strong>Pepsi</strong> occupy the head; Dr Pepper the second tier; niche brands appear but at ~10–20× lower frequency." },
+  gpt:        { major: 56.3, niche: 12.3, other: 31.4, img: "TeX Source/big_brand_bias/brand_distribution_gpt.png",        imgcap: "ChatGPT brand counts — niche brands like Jones Soda and Boylan appear but rarely rank above the majors." },
+  perplexity: { major: 67.9, niche: 5.8,  other: 26.3, img: "TeX Source/big_brand_bias/brand_distribution_perplexity.png", imgcap: "Perplexity brand counts — despite drawing from a broader source pool (including YouTube, TikTok), it shows the <strong>strongest</strong> tilt toward market leaders." }
+};
+
+const PIPELINE_DETAIL = [
+  "<strong>① Prompt generation.</strong> Ranking-style prompts (\"Top 10 X brands in [region]\") are generated and programmatically rewritten for experimental conditions — translated into 5 target languages, rephrased under 7 paraphrase templates, conditioned on 3 personas. All transformations use GPT-4o as an instruction-following rewriter (no web browsing).",
+  "<strong>② Engine execution.</strong> Each prompt is issued to one or more <em>web-enabled</em> AI engines (Perplexity <code class='mono'>sonar-pro</code>, Claude 3.5 Sonnet + web tool, Gemini 2.5 Flash + search grounding, GPT-4o-search-preview) and to Google Custom Search API. Answer text and full citation list returned per call.",
+  "<strong>③ URL extraction.</strong> Every cited URL is normalized to its registrable domain (<code class='mono'>https://www.bankrate.com/…</code> → <code class='mono'>bankrate.com</code>) using Python's <code class='mono'>tldextract</code>. Answer text is separately fed to GPT-4o with a constrained instruction to extract the ranked list of brand/product mentions.",
+  "<strong>④ Classification.</strong> Each unique domain is classified by <em>GPT-4o-search-preview</em> into Brand / Earned / Social, using a fixed rule list for known social platforms and LLM-assisted labeling for the rest. Language experiments add a binary English/target-language classifier for citation provenance.",
+  "<strong>⑤ Aggregation.</strong> Two families of metrics: (a) <strong>Overlap metrics</strong> — Top-k Coverage at fixed k, Jaccard index on variable-length sets, averaged within verticals. (b) <strong>Distribution shares</strong> — pooled Brand/Earned/Social shares per engine × condition for comparison."
+];
+
+const DISCUSSION_QUESTIONS = [
+  {
+    q: "Is the Brand / Earned / Social taxonomy the right frame? What could we miss with it?",
+    a: "The taxonomy carries strong intuitions from traditional PR thinking. But it collapses important distinctions — <em>news</em> vs. <em>review</em> vs. <em>encyclopedic reference</em> all land in \"Earned,\" yet they play different roles in recommendation. And Wikipedia (19.7% of GPT's cola citations) is sui generis: user-generated but editorially-moderated, cited as authoritative but structurally a community. A four- or five-way partition might reveal Wikipedia is doing most of the heavy lifting the \"Earned\" category receives credit for."
+  },
+  {
+    q: "The paper is acknowledged by ktau.ai, a GEO vendor. How does this shape the framing?",
+    a: "Every finding is true. But the <em>selection</em> of which findings are highlighted and how they are interpreted (\"the arms race for AI visibility,\" \"dominate\") maps directly onto a commercial services pitch: \"you need a managed GEO service.\" Compare how a welfare-oriented or consumer-protection-oriented research team might have framed the same data: \"AI recommendations systematically exclude minority voices,\" \"niche brands face a structural disadvantage.\" The empirics support both readings."
+  },
+  {
+    q: "If social content disappears from AI search, who wins and who loses?",
+    a: "<em>Winners:</em> established publishers with editorial authority; brands that already get reviewed; consumers who distrust Reddit's noise. <em>Losers:</em> niche communities whose expertise lives in forums; users who rely on lived-experience reports (medical, parenting, hobbyist); brands whose audience grows through community word-of-mouth. The Yelp-era insight — that peer reviews can outperform professional reviews for real-world fit — is being quietly un-done."
+  },
+  {
+    q: "The \"big brand bias\" could be a bug, a feature, or a market failure. Which framing is most useful?",
+    a: "<em>Bug:</em> the model should surface diversity; Anthropic/OpenAI should tune for it. <em>Feature:</em> the model is accurately reflecting market share; users asking \"best cola\" really do mean \"Coca-Cola.\" <em>Market failure:</em> there's a visibility externality — niche brands can't build awareness if recommendation systems only recommend the already-known. Your answer depends on whether you think AI's job is to accurately <em>describe</em> the world or to accurately <em>serve the user</em> — which may mean surprising them."
+  },
+  {
+    q: "Claude stably cites English authority domains across languages. Useful consistency or cultural imperialism?",
+    a: "The consistency is convenient for global brands and for users with English literacy. But it means non-English users asking in their own language get answers shaped by English-language editorial judgment. Is <em>Forbes</em> the right citation for a Mandarin query about Chinese consumer electronics? A German query about German cars? There's a real argument that Claude's \"stability\" is a training-data skew masquerading as reliability."
+  },
+  {
+    q: "The paper is descriptive. What experimental design would establish causal mechanism?",
+    a: "A few directions. (1) <em>Controlled content injection</em>: create identical product information on an Earned-classified domain vs. a Brand-classified domain; measure which gets cited. (2) <em>Retrieval ablation</em>: inspect the actual retrieved document set before synthesis — is the bias in retrieval or in generation? (3) <em>Perturbation studies</em>: systematically vary page structure, schema markup, citation density on a test brand and measure AI-visibility impact. Kumar & Lakkaraju (2024) on strategic text sequences is the closest analog."
+  },
+  {
+    q: "For a niche brand, is \"earn more coverage\" actually tractable advice?",
+    a: "This is the chicken-and-egg problem. Earned media is granted to brands that are already <em>newsworthy</em> — which usually means already <em>big</em>. The advice \"earn coverage in authoritative publications\" is structurally easier for Coca-Cola than for a craft soda brand. The paper's \"niche playbook\" (Perplexity-first, YouTube-heavy) is the best response, but it still depends on engine-specific quirks that could disappear in the next model update."
+  },
+  {
+    q: "How should these findings change as AI shifts from recommendation to agentic transaction?",
+    a: "Today, AI recommends; humans transact. Tomorrow, agents <em>execute</em> purchases. The shortlist becomes a purchase decision, and the ambiguity in today's audit (\"but what do users do with the answer?\") collapses into a simpler objective: did the agent buy from you? Earned-media bias becomes a <em>transaction</em> bias. The economic stakes of recommendation fairness multiply by orders of magnitude."
+  },
+  {
+    q: "Is \"fragmentation\" (low inter-engine overlap) good or bad for the ecosystem?",
+    a: "Good case: fragmentation preserves epistemic diversity — different AIs surface different information, the overall consumer information environment stays pluralistic. Bad case: fragmentation makes brand strategy unpredictable, forces brands to diversify effort across engines, and creates winners-per-engine rather than overall winners — possibly increasing total marketing spend without improving consumer outcomes. The answer likely differs for large vs. small brands."
+  },
+  {
+    q: "If you replicated this study in 12 months, what would you change?",
+    a: "(1) Broader prompt types — not just rankings; include shopping, comparison, troubleshooting. (2) Add newer engines (DeepSeek, xAI Grok, Meta AI). (3) Track <em>temporal evolution</em>: rerun monthly, measure drift. (4) Include <em>agentic</em> tasks (\"buy me a cola under $15\") as distinct from recommendation tasks. (5) Add a user-outcome layer: do AI recommendations produce better purchase satisfaction than Google? (6) Expand beyond consumer goods — B2B, healthcare, legal, where stakes are higher and citation bias has welfare consequences."
+  }
+];
+
+/* =========================================================
+   VIZ BUILDERS
+   ========================================================= */
+function svgNS(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  return el;
+}
+
+function buildF1Chart(vertical) {
+  const data = F1_DATA[vertical];
+  const svg = document.getElementById('f1-chart');
+  svg.innerHTML = '';
+  const W = 520, H = 340, PAD_L = 110, PAD_R = 20, PAD_T = 20, PAD_B = 40;
+  const plotW = W - PAD_L - PAD_R;
+  const barH = 38, gap = 20;
+  // X axis ticks
+  for (let t = 0; t <= 100; t += 25) {
+    const x = PAD_L + (t / 100) * plotW;
+    svg.appendChild(svgNS('line', { x1: x, x2: x, y1: PAD_T, y2: H - PAD_B, stroke: '#D9D2C2', 'stroke-width': 1, 'stroke-dasharray': t === 0 || t === 100 ? '0' : '3,3' }));
+    const lbl = svgNS('text', { x: x, y: H - PAD_B + 18, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--ink-faint)' });
+    lbl.textContent = t + '%';
+    svg.appendChild(lbl);
+  }
+  // Bars
+  data.bars.forEach((bar, i) => {
+    const y = PAD_T + i * (barH + gap);
+    const lbl = svgNS('text', { x: PAD_L - 10, y: y + barH/2 + 5, 'text-anchor': 'end', 'font-size': 12.5, fill: 'var(--ink)', 'font-weight': 600 });
+    lbl.textContent = bar.label;
+    svg.appendChild(lbl);
+    let xCursor = PAD_L;
+    const segments = [
+      { val: bar.B, color: 'var(--brand)', lbl: 'B' },
+      { val: bar.E, color: 'var(--earned)', lbl: 'E' },
+      { val: bar.S, color: 'var(--social)', lbl: 'S' }
+    ];
+    segments.forEach(seg => {
+      if (seg.val <= 0) return;
+      const w = (seg.val / 100) * plotW;
+      const rect = svgNS('rect', { x: xCursor, y: y, width: 0, height: barH, fill: seg.color, rx: 2 });
+      svg.appendChild(rect);
+      setTimeout(() => { rect.style.transition = 'width 0.6s cubic-bezier(.22,.61,.36,1)'; rect.setAttribute('width', w); }, 50);
+      if (seg.val >= 8) {
+        const txt = svgNS('text', { x: xCursor + w/2, y: y + barH/2 + 5, 'text-anchor': 'middle', 'font-size': 11, fill: '#fff', 'font-weight': 700, opacity: 0 });
+        txt.textContent = seg.val.toFixed(1) + '%';
+        svg.appendChild(txt);
+        setTimeout(() => { txt.style.transition = 'opacity 0.4s'; txt.setAttribute('opacity', 1); }, 500);
+      }
+      xCursor += w;
+    });
+  });
+}
+
+function buildF3Matrix(vertical) {
+  const data = F3_DATA[vertical];
+  const svg = document.getElementById('f3-matrix');
+  svg.innerHTML = '';
+  const W = 400, H = 340, PAD = 80, CELL = 80;
+  const n = data.engines.length;
+  // Headers
+  data.engines.forEach((e, i) => {
+    const top = svgNS('text', { x: PAD + i*CELL + CELL/2, y: PAD - 15, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, fill: 'var(--ink)' });
+    top.textContent = e;
+    svg.appendChild(top);
+    const left = svgNS('text', { x: PAD - 15, y: PAD + i*CELL + CELL/2 + 5, 'text-anchor': 'end', 'font-size': 13, 'font-weight': 600, fill: 'var(--ink)' });
+    left.textContent = e;
+    svg.appendChild(left);
+  });
+  // Cells
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      const v = data.matrix[i][j];
+      const color = i === j ? 'var(--ink)' : `rgba(59, 90, 127, ${0.15 + v * 0.85})`;
+      const rect = svgNS('rect', { x: PAD + j*CELL, y: PAD + i*CELL, width: CELL - 4, height: CELL - 4, fill: color, rx: 3, opacity: 0 });
+      svg.appendChild(rect);
+      setTimeout(() => { rect.style.transition = 'opacity 0.5s'; rect.setAttribute('opacity', 1); }, 50 + (i*n + j) * 60);
+      const txt = svgNS('text', { x: PAD + j*CELL + CELL/2 - 2, y: PAD + i*CELL + CELL/2 + 5, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700, fill: i === j ? 'var(--bg)' : (v > 0.2 ? '#fff' : 'var(--ink)'), opacity: 0 });
+      txt.textContent = i === j ? '—' : v.toFixed(2);
+      svg.appendChild(txt);
+      setTimeout(() => { txt.style.transition = 'opacity 0.5s'; txt.setAttribute('opacity', 1); }, 300 + (i*n + j) * 60);
+    }
+  }
+}
+
+function buildF5Chart(variant) {
+  const data = F5_DATA[variant];
+  const svg = document.getElementById('f5-chart');
+  svg.innerHTML = '';
+  const W = 500, H = 300, CX = 170, CY = 140, R = 100;
+  const segments = [
+    { val: data.major, color: 'var(--brand)', lbl: 'Major' },
+    { val: data.niche, color: 'var(--social)', lbl: 'Niche' },
+    { val: data.other, color: 'var(--rule)', lbl: 'Other' }
+  ];
+  let startAngle = -Math.PI / 2;
+  segments.forEach((seg, i) => {
+    const angleSpan = (seg.val / 100) * Math.PI * 2;
+    const endAngle = startAngle + angleSpan;
+    const x1 = CX + Math.cos(startAngle) * R;
+    const y1 = CY + Math.sin(startAngle) * R;
+    const x2 = CX + Math.cos(endAngle) * R;
+    const y2 = CY + Math.sin(endAngle) * R;
+    const largeArc = angleSpan > Math.PI ? 1 : 0;
+    const d = `M ${CX} ${CY} L ${x1} ${y1} A ${R} ${R} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+    const path = svgNS('path', { d, fill: seg.color, opacity: 0, stroke: 'var(--paper)', 'stroke-width': 3 });
+    svg.appendChild(path);
+    setTimeout(() => { path.style.transition = 'opacity 0.5s'; path.setAttribute('opacity', 1); }, 150 + i * 200);
+    // External labels
+    const midAngle = startAngle + angleSpan / 2;
+    const lx = CX + Math.cos(midAngle) * (R + 35);
+    const ly = CY + Math.sin(midAngle) * (R + 35);
+    startAngle = endAngle;
+  });
+  // Legend-table on the right
+  const tableStartX = 320;
+  segments.forEach((seg, i) => {
+    const y = 60 + i * 50;
+    const swatch = svgNS('rect', { x: tableStartX, y, width: 16, height: 16, fill: seg.color, rx: 2 });
+    svg.appendChild(swatch);
+    const lbl = svgNS('text', { x: tableStartX + 26, y: y + 13, 'font-size': 13, fill: 'var(--ink-soft)' });
+    lbl.textContent = seg.lbl;
+    svg.appendChild(lbl);
+    const val = svgNS('text', { x: tableStartX, y: y + 38, 'font-size': 22, 'font-weight': 700, fill: seg.color, 'font-family': 'var(--sans)' });
+    val.textContent = seg.val.toFixed(1) + '%';
+    svg.appendChild(val);
+  });
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+window.addEventListener('DOMContentLoaded', () => {
+  // ---- Progress bar ----
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+
+  // ---- Reveal on scroll ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---- Stat counters ----
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting || e.target.dataset.done) return;
+      e.target.dataset.done = '1';
+      const target = parseFloat(e.target.dataset.count);
+      const decimals = (e.target.dataset.count.split('.')[1] || '').length;
+      let cur = 0;
+      const duration = 1200, steps = 50;
+      const step = target / steps;
+      let i = 0;
+      const iv = setInterval(() => {
+        cur += step; i++;
+        if (i >= steps) { cur = target; clearInterval(iv); }
+        e.target.textContent = cur.toFixed(decimals);
+      }, duration / steps);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.stat-num').forEach(c => cio.observe(c));
+
+  // ---- Side-nav active section ----
+  const sections = ['hero','moment','question','methods','f1','f2','f3','f4','f5','f6','agenda','critique','discuss'];
+  const navLinks = document.querySelectorAll('#side-nav a');
+  const sio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === e.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(id => { const el = document.getElementById(id); if (el) sio.observe(el); });
+
+  // ---- Pipeline tabs ----
+  const pipelineDetail = document.getElementById('pipeline-detail');
+  document.querySelectorAll('#pipeline-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#pipeline-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const stage = parseInt(btn.dataset.stage);
+      pipelineDetail.innerHTML = PIPELINE_DETAIL[stage];
+      // Highlight the matching circle
+      document.querySelectorAll('#pipeline-svg .stage circle').forEach((c, idx) => {
+        const sIdx = Math.floor(idx / (c.parentElement.querySelectorAll('circle').length || 1));
+      });
+      document.querySelectorAll('#pipeline-svg .stage').forEach(g => {
+        const sStage = parseInt(g.dataset.stage);
+        const circles = g.querySelectorAll('circle');
+        const filledCircle = circles[circles.length - 1];
+        if (sStage === stage) {
+          filledCircle.setAttribute('fill', 'var(--brand)');
+          if (circles.length > 1) circles[0].setAttribute('fill', 'var(--brand)');
+          circles[0].setAttribute('opacity', sStage === stage ? '0.15' : '0');
+          filledCircle.setAttribute('opacity', '1');
+        } else {
+          filledCircle.setAttribute('fill', 'var(--earned)');
+          filledCircle.setAttribute('opacity', '0.4');
+          if (circles.length > 1) circles[0].setAttribute('opacity', '0');
+        }
+      });
+    });
+  });
+  // Also click circles directly
+  document.querySelectorAll('#pipeline-svg .stage').forEach(g => {
+    g.addEventListener('click', () => {
+      const stage = g.dataset.stage;
+      document.querySelector(`#pipeline-tabs button[data-stage="${stage}"]`).click();
+    });
+  });
+
+  // ---- F1 tabs (vertical switcher) ----
+  const f1Observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.drawn) {
+        e.target.dataset.drawn = '1';
+        buildF1Chart('auto');
+      }
+    });
+  }, { threshold: 0.2 });
+  const f1Wrap = document.getElementById('f1-chart');
+  if (f1Wrap) f1Observer.observe(f1Wrap);
+  document.querySelectorAll('#f1-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#f1-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      buildF1Chart(v);
+      document.getElementById('f1-fig').src = F1_DATA[v].img;
+      document.getElementById('f1-caption').textContent = F1_DATA[v].caption;
+    });
+  });
+
+  // ---- F3 matrix switcher ----
+  const f3Observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.drawn) {
+        e.target.dataset.drawn = '1';
+        buildF3Matrix('auto');
+      }
+    });
+  }, { threshold: 0.2 });
+  const f3Wrap = document.getElementById('f3-matrix');
+  if (f3Wrap) f3Observer.observe(f3Wrap);
+  document.querySelectorAll('#f3-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#f3-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      buildF3Matrix(v);
+      document.getElementById('f3-img').src = F3_DATA[v].img;
+      document.getElementById('f3-imgcap').innerHTML = F3_DATA[v].imgcap;
+    });
+  });
+
+  // ---- F4 language tabs ----
+  document.querySelectorAll('#f4-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#f4-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      const img = document.getElementById('f4-img');
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = F4_LANG[v].img;
+        document.getElementById('f4-cap').innerHTML = F4_LANG[v].cap;
+        img.style.transition = 'opacity 0.3s';
+        img.style.opacity = 1;
+      }, 200);
+    });
+  });
+
+  // ---- Paraphrase tabs ----
+  document.querySelectorAll('#para-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#para-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      const img = document.getElementById('para-img');
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = PARA_DATA[v].img;
+        document.getElementById('para-cap').innerHTML = PARA_DATA[v].cap;
+        img.style.transition = 'opacity 0.3s';
+        img.style.opacity = 1;
+      }, 200);
+    });
+  });
+
+  // ---- F5 cola tabs ----
+  const f5Observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.drawn) {
+        e.target.dataset.drawn = '1';
+        buildF5Chart('combined');
+      }
+    });
+  }, { threshold: 0.2 });
+  const f5Wrap = document.getElementById('f5-chart');
+  if (f5Wrap) f5Observer.observe(f5Wrap);
+  document.querySelectorAll('#f5-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#f5-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const v = btn.dataset.v;
+      buildF5Chart(v);
+      document.getElementById('f5-img').src = F5_DATA[v].img;
+      document.getElementById('f5-imgcap').innerHTML = F5_DATA[v].imgcap;
+    });
+  });
+
+  // ---- Agenda accordion ----
+  document.querySelectorAll('.agenda-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const item = head.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.agenda-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ---- Discussion questions ----
+  const qList = document.getElementById('q-list');
+  if (qList) {
+    DISCUSSION_QUESTIONS.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'q-item';
+      div.innerHTML = `
+        <div class="q-head">
+          <span class="q-num">${String(idx+1).padStart(2,'0')}</span>
+          <span class="q-text">${item.q}</span>
+        </div>
+        <div class="q-body"><div class="q-body-inner">${item.a}</div></div>
+      `;
+      div.querySelector('.q-head').addEventListener('click', () => {
+        div.classList.toggle('open');
+      });
+      qList.appendChild(div);
+    });
+  }
+
+  // ---- Keyboard nav: j/k for next/prev section ----
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'j' || e.key === 'ArrowDown' && e.shiftKey) {
+      e.preventDefault();
+      const current = sections.findIndex(id => {
+        const el = document.getElementById(id);
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom > 100;
+      });
+      const next = sections[Math.min(current + 1, sections.length - 1)];
+      document.getElementById(next)?.scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'k' || e.key === 'ArrowUp' && e.shiftKey) {
+      e.preventDefault();
+      const current = sections.findIndex(id => {
+        const el = document.getElementById(id);
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom > 100;
+      });
+      const prev = sections[Math.max(current - 1, 0)];
+      document.getElementById(prev)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
