@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Session 05 Exercise — Two Paths to a Verified Bibliography — AI-Assisted Research Methods</title>
-<meta name="description" content="Session 05 exercise — Two Paths to a Verified Bibliography. PhD course, AI-Assisted Research Methods for Marketing Scholars, Bocconi University, Spring 2026.">
+<title>Session 5 — Web Scraping Foundations — AI-Assisted Research Methods</title>
+<meta name="description" content="Session 5 exercise: practice two simple web scraping methods (static HTML, hidden API endpoints including Reddit JSON) using Claude Code. PhD course, Bocconi University, Spring 2026.">
 
 <style>
 /* ============================================================================
@@ -1461,8 +1461,8 @@ code.inline,
     <nav class="toc" aria-label="Table of contents">
         <div class="toc__header">
             <div>
-                <span class="toc__session" data-toc-session>Session 05 · Exercise</span>
-                <span class="toc__title" data-toc-title>Two Paths to a Verified Bibliography</span>
+                <span class="toc__session" data-toc-session>Session 5 · Exercise</span>
+                <span class="toc__title" data-toc-title>Web Scraping Foundations</span>
             </div>
             <button class="toc__hamburger" type="button" aria-label="Toggle table of contents">☰</button>
         </div>
@@ -1475,44 +1475,43 @@ code.inline,
         <!-- Glossary data block (one per session, defines all .glossary-term definitions) -->
         <script type="application/json" id="glossary-data">
         {
-            "SKILL.md": "The single file that defines a Claude Code Skill. Consists of a short YAML frontmatter block (name, description, allowed-tools) followed by Markdown instructions — typically a numbered workflow. Claude loads this file into context whenever the skill is invoked by name or matched by description.",
-            "OpenAlex": "A free, open scholarly-works database covering around 250 million papers across all fields. No API key required. Strong coverage for mainstream marketing, consumer behavior, and economics journals. Weaker on SSRN working papers, non-English regional journals, and very recent pre-prints.",
-            "Crossref": "The canonical DOI registry. Every Crossref-deposited DOI resolves to structured metadata: authors, title, journal, year, page numbers. Our verification gate hits api.crossref.org/works/&lt;doi&gt; — HTTP 200 means the paper exists; anything else means the DOI is invalid.",
-            "DOI": "Digital Object Identifier. A persistent unique identifier for a scholarly work (e.g., 10.1509/jmr.22.0417). For LLM-produced citations, the DOI is the single field where fabrication reliably fails — every other field can look plausible.",
-            "verification gate": "The step in a lit-review pipeline where every citation is resolved against a ground-truth source (Crossref) before being allowed into the final bibliography. The invariant — the thing that must always happen. What differs between Path A and Path B is where in the pipeline the gate sits.",
-            "MISMATCH": "A verdict the verify-citations skill assigns when a paper matching the claimed title exists in Crossref, but at least one claimed field (author surname, year, or title) does not match Crossref's canonical metadata. The paper is real but the citation is wrong as written.",
-            "FABRICATED": "A verdict the verify-citations skill assigns when no Crossref match is found at all — neither by DOI resolution nor by title search. The paper does not exist in Crossref's index. The skill never substitutes a similar paper; the verdict stands.",
-            "disclosure block": "A block at the top of a Path A bibliography listing retrieved / kept / dropped counts, the search date, and the APIs used. Your transparency audit trail — lets a reader (or a future you) understand exactly what the skill returned, what passed triage, and what the verification gate rejected."
+            "static site": "A web page whose content is fully present in the HTML source returned by the server. No JavaScript execution is needed to render the data — what the server sends is what the browser displays.",
+            "API endpoint": "A specific URL on a server that returns structured data (usually JSON or XML) in response to HTTP requests. Many dynamic websites load their visible content from hidden API endpoints behind the scenes.",
+            "JSON": "JavaScript Object Notation — a lightweight text format for structured data. Key-value pairs are enclosed in curly braces, arrays in square brackets. Most modern web APIs return JSON.",
+            "pagination": "The practice of splitting large datasets across multiple pages or API responses. When scraping, you often need to loop through pages (e.g., page=1, page=2, ...) or follow 'after' tokens to collect all results.",
+            "provenance": "A record of where data came from, how it was collected, and what transformations were applied. Essential for research reproducibility.",
+            "CSS selector": "A pattern used to select HTML elements on a page — for example, 'table.data-table' selects all table elements with the class 'data-table'. Scrapers use CSS selectors to locate the specific content they need."
         }
         </script>
 
         <!-- @@CONTENT@@ -->
 
         <header class="study-header">
-            <span class="study-header__session">Session 05 · Exercise</span>
-            <h1>Two Paths to a Verified Bibliography</h1>
-            <p class="study-header__subtitle">Hands-on exercise with Claude Code Skills. Install both lit-review skills, run the same marketing research question through Path A (<code>lit-review-api</code>) and Path B (web search + <code>verify-citations</code>), and compare what each path catches and what each misses.</p>
+            <span class="study-header__session">Session 5 · Exercise</span>
+            <h1>Two Simple Scraping Methods</h1>
+            <p class="study-header__subtitle">Hands-on practice with Way 1 and Way 2 — scrape a static government page, discover hidden API endpoints, and collect Reddit data via JSON.</p>
             <div class="study-header__meta">
                 <span>👤 Kai Zhu</span>
                 <span>🏛️ Bocconi</span>
                 <span>📅 Spring 2026</span>
                 <span>⏱️ <span data-reading-time>—</span></span>
+                <span>⌛ ~30 min</span>
             </div>
         </header>
 
-        <!-- ===== SECTION 1: Overview ===== -->
+        <!-- Section 1: Overview -->
         <section class="study-section" id="s-1">
             <div class="study-section__header">
                 <span class="study-section__num">01</span>
                 <h2>Overview</h2>
             </div>
             <div class="study-section__body">
-                <p>In the lecture you saw two ways to produce a trustworthy bibliography with Claude Code, each packaged as a Skill. Today you will install both Skills, run the <strong>same</strong> marketing research question through both paths, and compare what each approach finds and what each misses. The goal is not just to produce bibliographies — it is to see first-hand what the <span class="glossary-term" data-term="verification gate">verification gate</span> catches when you apply it to a draft that came from plain web search.</p>
-                <p>By the end, you should understand: (1) how to install and invoke a Claude Code Skill, (2) what a rigorous API-grounded lit review looks like in practice, and (3) how a post-hoc verification sweep changes the trustworthiness of a draft bibliography.</p>
+                <p>In this exercise you will practice the two simple scraping methods from today's lecture. For each method, you will scrape a real data source, validate the results, and observe how your prompt wording affects Claude Code's approach.</p>
+                <p>By the end, you should have two clean CSV files and a short write-up reflecting on what worked and what did not.</p>
             </div>
         </section>
 
-        <!-- ===== SECTION 2: Prerequisites ===== -->
+        <!-- Section 2: Prerequisites -->
         <section class="study-section" id="s-2">
             <div class="study-section__header">
                 <span class="study-section__num">02</span>
@@ -1520,365 +1519,263 @@ code.inline,
             </div>
             <div class="study-section__body">
                 <ul>
-                    <li>Claude Code installed and configured (from Session 1)</li>
-                    <li>An empty working directory for this session (e.g., <code>~/session05-lit-review/</code>)</li>
-                    <li>Internet access — no API keys are required; both <span class="glossary-term" data-term="OpenAlex">OpenAlex</span> and <span class="glossary-term" data-term="Crossref">Crossref</span> are free and keyless</li>
-                    <li>The two Skill files from the course repository: <code>lit-review-api/SKILL.md</code> and <code>verify-citations/SKILL.md</code></li>
+                    <li>Claude Code installed and configured</li>
+                    <li>A working directory for this session — choose a location on your own laptop (e.g., <code>Documents/scraping-exercise/</code>)</li>
+                    <li>Internet access</li>
                 </ul>
+
                 <div class="callout callout--prompt">
                     <div class="callout__sticker" aria-hidden="true">💬</div>
-                    <h4 class="callout__title">About Claude's web tools</h4>
-                    <div class="callout__body"><p>Path B uses Claude Code's built-in <code>WebSearch</code> and <code>WebFetch</code> tools to produce a draft bibliography. The first time you invoke them in a session, Claude Code may prompt for permission — grant it. These tools are how Claude reaches the open web and are necessary for Path B to work.</p></div>
+                    <h4 class="callout__title">No API keys required</h4>
+                    <div class="callout__body"><p>Both methods in this exercise use free, public data sources that do not require authentication or API keys.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== SECTION 3: Step 1 — Install Both Skills ===== -->
+        <!-- Section 3: Step 1 — Way 1: Scrape a Static Site -->
         <section class="study-section" id="s-3">
             <div class="study-section__header">
                 <span class="study-section__num">03</span>
-                <h2>Step 1: Install Both Skills</h2>
+                <h2>Step 1: Way 1 — Scrape a Static Site</h2>
             </div>
             <div class="study-section__body">
-                <p>You need both Skills installed inside a working folder before you launch Claude Code. Here is the target folder structure:</p>
+                <p>Open Claude Code in your working directory and scrape a university faculty directory. Marketing faculty pages are ideal: every profile has the same HTML structure, so Claude Code can identify a repeating pattern and extract every record with one loop.</p>
 
-                <div class="code-block" data-lang="text">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">🖥️</span>
-                        <span class="code-block__lang">text</span>
+                <div class="callout callout--prompt">
+                    <div class="callout__sticker" aria-hidden="true">💬</div>
+                    <h4 class="callout__title">Suggested target</h4>
+                    <div class="callout__body">
+                        <p>The <strong>Bocconi Marketing Department</strong> lists every faculty member at:<br>
+                        <a href="https://marketing.unibocconi.eu/people" target="_blank" rel="noopener">https://marketing.unibocconi.eu/people</a></p>
+                        <p>Each name links to a profile page with the full detail: bio, selected publications, teaching, and email. You will scrape both the listing and the individual profiles.</p>
                     </div>
-                    <pre class="code-block__code"><code>~/session05-lit-review/           &lt;-- your working folder
-  .claude/
-    skills/
-      lit-review-api/
-        SKILL.md                  &lt;-- first skill file
-      verify-citations/
-        SKILL.md                  &lt;-- second skill file</code></pre>
                 </div>
 
-                <p>Choose whichever installation method works best for you.</p>
+                <p>Give Claude Code a direct request — name the fields you want:</p>
 
-                <!-- Option A -->
-                <h3>Option A: Git Clone (quickest if you have Git)</h3>
-
-                <div class="code-block" data-lang="bash">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">🖥️</span>
-                        <span class="code-block__lang">bash</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">💬</span>
+                        <span class="prompt-card__label">Prompt — Scrape Bocconi Marketing Faculty</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="code-block__code"><code>git clone https://github.com/kaizhu-bocconi/ai-research-skills.git \
-    ~/session05-lit-review
-cd ~/session05-lit-review
-claude</code></pre>
+                    <pre class="prompt-card__prompt"><code>Scrape all faculty members from the Bocconi marketing department page at https://marketing.unibocconi.eu/people. For each person, visit their profile page and extract: name, title, short bio, selected publications, teaching, and email. Save to faculty.csv.</code></pre>
                 </div>
 
-                <p>The repository already has the folder structure with both SKILL.md files. Ready to go.</p>
+                <h3>What to observe</h3>
+                <ul>
+                    <li>Did Claude Code fetch the listing and discover the individual profile URLs automatically?</li>
+                    <li>How did it identify each field — by <span class="glossary-term" data-term="CSS selector">CSS selector</span>, by tag structure, or by guessing?</li>
+                    <li>Did it add a polite delay between profile requests (you have ~40 profiles to fetch)?</li>
+                    <li>Is the CSV complete and correctly structured, with no garbled characters in Italian names and accented surnames?</li>
+                </ul>
 
-                <!-- Option B -->
-                <h3>Option B: Download and Move Files</h3>
+                <div class="callout callout--key">
+                    <div class="callout__sticker" aria-hidden="true">🔑</div>
+                    <h4 class="callout__title">If Way 1 fails</h4>
+                    <div class="callout__body"><p>If Claude Code returns empty results or garbled data, the page may be loading content via JavaScript. This is exactly when you would escalate to Way 2. Note what happened — you will reflect on it later.</p></div>
+                </div>
+            </div>
+        </section>
 
-                <ol>
-                    <li>Download both SKILL.md files from the course portal (Blackboard &rarr; Session 5 &rarr; Skills). You will get <code>lit-review-api-SKILL.md</code> and <code>verify-citations-SKILL.md</code>.</li>
-                    <li>Create the folder structure and move files:</li>
-                </ol>
+        <!-- Section 4: Step 2 — Way 2: Find Hidden Endpoints -->
+        <section class="study-section" id="s-4">
+            <div class="study-section__header">
+                <span class="study-section__num">04</span>
+                <h2>Step 2: Way 2 — Find Hidden Endpoints</h2>
+            </div>
+            <div class="study-section__body">
+                <p>Many modern sites load data via hidden <strong><span class="glossary-term" data-term="API endpoint">API endpoints</span></strong> — URLs that return structured JSON instead of a web page. When you find the endpoint, you skip HTML parsing entirely and get clean structured data on the first try.</p>
 
-                <div class="code-block" data-lang="bash">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">🖥️</span>
-                        <span class="code-block__lang">bash</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                <p>The canonical example for this exercise is <strong>Reddit</strong>: every subreddit and post page exposes an unauthenticated JSON endpoint that returns titles, scores, comment counts, and full post text as structured data — perfect for consumer-opinion research, sentiment analysis, and community-level trend tracking.</p>
+
+                <div class="callout callout--prompt">
+                    <div class="callout__sticker" aria-hidden="true">💬</div>
+                    <h4 class="callout__title">Suggested target</h4>
+                    <div class="callout__body">
+                        <p>Reddit exposes a free, unauthenticated JSON endpoint for every subreddit listing:</p>
+                        <p><code>https://old.reddit.com/r/claudecode/top.json?t=month&amp;limit=100</code></p>
+                        <p>Pick any subreddit relevant to your research — <code>r/ecommerce</code>, <code>r/datascience</code>, <code>r/AskAcademia</code>, <code>r/marketing</code>, or anything else tied to your dissertation topic.</p>
+                    </div>
+                </div>
+
+                <p>Give Claude Code the endpoint URL directly — no HTML parsing needed:</p>
+
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">💬</span>
+                        <span class="prompt-card__label">Prompt — Use the Reddit JSON Endpoint</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="code-block__code"><code>mkdir -p ~/session05-lit-review/.claude/skills/lit-review-api
-mkdir -p ~/session05-lit-review/.claude/skills/verify-citations
+                    <pre class="prompt-card__prompt"><code>Use the Reddit JSON endpoint at https://old.reddit.com/r/claudecode/top.json?t=month&amp;limit=100 to fetch the top 100 posts from r/claudecode this month. Extract title, score, number of comments, and post text (selftext). Save to way2_data.csv.</code></pre>
+                </div>
 
-mv ~/Downloads/lit-review-api-SKILL.md \
-   ~/session05-lit-review/.claude/skills/lit-review-api/SKILL.md
-mv ~/Downloads/verify-citations-SKILL.md \
-   ~/session05-lit-review/.claude/skills/verify-citations/SKILL.md
+                <h3>What to observe</h3>
+                <ul>
+                    <li>Did Claude Code hit the endpoint directly, or did it try to parse HTML first?</li>
+                    <li>What does the raw <span class="glossary-term" data-term="JSON">JSON</span> look like — which fields are available beyond the ones you asked for?</li>
+                    <li>How much faster and cleaner was this than a Way 1 HTML scrape would have been?</li>
+                    <li>Did Claude Code handle <span class="glossary-term" data-term="pagination">pagination</span> (the <code>after</code> token in the response) if you asked for more than 100 posts?</li>
+                </ul>
 
-cd ~/session05-lit-review
-claude</code></pre>
+                <div class="callout callout--key">
+                    <div class="callout__sticker" aria-hidden="true">🔑</div>
+                    <h4 class="callout__title">Why Reddit for Step 2?</h4>
+                    <div class="callout__body"><p>Reddit is a known-good endpoint that does not require authentication, API keys, or DevTools discovery. It lets you focus on the <em>workflow</em> of consuming a JSON endpoint without fighting infrastructure. Once the workflow clicks, the same pattern generalises to any site whose API you discover via DevTools in later sessions.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Step 3 — The .json Append Trick on a Single Page -->
+        <section class="study-section" id="s-5">
+            <div class="study-section__header">
+                <span class="study-section__num">05</span>
+                <h2>Step 3: The <code>.json</code> Append Trick on a Single Page</h2>
+            </div>
+            <div class="study-section__body">
+                <p>Step 2 fetched an entire subreddit listing via an endpoint. This step zooms into <em>one single page</em> — a specific Reddit post — and applies the same URL trick to get its full comment tree as JSON.</p>
+
+                <div class="callout callout--concept">
+                    <div class="callout__sticker" aria-hidden="true">💡</div>
+                    <h4 class="callout__title">The trick</h4>
+                    <div class="callout__body">
+                        <p>Reddit exposes a JSON version of <strong>every</strong> page on the site via a simple URL transformation: append <code>.json</code> to any URL.</p>
+                        <p><strong>Regular post URL:</strong><br><code>https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/</code></p>
+                        <p><strong>JSON endpoint:</strong><br><code>https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47<strong>.json</strong></code> &larr; just append <code>.json</code></p>
+                        <p>The pattern generalises to every page type on reddit.com: listings (<code>/r/X.json</code>), <em>individual posts</em> (<code>/r/X/comments/ID.json</code>, the focus of this step), user pages (<code>/user/X.json</code>), and search results (<code>/search.json?q=...</code>). No API key, no authentication, no HTML parsing.</p>
+                    </div>
+                </div>
+
+                <p>Pick any single post on <code>reddit.com</code> — either the example above or a top post from a subreddit relevant to your research — and apply the trick. A single post gives you the comment tree as recursive JSON, which is much harder to get from rendered HTML (Reddit lazy-loads nested replies on click):</p>
+
+                <div class="prompt-card">
+                    <div class="prompt-card__header">
+                        <span class="prompt-card__icon">💬</span>
+                        <span class="prompt-card__label">Prompt — Apply the .json Trick to One Post</span>
+                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                            <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre class="prompt-card__prompt"><code>Take this single Reddit post URL: https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/ — apply the .json append trick (append .json to the post URL) to fetch the post and its full comment tree as JSON. Extract the post title, score, and the top 20 comments with author, score, and body text. Save to reddit_comments.csv.</code></pre>
                 </div>
 
                 <div class="callout callout--concept">
                     <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Download path</h4>
-                    <div class="callout__body"><p>Adjust the download path if your browser saves files somewhere other than <code>~/Downloads/</code>.</p></div>
-                </div>
-
-                <!-- Option C -->
-                <h3>Option C: Copy the Files Using Finder / File Explorer</h3>
-
-                <p><strong>Step C.1 &mdash; Download the skill files:</strong></p>
-                <p>Go to the course portal (Blackboard &rarr; Session 5 &rarr; Skills) and download the two files: <code>lit-review-api/SKILL.md</code> and <code>verify-citations/SKILL.md</code>. They will land in your Downloads folder.</p>
-
-                <p><strong>Step C.2 &mdash; Create the folder structure:</strong></p>
-                <p>Using Finder (macOS) or File Explorer (Windows), create these folders by right-clicking &rarr; New Folder:</p>
-                <ol>
-                    <li>In your home folder (or Documents), create <code>session05-lit-review</code></li>
-                    <li>Inside that, create <code>.claude</code>
-                        <div class="callout callout--concept">
-                            <div class="callout__sticker" aria-hidden="true">💡</div>
-                            <h4 class="callout__title">Hint</h4>
-                            <div class="callout__body"><p>macOS hides dot-folders. Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>.</kbd> to show hidden files, then create the folder. On Windows, dot-folders are visible by default.</p></div>
-                        </div>
-                    </li>
-                    <li>Inside <code>.claude</code>, create <code>skills</code></li>
-                    <li>Inside <code>skills</code>, create two folders: <code>lit-review-api</code> and <code>verify-citations</code></li>
-                </ol>
-
-                <p><strong>Step C.3 &mdash; Copy the downloaded files into place:</strong></p>
-                <ol>
-                    <li>Go to your Downloads folder</li>
-                    <li>Copy the SKILL.md for <strong>lit-review-api</strong> and paste it into <code>session05-lit-review/.claude/skills/lit-review-api/</code></li>
-                    <li>Copy the SKILL.md for <strong>verify-citations</strong> and paste it into <code>session05-lit-review/.claude/skills/verify-citations/</code></li>
-                </ol>
-                <p>Each folder should now contain exactly one file called <code>SKILL.md</code>.</p>
-
-                <p><strong>Step C.4 &mdash; Start Claude Code:</strong></p>
-                <p>Open your terminal, navigate to the working folder, and launch:</p>
-
-                <div class="code-block" data-lang="bash">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">🖥️</span>
-                        <span class="code-block__lang">bash</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="code-block__code"><code>cd ~/session05-lit-review    # adjust the path to where you created the folder
-claude</code></pre>
-                </div>
-
-                <!-- Common mistakes warning -->
-                <div class="callout callout--warning">
-                    <div class="callout__sticker" aria-hidden="true">⚠️</div>
-                    <h4 class="callout__title">Common mistakes</h4>
+                    <h4 class="callout__title">Swapping in your own post</h4>
                     <div class="callout__body">
+                        <p>To use a different post, open any thread on <code>reddit.com</code> in your browser, copy the URL from the address bar, and paste it into the prompt in place of the example. Good candidate subreddits for marketing researchers:</p>
                         <ul>
-                            <li>File must be named exactly <code>SKILL.md</code> (all caps, not <code>skill.md</code>)</li>
-                            <li>Each <code>SKILL.md</code> must be inside its own named subfolder, not directly in <code>.claude/skills/</code></li>
-                            <li>Start Claude Code from the working folder, not from inside <code>.claude/</code></li>
+                            <li><code>r/ClaudeCode</code> — Claude Code discussion (default example above)</li>
+                            <li><code>r/ecommerce</code> — online retail and consumer behaviour</li>
+                            <li><code>r/marketing</code> — practitioner discussion</li>
+                            <li><code>r/AskAcademia</code> — academic life and career</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Sanity check -->
-                <h3>Sanity Check (all options)</h3>
-                <p>Type in Claude Code: <em>&ldquo;What skills do you have available?&rdquo;</em> Claude should mention both skills. If not, exit (Ctrl-C), check paths, restart.</p>
-
-                <div class="callout callout--concept">
-                    <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Installing for all projects</h4>
-                    <div class="callout__body"><p>If you prefer skills available everywhere, copy them to <code>~/.claude/skills/</code> instead.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== SECTION 4: Step 2 — Path A ===== -->
-        <section class="study-section" id="s-4">
-            <div class="study-section__header">
-                <span class="study-section__num">04</span>
-                <h2>Step 2: Path A — Run <code>lit-review-api</code></h2>
-            </div>
-            <div class="study-section__body">
-                <p>Pick a research question. You may use one of the three below, or a question from your own dissertation.</p>
-
-                <div class="callout callout--prompt">
-                    <div class="callout__sticker" aria-hidden="true">📝</div>
-                    <h4 class="callout__title">Three provided research questions</h4>
-                    <div class="callout__body">
-                        <ol>
-                            <li>How has the use of scarcity messaging in online retail evolved since 2015?</li>
-                            <li>What is the effect of influencer authenticity on consumer trust in sponsored content?</li>
-                            <li>How do algorithmic personalization systems affect consumer welfare?</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <p>In Claude Code, invoke the Skill by name:</p>
-
-                <div class="prompt-card prompt-card--no-response">
-                    <div class="prompt-card__header">
-                        <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Path A prompt</span>
-                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="prompt-card__prompt"><code>Use the lit-review-api skill to find papers on [your chosen question]. Save the output to path-a-bibliography.md.</code></pre>
-                </div>
-
-                <p>Claude will run the Skill's workflow: query <span class="glossary-term" data-term="OpenAlex">OpenAlex</span>, triage the results, verify each <span class="glossary-term" data-term="DOI">DOI</span> at <span class="glossary-term" data-term="Crossref">Crossref</span>, and produce the bibliography. Expected output: a markdown file with 5–15 verified entries, a <span class="glossary-term" data-term="disclosure block">Disclosure block</span> showing retrieved/kept/dropped counts, and no unverified references.</p>
-
-                <h3>What to watch for</h3>
-                <p>Notice the Disclosure block. How many papers did OpenAlex return? How many passed the triage? How many were dropped at the Crossref verification gate? These counts are part of your transparency audit trail.</p>
-            </div>
-        </section>
-
-        <!-- ===== SECTION 5: Step 3 — Path B ===== -->
-        <section class="study-section" id="s-5">
-            <div class="study-section__header">
-                <span class="study-section__num">05</span>
-                <h2>Step 3: Path B — Web Search + <code>verify-citations</code></h2>
-            </div>
-            <div class="study-section__body">
-                <p>In the <strong>same</strong> Claude Code session, run a plain web-search lit review (no Skill invocation):</p>
-
-                <div class="prompt-card prompt-card--no-response">
-                    <div class="prompt-card__header">
-                        <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Path B draft prompt</span>
-                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="prompt-card__prompt"><code>Search the web for recent papers on [the same question]. Produce an annotated bibliography in markdown format with about 10 entries. Save it to path-b-draft.md.</code></pre>
-                </div>
-
-                <p>Claude will use its built-in <code>WebSearch</code> and <code>WebFetch</code> tools to produce a draft. Read the output. It will look plausible. It might even look better than Path A's output. <strong>Do not trust it yet.</strong></p>
-
-                <p>Now invoke the verification sweep:</p>
-
-                <div class="prompt-card prompt-card--no-response">
-                    <div class="prompt-card__header">
-                        <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Path B verification sweep</span>
-                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="prompt-card__prompt"><code>Use the verify-citations skill to audit every entry in path-b-draft.md. Save the audit report to path-b-verified.md.</code></pre>
-                </div>
-
-                <p>The Skill will parse every entry, resolve DOIs at Crossref, fall back to title search for entries without DOIs, and classify each as <strong>VERIFIED</strong>, <span class="glossary-term" data-term="MISMATCH"><strong>MISMATCH</strong></span>, or <span class="glossary-term" data-term="FABRICATED"><strong>FABRICATED</strong></span>. Expected output: a markdown table with the verdict and evidence for every entry, plus summary counts at the top.</p>
+                <h3>What to observe</h3>
+                <ul>
+                    <li>How quickly did Claude Code produce the CSV compared to Way 1?</li>
+                    <li>Is the comment tree complete? How did Claude Code handle nested replies (the JSON is recursive)?</li>
+                    <li>What fields are available in the Reddit JSON that you did <em>not</em> ask for (created time, awards, flair, edited flag, etc.)?</li>
+                </ul>
 
                 <div class="callout callout--key">
                     <div class="callout__sticker" aria-hidden="true">🔑</div>
-                    <h4 class="callout__title">If Path B's draft has no DOIs</h4>
-                    <div class="callout__body"><p>Some web-search drafts include DOIs, some do not. If yours does not, the verify-citations Skill will automatically fall back to Crossref title search. This is slower but still works. Be patient — the Skill is hitting Crossref once per entry.</p></div>
+                    <h4 class="callout__title">Why this generalises</h4>
+                    <div class="callout__body"><p>Many sites expose machine-readable versions of their pages through URL patterns you would never guess from the UI: <code>.json</code>, <code>?format=json</code>, <code>/api/</code> prefixes, or <code>.rss</code> feeds. Once you notice Reddit's trick, you start looking for similar shortcuts on other sites you study — and often find them.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== SECTION 6: Step 4 — Compare ===== -->
+        <!-- Section 6: Step 4 — Validate and Document -->
         <section class="study-section" id="s-6">
             <div class="study-section__header">
                 <span class="study-section__num">06</span>
-                <h2>Step 4: Compare the Two Bibliographies</h2>
+                <h2>Step 4: Validate and Document</h2>
             </div>
             <div class="study-section__body">
-                <p>Produce a short comparison table in a new file <code>comparison.md</code>.</p>
+                <p>For each CSV file, ask Claude Code to run a quick validation:</p>
 
-                <div class="prompt-card prompt-card--no-response">
+                <div class="prompt-card">
                     <div class="prompt-card__header">
                         <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Comparison prompt</span>
+                        <span class="prompt-card__label">Prompt — Validate CSVs</span>
                         <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
+                            <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="prompt-card__prompt"><code>Compare the bibliographies in path-a-bibliography.md and path-b-verified.md. Create a table in a new file comparison.md with one row per paper that appeared in either path. Columns: Paper title, In Path A?, In Path B draft?, Path B verdict, Notes.</code></pre>
+                    <pre class="prompt-card__prompt"><code>Check the CSV files (faculty.csv, way2_data.csv, reddit_comments.csv). For each: report the number of rows and columns, check for missing values, and show 3 sample rows.</code></pre>
                 </div>
 
-                <p>The table should have one row per paper that appeared in <strong>either</strong> Path A or Path B, with these columns:</p>
-
-                <div class="code-block" data-lang="markdown">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">📋</span>
-                        <span class="code-block__lang">comparison.md (template)</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="code-block__code"><code>| Paper            | In Path A? | In Path B draft? | Path B verdict | Notes           |
-|------------------|------------|------------------|----------------|-----------------|
-| Paper 1 title    | yes        | yes              | VERIFIED       | in both         |
-| Paper 2 title    | yes        | no               | —              | A-only          |
-| Paper 3 title    | no         | yes              | FABRICATED     | caught by sweep |
-| ...              |            |                  |                |                 |</code></pre>
-                </div>
-
-                <p>Below the table, answer these three counting questions:</p>
-
-                <ol>
-                    <li>How many papers appear in <strong>both</strong> paths?</li>
-                    <li>How many papers did Path A find that Path B's web search missed?</li>
-                    <li>How many of Path B's draft entries did the verify-citations sweep flag as MISMATCH or FABRICATED?</li>
-                </ol>
-
-                <div class="callout callout--key">
-                    <div class="callout__sticker" aria-hidden="true">🔑</div>
-                    <h4 class="callout__title">The comparison is the learning</h4>
-                    <div class="callout__body"><p>This is the central artifact of the exercise. Do not rush it to get to the reflection. The point is to see <em>specifically</em> which entries each path catches and which it misses. Your reflection in Step 5 is grounded in what you notice here.</p></div>
-                </div>
+                <p>Then write a short <span class="glossary-term" data-term="provenance">provenance</span> note (a few sentences per method) in a file called <code>notes.md</code>:</p>
+                <ul>
+                    <li>What site did you scrape?</li>
+                    <li>Which method did you use and what prompt did you give?</li>
+                    <li>Did it work on the first try? If not, what went wrong and how did you fix it?</li>
+                </ul>
             </div>
         </section>
 
-        <!-- ===== SECTION 7: Step 5 — Reflection ===== -->
+        <!-- Section 7: Step 5 — Brief Reflection -->
         <section class="study-section" id="s-7">
             <div class="study-section__header">
                 <span class="study-section__num">07</span>
                 <h2>Step 5: Brief Reflection</h2>
             </div>
             <div class="study-section__body">
-                <p>At the bottom of <code>comparison.md</code>, write one paragraph (4–6 sentences) addressing:</p>
+                <p>At the bottom of <code>notes.md</code>, write one paragraph addressing:</p>
                 <ul>
-                    <li>Which path gave you more usable results for <em>this specific</em> question? Why?</li>
-                    <li>What kinds of papers (year, venue, topic slant) appeared in one path but not the other?</li>
-                    <li>Would you trust Path B's sweep to catch all hallucinations? What class of error might still slip through?</li>
+                    <li>Which of today's methods (Way 1 HTML scrape, Way 2 endpoint, or the <code>.json</code> append trick) felt most reliable? Why?</li>
+                    <li>Did prompt wording make a difference in your attempts?</li>
+                    <li>For your dissertation research, which method would you reach for first?</li>
+                    <li>Can you think of another site you use that might expose a similar URL-pattern shortcut (<code>.json</code>, <code>?format=json</code>, <code>.rss</code>, <code>/api/</code>)?</li>
                 </ul>
-                <p>There is no right answer. The reflection is about what you observed, not about parroting the lecture.</p>
             </div>
         </section>
 
-        <!-- ===== SECTION 9: Submission ===== -->
-        <section class="study-section" id="s-10">
+        <!-- Section 8: Submission -->
+        <section class="study-section" id="s-8">
             <div class="study-section__header">
-                <span class="study-section__num">10</span>
+                <span class="study-section__num">08</span>
                 <h2>Submission</h2>
             </div>
             <div class="study-section__body">
-                <p>Submit the following four files to the course portal by the end of the session. Zip them together using the file naming convention below.</p>
+                <p>Submit the following files to the course portal:</p>
 
-                <div class="checklist" data-checklist-id="s05-submission">
+                <div class="checklist" data-checklist-id="scraping1-submission">
                     <div class="checklist__header">
-                        <h4 class="checklist__title">📋 Submission Checklist</h4>
+                        <h4 class="checklist__title">📋 Submission checklist</h4>
                         <span class="checklist__progress">0 / 5 done</span>
                     </div>
                     <ul class="checklist__items">
-                        <li class="checklist__item" data-item-id="path-a">
+                        <li class="checklist__item" data-item-id="csv1">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>Path A bibliography:</strong> <code>session05_[lastname]_path-a.md</code> — the bibliography produced by <code>lit-review-api</code>, including the Disclosure block with retrieved/kept/dropped counts</span>
+                            <span class="checklist__label"><code>faculty.csv</code> — Step 1: Bocconi marketing faculty (Way 1)</span>
                         </li>
-                        <li class="checklist__item" data-item-id="path-b-draft">
+                        <li class="checklist__item" data-item-id="csv2">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>Path B draft:</strong> <code>session05_[lastname]_path-b-draft.md</code> — the draft from Claude's web search, <em>before</em> the verification sweep</span>
+                            <span class="checklist__label"><code>way2_data.csv</code> — Step 2: Reddit top posts via the JSON endpoint</span>
                         </li>
-                        <li class="checklist__item" data-item-id="path-b-verified">
+                        <li class="checklist__item" data-item-id="csv3">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>Path B verified:</strong> <code>session05_[lastname]_path-b-verified.md</code> — the audit report from <code>verify-citations</code>, showing VERIFIED / MISMATCH / FABRICATED verdicts and summary counts</span>
+                            <span class="checklist__label"><code>reddit_comments.csv</code> — Step 3: comment tree via the <code>.json</code> trick</span>
                         </li>
-                        <li class="checklist__item" data-item-id="comparison">
+                        <li class="checklist__item" data-item-id="notes">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>Comparison and reflection:</strong> <code>session05_[lastname]_comparison.md</code> — the comparison table with the three counting questions answered and the one-paragraph reflection</span>
+                            <span class="checklist__label"><code>notes.md</code> — provenance notes and reflection paragraph</span>
                         </li>
-                        <li class="checklist__item" data-item-id="zip-upload">
+                        <li class="checklist__item" data-item-id="upload">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label">Upload all four files as <code>session05_[lastname]_lit-review.zip</code></span>
+                            <span class="checklist__label">Upload as <code>session05_[lastname]_scraping.zip</code> to the course portal</span>
                         </li>
                     </ul>
                 </div>

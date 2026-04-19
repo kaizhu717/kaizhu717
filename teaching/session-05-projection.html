@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
-<title>Session 05 — Skills &amp; AI-Assisted Literature Review — AI-Assisted Research Methods</title>
-<meta name="description" content="Session 05 projection slides — Skills &amp; AI-Assisted Literature Review. PhD course, AI-Assisted Research Methods for Marketing Scholars, Bocconi University, Spring 2026.">
+<title>Session 5 — Web Scraping Foundations — AI-Assisted Research Methods</title>
+<meta name="description" content="Projection slides for Session 5: Web Scraping Foundations — simple methods for collecting web data with Claude Code.">
 
 <style>
 /* ============================================================================
@@ -945,18 +945,16 @@ code.inline,
      ============================================================================ -->
 <main class="stage">
 
-<!-- @@CONTENT@@ -->
-
 <!-- Slide 1: Title -->
 <section class="slide slide--title" data-active>
-    <span class="slide__session-num">Session 05</span>
-    <h1>Skills &amp; AI-Assisted Literature Review</h1>
-    <p class="slide__subtitle">Encoding a rigorous research workflow as a one-command habit</p>
+    <span class="slide__session-num">Session 5</span>
+    <h1>Web Scraping Foundations</h1>
+    <p class="slide__subtitle">Simple methods for collecting web data with Claude Code</p>
     <p class="slide__meta">Kai Zhu — Bocconi University — Spring 2026</p>
     <aside class="slide-notes" hidden>
-        <p>Welcome back. Today's session has two topics that hang together tightly. First, I want to introduce you to Skills — a feature of Claude Code that lets you package a research workflow into a single file that Claude loads into context when you ask for it. Second, I want to use Skills as the vehicle for something you will all do many times: literature review.</p>
-        <p>The pedagogical move is simple. I could spend thirty minutes explaining Skills in the abstract, and you would retain very little. Instead, I am going to introduce Skills briefly — what they are, where they live, what makes them useful — and then spend most of the lecture on a real task. We will look at two different approaches to producing a trustworthy bibliography. Both use Skills. Both arrive at the same destination. They take different paths.</p>
-        <p>By the end, you will have two things you can take straight to your dissertation: a concrete mental model of what a Skill is, and a pair of working Skills for lit review that you can install tonight.</p>
+        <p>Today is the first of two sessions on web scraping. This session covers the fundamentals — two simple methods that require no external tools, no API keys, and no paid services. These are the methods you should always try first.</p>
+        <p>The next session goes deeper: we will cover the HTML-to-Markdown-to-LLM pipeline, which is the most powerful general-purpose scraping pattern, and briefly survey specialized tools for harder cases.</p>
+        <p>By the end of today, you will be able to collect data from static websites, dynamic sites with hidden APIs, and Reddit — all using Claude Code with minimal setup.</p>
     </aside>
 </section>
 
@@ -965,10 +963,11 @@ code.inline,
     <h2 class="slide__title">Today's Plan</h2>
     <div class="slide__body">
         <ol>
-            <li class="reveal">What is a Claude Code Skill, and where do Skills live</li>
-            <li class="reveal">The literature review hallucination problem — why this is not trivial</li>
-            <li class="reveal">Two paths to a verified bibliography, each packaged as a Skill</li>
-            <li class="reveal">Walkthrough: the same marketing question through both paths</li>
+            <li class="reveal">Why scraping with Claude Code changes the game</li>
+            <li class="reveal">Way 1: Just ask Claude Code to scrape a site</li>
+            <li class="reveal">Way 2: Find hidden API endpoints</li>
+            <li class="reveal">How prompt wording shapes Claude's approach</li>
+            <li class="reveal">Practical tips for reliable scraping</li>
         </ol>
         <div class="callout callout--key">
             <div class="callout__sticker" aria-hidden="true">🔑</div>
@@ -977,584 +976,383 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The structure today is slightly different from a normal session because we are introducing a tool (Skills) and then immediately applying it. I want to move fast through the Skills introduction — not because it is unimportant, but because the concepts become obvious the moment you see a real one.</p>
-        <p>The lit-review hallucination problem is the motivating evidence. You will see numbers that should make you uncomfortable about how most researchers currently use LLMs for citation search. After the lecture, we will discuss Freelon et al. (2025) on social media data access — a paper that connects directly to the platform data challenges you face when building research pipelines with AI tools.</p>
-        <p>The two paths are the content move of the session. One is API-grounded from the start; the other uses web search and a verification sweep afterward. Both are legitimate. The choice depends on your topic, not your ideology about AI. By the end of the lecture I want you to understand when each one applies.</p>
-        <p>Then in the exercise you will run both paths on the same question and compare.</p>
+        <p>Five topics in thirty minutes. We start with the motivating question — why Claude Code changes scraping from a programming task to a description task. Then we cover two concrete methods, each with a live prompt example, plus a real-world Reddit demo of Way 2 in action. After that, we discuss how your prompt wording affects Claude's approach — a small insight that dramatically improves success rates. We close with practical tips for reliable scraping.</p>
+        <p>After the lecture, we discuss Freelon et al. (2025) on social media data access — directly relevant since scraping is one of the responses to restricted API access. Then the exercise gives you hands-on practice with both methods.</p>
     </aside>
 </section>
 
-<!-- Slide 3: What is a Claude Code Skill? -->
+<!-- Slide 3: Why Scraping with Claude Code? -->
 <section class="slide">
-    <h2 class="slide__title">What is a Claude Code Skill?</h2>
+    <h2 class="slide__title">Why Scraping with Claude Code?</h2>
     <div class="slide__body">
-        <p><strong>A Skill is a named, reusable workflow written as a <code class="inline">SKILL.md</code> file that Claude reads into context when you invoke it.</strong></p>
-        <div class="cols">
-            <div class="col">
-                <h4>Example: <code class="inline">SKILL.md</code></h4>
-                <pre class="code code--inline">---
-name: lit-review-api
-description: Use when the user asks for
-  a literature review or annotated
-  bibliography on a research topic.
-allowed-tools: Bash
----
-
-## Steps
-1. Query OpenAlex API for search terms.
-2. Triage results by relevance (0-3).
-3. Verify every DOI at Crossref — drop any that fail.
-4. Write bibliography with a disclosure block.</pre>
-            </div>
-            <div class="col">
-                <div class="callout callout--concept">
-                    <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Three properties</h4>
-                    <div class="callout__body">
-                        <ul>
-                            <li><strong>Named</strong> — you can call it by name ("use the lit-review-api skill") or let its description trigger it automatically</li>
-                            <li><strong>Reusable</strong> — the same workflow runs the same way every time, across sessions, projects, and collaborators</li>
-                            <li><strong>File-based</strong> — it is just a Markdown file with a short YAML header; no build step, no install script</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>The shortest useful definition is on the first line of this slide. A Skill is a named, reusable workflow written as a SKILL.md file. Everything else is detail. On the left you can see a concrete example — the lit-review-api skill we will use later today. Notice how short it is: three frontmatter fields and four steps. That is a complete, functional skill.</p>
-        <p>The frontmatter has three fields. The name is how you refer to it. The description tells Claude when to use it — if someone asks for a literature review, Claude reads that description and knows this skill applies. The allowed-tools field restricts what the skill can do; here it can only run Bash commands, which means it can call APIs but cannot edit your files without permission.</p>
-        <p>The steps section is the workflow itself. This one queries OpenAlex, triages by relevance, verifies every DOI at Crossref, and writes the output with a disclosure block. Four steps, and each one is a concrete instruction Claude can follow.</p>
-        <p>The three properties on the right are what distinguish a skill from a prompt template. A prompt template is text you copy-paste. A skill is a file Claude knows about and can reach for automatically based on its description. The description is how Claude decides when to use it.</p>
-        <p>Later this semester we will build skills for your own dissertation workflows. Today's is the minimum viable introduction.</p>
-    </aside>
-</section>
-
-<!-- Slide 4: Why Skills Matter -->
-<section class="slide">
-    <h2 class="slide__title">Why Skills Matter</h2>
-    <div class="slide__body">
-        <p><strong>Two reasons to encode workflows as Skills:</strong></p>
-        <ol>
-            <li class="reveal"><strong>Your own workflows become reusable habits</strong> — Write a rigorous workflow once, invoke it by name forever. No more drifting prompts that silently lose steps.</li>
-            <li class="reveal"><strong>You can use Skills built by others</strong> — Install a SKILL.md someone else wrote and gain their workflow instantly. Today you will use two Skills I built — you did not write a single line.</li>
-        </ol>
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">The elegance</h4>
-            <div class="callout__body"><p>A Skill is just a Markdown file — nothing to compile, nothing to install, nothing to configure. Drop it in a folder, and Claude picks it up. This simplicity is the design: the barrier to creating, sharing, and adopting a workflow is as low as possible.</p></div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>Two reasons, and the second is more powerful than the first. The first reason is the obvious one: reusability. You write a rigorous workflow once — with all the steps, all the checks, all the safeguards — and then you invoke it by name. Every subsequent use runs the same workflow. Your prompts do not drift over time. You do not silently drop a verification step because you forgot it was there three weeks ago.</p>
-        <p>The second reason is what makes Skills more than personal productivity tools. You can use Skills built by other people. Someone else figured out the right workflow, wrote it as a SKILL.md, and you install it by dropping a file into a folder. Today you will use two Skills I built for literature review. You did not write a single line of either one. You just need to know what they do and when to invoke them. This is like installing a library — you get someone else's expertise packaged for reuse.</p>
-        <p>The mechanism is simple by design. A Skill is a Markdown file. There is nothing to compile, no package manager, no dependency resolution. You drop a file in a folder, and Claude picks it up on the next turn. This low barrier is intentional: good workflows should spread easily. If sharing a workflow required a build step or a registry, fewer people would bother. Because it is just a file, the friction approaches zero.</p>
-    </aside>
-</section>
-
-<!-- Slide 5: Where Skills Live -->
-<section class="slide">
-    <h2 class="slide__title">Where Skills Live</h2>
-    <div class="slide__body">
-        <p><strong>Two canonical locations on your file system:</strong></p>
-        <pre class="code code--inline"># User-level (available in every Claude Code session, anywhere)
-~/.claude/skills/&lt;skill-name&gt;/SKILL.md
-
-# Project-level (scoped to the folder you start Claude Code in)
-./.claude/skills/&lt;skill-name&gt;/SKILL.md</pre>
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">Choosing a location</h4>
-            <div class="callout__body">
-                <p><strong>User-level</strong> for general-purpose skills you want everywhere (e.g., "format citations as APA"). <strong>Project-level</strong> for dissertation-specific skills you want versioned with your code (e.g., "re-run my data cleaning pipeline").</p>
-            </div>
-        </div>
-        <p><strong>Invocation — two methods:</strong></p>
+        <p><strong>Traditional scraping</strong> requires you to:</p>
         <ul>
-            <li><strong>Explicit</strong> (slash command): type <code class="inline">/lit-review-api</code> — Claude loads the skill immediately</li>
-            <li><strong>Implicit</strong> (description match): just describe what you need ("find me papers on X") and Claude may trigger the skill automatically if the <code class="inline">description</code> field matches your request</li>
+            <li>Inspect HTML, find CSS selectors, handle pagination</li>
+            <li>Write and debug BeautifulSoup or Selenium scripts</li>
+            <li>Deal with anti-bot measures, rate limits, dynamic loading</li>
         </ul>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>I want you to remember this slide literally, because the question I get most often about skills is "where do I put the file?". The answer is: one of two places.</p>
-        <p>Put it in your home directory under .claude/skills/ if you want the skill to be available in every Claude Code session you start, regardless of what folder you are in. This is the right choice for general research tools: a skill that formats citations, a skill that outlines a paper, a skill that checks your writing for hedging language.</p>
-        <p>Put it in the project folder, at ./.claude/skills/ relative to where you start Claude Code, if you want the skill scoped to that one project. This is the right choice when the workflow depends on project-specific data, paths, or conventions. It also means the skill is versioned alongside your code — if you share the project folder with a collaborator, they get the skill automatically.</p>
-        <p>Both locations are just directories with a SKILL.md file inside a named subfolder. There is no installer, no manifest, no package registry. You create the file, Claude Code picks it up on the next turn.</p>
-        <p>Invocation has two distinct paths. The explicit path is a slash command: you type /lit-review-api in the prompt, and Claude loads the skill file immediately, no ambiguity. This is what you use when you know which skill you want. The implicit path is more interesting — you just describe what you need in natural language, and Claude checks whether any skill's description field matches your request. If it does, Claude loads and runs that skill without you having to name it. The description field in the SKILL.md frontmatter is what makes implicit invocation work, so writing a good description matters. Most researchers use explicit invocation when they are being deliberate and implicit invocation when they are exploring.</p>
-    </aside>
-</section>
-
-<!-- Slide 5: Skill vs Plain Prompt -->
-<section class="slide">
-    <h2 class="slide__title">Skill vs. Plain Prompt</h2>
-    <div class="slide__body">
-        <div class="cols">
-            <div class="col">
-                <h4>Plain Prompt</h4>
-                <ul>
-                    <li>One-shot — retyped every time</li>
-                    <li>Drifts as you forget steps</li>
-                    <li>Dies at the end of the session</li>
-                    <li>Untestable, unversionable</li>
-                    <li>Hard to share with collaborators</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h4>Skill</h4>
-                <ul>
-                    <li>Invoked by name or description</li>
-                    <li>Identical every time</li>
-                    <li>Persistent — lives as a file</li>
-                    <li>Version-controlled, editable, auditable</li>
-                    <li>Trivially shareable (it is a file)</li>
-                </ul>
-            </div>
+        <p class="reveal"><strong>With Claude Code</strong>, you describe what you want:</p>
+        <div class="callout callout--prompt reveal">
+            <div class="callout__sticker" aria-hidden="true">💬</div>
+            <h4 class="callout__title">Claude Code Prompt</h4>
+            <div class="callout__body"><p>Scrape all product names and prices from this e-commerce site. Write them to a CSV file.</p></div>
         </div>
-        <div class="callout callout--concept">
+        <p class="reveal">Claude Code will inspect the site, write the script, handle edge cases, run it, and save the output — all inside your project directory.</p>
+        <div class="callout callout--concept reveal">
             <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">The shift</h4>
-            <div class="callout__body"><p>A Skill is a prompt you keep. Once a workflow is worth doing twice, it is worth turning into a SKILL.md.</p></div>
+            <h4 class="callout__title">The Shift</h4>
+            <div class="callout__body"><p>You move from <strong>writing scrapers</strong> to <strong>describing data needs</strong>. Claude Code handles the implementation.</p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This is the "why" slide. Most PhD students start with plain prompts. You type "give me a lit review on X, include recent papers, make sure the citations are real" — and you get something back. Tomorrow, you need to do it again on a different topic. You retype the prompt, probably leaving out one or two details. By next month you are writing shorter, sloppier versions of your own prompt, and the quality of the output is drifting downward.</p>
-        <p>A Skill stops that drift. You write the good version of the workflow once, you save it to a file, you invoke it by name. Next month, next year, next dissertation — the workflow is still there. You can edit it when you find a better way. You can share it with a classmate. You can put it in a Git repo and track how it evolved.</p>
-        <p>The right trigger for turning a prompt into a skill: "I have now typed this more or less the same way twice." That is the signal. If you are doing something twice, it is worth the five minutes to put it in a file.</p>
-        <p>The cost of a skill is very low. It is a Markdown file. The benefit is that the workflow becomes a habit instead of an act of willpower every time.</p>
+        <p>Traditional scraping is a craft. You open browser dev tools, hunt for CSS selectors, write BeautifulSoup or Selenium code, handle pagination, deal with JavaScript rendering, and debug endlessly when the site changes its layout.</p>
+        <p>Claude Code flips this. You describe the data you want in plain English. It inspects the site, writes the scraper, runs it, and delivers a CSV. When the script fails — and it sometimes will — you describe the error and Claude Code fixes it.</p>
+        <p>This does not mean scraping is fully automated. You still need to understand what is happening under the hood, which is why we cover two distinct methods today. The right nudge at the right moment makes the difference between Claude Code succeeding on the first try and spinning its wheels.</p>
     </aside>
 </section>
 
-<!-- Slide 6: The Lit-Review Hallucination Problem -->
+<!-- Slide 4: Way 1 -- Just Ask -->
 <section class="slide">
-    <h2 class="slide__title">The Lit-Review Hallucination Problem</h2>
+    <h2 class="slide__title">Way 1: Just Ask Claude Code to Scrape the Site</h2>
     <div class="slide__body">
-        <p><strong>Historical baseline — older models without web search:</strong></p>
-        <ul>
-            <li class="reveal"><strong>Bard:</strong> 91% of references hallucinated</li>
-            <li class="reveal"><strong>GPT-3.5:</strong> ~40% hallucinated</li>
-            <li class="reveal"><strong>GPT-4:</strong> ~29% hallucinated <br><small>(Chelli et al. 2024, <em>JMIR</em>, systematic-review task, n=150+ citations per model)</small></li>
-        </ul>
-        <p><strong>Current state (2025--2026):</strong></p>
-        <ul>
-            <li class="reveal">Models with web search produce far fewer outright fabrications</li>
-            <li class="reveal">But <strong>partial errors persist</strong> — wrong year, wrong co-author, wrong volume/pages</li>
-            <li class="reveal">Partial errors are <strong>harder to catch</strong> than complete fabrications because they look correct at a glance</li>
-        </ul>
-        <div class="callout callout--warning">
-            <div class="callout__sticker" aria-hidden="true">⚠️</div>
-            <h4 class="callout__title">Improved but not solved</h4>
-            <div class="callout__body"><p>The problem has improved significantly — outright fabrication is rarer with modern models. But verification remains non-negotiable: partial errors slip past human review and into submitted manuscripts.</p></div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>The Chelli et al. 2024 numbers on the top half of this slide are a historical baseline. They tested older models — Bard, GPT-3.5, GPT-4 — none of which had web search or grounding tools. Under those conditions, hallucination rates were genuinely alarming: 29 to 91 percent of returned citations did not exist or were wrong.</p>
-        <p>The situation has improved meaningfully since then. Current models with web search — Claude with tool use, GPT-4o with browsing, Gemini with grounding — produce far fewer outright fabrications. When the model can actually look up a paper in real time, it is much less likely to invent one from scratch.</p>
-        <p>But here is the nuance I want you to hold onto: partial errors persist. A partial error is a real paper cited with the wrong year, a missing co-author, incorrect page numbers, or an outdated DOI. These are arguably worse than complete fabrications because they pass the smell test. You see a familiar author name, a plausible title, a real journal — and you do not bother to check the page numbers. Then a reviewer does.</p>
-        <p>So the message is not "the sky is falling" — it genuinely is better than it was two years ago. The message is that verification remains non-negotiable even as models improve, because the failure mode has shifted from obvious fabrication to subtle corruption. That is why we build verification into our Skills as a mandatory step, not an optional one.</p>
-    </aside>
-</section>
-
-<!-- Slide 7: Anatomy of a Hallucinated Citation -->
-<section class="slide">
-    <h2 class="slide__title">Anatomy of a Hallucinated Citation</h2>
-    <div class="slide__body">
+        <p>For many sites, a direct request is all you need:</p>
         <div class="callout callout--prompt">
             <div class="callout__sticker" aria-hidden="true">💬</div>
-            <h4 class="callout__title">A naive prompt</h4>
-            <div class="callout__body">
-                <pre class="code code--inline">Give me 5 recent papers on scarcity messaging in online
-retail, with full citations.</pre>
-            </div>
+            <h4 class="callout__title">Claude Code Prompt</h4>
+            <div class="callout__body"><p>Scrape all faculty members from the Bocconi marketing department page. Get their name, title, short bio, select publications, and teaching. Save to faculty.csv</p></div>
         </div>
-        <p><strong>A stylized response (this looks real but is fabricated):</strong></p>
-        <p style="padding: 10px 14px; background: #fff8f0; border-left: 4px solid #ef4444; font-size: 0.9em;">
-            Chen, L., &amp; Rao, A. R. (2023). The urgency illusion: Time-limited offers and consumer regret in online retail. <em>Journal of Marketing Research</em>, 60(4), 678–695.<br>
-            <em>DOI: 10.1509/jmr.22.0417</em> &nbsp; <strong style="color:#c2410c;">← DOI does not resolve</strong>
-        </p>
-        <p><strong>What makes this hard to catch:</strong></p>
-        <ul>
-            <li class="reveal">Real authors (Chen and Rao both publish in marketing)</li>
-            <li class="reveal">Plausible title (topic fits, phrasing matches JMR style)</li>
-            <li class="reveal">Realistic DOI format (correct prefix, correct length)</li>
-            <li class="reveal">Realistic journal, volume, year, page range</li>
-        </ul>
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">Key terms</h4>
-            <div class="callout__body">
-                <ul>
-                    <li><strong>DOI</strong> (Digital Object Identifier): a permanent URL for a published work (e.g., <code class="inline">10.1509/jmr.22.0417</code>). Every journal article gets one.</li>
-                    <li><strong>Crossref</strong>: the registry that stores DOI metadata (authors, title, year). If a DOI resolves at Crossref, the paper is real. If not, it does not exist.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="callout callout--warning">
-            <div class="callout__sticker" aria-hidden="true">⚠️</div>
-            <h4 class="callout__title">The only reliable signal</h4>
-            <div class="callout__body"><p>The DOI either resolves at Crossref or it does not. Everything else is guesswork.</p></div>
-        </div>
+        <p class="reveal"><strong>What Claude Code does:</strong></p>
+        <ol>
+            <li class="reveal">Fetches the page (via <code>requests</code> or <code>curl</code>)</li>
+            <li class="reveal">Inspects the HTML structure</li>
+            <li class="reveal">Writes a Python script with BeautifulSoup</li>
+            <li class="reveal">Runs the script and writes the output to CSV</li>
+        </ol>
+        <p class="reveal"><strong>Works well for:</strong> government portals, university pages, product listings, static tables, public directories</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Why is a fabricated citation so hard to catch? Because the model is very good at making things look plausible. The first author is someone who actually publishes in marketing. The co-author is a well-known scholar whose name commonly appears on JMR papers. The title reads like a JMR paper title. The journal is a real journal. The volume and year are internally consistent. The DOI has the right prefix and the right number of digits.</p>
-        <p>Every surface-level check passes. A reviewer, a co-author, even you a week from now would not immediately see anything wrong.</p>
-        <p>Two terms you need to know. A DOI — Digital Object Identifier — is a permanent URL assigned to a published work. Every journal article gets one. The format is a prefix (like 10.1509 for the AMA journals) followed by a suffix that identifies the specific paper. A DOI is meant to be permanent: even if a journal moves its website, the DOI still resolves. Crossref is the registry that stores DOI metadata — the authors, title, year, volume, pages. When you resolve a DOI at Crossref, you are asking: does this paper exist, and if so, what are its real metadata? If Crossref returns a match, the paper is real. If it returns nothing, the paper does not exist — no matter how plausible the citation looks.</p>
-        <p>The only check that actually works is resolving the DOI. If you type doi.org/10.1509/jmr.22.0417 into your browser and it returns "DOI not found," the citation is fake. If the DOI resolves but to a paper with a different title or different authors, the citation is a mismatch — also not usable as written.</p>
-        <p>I want to make a stronger claim. DOI resolution against Crossref is the ground-truth check for LLM-produced citations. Not because it catches every possible problem — it does not — but because every fabrication reliably fails it. If you build any lit-review workflow with LLMs, the DOI resolution step is non-negotiable.</p>
-        <p>This is why the two Skills we are about to look at both end on the same step: Crossref verification. They differ in what comes before that step. They agree on the gate.</p>
+        <p>Way 1 is the baseline. You tell Claude Code what you want and from where. It fetches the page, parses the HTML, extracts the data, and writes it to a file. No configuration needed.</p>
+        <p>This works surprisingly often — especially for static, well-structured sites like government data portals, university faculty pages, and product listings. Claude Code is good at identifying repeating HTML patterns and writing extraction loops.</p>
+        <p>Where it fails: sites that load data dynamically via JavaScript (the HTML source is empty), sites with anti-bot protections, and sites that require authentication. Way 2 handles the first problem. The next session covers solutions for harder cases.</p>
     </aside>
 </section>
 
-<!-- Slide 8: This Actually Happened — Audit of a Web-Search Draft -->
+<!-- Slide 5: Way 2 -- Find Endpoints -->
 <section class="slide">
-    <h2 class="slide__title">This Actually Happened — Audit of a Web-Search Draft</h2>
+    <h2 class="slide__title">Way 2: Use a Hidden JSON Endpoint</h2>
     <div class="slide__body">
-        <p><strong>Question asked:</strong> <em>How do algorithmic personalization systems affect consumer welfare?</em><br>
-        <strong>Method:</strong> Claude Code web search → 10-entry draft → <code class="inline">verify-citations</code> sweep (Crossref).</p>
+        <p>Many modern sites load data via hidden API calls — URLs that return structured JSON instead of a web page. When you browse a subreddit on Reddit, your browser is calling an endpoint that returns clean JSON: titles, scores, comment counts, full post text. The rendered HTML is just a formatting layer.</p>
+        <div class="callout callout--prompt reveal">
+            <div class="callout__sticker" aria-hidden="true">💬</div>
+            <h4 class="callout__title">Claude Code Prompt</h4>
+            <div class="callout__body"><p>Use the Reddit JSON endpoint at <code>https://old.reddit.com/r/claudecode/top.json?t=month&amp;limit=100</code> to fetch the top 100 posts from r/claudecode this month. Extract title, score, number of comments, and post text. Save to way2_data.csv.</p></div>
+        </div>
+        <p class="reveal"><strong>Why this works better than Way 1:</strong></p>
+        <ul>
+            <li class="reveal">The API returns <strong>structured JSON</strong> — no HTML parsing needed</li>
+            <li class="reveal">Often faster and more reliable than scraping rendered pages</li>
+            <li class="reveal">Pointing Claude Code at the endpoint (or using the word "endpoint") shifts its approach from HTML parsing to direct JSON consumption</li>
+        </ul>
+        <div class="callout callout--concept reveal">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">Key Insight</h4>
+            <div class="callout__body"><p>Saying "use the endpoint" (and giving the URL) dramatically changes Claude Code's approach. It shifts from parsing rendered HTML to consuming the structured data feeds the site already exposes.</p></div>
+        </div>
+    </div>
+    <aside class="slide-notes" hidden>
+        <p>Way 2 is a subtle but powerful upgrade. Most modern websites do not render data server-side. They load a skeleton page and then make API calls to fetch the actual data. An API endpoint is just a URL that returns structured data — usually JSON — instead of a web page. If you tell Claude Code to scrape the site, it might try to parse empty HTML. But if you point it at the endpoint directly, you get clean structured data on the first try.</p>
+        <p>Reddit is the ideal first example for this. The JSON endpoint is public, unauthenticated, stable, and returns rich data for every subreddit page. You do not need DevTools discovery, you do not need an API key, and you do not need to reverse-engineer anything — the endpoint URL follows a simple pattern you can type directly. That lets students focus on the workflow of consuming a JSON endpoint without fighting infrastructure.</p>
+        <p>The broader lesson: how you phrase your request matters. Claude Code's approach changes based on your wording. "Scrape" triggers HTML parsing. "Use the endpoint" or "find the endpoint" triggers direct JSON consumption. Both are valid, but for dynamic sites, the latter is far more effective. Once the Reddit workflow clicks, the same pattern generalises to any site whose API you discover via DevTools in later sessions.</p>
+    </aside>
+</section>
 
-        <div class="cols">
-            <div class="col">
-                <p><strong>Audit verdict (10 entries)</strong></p>
-                <table style="width:100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: var(--space-4);">
-                    <thead>
-                        <tr style="border-bottom: 2px solid var(--color-ink);">
-                            <th style="text-align:left; padding: 8px;">Verdict</th>
-                            <th style="text-align:right; padding: 8px;">Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 8px;">VERIFIED (clean)</td><td style="padding: 8px; text-align:right;"><strong>5</strong></td></tr>
-                        <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 8px;">MISMATCH (real, wrong metadata)</td><td style="padding: 8px; text-align:right;"><strong>4</strong></td></tr>
-                        <tr><td style="padding: 8px;">FABRICATED (no Crossref match)</td><td style="padding: 8px; text-align:right;"><strong>1</strong></td></tr>
-                    </tbody>
-                </table>
-                <div class="callout callout--warning">
-                    <div class="callout__sticker" aria-hidden="true">⚠️</div>
-                    <h4 class="callout__title">Not just "0 or 100"</h4>
-                    <div class="callout__body">
-                        <p>Only <strong>5 of 10</strong> were clean. Four were real papers cited incorrectly — the failure mode that gets past a casual reader.</p>
+<!-- Slide 6: How to Find a Hidden API Endpoint -->
+<section class="slide">
+    <h2 class="slide__title">How to Find a Hidden API Endpoint</h2>
+    <div class="slide__body">
+        <p>Slide 5 gave you an endpoint (Reddit's). But how do you find one on a site you have never seen? The instinct is to open DevTools. You can skip that — Claude Code can discover most endpoints by reading the page source directly.</p>
+
+        <div class="callout callout--concept">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">Five places Claude Code looks</h4>
+            <div class="callout__body">
+                <ol>
+                    <li class="reveal"><strong>Embedded JSON in <code>&lt;script&gt;</code> tags</strong> — modern frameworks dump the whole page state as JSON into the HTML: <code>__NEXT_DATA__</code> (Next.js), <code>window.__INITIAL_STATE__</code> (Redux/Vuex), <code>window._sharedData</code>, <code>&lt;script type="application/ld+json"&gt;</code>. Often the data you want is <em>already there</em> — no second request needed.</li>
+                    <li class="reveal"><strong><code>&lt;link&gt;</code> tags in <code>&lt;head&gt;</code></strong> — sites advertise alternate representations: <code>type="application/rss+xml"</code>, <code>type="application/json"</code>, <code>rel="alternate"</code>, oEmbed endpoints.</li>
+                    <li class="reveal"><strong>JavaScript bundles</strong> — grep the JS for <code>fetch(</code>, <code>XMLHttpRequest</code>, or URL strings matching <code>/api/</code>, <code>/graphql</code>, <code>/v1/</code>, <code>/v2/</code>.</li>
+                    <li class="reveal"><strong>URL-pattern tricks</strong> — try appending <code>.json</code>, <code>?format=json</code>, <code>?output=json</code>, <code>.rss</code>, or swap <code>/page</code> for <code>/api/page</code>.</li>
+                    <li class="reveal"><strong>Common paths</strong> — probe <code>/api</code>, <code>/api/v1</code>, <code>/wp-json</code> (WordPress), <code>/graphql</code>, <code>/feed</code>, <code>/sitemap.xml</code>, <code>/robots.txt</code>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="callout callout--prompt reveal">
+            <div class="callout__sticker" aria-hidden="true">💬</div>
+            <h4 class="callout__title">Claude Code Prompt</h4>
+            <div class="callout__body"><p>Find the hidden API endpoint that <em>[URL]</em> uses to load <em>[specific data]</em>. Check the page source for embedded JSON in <code>&lt;script&gt;</code> tags (<code>__NEXT_DATA__</code>, <code>__INITIAL_STATE__</code>, <code>application/ld+json</code>), look at <code>&lt;link&gt;</code> tags for alternate formats, grep the JavaScript for fetch/XHR URLs, and try URL tricks like appending <code>.json</code> or <code>?format=json</code>. Report what you find before extracting anything.</p></div>
+        </div>
+
+        <div class="callout callout--key reveal">
+            <div class="callout__sticker" aria-hidden="true">🔑</div>
+            <h4 class="callout__title">The priming word matters</h4>
+            <div class="callout__body"><p>Saying "inspect the source" or "find the endpoint" triggers reverse-engineering behaviour. Saying "scrape the page" triggers HTML parsing. Same site, different prompts, different — often dramatically different — results.</p></div>
+        </div>
+    </div>
+    <aside class="slide-notes" hidden>
+        <p>This slide answers the natural next question: "OK, Reddit has an endpoint. How do I find one on a site I have not seen before?" The instinct most people have is to open browser DevTools, go to the Network tab, and click around. That works. It also takes a few minutes and assumes you know what to click.</p>
+        <p>Claude Code can often skip that step entirely. The reason is that most hidden endpoints leave fingerprints in the page source itself. If you read the HTML and the JavaScript bundles carefully, the endpoint is usually right there.</p>
+        <p>The first place to look is embedded JSON in script tags. Every major frontend framework does this. Next.js puts the full page state in a script tag with id __NEXT_DATA__. React apps often use __INITIAL_STATE__ or __PRELOADED_STATE__. Instagram uses _sharedData. Sites with schema.org structured data use application/ld+json. When you find one of these, the data you wanted is already in the HTML — you do not even need to hit a separate endpoint.</p>
+        <p>The second place is link tags in the head. RSS feeds, JSON feeds, oEmbed endpoints — sites advertise these to browsers and crawlers. Most people never notice.</p>
+        <p>The third place is the JavaScript itself. Claude Code can fetch the JS bundles the site loads and grep them for fetch calls, XHR calls, or URL strings matching common API patterns. This is slower but catches endpoints that are called dynamically.</p>
+        <p>The fourth place is URL tricks — the .json append we saw on Reddit is one of many. Some sites accept format=json as a query parameter. Some have parallel /api/ paths that mirror the UI. Some expose .rss feeds.</p>
+        <p>The fifth is common paths. /api, /api/v1, /wp-json for WordPress sites, /graphql, /sitemap.xml, /robots.txt. Worth a five-second probe.</p>
+        <p>The prompt on this slide is the one I use in practice. The pattern I want you to remember is the last line: "Report what you find before extracting anything." That makes the discovery step explicit, which is useful because Claude Code will sometimes jump straight to scraping if you do not slow it down.</p>
+        <p>The last takeaway — the priming word — is the meta-lesson. Your prompt wording changes Claude Code's behaviour more than most people realise. Words like "inspect," "find," "reverse-engineer" trigger different code paths than "scrape" or "extract." Both are valid; they are just tools for different jobs.</p>
+    </aside>
+</section>
+
+<!-- Slide 7: The .json Append Trick -->
+<section class="slide">
+    <h2 class="slide__title">The <code>.json</code> Append Trick</h2>
+    <div class="slide__body">
+        <p>Slide 5 <em>used</em> a Reddit endpoint on a whole subreddit. This slide zooms into a <strong>single Reddit page</strong> — one specific post — and turns the URL trick behind it into a reusable technique.</p>
+        <div class="callout callout--concept">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">The trick: append <code>.json</code> to any Reddit URL</h4>
+            <div class="callout__body">
+                <p><strong>Regular post URL:</strong><br><code>www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/</code></p>
+                <p><strong>JSON endpoint:</strong><br><code>www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47<strong>.json</strong></code></p>
+                <p>Works on listings (<code>/r/X.json</code>), <em>individual posts</em> (<code>/comments/ID.json</code>), user pages, and search. No API key, no authentication.</p>
+            </div>
+        </div>
+        <div class="callout callout--concept reveal">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">What the JSON response looks like</h4>
+            <div class="callout__body">
+                <div class="code-block" data-lang="json">
+                    <div class="code-block__header">
+                        <span class="code-block__icon">💻</span>
+                        <span class="code-block__lang">json</span>
                     </div>
+                    <pre class="code-block__code"><code>{
+  "title": "Opus 4.7",
+  "score": 423,
+  "num_comments": 87,
+  "selftext": "...",
+  "comments": [ { "author": "...", "body": "..." }, ... ]
+}</code></pre>
                 </div>
             </div>
-            <div class="col">
-                <p><strong>Concrete errors caught by the sweep:</strong></p>
-                <ul>
-                    <li class="reveal"><strong>PNAS filter-bubble paper (2025):</strong> draft lists <em>Hosanagar, K., et al.</em> as first author. Crossref: first author is <em>Liu, N.</em> — <strong>Hosanagar is not in the author list at all.</strong></li>
-                    <li class="reveal"><strong>Lu (2024), <em>J. of Industrial Economics</em>:</strong> draft listed solo-authored. Actual: <strong>Lu &amp; Matsushima.</strong> Co-author missing.</li>
-                    <li class="reveal"><strong><em>Psychology &amp; Marketing</em> paper:</strong> draft lists <em>Lv, X.</em> Crossref: <em>Lv, L.</em> — wrong initial.</li>
-                    <li class="reveal"><strong><em>Games &amp; Economic Behavior</em> paper:</strong> draft gave no authors; sweep recovered <em>Bó, Chen, &amp; Hakimov</em> and the DOI.</li>
-                    <li class="reveal"><strong>"Rafieian &amp; Zuo (2024)" SSRN:</strong> no Crossref record — classified <strong>FABRICATED</strong> and dropped.</li>
-                </ul>
-            </div>
         </div>
-
-        <div class="callout callout--key">
-            <div class="callout__sticker" aria-hidden="true">🗝️</div>
-            <h4 class="callout__title">What this means</h4>
-            <div class="callout__body">
-                <p>The web-search draft <em>looked</em> professional. Every entry had a title, venue, year, and most had a DOI. The errors only surface when you resolve each DOI at Crossref and compare the returned metadata field-by-field. <strong>This is why the verification gate is non-negotiable — not a theoretical worry, a reproducible result from this course.</strong></p>
-            </div>
+        <div class="callout callout--prompt reveal">
+            <div class="callout__sticker" aria-hidden="true">💬</div>
+            <h4 class="callout__title">Claude Code Prompt</h4>
+            <div class="callout__body"><p>Take this single Reddit post URL: <code>https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/</code> — apply the <code>.json</code> append trick to fetch the post and its full comment tree. Extract the title, score, and the top 20 comments with author, score, and body. Save to <code>reddit_comments.csv</code>.</p></div>
         </div>
+        <p class="reveal"><strong>Why this generalises:</strong> many sites expose machine-readable versions of pages through URL tricks you would never guess from the UI — <code>.json</code>, <code>?format=json</code>, <code>/api/</code> prefixes, <code>.rss</code> feeds. Once you notice Reddit's shortcut, you start looking for similar patterns on other sites — and often find them.</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>I am showing you this slide because the previous one — the stylized fabricated citation — might have felt abstract. So here is the same problem, run live, on a question from our own field, using the exact tools you will use in the exercise.</p>
-        <p>The question was "How do algorithmic personalization systems affect consumer welfare?". I asked Claude Code to run a web search and produce a 10-entry annotated bibliography. The draft looked completely professional. Every entry had a title, authors, journal, year, and in most cases a DOI. If you skimmed it, you would have no reason to suspect anything was wrong.</p>
-        <p>Then I ran the verify-citations skill on that draft. The audit classified each entry against Crossref. Five came back clean — verified on every field. Four were real papers with incorrect metadata. One had no Crossref record at all.</p>
-        <p>Look at the errors on the right. The PNAS filter-bubble paper is a real, high-profile 2025 paper. The draft claimed Hosanagar was the first author. He is not on the paper. The actual first author is Liu. This is exactly the kind of error that would make it into a dissertation chapter unnoticed, because the paper exists, the topic matches, and the title is correct. Only a field-by-field check against Crossref catches it.</p>
-        <p>The Journal of Industrial Economics paper was listed as solo-authored by Lu. The actual paper is by Lu and Matsushima. A missing co-author is a citation error your committee will notice.</p>
-        <p>The Psychology &amp; Marketing paper had the right surname but the wrong initial — X vs L. Different person. Again, caught only by pulling the record and comparing.</p>
-        <p>The Games &amp; Economic Behavior paper had no authors in the draft at all; the sweep recovered them.</p>
-        <p>And one entry — the SSRN working paper — had no Crossref match at all, either via DOI or title search. That does not necessarily mean the paper does not exist. It means we cannot cite it as a Crossref-indexed work. The skill classifies it as fabricated and drops it, by design. We do not substitute, we do not guess.</p>
-        <p>The practical implication: verification is not a best-practice recommendation, it is an operational requirement. Half the entries in a professional-looking draft had something wrong. You cannot tell which half by reading.</p>
+        <p>Slides 5 and 7 both use Reddit but at different scales. Slide 5 fetched an entire subreddit listing via the JSON endpoint. This slide zooms into one single page — a specific post — and shows that the same URL trick works there too. That is the key generalisation: the .json append is not a listing hack, it is a site-wide pattern.</p>
+        <p>The example URL on the slide is a real top post on r/ClaudeCode titled "Opus 4.7". You can substitute any post URL from any subreddit in your prompt — copy it from your browser address bar, paste it, append dot-json. That is the whole technique.</p>
+        <p>Why a single post instead of a listing? Two reasons. First, a post URL gives you the full comment tree as recursive JSON, which is much harder to get from rendered HTML because Reddit lazy-loads nested replies on click. Second, it reinforces the mental model that the trick is about <em>any</em> URL, not about some special "subreddit API." Listings, posts, user pages, search results — same trick applies.</p>
+        <p>The pedagogical point is not just "here is a useful Reddit shortcut." It is: many sites have equivalent tricks. Some sites accept a format query parameter. Some expose slash-api-slash-v2 paths that mirror the main site URLs. Some offer dot-rss feeds. Once you know to look for these patterns — which is exactly what slide 6 taught you — you find them on sites where no documentation ever mentioned them.</p>
+        <p>For researchers, Reddit specifically is a goldmine of consumer opinions, product discussions, and community sentiment. Getting to full comment trees as clean JSON makes qualitative analysis and sentiment work dramatically easier than scraping the rendered HTML, which — again — lazy-loads on click.</p>
     </aside>
 </section>
 
-<!-- Slide 9: Two Paths to a Verified Bibliography -->
+<!-- Slide 8: Prompt Wording Matters -->
 <section class="slide">
-    <h2 class="slide__title">Two Paths to a Verified Bibliography</h2>
+    <h2 class="slide__title">Prompt Wording Matters</h2>
     <div class="slide__body">
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">🅰️</div>
-            <h4 class="callout__title">Path A — API-Grounded</h4>
-            <div class="callout__body">
-                <p style="text-align:center; font-family: var(--font-mono);"><code>query → OpenAlex API → Crossref verification gate → bibliography</code></p>
-                <p><em>Verification happens inside the retrieval loop. Hallucination is impossible by construction.</em></p>
+        <p><strong>The same site, two different prompts, very different outcomes:</strong></p>
+        <div class="cols">
+            <div class="col">
+                <div class="callout callout--warning">
+                    <div class="callout__sticker" aria-hidden="true">⚠️</div>
+                    <h4 class="callout__title">Vague prompt</h4>
+                    <div class="callout__body"><p>Scrape this hotel site for pricing data.</p></div>
+                </div>
+                <p>Claude tries to parse HTML → finds empty page → fails or returns garbage</p>
+            </div>
+            <div class="col reveal">
+                <div class="callout callout--concept">
+                    <div class="callout__sticker" aria-hidden="true">💡</div>
+                    <h4 class="callout__title">Targeted prompt</h4>
+                    <div class="callout__body"><p>Find the API endpoints this hotel site uses to load pricing data. Use those endpoints.</p></div>
+                </div>
+                <p>Claude finds JSON API → extracts structured data → clean CSV</p>
             </div>
         </div>
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">🅱️</div>
-            <h4 class="callout__title">Path B — Web Search + Verification Sweep</h4>
-            <div class="callout__body">
-                <p style="text-align:center; font-family: var(--font-mono);"><code>query → Claude web search → draft bibliography → verify-citations skill → cleaned bibliography</code></p>
-                <p><em>Retrieval is flexible; verification happens after the fact as an explicit audit pass.</em></p>
-            </div>
+        <p class=”reveal”><em>Note: finding endpoints requires some intuition about what data the site loads dynamically. If you expect structured listings, prices, or search results, there is probably an endpoint behind the scenes.</em></p>
+    </div>
+    <aside class=”slide-notes” hidden>
+        <p>This slide makes the implicit lesson from Ways 1 and 2 explicit. Your prompt wording is not just a description — it is an instruction that shapes Claude Code's entire approach.</p>
+        <p>On the left: a vague “scrape this site” prompt leads Claude Code to fetch HTML, which for a dynamic site is likely an empty shell. The scraper fails or returns garbage.</p>
+        <p>On the right: the same site, but now you say “find the API endpoints.” Claude Code looks for XHR calls, finds the JSON API, and extracts clean, structured data. Same site, different prompt, completely different outcome.</p>
+        <p>The three nudges in the orange box are worth memorizing. “Find endpoints” is the most powerful — it redirects Claude from HTML parsing to API discovery. “Use the JSON endpoint” works when you know the endpoint exists (like Reddit). “Start with 5 results first” is crucial — it lets you validate the approach before committing to a large scrape. Finding endpoints also requires some intuition about what to expect — if the site shows structured listings, prices, or search results, there is probably an API behind the scenes.</p>
+    </aside>
+</section>
+
+<!-- Slide 9: When Simple Methods Fail -->
+<section class="slide">
+    <h2 class="slide__title">When Simple Methods Fail</h2>
+    <div class="slide__body">
+        <p><strong>Way 1 and Way 2 will not work when:</strong></p>
+        <ul>
+            <li class="reveal">The pages you need have <strong>diverse HTML structures</strong> — e.g., faculty profiles across 50 universities, each with a different page layout</li>
+            <li class="reveal">The site uses heavy <strong>anti-bot protections</strong> — CAPTCHAs, JavaScript challenges, IP blocking</li>
+            <li class="reveal">The data is behind a <strong>login wall</strong> — subscription databases, social media private accounts</li>
+            <li class="reveal">The data is in <strong>video or audio</strong> — YouTube transcripts, podcast content</li>
+        </ul>
+        <div class="callout callout--concept reveal">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">Next session: The HTML-to-Markdown Pipeline</h4>
+            <div class="callout__body"><p>For structurally diverse pages, the solution is to convert HTML to Markdown and let an LLM extract the fields — a universal pipeline that works regardless of page layout. We cover this in detail next time, along with specialized tools for the other hard cases.</p></div>
         </div>
+    </div>
+    <aside class="slide-notes" hidden>
+        <p>This slide sets up the next session by showing the limits of what we covered today.</p>
+        <p>Ways 1 and 2 assume the pages you are scraping have a reasonably consistent structure. When every page is different — 50 universities with 50 different layouts — CSS selectors break down. You need a different approach. That approach is the Markdown pipeline, which is the centerpiece of the next session.</p>
+        <p>Anti-bot protections, login walls, and video/audio data each require their own specialized tools. We will cover ScrapeCreators for social media, Apify for hard-to-scrape sites, yt-dlp for YouTube, and Agent Browser for authenticated scraping.</p>
+        <p>The message for today: start simple. Way 1 and Way 2 handle a large fraction of real-world scraping tasks. When they fail, you now know the categories of failure, and the next session gives you the tools to handle each one.</p>
+    </aside>
+</section>
+
+<!-- Slide 10: Practical Tips for Reliable Scraping -->
+<section class="slide">
+    <h2 class="slide__title">Practical Tips for Reliable Scraping</h2>
+    <div class="slide__body">
         <div class="callout callout--key">
             <div class="callout__sticker" aria-hidden="true">🔑</div>
-            <h4 class="callout__title">The invariant</h4>
-            <div class="callout__body"><p><strong>The verification gate is the invariant. The retrieval method is the variable.</strong> Both paths end at the same place: a bibliography where every citation has been resolved against a live API. They differ in where in the pipeline that check happens.</p></div>
+            <h4 class="callout__title">Five Habits for Reliable Scraping</h4>
+            <div class="callout__body">
+                <ol>
+                    <li><strong>Respect rate limits</strong> — add delays between requests; do not overwhelm servers</li>
+                    <li><strong>Start small, then scale</strong> — test with 5 results before collecting 5,000</li>
+                    <li><strong>Save raw data first</strong> — store the original response before transforming it</li>
+                    <li><strong>Handle errors gracefully</strong> — expect timeouts, missing fields, and format changes</li>
+                    <li><strong>Document your process</strong> — record what you scraped, when, and how for reproducibility</li>
+                </ol>
+            </div>
         </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>This is the central slide of the session, so I want to spend a minute on it.</p>
-        <p>Path A is what most people think of when they hear "rigorous lit review with AI." You call a scholarly database — OpenAlex, Semantic Scholar, Crossref — directly from your skill. Every result comes back as structured metadata. You then verify each result at Crossref as a second check. Because retrieval and verification both hit real APIs, hallucination is literally impossible: the model never gets to invent a citation because it never produces a citation from its own memory.</p>
-        <p>Path B starts differently. You let Claude answer the question the way it normally would — using its web search and web fetch tools, looking at Google Scholar, reading a few blog posts, pulling abstracts. This is the approach most students naturally take. The draft you get back is a mix of real papers, partial errors, and sometimes outright fabrications. The key move is what happens next: you run a second skill over that draft. The verify-citations skill takes every entry and resolves it at Crossref, classifying each one as verified, mismatch, or fabricated. Fabrications get flagged and dropped.</p>
-        <p>Both paths arrive at the same place: a bibliography where every remaining citation has been confirmed against Crossref. The difference is where in the pipeline the check happens.</p>
-        <p>The important mental model: the verification gate is the invariant. It is the thing that must always be present. The retrieval method is the variable. You choose it based on your topic and your coverage needs.</p>
-    </aside>
-</section>
-
-<!-- Slide 10: Path A Skill -->
-<section class="slide">
-    <h2 class="slide__title">Path A: Our <code class="inline">lit-review-api</code> Skill</h2>
-    <div class="slide__body">
-        <p><strong>Lives at:</strong> <code class="inline">.claude/skills/lit-review-api/SKILL.md</code></p>
-        <pre class="code code--inline">---
-name: lit-review-api
-description: Use when the user asks for a literature review or
-  annotated bibliography. Performs grounded retrieval via OpenAlex,
-  verifies every DOI at Crossref, and drops unverified references.
-allowed-tools: Bash
----
-
-## Workflow
-1. Clarify the query (one question if vague).
-2. Query OpenAlex:
-   curl "https://api.openalex.org/works?search=&lt;q&gt;&amp;per_page=25&amp;mailto=..."
-3. Triage: score relevance 0-3, keep &gt;=2.
-4. Verification gate: for each DOI, hit
-   curl "https://api.crossref.org/works/&lt;doi&gt;" — HTTP 200 = keep,
-   anything else = DROP. Never substitute.
-5. Write the bibliography with a Disclosure block
-   (retrieved / kept / dropped counts, search date, APIs used).
-6. If zero entries survive verification, say so and stop.</pre>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>Here is the actual Path A skill. It is about 60 lines in total; I have abridged it to fit the slide, but the full version is in the course repo.</p>
-        <p>Walk through the frontmatter first. Name is lit-review-api. Description tells Claude when to use it: any lit review, citation search, or annotated bibliography request. Allowed tools is Bash — this skill does not need to read or edit files, it just needs to run curl commands.</p>
-        <p>The workflow is six steps. Step 1 is to clarify the query if it is vague, but only ask one question and then proceed. I wrote that constraint explicitly because I kept finding that skills with no clarification limit would ask three or four questions in a row, which is annoying.</p>
-        <p>Step 2 hits the OpenAlex API. OpenAlex is free, has no API key, covers around 250 million scholarly works, and has excellent social science coverage. The mailto parameter keeps you in the "polite pool," which avoids rate limiting.</p>
-        <p>Step 3 is triage: score each result 0–3 on relevance and keep anything 2 or higher.</p>
-        <p>Step 4 is the verification gate. Every kept entry has its DOI hit at Crossref. HTTP 200 means the paper is real and can stay. Anything else means drop. The skill explicitly forbids substitution: if a paper fails verification, it is not replaced with a "similar" paper.</p>
-        <p>Step 5 writes the output, including a disclosure block with the counts — how many were retrieved, how many passed triage, how many made it past verification. That disclosure block is your transparency audit trail.</p>
-        <p>Step 6 handles the empty-result case. If nothing survives verification, the skill says so and stops. It does not fall back to memory.</p>
-    </aside>
-</section>
-
-<!-- Slide 11: Path B Skill -->
-<section class="slide">
-    <h2 class="slide__title">Path B: Our <code class="inline">verify-citations</code> Skill</h2>
-    <div class="slide__body">
-        <p><strong>Lives at:</strong> <code class="inline">.claude/skills/verify-citations/SKILL.md</code></p>
-        <pre class="code code--inline">---
-name: verify-citations
-description: Use when the user has a draft bibliography from any
-  source (web search, another LLM, a paper's references, a chat
-  history) and wants each entry verified against Crossref.
-allowed-tools: Bash, Read
----
-
-## Workflow
-1. Parse the input (APA, BibTeX, plain text) — extract author,
-   year, title, venue, DOI for every entry.
-2. For entries with a DOI: curl Crossref and check first author
-   surname (exact), year (exact), title (&gt;=80% fuzzy match).
-3. For entries without a DOI: search Crossref by title, compare
-   top 3 hits to claimed author and year.
-4. Classify each entry:
-   - VERIFIED   - all fields match
-   - MISMATCH   - paper exists but some claimed field is wrong
-   - FABRICATED - no Crossref match found
-5. Emit a markdown audit table with summary counts.
-6. Never substitute a FABRICATED entry with a "similar" paper.</pre>
-        <p><strong>Path B = plain web-search prompt + this skill as a second pass.</strong></p>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>Path B's companion skill is verify-citations. It is intentionally narrow: it does one thing, which is audit a bibliography that already exists.</p>
-        <p>Notice the frontmatter has two allowed tools: Bash and Read. The skill needs Read because its input is typically a markdown file that Claude or the user just wrote — the draft bibliography. It uses Bash to hit Crossref.</p>
-        <p>The workflow has an important subtlety. Step 2 and Step 3 handle two cases: entries that include a DOI, and entries that do not. For entries with a DOI, we resolve the DOI and check that the metadata Crossref returns matches what the citation claims. Author, year, title. If any of those differ, the entry is a mismatch — the paper exists but the citation is wrong.</p>
-        <p>For entries without a DOI, we fall back to a title search. Crossref supports searching works by title, and we compare the top three hits against the claimed author and year. If one of them matches both, that is our evidence; we attach the found DOI.</p>
-        <p>Step 4 is the three-way classification. Verified means everything checks out. Mismatch means the paper is real but the citation has errors. Fabricated means no match was found, period.</p>
-        <p>Step 6 is a non-negotiable rule I put in every verification skill: never fix a fabrication by substituting a "similar" paper. The model must not invent. If the citation cannot be verified, the verdict is "not found" and the user decides whether to drop it or search manually.</p>
-        <p>Path B is the combination of this skill and whatever retrieval method you prefer — web search, a shared chat history, a reference list from another paper.</p>
-    </aside>
-</section>
-
-<!-- Slide 12: When to Use Each Path -->
-<section class="slide">
-    <h2 class="slide__title">When to Use Each Path</h2>
-    <div class="slide__body">
-        <table style="width:100%; border-collapse: collapse; font-size: 0.85em;">
-            <thead>
-                <tr style="border-bottom: 2px solid var(--color-ink);">
-                    <th style="text-align:left; padding: 8px;"></th>
-                    <th style="text-align:left; padding: 8px;">Path A (API-grounded)</th>
-                    <th style="text-align:left; padding: 8px;">Path B (web search + sweep)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid var(--color-line);">
-                    <td style="padding: 8px; font-weight: 700;">Strength</td>
-                    <td style="padding: 8px;">Hallucination impossible by construction; structured metadata; fast</td>
-                    <td style="padding: 8px;">Works for topics poorly indexed by OpenAlex; catches errors in any existing bibliography</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--color-line);">
-                    <td style="padding: 8px; font-weight: 700;">Weakness</td>
-                    <td style="padding: 8px;">Limited to OpenAlex coverage — weak for regional journals, SSRN, very recent work</td>
-                    <td style="padding: 8px;">Some hallucinations slip through if verification is sloppy; two-step workflow</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; font-weight: 700;">Best for</td>
-                    <td style="padding: 8px;">Mainstream marketing / economics lit review in top journals</td>
-                    <td style="padding: 8px;">Coverage gaps; auditing a bibliography someone else wrote</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="callout callout--concept">
+        <div class="callout callout--concept reveal">
             <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">Choosing your path</h4>
-            <div class="callout__body"><p><strong>Path A</strong> when your topic is well-indexed in major journals. <strong>Path B</strong> when you need working papers, regional coverage, or the most current literature. If you already have a bibliography to audit, use <strong>Path B</strong> directly.</p></div>
+            <h4 class="callout__title">Why Start Small?</h4>
+            <div class="callout__body"><p>Scraping 5 results takes seconds and immediately reveals problems — wrong fields, empty responses, pagination issues. Fix these before scaling up and you avoid wasting time on a broken pipeline.</p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This slide is pragmatic. Both paths are legitimate, and each has different strengths. The choice depends on topic coverage and where you are in the workflow.</p>
-        <p>Path A works well when your topic is mainstream marketing, consumer behavior, or economics research. OpenAlex has very good coverage of the top journals: JMR, JCR, JM, Marketing Science, JAMS, as well as AEA and NBER papers. If you run Path A on a mainstream topic, you will usually get 10-20 solid verified results in under a minute. The trade-off is coverage: OpenAlex does not do well with SSRN working papers, regional marketing journals (especially non-English), conference proceedings in management tracks, and very recent pre-prints.</p>
-        <p>Path B's strength is flexibility. Claude's web search can reach any source a browser can reach, and if the paper you want to cite exists on some university website or a researcher's personal page, web search will often find it. The trade-off is that your draft bibliography is now a mix of real and fabricated, and you need the verify-citations sweep to clean it.</p>
-        <p>Path B is also the right choice any time you already have a bibliography from somewhere else — a colleague, a literature review chapter, a reading list — and you want to know whether the citations are real. There is nothing to "retrieve"; you just need the audit.</p>
-        <p>Neither path is a default. They serve different situations. Use whichever fits your topic and your starting point.</p>
+        <p>Five practical habits that make scraping more reliable.</p>
+        <p>First, respect rate limits. Do not hammer a server with hundreds of requests per second. Add delays between requests. Claude Code can be configured to do this.</p>
+        <p>Second, start small then scale. Test with 5 results before collecting 5,000. This immediately reveals problems — wrong fields, empty responses, pagination issues — before you waste time on a broken pipeline.</p>
+        <p>Third, save raw data first. Store the original JSON or HTML response before transforming it into a CSV. If your parsing logic has a bug, you can reprocess without re-scraping.</p>
+        <p>Fourth, handle errors gracefully. Expect timeouts, missing fields, and format changes. Build in retries and null checks.</p>
+        <p>Fifth, document everything. For research, you need a clear record of your data collection process — what you scraped, when, from where, and how. This is essential for reproducibility.</p>
     </aside>
 </section>
 
-<!-- Slide 13: Key Takeaway -->
+<!-- Slide 11: Key Takeaway -->
 <section class="slide slide--takeaway">
     <h2 class="slide__title">Key Takeaway</h2>
     <div class="slide__body">
         <div class="callout callout--key callout--lg">
             <div class="callout__sticker" aria-hidden="true">🔑</div>
             <h4 class="callout__title">The Session Principle</h4>
-            <div class="callout__body"><p>A Skill turns a rigorous workflow into a one-command habit. For literature review, the workflow is: <strong>retrieve</strong> &rarr; <strong>verify</strong> &rarr; <strong>synthesize</strong>.</p></div>
-        </div>
-        <div class="cols" style="margin-top: 1em;">
-            <div class="col" style="flex: 2;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em;">
-                    <div style="text-align: center; width: 100%;">
-                        <h4 style="margin-bottom: 0.15em;">Retrieve</h4>
-                        <p style="margin: 0;">From an API or from the web. Both legitimate. Neither trustworthy alone.</p>
-                    </div>
-                    <div style="font-size: 1.4em; color: var(--color-muted, #888);">&darr;</div>
-                    <div style="text-align: center; width: 100%;">
-                        <h4 style="margin-bottom: 0.15em;">Verify</h4>
-                        <p style="margin: 0;">Every citation resolved at Crossref. The gate is the invariant.</p>
-                    </div>
-                    <div style="font-size: 1.4em; color: var(--color-muted, #888);">&darr;</div>
-                    <div style="text-align: center; width: 100%;">
-                        <h4 style="margin-bottom: 0.15em;">Synthesize</h4>
-                        <p style="margin: 0;">AI can help organize and summarize the literature, but you must understand the argument, identify the gaps, and build your own contribution.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col" style="flex: 1;">
-                <div class="callout callout--concept">
-                    <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Trust and verify</h4>
-                    <div class="callout__body"><p>The retrieve and verify steps can be automated with Skills. Synthesis can be AI-assisted — but never AI-only. You need to understand what you cite.</p></div>
-                </div>
+            <div class="callout__body">
+                <p><strong>Start simple.</strong> Try Way 1 (just ask) or Way 2 (find endpoints) first. Most scraping tasks do not need specialized tools. When the simple methods fail, you will know why — and the next session gives you the tools to handle it.</p>
             </div>
         </div>
+        <p><strong>Way 1: Just Ask</strong><br>Static sites, tables, directories. Always try first.</p>
+        <p>↓ <em>if it fails</em></p>
+        <p><strong>Way 2: Find Endpoints</strong><br>Dynamic sites with hidden APIs. One prompt nudge away. Reddit's <code>.json</code> trick is a perfect example.</p>
+        <p>↓ <em>if it fails</em></p>
+        <p><strong>Next session: The Markdown Pipeline</strong><br>Structurally diverse pages, specialized tools, hard cases.</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Three words. Retrieve, verify, synthesize.</p>
-        <p>Retrieve means get papers from somewhere. It does not matter whether "somewhere" is an API like OpenAlex or Claude's built-in web tools. Both are legitimate sources. Neither is inherently trustworthy.</p>
-        <p>Verify is the one step you can never skip. Every citation must be resolved against a ground-truth source — Crossref is the canonical choice for DOIs. This is the invariant. If you skip this step, it does not matter which retrieval method you used; your bibliography is not a bibliography, it is a suggestion list.</p>
-        <p>Synthesize is where AI can genuinely help — organizing themes, summarizing findings, identifying patterns across papers. But you must understand the argument each paper makes, identify the gaps in the literature, and build your own contribution. AI can assist with the mechanics of synthesis, but the intellectual work remains yours.</p>
-        <p>The practical habit I want you to take from today: whenever you are tempted to type "give me some papers on X" into any LLM, stop and ask whether you have a skill for this. If you do, use it. If you don't, write one. The first time takes five minutes. Every subsequent use is free.</p>
-        <p>Your lit review is probably the single research task you will repeat most often in the next four years. Turning it into a skill is the highest-leverage thing you can do with Claude Code this semester.</p>
+        <p>The escalation ladder: try Way 1, then Way 2, then the pipeline methods from next session. Reddit is a textbook example of Way 2 — a known endpoint that returns structured JSON.</p>
+        <p>The key habit: resist the urge to reach for complex tools before trying simple ones. Way 1 takes thirty seconds to try. If it works, you saved yourself an hour. If it fails, you learned something about the site that helps you choose the next approach.</p>
+        <p>In the exercise, you will practice both methods on real data sources. The goal is to build the muscle memory of starting simple and escalating only when needed.</p>
     </aside>
 </section>
 
-<!-- Slide 14: Paper Discussion — Freelon et al. (2025) Summary -->
+<!-- Slide 12: Paper Discussion -- Freelon et al. (2025) -->
 <section class="slide">
     <h2 class="slide__title">Paper Discussion: Freelon et al. (2025)</h2>
     <div class="slide__body">
-        <p><strong>The Post-API Age of Social Media Data Access: Past, Present, and Future</strong><br>
-        Freelon, Monzer, Jeon, Moy, &amp; Williams<br>
-        <em>The Annals of the American Academy of Political and Social Science</em>, 715, 16--36.</p>
-        <div class="callout callout--concept">
+        <p><strong>The Post-API Age of Social Media Data Access: Past, Present, and Future</strong><br><em>The Annals of the American Academy of Political and Social Science</em>, 715, 16–36.</p>
+        <div class="callout callout--concept reveal">
             <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">Key findings</h4>
+            <h4 class="callout__title">Key contributions</h4>
             <div class="callout__body">
                 <ul>
-                    <li><strong>Historical periodization:</strong> five eras of social media data access — from laissez-faire (2006--2011) through authentication, limited options, and academic cooperation to the present</li>
-                    <li><strong>Four data access regimes today:</strong> laissez-faire API (YouTube, Reddit), academic API (TikTok), pay-to-play API (X/Twitter), academic walled garden (Meta Content Library)</li>
-                    <li><strong>Core tension:</strong> platforms control the data tap — access depends on corporate decisions, not research needs. Cambridge Analytica aftermath reshaped everything</li>
-                    <li><strong>Normative recommendations:</strong> data should be downloadable, terms of service should not restrict research topics, costs should be reasonable for academics</li>
+                    <li><strong>Historical periodization:</strong> five eras of social media data access — from laissez-faire (2006–2011) through authentication, limited options, and academic cooperation to the present post-API landscape</li>
+                    <li class="reveal"><strong>Four data access regimes today:</strong> laissez-faire API (YouTube, Reddit), academic API (TikTok), pay-to-play API (X/Twitter), and academic walled garden (Meta Content Library)</li>
+                    <li class="reveal"><strong>Core tension:</strong> platforms control the data tap — access depends on corporate decisions, not research needs</li>
+                    <li class="reveal"><strong>Connection to today:</strong> scraping is one of the “unofficial methods” the authors argue researchers must maintain as APIs become restricted</li>
                 </ul>
             </div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Freelon et al. is the most comprehensive recent mapping of how social media data access has evolved — and deteriorated — for academic researchers. The paper periodizes the history into five eras, starting from 2006 when platforms like Twitter and Facebook offered essentially open access, through to the current fragmented landscape where every platform has a different access model.</p>
-        <p>The Cambridge Analytica scandal in 2018 is the paper's central inflection point. After that event, Meta shut down most of its research API access, and the ripple effects spread across the entire platform ecosystem. Platforms that had been relatively open became cautious, restrictive, or outright hostile to researchers.</p>
-        <p>The four current regimes are worth walking through carefully. YouTube and Reddit still offer relatively open APIs — laissez-faire access. TikTok created a dedicated academic API with an application process. X/Twitter moved to a pay-to-play model that prices out most academic budgets. And Meta created the Content Library, an "academic walled garden" where you can analyze data but cannot download it.</p>
-        <p>For marketing scholars, this matters enormously. Your dissertation topic might be feasible or infeasible depending entirely on which platform's data you need. The paper's normative recommendations — downloadable data, topic-unrestricted terms of service, reasonable academic pricing — read as a wish list that is unlikely to be fulfilled without regulatory pressure. The EU's Digital Services Act is the most promising lever, but its research provisions are still being implemented.</p>
+        <p>Freelon et al. maps the terrain we are navigating today. The reason scraping matters so much for researchers is precisely because official API access has been shrinking. The post-API age is defined by platforms restricting or eliminating the data access that researchers relied on.</p>
+        <p>The four data access regimes are directly relevant: YouTube and Reddit still offer relatively open access (which is why the Reddit JSON endpoint works so well as a Way 2 example). X/Twitter has moved to prohibitive pay-to-play pricing. Meta locks everything behind the Content Library walled garden. Understanding these regimes helps you choose your scraping strategy.</p>
+        <p>The paper's most provocative claim is that the research community should actively support unofficial data collection methods — including scraping. This is the ethical tension we will discuss.</p>
     </aside>
 </section>
 
-<!-- Slide 15: Discussion Questions -->
+<!-- Slide 14: Discussion Questions -- Freelon et al. (2025) -->
 <section class="slide">
     <h2 class="slide__title">Discussion Questions: Freelon et al. (2025)</h2>
     <div class="slide__body">
         <ol>
-            <li class="reveal"><strong>Data access and your research:</strong> Which of the four data access regimes governs the platform most relevant to your dissertation? How does it constrain what you can study?</li>
-            <li class="reveal"><strong>The Cambridge Analytica legacy:</strong> The paper argues Meta's API shutdown reshaped the entire landscape. Has the trade-off between privacy protection and research access been handled well?</li>
-            <li class="reveal"><strong>Unofficial methods:</strong> Freelon et al. argue the research community should support unofficial data collection methods (scraping, open-source tools). Do you agree? What are the risks?</li>
-            <li class="reveal"><strong>AI tools and platform data:</strong> How does Claude Code's ability to discover and process web data interact with the platform restrictions the paper describes? Does AI make the access problem better or worse?</li>
-            <li class="reveal"><strong>EU vs. US regulation:</strong> The EU's Digital Services Act requires platforms to share data with researchers. How might this reshape the data landscape for marketing scholars?</li>
+            <li class="reveal"><strong>Scraping as a response:</strong> Freelon et al. describe scraping as an “unofficial method” that researchers turn to when APIs close. Is scraping a sustainable research strategy, or a stopgap?</li>
+            <li class="reveal"><strong>Platform-specific constraints:</strong> Which of today's methods (Way 1 vs. Way 2) would still work if the platform actively tried to prevent data collection? Which would break?</li>
+            <li class="reveal"><strong>Ethics of scraping public data:</strong> The paper argues researchers should support unofficial methods. Where do you draw the line between legitimate research and terms-of-service violation?</li>
+            <li class="reveal"><strong>Your dissertation:</strong> Which data access regime governs the platform most relevant to your research? How does that affect your data collection strategy?</li>
+            <li class="reveal"><strong>AI and data access:</strong> Does Claude Code's ability to write scrapers automatically make the data access problem better (democratizing collection) or worse (enabling larger-scale violations)?</li>
         </ol>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Five questions. I want the discussion leader to facilitate these in roughly three minutes each. Let me flag what I am hoping to hear on each one.</p>
-        <p>Question 1: Data access and your research. This is the most personal question — I want each student to think about which platform they need for their dissertation and which regime governs it. Students working on influencer marketing will likely need Instagram (Meta walled garden) or TikTok (academic API). Students studying brand communication might need X/Twitter (pay-to-play). The point is that the access regime is not a background detail — it is a binding constraint on research design.</p>
-        <p>Question 2: Cambridge Analytica legacy. The strong answer here acknowledges genuine tension. Privacy protections were necessary — Cambridge Analytica was a real harm. But the resulting access restrictions were designed primarily to protect platforms from liability, not to protect users. The collateral damage fell on researchers who had nothing to do with the scandal. Push students to distinguish between privacy-protective restrictions and competition-protective restrictions.</p>
-        <p>Question 3: Unofficial methods. This is deliberately provocative. Freelon et al. take the position that scraping and open-source tools are legitimate research methods when official access is unreasonably restricted. The risks include terms-of-service violations, legal liability (CFAA in the US, GDPR in the EU), IRB complications, and reproducibility problems. A good discussion will surface the tension between methodological necessity and institutional risk.</p>
-        <p>Question 4: AI tools and platform data. Claude Code can call APIs, process scraped data, and build pipelines — but it operates within the same access constraints the paper describes. AI does not bypass a paywall or a rate limit. However, AI does lower the skill barrier for unofficial methods (a student who cannot write a scraper can now ask Claude to write one). Is that net positive or net negative? Let the class debate.</p>
-        <p>Question 5: EU regulation. The Digital Services Act's Article 40 requires very large platforms to provide data access to vetted researchers. This is the most promising regulatory development for the field, but implementation has been slow and uneven. Students should consider whether US-based marketing scholars can benefit from EU regulation, and whether platforms will create separate access tiers for EU-mandated vs. voluntary research access.</p>
+        <p>Five questions, roughly three minutes each.</p>
+        <p>Question 1 connects the paper's framework to today's lecture. Scraping is what researchers do when APIs disappear. But platforms can fight back — blocking IPs, adding CAPTCHAs, changing HTML structures. Is this a viable long-term strategy?</p>
+        <p>Question 2 is practical. Way 1 (HTML parsing) is the easiest to block — the site just needs to render via JavaScript. Way 2 (endpoints) is harder to block because the site needs those endpoints for its own front-end. Reddit's JSON endpoint works because Reddit actively supports it — a best-case scenario for Way 2. Push students to think about robustness.</p>
+        <p>Question 3 is the ethical core. Public data is not the same as ethically collectible data. Where is the line? A strong answer distinguishes between scraping public government data (clearly fine) and scraping social media profiles (ethically complex).</p>
+        <p>Question 4 makes it personal. Every student's dissertation involves some data source. Which regime governs it?</p>
+        <p>Question 5 ties AI to the paper. Claude Code makes scraping accessible to non-programmers. Is that good (more researchers can collect data) or bad (more people violating terms of service at scale)?</p>
     </aside>
 </section>
 
-<!-- Slide 16: Exercise Preview -->
-<section class="slide slide--exercise">
+<!-- Exercise Preview (last slide — exercise comes after paper discussion) -->
+<section class="slide">
     <h2 class="slide__title">Exercise Preview</h2>
     <div class="slide__body">
-        <p><strong>What you will do in the next 30 minutes:</strong></p>
+        <p><strong>What you will do:</strong></p>
         <ol>
-            <li class="reveal">Install both skills into an empty working folder</li>
-            <li class="reveal">Run Path A (<code class="inline">lit-review-api</code>) on a marketing research question</li>
-            <li class="reveal">Run Path B (plain web search + <code class="inline">verify-citations</code>) on the same question</li>
-            <li class="reveal">Compare the two bibliographies — which papers did each path find? which did the sweep flag?</li>
+            <li class="reveal"><strong>Way 1</strong> — scrape a government data portal (static HTML table)</li>
+            <li class="reveal"><strong>Way 2</strong> — find hidden API endpoints on a dynamic site</li>
+            <li class="reveal"><strong>Way 2 (Reddit)</strong> — collect posts from a subreddit using the JSON endpoint</li>
+            <li class="reveal"><strong>Validate and document</strong> — check data quality, write a brief provenance note</li>
         </ol>
-        <div class="callout callout--concept">
+        <div class="callout callout--concept reveal">
             <div class="callout__sticker" aria-hidden="true">💡</div>
             <h4 class="callout__title">What you will submit</h4>
-            <div class="callout__body"><p>Four files: the Path A bibliography, the Path B draft, the Path B post-sweep output, and a comparison table with a one-paragraph reflection. Bundled as a zip.</p></div>
+            <div class="callout__body"><p>Two CSV files (one per method), the scraping scripts Claude Code generated, and a short write-up describing which method you used for each target and what you observed.</p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The exercise is a direct replication of what I just showed you. Same two skills, a marketing research question of your choice, both paths run, side by side. The goal is not just to produce a bibliography — it is to see with your own eyes what the verification sweep catches.</p>
-        <p>I have provided three marketing questions you can choose from in the exercise handout. You are also free to use a question from your dissertation. The vaguer the better for this exercise, actually: if your question is too narrow, OpenAlex may return almost nothing and the comparison is less informative.</p>
-        <p>The submission has four files. The first three are the raw outputs — Path A bibliography, Path B draft, Path B verified. The fourth is a comparison table with a reflection paragraph. The comparison table is the learning artifact. I want you to notice what each path missed and what the sweep caught.</p>
-        <p>Expected time breakdown: 3 minutes to install, 6 minutes for Path A, 8 minutes for Path B (it is slower because of the two-step workflow), 7 minutes for comparison, 5 minutes for reflection, and a few minutes buffer for zipping and submitting. It is tight but it fits.</p>
-        <p>Bonus challenge at the end: pick one skill and extend it with a year filter, a journal filter, or a snowballing step. Only if you finish early — do not skip the comparison to do the bonus.</p>
+        <p>The exercise has two main parts corresponding to today's methods, plus a Reddit example of Way 2. You will scrape a real government data page using Way 1, then find hidden API endpoints on a dynamic site and collect Reddit posts using Way 2.</p>
+        <p>For each part, you get a suggested target site, but you are free to substitute a source relevant to your own research.</p>
+        <p>The write-up is short — just a few sentences per method about what worked, what did not, and what you would do differently.</p>
     </aside>
 </section>
-
 </main>
 
 <footer class="footer">
-    <span class="footer__session" data-session-num>Session 05</span>
-    <span class="footer__title" data-session-title>Skills &amp; AI-Assisted Literature Review</span>
+    <span class="footer__session" data-session-num>Session 5</span>
+    <span class="footer__title" data-session-title>Web Scraping Foundations</span>
     <div class="footer__progress"><div class="footer__progress-bar" data-progress-bar></div></div>
     <span class="footer__counter" data-counter>1 / 1</span>
-    <span class="footer__hint">→ next  ·  Esc overview</span>
+    <span class="footer__hint">→ next  ·  P presenter  ·  Esc overview</span>
 </footer>
 
 <!-- Overview grid (Esc) -->
@@ -1696,7 +1494,6 @@ allowed-tools: Bash, Read
         if (!channel) return;
         const notes = slides[current].querySelector('.slide-notes');
         const title = slides[current].querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
-        const body = slides[current].querySelector('.slide__body');
         const next = slides[current + 1] || null;
         const nextTitle = next?.querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
         channel.postMessage({
@@ -1705,62 +1502,40 @@ allowed-tools: Bash, Read
             total,
             title,
             notes: notes ? notes.innerHTML : '',
-            nextTitle,
-            slideHtml: '<h2>' + (title || 'Title slide') + '</h2>' + (body ? body.innerHTML : '')
+            nextTitle
         });
     }
 
     function buildPresenterHtml() {
         return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Presenter View</title>
 <style>
-body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 16px; height: calc(100vh - 40px); }
-.slide-preview { grid-column: 1; grid-row: 1; }
-.meta { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: 12px; }
-.notes-panel { grid-column: 1 / -1; grid-row: 2; min-height: 0; }
-.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 14px; padding: 16px; box-shadow: 4px 4px 0 #ffd84d; }
-.box h2 { margin: 0 0 10px; font-size: 12px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
-.preview-frame { background: #f7f5f0; border-radius: 8px; padding: 16px 20px; color: #1a1a1a; max-height: 32vh; overflow: hidden; font-size: 13px; line-height: 1.35; }
-.preview-frame h2 { font-size: 17px; margin: 0 0 8px; color: #0046ad; font-weight: 800; }
-.preview-frame p { margin: 0 0 6px; }
-.preview-frame ul, .preview-frame ol { margin: 0 0 6px; padding-left: 18px; }
-.preview-frame li { margin-bottom: 3px; }
-.preview-frame strong { font-weight: 700; }
-.preview-frame em { font-style: italic; }
-.preview-frame code { background: #e4e4e4; padding: 1px 3px; border-radius: 3px; font-size: 12px; }
-.preview-frame .callout { border-left: 3px solid #0046ad; padding: 6px 10px; margin: 6px 0; background: #eef4ff; border-radius: 4px; }
-.preview-frame .callout--warning { border-left-color: #c00; background: #fff0f0; }
-.preview-frame .callout--key { border-left-color: #d48c00; background: #fff8e6; }
-.preview-frame .callout__title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
-.preview-frame .callout__sticker { display: none; }
-.preview-frame .slide-notes { display: none; }
-.preview-frame .reveal:not(.is-shown) { opacity: 0.25; }
-.notes-panel { overflow-y: auto; }
-.notes-content { font-size: 17px; line-height: 1.5; columns: 2; column-gap: 24px; }
-.notes-content p { margin: 0 0 10px; break-inside: avoid; }
-.timer { font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; line-height: 1; }
-.next { font-size: 16px; line-height: 1.2; font-weight: 600; }
-.counter { font-size: 13px; color: #8a8a8a; text-align: center; }
-.counter strong { color: #ffd84d; font-size: 20px; font-weight: 800; }
-.meta-row { display: flex; gap: 12px; }
-.meta-row .box { flex: 1; }
+body { margin: 0; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
+.grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; height: calc(100vh - 48px); }
+.left { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+.right { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 16px; padding: 20px; box-shadow: 6px 6px 0 #ffd84d; }
+.box h2 { margin: 0 0 12px; font-size: 14px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
+.notes { flex: 1; overflow-y: auto; }
+.notes-content { font-size: 18px; line-height: 1.55; }
+.notes-content p { margin: 0 0 12px; }
+.timer { font-size: 64px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; }
+.next { font-size: 22px; line-height: 1.2; font-weight: 700; }
+.next-label { font-size: 12px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.counter { font-size: 14px; color: #8a8a8a; }
+.counter strong { color: #ffd84d; font-size: 24px; font-weight: 800; }
 </style>
 </head><body>
 <div class="grid">
-    <div class="box slide-preview">
-        <h2>Current slide</h2>
-        <div class="preview-frame" id="slide-preview"><em>Waiting...</em></div>
-    </div>
-    <div class="meta">
-        <div class="meta-row">
-            <div class="box"><h2>Elapsed</h2><div class="timer" id="timer">00:00</div></div>
-            <div class="box"><div class="counter">Slide <strong id="counter">-- / --</strong></div></div>
+    <div class="left">
+        <div class="box notes">
+            <h2>🎙️ Speaker notes — <span id="title"></span></h2>
+            <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
         </div>
-        <div class="box" style="flex:1;"><h2>Next up</h2><div class="next" id="next"><em>--</em></div></div>
     </div>
-    <div class="box notes-panel">
-        <h2>Speaker notes -- <span id="title"></span></h2>
-        <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
+    <div class="right">
+        <div class="box"><h2>⏱️ Elapsed</h2><div class="timer" id="timer">00:00</div></div>
+        <div class="box"><h2>Next up</h2><div class="next" id="next"><em>—</em></div></div>
+        <div class="box"><div class="counter">Slide <strong id="counter">— / —</strong></div></div>
     </div>
 </div>
 <script>
@@ -1773,9 +1548,8 @@ channel.onmessage = e => {
     if (s.type !== 'state') return;
     document.getElementById('title').textContent = s.title || '';
     document.getElementById('notes').innerHTML = s.notes || '<em>No speaker notes.</em>';
-    document.getElementById('next').textContent = s.nextTitle || '--';
+    document.getElementById('next').textContent = s.nextTitle || '—';
     document.getElementById('counter').textContent = (s.current + 1) + ' / ' + s.total;
-    if (s.slideHtml) document.getElementById('slide-preview').innerHTML = s.slideHtml;
 };
 </` + `script>
 </body></html>`;
