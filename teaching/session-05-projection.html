@@ -1326,23 +1326,25 @@ code.inline,
 <section class="slide">
     <h2 class="slide__title">Exercise Preview</h2>
     <div class="slide__body">
-        <p><strong>What you will do:</strong></p>
-        <ol>
-            <li class="reveal"><strong>Way 1</strong> — scrape a government data portal (static HTML table)</li>
-            <li class="reveal"><strong>Way 2</strong> — find hidden API endpoints on a dynamic site</li>
-            <li class="reveal"><strong>Way 2 (Reddit)</strong> — collect posts from a subreddit using the JSON endpoint</li>
-            <li class="reveal"><strong>Validate and document</strong> — check data quality, write a brief provenance note</li>
+        <p style="margin-bottom:var(--space-3)"><strong>What you will do — three scraping moves, escalating in technique:</strong></p>
+        <ol style="font-size:0.9em;line-height:1.3;margin:0">
+            <li class="reveal"><strong>Way 1 (static):</strong> scrape the Bocconi Marketing faculty at <code class="inline">marketing.unibocconi.eu/people</code> → <code class="inline">faculty.csv</code></li>
+            <li class="reveal"><strong>Way 2 (hidden endpoint):</strong> Reddit JSON endpoint for the top 100 posts from a subreddit → <code class="inline">way2_data.csv</code></li>
+            <li class="reveal"><strong>The <code class="inline">.json</code> trick:</strong> apply it to a single Reddit post URL to pull the full comment tree → <code class="inline">reddit_comments.csv</code></li>
+            <li class="reveal"><strong>Validate + reflect:</strong> check all three CSVs, write provenance + one-paragraph reflection in <code class="inline">notes.md</code></li>
         </ol>
-        <div class="callout callout--concept reveal">
+        <div class="callout callout--concept reveal" style="margin-top:var(--space-3)">
             <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">What you will submit</h4>
-            <div class="callout__body"><p>Two CSV files (one per method), the scraping scripts Claude Code generated, and a short write-up describing which method you used for each target and what you observed.</p></div>
+            <h4 class="callout__title" style="font-size:var(--fs-body-lg)">Submit</h4>
+            <div class="callout__body"><p style="font-size:0.9em;margin:0">3 CSVs + <code class="inline">notes.md</code>, zipped as <code class="inline">session05_[lastname]_scraping.zip</code></p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The exercise has two main parts corresponding to today's methods, plus a Reddit example of Way 2. You will scrape a real government data page using Way 1, then find hidden API endpoints on a dynamic site and collect Reddit posts using Way 2.</p>
-        <p>For each part, you get a suggested target site, but you are free to substitute a source relevant to your own research.</p>
-        <p>The write-up is short — just a few sentences per method about what worked, what did not, and what you would do differently.</p>
+        <p>The exercise mirrors today's three moves in escalating order. Step 1 is Way 1 on a static site — the Bocconi Marketing faculty directory is ideal because every profile has the same HTML structure, so one extraction pattern pulls the whole directory. That hands you a concrete <code>faculty.csv</code>.</p>
+        <p>Step 2 is Way 2: use the Reddit JSON endpoint directly (we give you the URL). You are hitting an endpoint, not parsing HTML. The output — <code>way2_data.csv</code> — should have the top 100 posts with title, score, number of comments, and post text.</p>
+        <p>Step 3 drills into the <code>.json</code> append trick on a <em>single</em> Reddit post page. We give you a concrete post URL. You apply the trick, fetch the full comment tree, and extract the top 20 comments with author, score, body. That is <code>reddit_comments.csv</code>.</p>
+        <p>Step 4 is validation — have Claude Code report row counts, missing values, and sample rows for all three CSVs. Step 5 is a short reflection paragraph at the bottom of <code>notes.md</code>: which method felt most reliable, did wording matter, which would you reach for first in your research.</p>
+        <p>Submission: three CSVs plus <code>notes.md</code>, bundled as a zip with your surname. Students free to substitute the subreddit and single post for Steps 2 and 3 — pick one tied to their dissertation topic.</p>
     </aside>
 </section>
 </main>
