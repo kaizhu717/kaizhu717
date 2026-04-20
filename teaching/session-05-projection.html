@@ -952,9 +952,8 @@ code.inline,
     <p class="slide__subtitle">Simple methods for collecting web data with Claude Code</p>
     <p class="slide__meta">Kai Zhu — Bocconi University — Spring 2026</p>
     <aside class="slide-notes" hidden>
-        <p>Today is the first of two sessions on web scraping. This session covers the fundamentals — two simple methods that require no external tools, no API keys, and no paid services. These are the methods you should always try first.</p>
-        <p>The next session goes deeper: we will cover the HTML-to-Markdown-to-LLM pipeline, which is the most powerful general-purpose scraping pattern, and briefly survey specialized tools for harder cases.</p>
-        <p>By the end of today, you will be able to collect data from static websites, dynamic sites with hidden APIs, and Reddit — all using Claude Code with minimal setup.</p>
+        <p>Welcome back. Two sessions on web scraping — today is the fundamentals, next session goes deeper. Two methods to cover, both free, both just Claude Code.</p>
+        <p>By the end of the hour you will have scraped a real university directory and pulled a hundred Reddit posts as clean JSON. Let us go.</p>
     </aside>
 </section>
 
@@ -976,8 +975,8 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Five topics in thirty minutes. We start with the motivating question — why Claude Code changes scraping from a programming task to a description task. Then we cover two concrete methods, each with a live prompt example, plus a real-world Reddit demo of Way 2 in action. After that, we discuss how your prompt wording affects Claude's approach — a small insight that dramatically improves success rates. We close with practical tips for reliable scraping.</p>
-        <p>After the lecture, we discuss Freelon et al. (2025) on social media data access — directly relevant since scraping is one of the responses to restricted API access. Then the exercise gives you hands-on practice with both methods.</p>
+        <p>Five topics, thirty minutes. Why this is different from traditional scraping, then the two methods with live prompts, how to actually find endpoints, the meta-lesson on prompt wording, and practical tips.</p>
+        <p>After the lecture, Freelon on the post-API age — directly motivates why we scrape at all. Then the exercise.</p>
     </aside>
 </section>
 
@@ -1005,9 +1004,9 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Traditional scraping is a craft. You open browser dev tools, hunt for CSS selectors, write BeautifulSoup or Selenium code, handle pagination, deal with JavaScript rendering, and debug endlessly when the site changes its layout.</p>
-        <p>Claude Code flips this. You describe the data you want in plain English. It inspects the site, writes the scraper, runs it, and delivers a CSV. When the script fails — and it sometimes will — you describe the error and Claude Code fixes it.</p>
-        <p>This does not mean scraping is fully automated. You still need to understand what is happening under the hood, which is why we cover two distinct methods today. The right nudge at the right moment makes the difference between Claude Code succeeding on the first try and spinning its wheels.</p>
+        <p>Traditional scraping is a craft. Open dev tools, hunt for selectors, write BeautifulSoup, handle pagination, debug — then the site redesigns and you start over.</p>
+        <p>Claude Code flips it. You describe the data. It inspects, writes the scraper, runs, hands you the CSV. When it fails you describe the failure, it fixes.</p>
+        <p>Writing scrapers becomes describing data. That is the shift — and the reason we still cover two distinct methods: the right nudge at the right moment is what separates first-try success from spinning wheels.</p>
     </aside>
 </section>
 
@@ -1031,9 +1030,9 @@ code.inline,
         <p class="reveal"><strong>Works well for:</strong> government portals, university pages, product listings, static tables, public directories</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Way 1 is the baseline. You tell Claude Code what you want and from where. It fetches the page, parses the HTML, extracts the data, and writes it to a file. No configuration needed.</p>
-        <p>This works surprisingly often — especially for static, well-structured sites like government data portals, university faculty pages, and product listings. Claude Code is good at identifying repeating HTML patterns and writing extraction loops.</p>
-        <p>Where it fails: sites that load data dynamically via JavaScript (the HTML source is empty), sites with anti-bot protections, and sites that require authentication. Way 2 handles the first problem. The next session covers solutions for harder cases.</p>
+        <p>Way 1 is the baseline: just ask. URL, fields, output file. Claude fetches the page, finds the repeating HTML pattern, writes the loop, runs it.</p>
+        <p>Works surprisingly often on static, well-structured sites — government data, university pages, product listings, public directories.</p>
+        <p>Where it fails: pages that load data via JavaScript (the source is empty), anti-bot walls, login-gated content. Way 2 handles the JavaScript case — coming up next.</p>
     </aside>
 </section>
 
@@ -1060,9 +1059,9 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Way 2 is a subtle but powerful upgrade. Most modern websites do not render data server-side. They load a skeleton page and then make API calls to fetch the actual data. An API endpoint is just a URL that returns structured data — usually JSON — instead of a web page. If you tell Claude Code to scrape the site, it might try to parse empty HTML. But if you point it at the endpoint directly, you get clean structured data on the first try.</p>
-        <p>Reddit is the ideal first example for this. The JSON endpoint is public, unauthenticated, stable, and returns rich data for every subreddit page. You do not need DevTools discovery, you do not need an API key, and you do not need to reverse-engineer anything — the endpoint URL follows a simple pattern you can type directly. That lets students focus on the workflow of consuming a JSON endpoint without fighting infrastructure.</p>
-        <p>The broader lesson: how you phrase your request matters. Claude Code's approach changes based on your wording. "Scrape" triggers HTML parsing. "Use the endpoint" or "find the endpoint" triggers direct JSON consumption. Both are valid, but for dynamic sites, the latter is far more effective. Once the Reddit workflow clicks, the same pattern generalises to any site whose API you discover via DevTools in later sessions.</p>
+        <p>Most modern sites do not render data server-side anymore. They ship a skeleton page, then call an API endpoint that returns JSON. Tell Claude to "scrape" — it parses the skeleton and gets nothing. Point it at the endpoint — clean structured data, first try.</p>
+        <p>Reddit is the ideal first example: public, no API key, no auth, URL pattern you can type directly. No DevTools, no reverse-engineering. Lets you focus on the workflow, not infrastructure.</p>
+        <p>Let the URL sink in — we zoom into the pattern behind it on slide seven.</p>
     </aside>
 </section>
 
@@ -1099,15 +1098,9 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This slide answers the natural next question: "OK, Reddit has an endpoint. How do I find one on a site I have not seen before?" The instinct most people have is to open browser DevTools, go to the Network tab, and click around. That works. It also takes a few minutes and assumes you know what to click.</p>
-        <p>Claude Code can often skip that step entirely. The reason is that most hidden endpoints leave fingerprints in the page source itself. If you read the HTML and the JavaScript bundles carefully, the endpoint is usually right there.</p>
-        <p>The first place to look is embedded JSON in script tags. Every major frontend framework does this. Next.js puts the full page state in a script tag with id __NEXT_DATA__. React apps often use __INITIAL_STATE__ or __PRELOADED_STATE__. Instagram uses _sharedData. Sites with schema.org structured data use application/ld+json. When you find one of these, the data you wanted is already in the HTML — you do not even need to hit a separate endpoint.</p>
-        <p>The second place is link tags in the head. RSS feeds, JSON feeds, oEmbed endpoints — sites advertise these to browsers and crawlers. Most people never notice.</p>
-        <p>The third place is the JavaScript itself. Claude Code can fetch the JS bundles the site loads and grep them for fetch calls, XHR calls, or URL strings matching common API patterns. This is slower but catches endpoints that are called dynamically.</p>
-        <p>The fourth place is URL tricks — the .json append we saw on Reddit is one of many. Some sites accept format=json as a query parameter. Some have parallel /api/ paths that mirror the UI. Some expose .rss feeds.</p>
-        <p>The fifth is common paths. /api, /api/v1, /wp-json for WordPress sites, /graphql, /sitemap.xml, /robots.txt. Worth a five-second probe.</p>
-        <p>The prompt on this slide is the one I use in practice. The pattern I want you to remember is the last line: "Report what you find before extracting anything." That makes the discovery step explicit, which is useful because Claude Code will sometimes jump straight to scraping if you do not slow it down.</p>
-        <p>The last takeaway — the priming word — is the meta-lesson. Your prompt wording changes Claude Code's behaviour more than most people realise. Words like "inspect," "find," "reverse-engineer" trigger different code paths than "scrape" or "extract." Both are valid; they are just tools for different jobs.</p>
+        <p>Natural next question — Reddit has an endpoint, how do I find one on a site I have never seen? Instinct says DevTools. You do not need it. Most endpoints leave fingerprints right in the HTML.</p>
+        <p>Five places to look. The big one is embedded JSON in <code>&lt;script&gt;</code> tags — every modern framework dumps page state there. Next.js, React, Vue, Instagram — same pattern. Often your data is already in the HTML, no second request needed. The other four: <code>&lt;link&gt;</code> tags in head, JavaScript bundles, URL tricks like <code>.json</code>, and common paths like <code>/api</code> or <code>/wp-json</code>.</p>
+        <p>Priming word matters. "Inspect" or "find" triggers discovery. "Scrape" triggers parsing. Last line of the prompt is critical: "report what you find before extracting." Forces Claude to slow down and show its work before running off.</p>
     </aside>
 </section>
 
@@ -1152,11 +1145,9 @@ code.inline,
         <p class="reveal"><strong>Why this generalises:</strong> many sites expose machine-readable versions of pages through URL tricks you would never guess from the UI — <code>.json</code>, <code>?format=json</code>, <code>/api/</code> prefixes, <code>.rss</code> feeds. Once you notice Reddit's shortcut, you start looking for similar patterns on other sites — and often find them.</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Slides 5 and 7 both use Reddit but at different scales. Slide 5 fetched an entire subreddit listing via the JSON endpoint. This slide zooms into one single page — a specific post — and shows that the same URL trick works there too. That is the key generalisation: the .json append is not a listing hack, it is a site-wide pattern.</p>
-        <p>The example URL on the slide is a real top post on r/ClaudeCode titled "Opus 4.7". You can substitute any post URL from any subreddit in your prompt — copy it from your browser address bar, paste it, append dot-json. That is the whole technique.</p>
-        <p>Why a single post instead of a listing? Two reasons. First, a post URL gives you the full comment tree as recursive JSON, which is much harder to get from rendered HTML because Reddit lazy-loads nested replies on click. Second, it reinforces the mental model that the trick is about <em>any</em> URL, not about some special "subreddit API." Listings, posts, user pages, search results — same trick applies.</p>
-        <p>The pedagogical point is not just "here is a useful Reddit shortcut." It is: many sites have equivalent tricks. Some sites accept a format query parameter. Some expose slash-api-slash-v2 paths that mirror the main site URLs. Some offer dot-rss feeds. Once you know to look for these patterns — which is exactly what slide 6 taught you — you find them on sites where no documentation ever mentioned them.</p>
-        <p>For researchers, Reddit specifically is a goldmine of consumer opinions, product discussions, and community sentiment. Getting to full comment trees as clean JSON makes qualitative analysis and sentiment work dramatically easier than scraping the rendered HTML, which — again — lazy-loads on click.</p>
+        <p>Back to Reddit. Slide 5 used the endpoint on a whole subreddit. This zooms into a single post. Take any Reddit URL — post, user, search — append dot-json. Page comes back as recursive JSON.</p>
+        <p>For a single post that includes the full comment tree — painful to scrape from rendered HTML because Reddit lazy-loads replies on click. One URL trick, clean JSON, done.</p>
+        <p>The generalisation: many sites have URL tricks like this. Dot-json, <code>?format=json</code>, <code>/api/</code> prefixes, <code>.rss</code>. Once you spot Reddit's pattern, you look for equivalents on other sites — and you find them.</p>
     </aside>
 </section>
 
@@ -1183,13 +1174,12 @@ code.inline,
                 <p>Claude finds JSON API → extracts structured data → clean CSV</p>
             </div>
         </div>
-        <p class=”reveal”><em>Note: finding endpoints requires some intuition about what data the site loads dynamically. If you expect structured listings, prices, or search results, there is probably an endpoint behind the scenes.</em></p>
+        <p class="reveal"><em>Intuition rule: if the site shows you structured listings, prices, or search results, there is probably an endpoint behind the scenes.</em></p>
     </div>
-    <aside class=”slide-notes” hidden>
-        <p>This slide makes the implicit lesson from Ways 1 and 2 explicit. Your prompt wording is not just a description — it is an instruction that shapes Claude Code's entire approach.</p>
-        <p>On the left: a vague “scrape this site” prompt leads Claude Code to fetch HTML, which for a dynamic site is likely an empty shell. The scraper fails or returns garbage.</p>
-        <p>On the right: the same site, but now you say “find the API endpoints.” Claude Code looks for XHR calls, finds the JSON API, and extracts clean, structured data. Same site, different prompt, completely different outcome.</p>
-        <p>The three nudges in the orange box are worth memorizing. “Find endpoints” is the most powerful — it redirects Claude from HTML parsing to API discovery. “Use the JSON endpoint” works when you know the endpoint exists (like Reddit). “Start with 5 results first” is crucial — it lets you validate the approach before committing to a large scrape. Finding endpoints also requires some intuition about what to expect — if the site shows structured listings, prices, or search results, there is probably an API behind the scenes.</p>
+    <aside class="slide-notes" hidden>
+        <p>Meta-lesson from the last four slides, made explicit. Same site, vague prompt — Claude parses HTML, gets empty, fails. Same site, targeted prompt — Claude hits the endpoint, gets JSON, done.</p>
+        <p>The wording <em>is</em> the instruction. "Scrape" triggers parsing. "Find endpoints" triggers discovery. "Use the endpoint at X" — even better, because you skip the search.</p>
+        <p>Intuition rule to memorise: if the site shows you structured listings, prices, search results, reviews — there is an API behind it. Ten seconds to check.</p>
     </aside>
 </section>
 
@@ -1211,10 +1201,8 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This slide sets up the next session by showing the limits of what we covered today.</p>
-        <p>Ways 1 and 2 assume the pages you are scraping have a reasonably consistent structure. When every page is different — 50 universities with 50 different layouts — CSS selectors break down. You need a different approach. That approach is the Markdown pipeline, which is the centerpiece of the next session.</p>
-        <p>Anti-bot protections, login walls, and video/audio data each require their own specialized tools. We will cover ScrapeCreators for social media, Apify for hard-to-scrape sites, yt-dlp for YouTube, and Agent Browser for authenticated scraping.</p>
-        <p>The message for today: start simple. Way 1 and Way 2 handle a large fraction of real-world scraping tasks. When they fail, you now know the categories of failure, and the next session gives you the tools to handle each one.</p>
+        <p>Be honest about the limits. Ways 1 and 2 break in four cases. One: pages with wildly different structures — fifty universities, fifty layouts, CSS selectors do not generalise. Two: anti-bot walls — CAPTCHAs, IP blocking. Three: login walls. Four: video or audio data.</p>
+        <p>Next session covers the Markdown pipeline — solves case one — plus specialised tools for the others. For today: start simple, escalate only when you hit a wall.</p>
     </aside>
 </section>
 
@@ -1242,12 +1230,8 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Five practical habits that make scraping more reliable.</p>
-        <p>First, respect rate limits. Do not hammer a server with hundreds of requests per second. Add delays between requests. Claude Code can be configured to do this.</p>
-        <p>Second, start small then scale. Test with 5 results before collecting 5,000. This immediately reveals problems — wrong fields, empty responses, pagination issues — before you waste time on a broken pipeline.</p>
-        <p>Third, save raw data first. Store the original JSON or HTML response before transforming it into a CSV. If your parsing logic has a bug, you can reprocess without re-scraping.</p>
-        <p>Fourth, handle errors gracefully. Expect timeouts, missing fields, and format changes. Build in retries and null checks.</p>
-        <p>Fifth, document everything. For research, you need a clear record of your data collection process — what you scraped, when, from where, and how. This is essential for reproducibility.</p>
+        <p>Five habits — skim them with me. The two I emphasise: <em>start small, then scale</em> — test with five results before asking for five thousand. Catches bugs in seconds, saves an hour. And <em>save raw data first</em> — store the original response before transforming, so if your parsing has a bug you reprocess without re-scraping.</p>
+        <p>Rate limits, error handling, documentation — standard professional hygiene. Apply it every time. For research especially, a clean record of what, when, and how is part of reproducibility, not a nice-to-have.</p>
     </aside>
 </section>
 
@@ -1269,9 +1253,8 @@ code.inline,
         <p><strong>Next session: The Markdown Pipeline</strong><br>Structurally diverse pages, specialized tools, hard cases.</p>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The escalation ladder: try Way 1, then Way 2, then the pipeline methods from next session. Reddit is a textbook example of Way 2 — a known endpoint that returns structured JSON.</p>
-        <p>The key habit: resist the urge to reach for complex tools before trying simple ones. Way 1 takes thirty seconds to try. If it works, you saved yourself an hour. If it fails, you learned something about the site that helps you choose the next approach.</p>
-        <p>In the exercise, you will practice both methods on real data sources. The goal is to build the muscle memory of starting simple and escalating only when needed.</p>
+        <p>Start simple. Way 1 always first — thirty seconds to try. If it fails, Way 2 is one prompt nudge away. Reddit's <code>.json</code> trick is Way 2 in its purest form. If Way 2 fails, you have learned something about the site, and next session gives you the heavier tools.</p>
+        <p>The habit I want you to build: resist reaching for complex tools before trying simple ones. That wraps the lecture — now let us turn to the paper.</p>
     </aside>
 </section>
 
@@ -1294,9 +1277,9 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Freelon et al. maps the terrain we are navigating today. The reason scraping matters so much for researchers is precisely because official API access has been shrinking. The post-API age is defined by platforms restricting or eliminating the data access that researchers relied on.</p>
-        <p>The four data access regimes are directly relevant: YouTube and Reddit still offer relatively open access (which is why the Reddit JSON endpoint works so well as a Way 2 example). X/Twitter has moved to prohibitive pay-to-play pricing. Meta locks everything behind the Content Library walled garden. Understanding these regimes helps you choose your scraping strategy.</p>
-        <p>The paper's most provocative claim is that the research community should actively support unofficial data collection methods — including scraping. This is the ethical tension we will discuss.</p>
+        <p>Freelon and colleagues map the exact terrain we are in. Reason scraping matters for researchers is that official API access has been shrinking for years — the "post-API age."</p>
+        <p>Four regimes today: YouTube and Reddit still open — that is why the Reddit <code>.json</code> trick is so clean. TikTok has an academic API. X moved to pay-to-play pricing. Meta locks everything in the Content Library walled garden.</p>
+        <p>Their most provocative claim: researchers should actively support unofficial methods — including scraping. That is the ethical tension we discuss next.</p>
     </aside>
 </section>
 
@@ -1313,12 +1296,9 @@ code.inline,
         </ol>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Five questions, roughly three minutes each.</p>
-        <p>Question 1 connects the paper's framework to today's lecture. Scraping is what researchers do when APIs disappear. But platforms can fight back — blocking IPs, adding CAPTCHAs, changing HTML structures. Is this a viable long-term strategy?</p>
-        <p>Question 2 is practical. Way 1 (HTML parsing) is the easiest to block — the site just needs to render via JavaScript. Way 2 (endpoints) is harder to block because the site needs those endpoints for its own front-end. Reddit's JSON endpoint works because Reddit actively supports it — a best-case scenario for Way 2. Push students to think about robustness.</p>
-        <p>Question 3 is the ethical core. Public data is not the same as ethically collectible data. Where is the line? A strong answer distinguishes between scraping public government data (clearly fine) and scraping social media profiles (ethically complex).</p>
-        <p>Question 4 makes it personal. Every student's dissertation involves some data source. Which regime governs it?</p>
-        <p>Question 5 ties AI to the paper. Claude Code makes scraping accessible to non-programmers. Is that good (more researchers can collect data) or bad (more people violating terms of service at scale)?</p>
+        <p>Five questions, three minutes each. Open floor — my job is to steer, not to answer.</p>
+        <p><strong>Q1</strong> — sustainable strategy or stopgap? Platforms can fight back: blocking IPs, adding CAPTCHAs, changing HTML. Is this a long-term game? <strong>Q2</strong> — which of today's methods survives a hostile platform? Way 1 is easiest to block; Way 2 is harder because the site needs its own endpoints. Reddit is best case because Reddit actively supports the JSON endpoint.</p>
+        <p><strong>Q3</strong> — the ethical core. Public data is not the same as ethically collectable data. Government stats, clearly fine. Social profiles, complex. Where do you draw the line? <strong>Q4</strong> makes it personal — which regime governs your dissertation platform? <strong>Q5</strong> — does Claude Code make the access problem better (more researchers can collect) or worse (more people violating terms at scale)?</p>
     </aside>
 </section>
 
@@ -1340,9 +1320,8 @@ code.inline,
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The exercise mirrors today's three moves in escalating order. Step 1 is Way 1 on a static site — the Bocconi Marketing faculty directory is ideal because every profile has the same HTML structure, so one extraction pattern pulls the whole directory. That hands you a concrete <code>faculty.csv</code>.</p>
-        <p>Step 2 is Way 2: use the Reddit JSON endpoint directly (we give you the URL). You are hitting an endpoint, not parsing HTML. The output — <code>way2_data.csv</code> — should have the top 100 posts with title, score, number of comments, and post text.</p>
-        <p>Step 3 drills into the <code>.json</code> append trick on a <em>single</em> Reddit post page. We give you a concrete post URL. You apply the trick, fetch the full comment tree, and extract the top 20 comments with author, score, body. That is <code>reddit_comments.csv</code>.</p>
+        <p>The exercise mirrors today's three moves in order. Step one — Way 1 on the Bocconi Marketing faculty: static site, same structure on every profile, hands you <code>faculty.csv</code>. Step two — Way 2 on Reddit: we give you the endpoint URL, you extract the top 100 posts. Step three — <code>.json</code> trick on a single post URL we provide: pulls the full comment tree.</p>
+        <p>Steps four and five: validate all three CSVs, then a short provenance + one-paragraph reflection in <code>notes.md</code>. Three CSVs plus <code>notes.md</code>, zipped with your surname. Thirty minutes. Questions before you start?</p>
         <p>Step 4 is validation — have Claude Code report row counts, missing values, and sample rows for all three CSVs. Step 5 is a short reflection paragraph at the bottom of <code>notes.md</code>: which method felt most reliable, did wording matter, which would you reach for first in your research.</p>
         <p>Submission: three CSVs plus <code>notes.md</code>, bundled as a zip with your surname. Students free to substitute the subreddit and single post for Steps 2 and 3 — pick one tied to their dissertation topic.</p>
     </aside>

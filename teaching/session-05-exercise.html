@@ -1581,11 +1581,11 @@ code.inline,
             </div>
         </section>
 
-        <!-- Section 4: Step 2 — Way 2: Find Hidden Endpoints -->
+        <!-- Section 4: Step 2 — Way 2: Use Hidden Endpoints -->
         <section class="study-section" id="s-4">
             <div class="study-section__header">
                 <span class="study-section__num">04</span>
-                <h2>Step 2: Way 2 — Find Hidden Endpoints</h2>
+                <h2>Step 2: Way 2 — Use Hidden Endpoints</h2>
             </div>
             <div class="study-section__body">
                 <p>Many modern sites load data via hidden <strong><span class="glossary-term" data-term="API endpoint">API endpoints</span></strong> — URLs that return structured JSON instead of a web page. When you find the endpoint, you skip HTML parsing entirely and get clean structured data on the first try.</p>
@@ -1632,74 +1632,70 @@ code.inline,
             </div>
         </section>
 
-        <!-- Section 5: Step 3 — The .json Append Trick on a Single Page -->
+        <!-- Section 5: Step 3 (Bonus) — Discover a Hidden API Endpoint -->
         <section class="study-section" id="s-5">
             <div class="study-section__header">
                 <span class="study-section__num">05</span>
-                <h2>Step 3: The <code>.json</code> Append Trick on a Single Page</h2>
+                <h2>Step 3 (Bonus): Discover a Hidden API Endpoint</h2>
             </div>
             <div class="study-section__body">
-                <p>Step 2 fetched an entire subreddit listing via an endpoint. This step zooms into <em>one single page</em> — a specific Reddit post — and applies the same URL trick to get its full comment tree as JSON.</p>
+                <p>If you finish Steps 1 and 2, try this challenge:</p>
+
+                <h3>How to do it</h3>
+                <ol>
+                    <li>Pick a website from the suggestions below (or choose your own).</li>
+                    <li>Open the site in your browser and interact --- search, filter, scroll. Notice how the page updates without a full reload --- that's a sign of hidden API calls.</li>
+                    <li>Ask Claude Code to find the endpoints. Use this prompt:
+                        <div class="prompt-card">
+                            <div class="prompt-card__header">
+                                <span class="prompt-card__icon">💬</span>
+                                <span class="prompt-card__label">Prompt — Discover Hidden API Endpoint</span>
+                                <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
+                                    <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                            <pre class="prompt-card__prompt"><code>Go to [URL]. Find the API endpoints this site uses to load its data. Show me the endpoint URLs, the request format, and what the JSON response looks like. Then use those endpoints to collect [describe the data you want]. Save to bonus_data.csv.</code></pre>
+                        </div>
+                    </li>
+                    <li>If Claude Code finds an endpoint, examine the JSON response. What fields are available? Is the data structured enough to use directly?</li>
+                    <li>If Claude Code cannot find an endpoint (the site may be too protected), note what it tried and why it failed. This is useful learning.</li>
+                </ol>
 
                 <div class="callout callout--concept">
                     <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">The trick</h4>
+                    <h4 class="callout__title">Suggested websites</h4>
                     <div class="callout__body">
-                        <p>Reddit exposes a JSON version of <strong>every</strong> page on the site via a simple URL transformation: append <code>.json</code> to any URL.</p>
-                        <p><strong>Regular post URL:</strong><br><code>https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/</code></p>
-                        <p><strong>JSON endpoint:</strong><br><code>https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47<strong>.json</strong></code> &larr; just append <code>.json</code></p>
-                        <p>The pattern generalises to every page type on reddit.com: listings (<code>/r/X.json</code>), <em>individual posts</em> (<code>/r/X/comments/ID.json</code>, the focus of this step), user pages (<code>/user/X.json</code>), and search results (<code>/search.json?q=...</code>). No API key, no authentication, no HTML parsing.</p>
-                    </div>
-                </div>
-
-                <p>Pick any single post on <code>reddit.com</code> — either the example above or a top post from a subreddit relevant to your research — and apply the trick. A single post gives you the comment tree as recursive JSON, which is much harder to get from rendered HTML (Reddit lazy-loads nested replies on click):</p>
-
-                <div class="prompt-card">
-                    <div class="prompt-card__header">
-                        <span class="prompt-card__icon">💬</span>
-                        <span class="prompt-card__label">Prompt — Apply the .json Trick to One Post</span>
-                        <button class="prompt-card__copy" type="button" data-copy-target=".prompt-card__prompt">
-                            <svg width="14" height="14" aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="prompt-card__prompt"><code>Take this single Reddit post URL: https://www.reddit.com/r/ClaudeCode/comments/1sn5vdd/opus_47/ — apply the .json append trick (append .json to the post URL) to fetch the post and its full comment tree as JSON. Extract the post title, score, and the top 20 comments with author, score, and body text. Save to reddit_comments.csv.</code></pre>
-                </div>
-
-                <div class="callout callout--concept">
-                    <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Swapping in your own post</h4>
-                    <div class="callout__body">
-                        <p>To use a different post, open any thread on <code>reddit.com</code> in your browser, copy the URL from the address bar, and paste it into the prompt in place of the example. Good candidate subreddits for marketing researchers:</p>
                         <ul>
-                            <li><code>r/ClaudeCode</code> — Claude Code discussion (default example above)</li>
-                            <li><code>r/ecommerce</code> — online retail and consumer behaviour</li>
-                            <li><code>r/marketing</code> — practitioner discussion</li>
-                            <li><code>r/AskAcademia</code> — academic life and career</li>
+                            <li><strong>Hacker News</strong> (news.ycombinator.com) --- has a well-known public API. Ask Claude Code to discover it rather than telling it the URL.</li>
+                            <li><strong>A weather site</strong> (weather.com or openweathermap.org) --- weather dashboards load data via JSON APIs.</li>
+                            <li><strong>A job board</strong> (Indeed, Glassdoor, LinkedIn Jobs) --- job listings load dynamically via API calls.</li>
+                            <li><strong>A real estate site</strong> (Zillow, Rightmove, Immobiliare.it) --- property listings loaded via API.</li>
+                            <li><strong>An e-commerce site</strong> (Amazon search, eBay) --- product data loads dynamically.</li>
                         </ul>
                     </div>
                 </div>
 
-                <h3>What to observe</h3>
-                <ul>
-                    <li>How quickly did Claude Code produce the CSV compared to Way 1?</li>
-                    <li>Is the comment tree complete? How did Claude Code handle nested replies (the JSON is recursive)?</li>
-                    <li>What fields are available in the Reddit JSON that you did <em>not</em> ask for (created time, awards, flair, edited flag, etc.)?</li>
-                </ul>
-
                 <div class="callout callout--key">
                     <div class="callout__sticker" aria-hidden="true">🔑</div>
-                    <h4 class="callout__title">Why this generalises</h4>
-                    <div class="callout__body"><p>Many sites expose machine-readable versions of their pages through URL patterns you would never guess from the UI: <code>.json</code>, <code>?format=json</code>, <code>/api/</code> prefixes, or <code>.rss</code> feeds. Once you notice Reddit's trick, you start looking for similar shortcuts on other sites you study — and often find them.</p></div>
+                    <h4 class="callout__title">Tips for success</h4>
+                    <div class="callout__body">
+                        <ul>
+                            <li>Start with the easiest candidate (Hacker News) to build confidence.</li>
+                            <li>If Claude Code tries to parse HTML instead of finding endpoints, rephrase: "Do not scrape the HTML. Instead, find the XHR or fetch requests this page makes to load its data."</li>
+                            <li>Some sites protect their endpoints with auth tokens. If Claude Code can't access one, that's a valid finding --- note it.</li>
+                            <li>If you successfully collect data, save as <code>bonus_data.csv</code> and add a note to <code>notes.md</code>.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 6: Step 4 — Validate and Document -->
+        <!-- Section 6: Step 4 — Validate, Document, and Reflect -->
         <section class="study-section" id="s-6">
             <div class="study-section__header">
                 <span class="study-section__num">06</span>
-                <h2>Step 4: Validate and Document</h2>
+                <h2>Step 4: Validate, Document, and Reflect</h2>
             </div>
             <div class="study-section__body">
                 <p>For each CSV file, ask Claude Code to run a quick validation:</p>
@@ -1713,7 +1709,7 @@ code.inline,
                             <span>Copy</span>
                         </button>
                     </div>
-                    <pre class="prompt-card__prompt"><code>Check the CSV files (faculty.csv, way2_data.csv, reddit_comments.csv). For each: report the number of rows and columns, check for missing values, and show 3 sample rows.</code></pre>
+                    <pre class="prompt-card__prompt"><code>Check all CSV files in this folder. For each: report the number of rows and columns, check for missing values, and show 3 sample rows.</code></pre>
                 </div>
 
                 <p>Then write a short <span class="glossary-term" data-term="provenance">provenance</span> note (a few sentences per method) in a file called <code>notes.md</code>:</p>
@@ -1722,16 +1718,7 @@ code.inline,
                     <li>Which method did you use and what prompt did you give?</li>
                     <li>Did it work on the first try? If not, what went wrong and how did you fix it?</li>
                 </ul>
-            </div>
-        </section>
 
-        <!-- Section 7: Step 5 — Brief Reflection -->
-        <section class="study-section" id="s-7">
-            <div class="study-section__header">
-                <span class="study-section__num">07</span>
-                <h2>Step 5: Brief Reflection</h2>
-            </div>
-            <div class="study-section__body">
                 <p>At the bottom of <code>notes.md</code>, write one paragraph addressing:</p>
                 <ul>
                     <li>Which of today's methods (Way 1 HTML scrape, Way 2 endpoint, or the <code>.json</code> append trick) felt most reliable? Why?</li>
@@ -1742,10 +1729,10 @@ code.inline,
             </div>
         </section>
 
-        <!-- Section 8: Submission -->
-        <section class="study-section" id="s-8">
+        <!-- Section 7: Submission -->
+        <section class="study-section" id="s-7">
             <div class="study-section__header">
-                <span class="study-section__num">08</span>
+                <span class="study-section__num">07</span>
                 <h2>Submission</h2>
             </div>
             <div class="study-section__body">
@@ -1759,19 +1746,19 @@ code.inline,
                     <ul class="checklist__items">
                         <li class="checklist__item" data-item-id="csv1">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><code>faculty.csv</code> — Step 1: Bocconi marketing faculty (Way 1)</span>
+                            <span class="checklist__label"><code>way1_data.csv</code> — the static site data (Step 1)</span>
                         </li>
                         <li class="checklist__item" data-item-id="csv2">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><code>way2_data.csv</code> — Step 2: Reddit top posts via the JSON endpoint</span>
+                            <span class="checklist__label"><code>way2_data.csv</code> — the endpoint-based data (Step 2)</span>
                         </li>
                         <li class="checklist__item" data-item-id="csv3">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><code>reddit_comments.csv</code> — Step 3: comment tree via the <code>.json</code> trick</span>
+                            <span class="checklist__label"><code>step3_data.csv</code> — data from the endpoint you discovered (Step 3 bonus), or a note explaining what you tried</span>
                         </li>
                         <li class="checklist__item" data-item-id="notes">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><code>notes.md</code> — provenance notes and reflection paragraph</span>
+                            <span class="checklist__label"><code>notes.md</code> — provenance notes and reflection</span>
                         </li>
                         <li class="checklist__item" data-item-id="upload">
                             <span class="checklist__checkbox" aria-hidden="true"></span>
