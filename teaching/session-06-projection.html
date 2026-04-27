@@ -1625,6 +1625,7 @@ research interests from each. Save to faculty_data.csv</pre>
         if (!channel) return;
         const notes = slides[current].querySelector('.slide-notes');
         const title = slides[current].querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
+        const body = slides[current].querySelector('.slide__body');
         const next = slides[current + 1] || null;
         const nextTitle = next?.querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
         channel.postMessage({
@@ -1633,40 +1634,62 @@ research interests from each. Save to faculty_data.csv</pre>
             total,
             title,
             notes: notes ? notes.innerHTML : '',
-            nextTitle
+            nextTitle,
+            slideHtml: '<h2>' + (title || 'Title slide') + '</h2>' + (body ? body.innerHTML : '')
         });
     }
 
     function buildPresenterHtml() {
         return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Presenter View</title>
 <style>
-body { margin: 0; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
-.grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; height: calc(100vh - 48px); }
-.left { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
-.right { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
-.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 16px; padding: 20px; box-shadow: 6px 6px 0 #ffd84d; }
-.box h2 { margin: 0 0 12px; font-size: 14px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
-.notes { flex: 1; overflow-y: auto; }
-.notes-content { font-size: 18px; line-height: 1.55; }
-.notes-content p { margin: 0 0 12px; }
-.timer { font-size: 64px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; }
-.next { font-size: 22px; line-height: 1.2; font-weight: 700; }
-.next-label { font-size: 12px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-.counter { font-size: 14px; color: #8a8a8a; }
-.counter strong { color: #ffd84d; font-size: 24px; font-weight: 800; }
+body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 16px; height: calc(100vh - 40px); }
+.slide-preview { grid-column: 1; grid-row: 1; }
+.meta { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: 12px; }
+.notes-panel { grid-column: 1 / -1; grid-row: 2; min-height: 0; }
+.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 14px; padding: 16px; box-shadow: 4px 4px 0 #ffd84d; }
+.box h2 { margin: 0 0 10px; font-size: 12px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
+.preview-frame { background: #f7f5f0; border-radius: 8px; padding: 16px 20px; color: #1a1a1a; max-height: 32vh; overflow: hidden; font-size: 13px; line-height: 1.35; }
+.preview-frame h2 { font-size: 17px; margin: 0 0 8px; color: #0046ad; font-weight: 800; }
+.preview-frame p { margin: 0 0 6px; }
+.preview-frame ul, .preview-frame ol { margin: 0 0 6px; padding-left: 18px; }
+.preview-frame li { margin-bottom: 3px; }
+.preview-frame strong { font-weight: 700; }
+.preview-frame em { font-style: italic; }
+.preview-frame code { background: #e4e4e4; padding: 1px 3px; border-radius: 3px; font-size: 12px; }
+.preview-frame .callout { border-left: 3px solid #0046ad; padding: 6px 10px; margin: 6px 0; background: #eef4ff; border-radius: 4px; }
+.preview-frame .callout--warning { border-left-color: #c00; background: #fff0f0; }
+.preview-frame .callout--key { border-left-color: #d48c00; background: #fff8e6; }
+.preview-frame .callout__title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.preview-frame .callout__sticker { display: none; }
+.preview-frame .slide-notes { display: none; }
+.preview-frame .reveal:not(.is-shown) { opacity: 0.25; }
+.notes-panel { overflow-y: auto; }
+.notes-content { font-size: 17px; line-height: 1.5; columns: 2; column-gap: 24px; }
+.notes-content p { margin: 0 0 10px; break-inside: avoid; }
+.timer { font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; line-height: 1; }
+.next { font-size: 16px; line-height: 1.2; font-weight: 600; }
+.counter { font-size: 13px; color: #8a8a8a; text-align: center; }
+.counter strong { color: #ffd84d; font-size: 20px; font-weight: 800; }
+.meta-row { display: flex; gap: 12px; }
+.meta-row .box { flex: 1; }
 </style>
 </head><body>
 <div class="grid">
-    <div class="left">
-        <div class="box notes">
-            <h2>🎙️ Speaker notes — <span id="title"></span></h2>
-            <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
-        </div>
+    <div class="box slide-preview">
+        <h2>Current slide</h2>
+        <div class="preview-frame" id="slide-preview"><em>Waiting...</em></div>
     </div>
-    <div class="right">
-        <div class="box"><h2>⏱️ Elapsed</h2><div class="timer" id="timer">00:00</div></div>
-        <div class="box"><h2>Next up</h2><div class="next" id="next"><em>—</em></div></div>
-        <div class="box"><div class="counter">Slide <strong id="counter">— / —</strong></div></div>
+    <div class="meta">
+        <div class="meta-row">
+            <div class="box"><h2>Elapsed</h2><div class="timer" id="timer">00:00</div></div>
+            <div class="box"><div class="counter">Slide <strong id="counter">-- / --</strong></div></div>
+        </div>
+        <div class="box" style="flex:1;"><h2>Next up</h2><div class="next" id="next"><em>--</em></div></div>
+    </div>
+    <div class="box notes-panel">
+        <h2>Speaker notes -- <span id="title"></span></h2>
+        <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
     </div>
 </div>
 <script>
@@ -1679,8 +1702,9 @@ channel.onmessage = e => {
     if (s.type !== 'state') return;
     document.getElementById('title').textContent = s.title || '';
     document.getElementById('notes').innerHTML = s.notes || '<em>No speaker notes.</em>';
-    document.getElementById('next').textContent = s.nextTitle || '—';
+    document.getElementById('next').textContent = s.nextTitle || '--';
     document.getElementById('counter').textContent = (s.current + 1) + ' / ' + s.total;
+    if (s.slideHtml) document.getElementById('slide-preview').innerHTML = s.slideHtml;
 };
 </` + `script>
 </body></html>`;
