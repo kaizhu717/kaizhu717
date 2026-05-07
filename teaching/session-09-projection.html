@@ -1020,7 +1020,7 @@ pre.code, pre.code--inline {
 <main class="stage">
 
 <!-- ============================================================================
-     SESSION 9 — 17 frames
+     SESSION 9 — 15 frames
      ============================================================================ -->
 
 <!-- Slide 1: Title -->
@@ -1030,10 +1030,7 @@ pre.code, pre.code--inline {
     <p class="slide__subtitle">The skill ecosystem, evaluation, and adaptation for marketing PhD work</p>
     <p class="slide__meta">Kai Zhu — Bocconi University — Spring 2026</p>
     <aside class="slide-notes" hidden>
-        <p>Welcome back. Today is the third and final session on Skills in this course. Session 7 introduced what a Skill is and walked you through two pre-built ones for literature review. Session 8 went under the hood — progressive disclosure, YAML frontmatter, subagent execution — and toured the twelve-skill library I built for marketing PhD work. You now know how to use Skills. You know how to read one and judge whether it is well designed. You even know how to build your own.</p>
-        <p>So why are we still talking about Skills? Because the twelve I built for you are not the only ones in the world. The open-source skill ecosystem is exploding. Other researchers — sociologists, economists, computer scientists, biomedical researchers — have already built skills for many of the tasks you will face in your dissertation. Some are excellent. Some are abandoned. Some are dangerous. Today is about how to find the good ones, evaluate them, adapt them to marketing research, and avoid the rest.</p>
-        <p>There is a second motive. You may have noticed that the syllabus promises text analysis and experimental design, but only one session each. Thirty minutes of lecture cannot do justice to either. The external ecosystem fills that gap. Skills built by people who do this for a living encode the depth I cannot fit into a single lecture. Today's tour is also a way of covering more ground than the calendar allows.</p>
-        <p>The paper today is Horton, Filippas, and Manning's <em>Homo Silicus</em> — a paper that, as you will see, is itself an example of what gets encoded as a skill. The boundary between research insight and reusable workflow is exactly what makes this ecosystem powerful and exactly what makes it risky.</p>
+        <p>Welcome back. Third and final session on Skills. Sessions 7 and 8 covered using and designing them; today we look outward. The twelve skills I built are not the only ones — the open ecosystem now has thousands. Today is how to find the good ones, evaluate them, and adapt them to marketing PhD work. Side benefit: this is how we cover the text-analysis and experiment-design depth the syllabus could not fit. Paper: Horton et al. on <em>Homo Silicus</em> — which is itself an example of what gets encoded as a skill.</p>
     </aside>
 </section>
 
@@ -1042,23 +1039,20 @@ pre.code, pre.code--inline {
     <h2 class="slide__title">Today's Plan</h2>
     <div class="slide__body">
         <ol>
-            <li class="reveal">Recap: where we have been, why we look outward today</li>
-            <li class="reveal">The skill ecosystem in 2026: what exists, at what scale, what quality</li>
-            <li class="reveal">A tour by research topic: text analysis, experiment design, lit review, quant analysis, writing</li>
-            <li class="reveal">Evaluation rubric: how to judge a skill before installing it</li>
-            <li class="reveal">Adaptation patterns and benefits</li>
+            <li class="reveal">Recap: where we have been</li>
+            <li class="reveal">Why building on the ecosystem pays off</li>
+            <li class="reveal">A tour by research topic: text, experiment, lit review, quant, writing</li>
+            <li class="reveal">Evaluation rubric: how to judge a skill before installing</li>
+            <li class="reveal">Wrap-up: takeaway, paper, exercise</li>
         </ol>
         <div class="callout callout--key">
             <div class="callout__sticker" aria-hidden="true">🔑</div>
             <h4 class="callout__title">Session Structure</h4>
-            <div class="callout__body"><p><strong>Lecture</strong> (30 min) → <strong>Paper Discussion</strong> (30 min) → <strong>Exercise</strong> (30 min)</p></div>
+            <div class="callout__body"><p><strong>Lecture</strong> (30 min) → <strong>Exercise</strong> (30 min) → <strong>Paper Discussion</strong> (30 min)</p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Five blocks. The first is a one-slide recap connecting back to Sessions 7 and 8. The second is the ecosystem overview — concrete numbers about how many skills exist and where they live. The third is the substantive tour: five research-topic slides, each featuring two or three external skills you could install today.</p>
-        <p>Block four is the evaluation rubric — six criteria you should run through before installing any external skill. This is the most actionable part of the lecture. Block five covers adaptation patterns — what you typically need to change when you fork someone else's skill — and the benefits: why building on what other researchers have already done compounds in your favor.</p>
-        <p>After the lecture we discuss Horton et al. on <em>Homo Silicus</em>. Read in the context of today's session, the paper takes on a dual identity: it is both a methodological contribution and a template for a class of skills that simulate participants for pretesting.</p>
-        <p>Then the exercise. You will browse a curated catalog of twelve external skills — real GitHub repositories built by other researchers, not skills I built — pick three from different topics, read their <code>SKILL.md</code> files carefully, and produce a structured report on what each one does and whether you would adapt it for your dissertation. Then a three-minute share-out.</p>
+        <p>Five blocks. Recap, then the case for adopting external skills, then the substantive five-topic tour, then the evaluation rubric, then a wrap-up. Today's order is lecture, then exercise, then paper discussion. The exercise is a curated catalog of twelve external skills built by other researchers, not by me. One deliverable: a three-minute in-class share-out where you talk through one skill you tried yourself.</p>
     </aside>
 </section>
 
@@ -1104,9 +1098,7 @@ pre.code, pre.code--inline {
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The pedagogical arc has been deliberate. Session 7: using two skills out of the box, just to feel what one is. Session 8: looking under the hood at how skills are designed, plus a curated library I built for marketing PhD work — twelve skills, all matched to your dissertation tasks. Today is the third move, and it is the most important practically: the rest of the world has built thousands of skills, and your job is to find the good ones rather than building everything yourself.</p>
-        <p>The principle on the slide is the one I want you to leave with: build what is unique, find everything else. Most of the work you will do in your dissertation has been done by someone before. The art is finding their work, evaluating it, and adapting it — not reinventing it.</p>
-        <p>There is a corollary embedded in that principle. The syllabus promises depth on text analysis and experimental design that one session each cannot deliver. The external ecosystem is how we cover that ground. Today's tour is partly a tour of skills, but it is also a tour of methodological territory I could not fit into the calendar.</p>
+        <p>Three-step arc. Session 7 used skills; Session 8 designed them and toured the in-house library; today we go outward. The principle on the slide: build only what is unique, find everything else. Most dissertation work has been done by someone before — the art is finding it, evaluating it, adapting it. Today's tour is also methodological territory the calendar could not give you.</p>
     </aside>
 </section>
 
@@ -1125,7 +1117,7 @@ pre.code, pre.code--inline {
             <tbody>
                 <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;">SkillsMP marketplace</td><td style="padding: 5px 8px; font-family: var(--font-mono);">350,000+</td><td style="padding: 5px 8px;">Low (mostly auto-generated)</td></tr>
                 <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">anthropics/skills</code> (official)</td><td style="padding: 5px 8px; font-family: var(--font-mono);">17</td><td style="padding: 5px 8px;">Very high</td></tr>
-                <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">nealcaren/sociology-skillset</code></td><td style="padding: 5px 8px; font-family: var(--font-mono);">25+</td><td style="padding: 5px 8px;">Very high (PhD-grade, R/Stata)</td></tr>
+                <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">nealcaren/social-data-analysis</code></td><td style="padding: 5px 8px; font-family: var(--font-mono);">25+</td><td style="padding: 5px 8px;">Very high (PhD-grade, R/Stata)</td></tr>
                 <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">Galaxy-Dawn/claude-scholar</code></td><td style="padding: 5px 8px; font-family: var(--font-mono);">32 + 14 agents</td><td style="padding: 5px 8px;">High (full research lifecycle)</td></tr>
                 <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">K-Dense-AI/claude-scientific-skills</code></td><td style="padding: 5px 8px; font-family: var(--font-mono);">170+</td><td style="padding: 5px 8px;">High (biomedical-leaning)</td></tr>
                 <tr style="border-bottom: 1px solid var(--color-line);"><td style="padding: 5px 8px;"><code class="inline">lingzhi227/agent-research-skills</code></td><td style="padding: 5px 8px; font-family: var(--font-mono);">31</td><td style="padding: 5px 8px;">High (extracted from 17 repos)</td></tr>
@@ -1140,35 +1132,35 @@ pre.code, pre.code--inline {
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The numbers on this slide are real and they tell a specific story. There are hundreds of thousands of skills out there, but most of the volume is at the bottom of the quality distribution — auto-generated content with the standard LLM failure modes: vague descriptions, untested workflows, hallucinated dependencies. The signal lives in a much smaller set of curated repositories built by domain experts who use the skills themselves.</p>
-        <p>The repos in the table are the ones I would actually point a marketing PhD student at. <code>anthropics/skills</code> is small but tested — seventeen skills maintained by Anthropic itself, including the file-format primitives like <code>pdf</code>, <code>docx</code>, <code>xlsx</code>, and <code>pptx</code>. Neal Caren's <code>sociology-skillset</code> is the single most relevant repository for our course — a quantitative sociologist at UNC Chapel Hill building skills for his own research, with R and Stata support. <code>claude-scholar</code> covers the full research lifecycle from ideation to rebuttal. <code>K-Dense-AI/claude-scientific-skills</code> is huge but biomedical — good for templates and patterns even if the domain content is irrelevant.</p>
-        <p>The marketplace warning is important. SkillsMP and similar aggregators include thousands of skills that have never been used by their creators, let alone validated. The same warning that applies to LLM-generated citations applies to LLM-generated skills.</p>
+        <p>The numbers are real. Hundreds of thousands of skills exist, but most sit at the bottom of the quality distribution. The signal lives in a smaller set of curated repositories built by domain experts. The repos in this table are the ones I would actually point a marketing PhD at: <code>anthropics/skills</code> (small, tested), Caren's <code>social-data-analysis</code> (PhD-grade, R/Stata), <code>claude-scholar</code> (full lifecycle), <code>K-Dense</code> (huge but biomedical). Marketplace warning: aggregators include thousands of unvalidated skills — last resort, not first stop.</p>
     </aside>
 </section>
 
-<!-- Slide 5: The Discovery Problem -->
+<!-- Slide 5: Why Building on the Ecosystem Pays Off -->
 <section class="slide">
-    <h2 class="slide__title">The Discovery Problem</h2>
+    <h2 class="slide__title">Why Building on the Ecosystem Pays Off</h2>
     <div class="slide__body">
-        <p><strong>Why finding good skills is harder than it should be:</strong></p>
-        <ul>
-            <li class="reveal"><strong>Quality variance.</strong> Same name, very different implementations across repos.</li>
-            <li class="reveal"><strong>Recency bias.</strong> Most repos are from Jan–Mar 2026. The ecosystem is six months old.</li>
-            <li class="reveal"><strong>Name collisions.</strong> Three different <code class="inline">/lit-review</code> skills, none compatible.</li>
-            <li class="reveal"><strong>Abandoned repos.</strong> Last commit four months ago, dependencies have moved.</li>
-            <li class="reveal"><strong>Marketing-shaped hole.</strong> Most skills target sociology, economics, biomedicine, or CS — few target consumer research, marketing strategy, or branding.</li>
-        </ul>
+        <div class="callout callout--concept">
+            <div class="callout__sticker" aria-hidden="true">💡</div>
+            <h4 class="callout__title">Five concrete benefits</h4>
+            <div class="callout__body">
+                <ul>
+                    <li><strong>Speed.</strong> Adopt in five minutes what would take weeks to write from scratch. Your dissertation timeline is finite.</li>
+                    <li class="reveal"><strong>Quality.</strong> Mature skills encode validation patterns the original authors refined over months — you inherit that work for free.</li>
+                    <li class="reveal"><strong>Reproducibility.</strong> A pinned external skill is a citable, installable artifact in your replication package. Reviewers can verify exactly what you ran.</li>
+                    <li class="reveal"><strong>Cross-pollination.</strong> Skills carry insights across disciplines — sociology's coding rigor migrates to marketing through Caren's <code class="inline">/text-analyst</code>. You did not have to re-derive it.</li>
+                    <li class="reveal"><strong>Visibility.</strong> Forking, improving, and publishing back builds your scholarly profile in computational research — a real signal for the academic job market.</li>
+                </ul>
+            </div>
+        </div>
         <div class="callout callout--key">
             <div class="callout__sticker" aria-hidden="true">🔑</div>
-            <h4 class="callout__title">Triage heuristic</h4>
-            <div class="callout__body"><p>Start with three or four <em>curated</em> repos by domain experts. Treat marketplace search as a last resort.</p></div>
+            <h4 class="callout__title">The compounding insight</h4>
+            <div class="callout__body"><p>Each external skill you adopt becomes a foundation for the next workflow you build. You spend cumulatively less time on infrastructure and cumulatively more on research insight — which is what your dissertation is actually graded on.</p></div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Discovery is the hard problem. The naive approach — search for "literature review skill" on the marketplace, install the first result — is the path to wasted hours and bad outputs. Each of the bullets is a real failure mode I have run into.</p>
-        <p>Quality variance: I have seen <code>cite-verify</code> skills that range from a one-paragraph prompt to a four-layer verification pipeline with API integration. They share a name and almost nothing else. Recency: the entire ecosystem barely existed twelve months ago, so most skills lack the kind of validation that comes from a year of use. Name collisions: three different <code>/lit-review</code> skills exist as I write this, all with different inputs, outputs, and dependencies.</p>
-        <p>Abandonment is subtle. A skill from January might still install cleanly but reference an MCP server that has since changed its API. The skill runs, returns garbage, and you have no way to know unless you read the code. The marketing-shaped hole is the one most relevant to you: most ecosystem effort targets fields where the early adopters live — computational social science, economics, biomedical research. Marketing is underrepresented. That is partly an opportunity for you.</p>
-        <p>The triage heuristic on the slide is what I actually do. Start with two or three curated repos by people whose domain you respect. The marketplace is where you go if the curated repos do not have what you need.</p>
+        <p>Five reasons, then a compounding insight. Speed: your dissertation has a clock; five minutes installing what someone else spent three months refining is real arbitrage. Quality: mature skills carry the validation work the original author already did. Reproducibility: a pinned skill is a citable artifact — reviewers can verify what you ran. Cross-pollination: sociology's rigor migrates to marketing through Caren's text-analyst, free of charge. Visibility: open-source contributions are a real signal on the academic job market. Compounding: each adoption is a foundation for the next workflow.</p>
     </aside>
 </section>
 
@@ -1179,7 +1171,7 @@ pre.code, pre.code--inline {
         <p><strong>Covers Session 7 territory in more depth.</strong></p>
         <div class="cols">
             <div class="col">
-                <h4><code class="inline">nealcaren/sociology-skillset</code></h4>
+                <h4><code class="inline">nealcaren/social-data-analysis</code></h4>
                 <ul>
                     <li><code class="inline">/text-analyst</code> — chain-of-thought classification</li>
                     <li><code class="inline">/prompt-optimizer</code> — iteratively refines a classification prompt against a labeled set</li>
@@ -1199,19 +1191,16 @@ pre.code, pre.code--inline {
             <div class="callout__sticker" aria-hidden="true">💬</div>
             <h4 class="callout__title">Claude Code Prompt</h4>
             <div class="callout__body">
-<pre class="code code--inline" data-lang="bash"># Install Caren's sociology-skillset (illustrative)
-git clone https://github.com/nealcaren/sociology-skillset \
-  ~/.claude/skills/sociology-skillset
+<pre class="code code--inline" data-lang="bash"># Install Caren's social-data-analysis (illustrative)
+git clone https://github.com/nealcaren/social-data-analysis \
+  ~/.claude/skills/social-data-analysis
 # Then in Claude Code:
 /text-analyst classify these 200 reviews on perceived authenticity</pre>
             </div>
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Caren's text-analysis skills are the single best example of what good external skills look like for our work. <code>/text-analyst</code> implements the chain-of-thought reasoning approach validated in the qualitative-coding literature — each classification comes with a rationale that you can audit. <code>/prompt-optimizer</code> is the one I genuinely wish I could have taught in Session 7: it takes your draft classification prompt, runs it on a small labeled set, identifies where it fails, and iteratively improves the wording. This is exactly the iterative-prompt-engineering practice that good text-as-data papers describe but few researchers actually do.</p>
-        <p><code>/interview-analyst</code> extends to qualitative work. If your dissertation includes interviews, focus groups, or ethnographic observation, this skill encodes a coding workflow you would otherwise have to build by hand from scratch.</p>
-        <p>The install pattern shown is illustrative — you clone the repository into your Claude skills folder and the skills become available as slash commands. The exercise will walk you through this for real with a couple of skills you choose.</p>
-        <p>The connection to Session 7 is direct. We covered sentiment, theme extraction, and inter-coder reliability in thirty minutes. These external skills give you the tools to actually run those workflows at the depth a dissertation chapter needs.</p>
+        <p>Caren's text-analysis skills are the best example of what good external skills look like. <code>text-analyst</code> implements chain-of-thought rationale — each classification carries an audit trail. <code>prompt-optimizer</code> is the iterative-prompt-engineering practice good text-as-data papers describe but few researchers actually do. <code>interview-analyst</code> extends to qualitative work — if your dissertation has interviews or focus groups, this encodes a workflow you would otherwise build from scratch.</p>
     </aside>
 </section>
 
@@ -1247,10 +1236,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Topic 2 is the thinnest part of the ecosystem and — because of that — the place with the clearest opening for a marketing PhD to make a methodological contribution. Most ecosystem effort has been on lit review and writing, partly because those tasks bridge across disciplines and partly because that is where the early-adopter community lives.</p>
-        <p>What exists is genuinely useful but partial. Bachelor-course skills like <code>/experiment-design</code> and <code>/study-design</code> — which I adapted for that course — can be ported to PhD use. <code>/novelty-assessment</code> from <code>lingzhi227</code> helps you check whether a study idea is genuinely new. Galaxy-Dawn's <code>/research-ideation</code> catalogs five gap types — methodological, theoretical, contextual, interdisciplinary, temporal. The right pattern today is stitching: use these skills for ideation and design checks, then write your own stimulus prompts using the techniques from Session 8.</p>
-        <p>The opportunity framing on the slide is sincere, not a consolation. Marketing-specific experimental workflows — stimuli generation, manipulation checks, IRB-aware survey design — are unencoded in the public ecosystem. A well-designed skill that encodes <em>your</em> dissertation's experimental workflow is the kind of methodological contribution that lives well in <em>Marketing Letters</em> or <em>International Journal of Research in Marketing</em>, and that other PhDs in your cohort will adopt.</p>
-        <p>The Horton paper today is the perfect bridge. The Homo Silicus framework — LLMs as simulated participants for pilot experiments — is exactly the kind of research insight that gets encoded as a skill. Watch the paper as a candidate for skill-ification.</p>
+        <p>Topic 2 is the thinnest part of the ecosystem and — because of that — the clearest opening for a marketing PhD. What exists is partial: bachelor-course skills can be ported; <code>novelty-assessment</code> checks if an idea is genuinely new; <code>research-ideation</code> catalogs five gap types. The pattern today is stitching: use these for ideation and design checks, write your own stimulus prompts using Session 8 techniques. Building a marketing-specific experimental skill is the kind of contribution that lives well in <em>Marketing Letters</em> or IJRM. The Horton paper today is exactly that kind of insight waiting to be skill-ified.</p>
     </aside>
 </section>
 
@@ -1287,10 +1273,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This is the topic where the external ecosystem most rewards browsing. Session 5 introduced the OpenAlex-plus-Crossref pipeline and the verify-citations workflow. The skills on this slide go further along three axes: depth, integration, and verification.</p>
-        <p>Depth: <code>Caren/reading-agent</code> splits papers into sections before reading them, defeating the long-context degradation we covered in Session 3. You ask a question about a paper, the agent reads section by section rather than dumping the whole PDF into context. The output is dramatically better than what you get from naive whole-paper prompting.</p>
-        <p>Integration: <code>zotero-rag</code> works with the PDFs in your Zotero library. If you already have a literature collection, the skill can answer questions across your full corpus using semantic similarity search, not just keyword match. This is closer to how a senior researcher uses their reading — they remember relevant content, they do not re-read everything.</p>
-        <p>Verification: <code>claude-scholar</code>'s four-layer citation verification is the strongest published version of what Session 5 only sketched. Layer one is format. Layer two is DOI lookup. Layer three is metadata accuracy — authors, year, journal match what is in the paper. Layer four, and this is the one most people skip, is whether the cited claim actually appears in the paper. This catches the most insidious failure mode: real paper, wrong claim. Adopt this pattern even if you do not adopt the rest of <code>claude-scholar</code>.</p>
+        <p>This is where the external ecosystem most rewards browsing. Three axes beyond Session 5: depth, integration, verification. Depth: <code>reading-agent</code> splits papers into sections before reading — defeats the long-context degradation we covered in Session 3. Integration: <code>zotero-rag</code> works with the PDFs in your Zotero library — semantic search across your actual reading list. Verification: <code>claude-scholar</code>'s four-layer cite-verify catches the most insidious failure mode — real paper, wrong claim. Adopt this pattern even if you do not adopt the rest of <code>claude-scholar</code>.</p>
     </aside>
 </section>
 
@@ -1329,10 +1312,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>For quantitative analysis the standout skills are Caren's <code>r-analyst</code> and <code>stata-analyst</code> — which match the toolset most marketing PhDs already use — and the worker-critic pairs from <code>clo-author</code>, which is Hugo Sant'Anna's fork of Pedro Sant'Anna's workflow template.</p>
-        <p>The worker-critic pattern is worth pausing on because it is the most distinctive design idea in the ecosystem. Every creative skill has a paired critic. <code>Coder</code> writes code; <code>Debugger</code> immediately attacks the same code looking for bugs. <code>Storyteller</code> drafts a narrative; <code>Discussant</code> questions every claim. The adversarial pair is designed to catch the silent failures we covered in Session 8 — code that runs but produces wrong results, prose that sounds plausible but contains unsupported claims.</p>
-        <p><code>split-pdf</code> is a humble but high-leverage prerequisite skill. Long PDFs either crash sessions or produce shallow output because the model loses the middle of the context. <code>split-pdf</code> breaks a paper into sections before any analysis, forcing section-by-section reading. Adopt this as infrastructure before adopting any of the analysis skills.</p>
-        <p>The example in the prompt box illustrates how the worker-critic pair appears as a single command. You ask for code; behind the scenes, two agents collaborate — one writes, one critiques — and you get the cleaned-up result.</p>
+        <p>Standout picks: Caren's <code>r-analyst</code> and <code>stata-analyst</code> match the toolset most marketing PhDs use; the worker-critic pairs from <code>clo-author</code> are the most distinctive design idea in the ecosystem. <code>Coder</code> writes, <code>Debugger</code> immediately attacks looking for silent bugs — dropped observations, wrong SE clustering. The adversarial pair catches what we covered in Session 8: code that runs but produces wrong results. <code>split-pdf</code> is humble but high-leverage — adopt as infrastructure before any analysis skill.</p>
     </aside>
 </section>
 
@@ -1368,11 +1348,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>This slide is the bridge to the final module. Session 10 covers academic writing with AI. Session 11 covers validation and reproducibility. The skills here are the practical toolchain for both, and I want you to install at least two of them before Session 10 so you have working tools when we discuss the methodology.</p>
-        <p>The Anthropic file primitives are unglamorous but essential. <code>pdf</code> extracts text and tables from research papers cleanly — useful in lit review, useful for re-reading your own drafts. <code>docx</code> and <code>xlsx</code> let you write directly to Word and Excel for collaborators who do not use LaTeX. <code>pptx</code> writes presentation decks. None of these are exciting but all of them save real time.</p>
-        <p><code>peer-reviewer</code> from Caren simulates a JMR-style review of your draft. It is not a substitute for actual peer review, but it catches the obvious problems before you submit — missing literature, weak motivation, unsupported causal claims. Run it before sending a draft to your advisor.</p>
-        <p><code>humanizer</code> addresses the concern raised by Liang et al. (2024) — which is the paper for Session 10 — that AI-modified text is increasingly detectable. The humanizer pass strips the most obvious AI tells: hedge clusters, em-dash overuse, suspiciously balanced sentence rhythm. The ethical framing matters: this is about good writing, not deception. Disclosure is still required.</p>
-        <p><code>aea-replication</code> encodes the American Economic Association replication standards. This bridges directly to Session 11.</p>
+        <p>Bridge to the final module. Session 10 is academic writing; Session 11 is reproducibility. Anthropic file primitives are unglamorous but essential — <code>pdf</code>, <code>docx</code>, <code>xlsx</code>, <code>pptx</code> save real time. <code>peer-reviewer</code> simulates a JMR-style review of your draft — run it before sending to your advisor. <code>humanizer</code> addresses the AI-detection concern Liang et al. raise — ethical framing matters: this is good writing, not deception, and disclosure is still required. <code>aea-replication</code> encodes AEA standards and bridges to Session 11.</p>
     </aside>
 </section>
 
@@ -1398,82 +1374,11 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </table>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Six criteria. Run through all six before you install. None of them is hard to apply, but the temptation to skip them is constant.</p>
-        <p>Criterion one: the description field is the most underrated signal. A well-written description tells you exactly when the skill should fire and — this is the harder part — when it should not. Vague descriptions like "helps with research" produce skills that misfire constantly because Claude cannot tell when to invoke them.</p>
-        <p>Criterion two: dependencies. Some skills depend on MCP servers you do not have. Some require paid API keys. Some require packages you have to install separately. Read the dependencies before you commit. A skill that requires a Scopus subscription is not free even if the skill itself is.</p>
-        <p>Criterion three: validation. Does the skill have a checking step? Does the README mention a test corpus, evaluation results, or known failure modes? A skill that runs a workflow without validating its outputs is a prompt with extra steps — you have not bought yourself anything.</p>
-        <p>Criterion four: output specificity. You want concrete promises. "Writes <code>lit_summary.md</code> with a row per paper" is better than "produces a report." Specificity is what makes the output usable in a downstream skill or analysis.</p>
-        <p>Criterion five: security. The <code>allowed-tools</code> field controls what the skill can do on your laptop. <code>Bash</code> access deserves a careful read of the workflow. If you cannot tell what the skill will run, do not install it.</p>
-        <p>Criterion six: maintenance signal. Look at the last commit, the open issues, the author. A skill from an anonymous account, last updated nine months ago, is a liability whatever it claims to do.</p>
+        <p>Six criteria. Run through them all before installing. Description clarity is the most underrated signal — a well-written description tells you when the skill should fire and when not. Dependencies: read before you commit; a skill that requires a Scopus subscription is not free. Validation: a skill without a checking step is a prompt with extra steps. Output specificity: concrete promises beat vague ones. Security: <code>allowed-tools: Bash</code> deserves a careful read of the workflow. Maintenance: last commit, open issues, author identity tell you whether to depend on it.</p>
     </aside>
 </section>
 
-<!-- Slide 12: Adaptation Patterns -->
-<section class="slide">
-    <h2 class="slide__title">Adaptation Patterns: How to Make Someone Else's Skill Yours</h2>
-    <div class="slide__body">
-        <ol>
-            <li class="reveal"><strong>Fork-and-rename.</strong> Copy the SKILL.md to <code class="inline">.claude/skills/</code>, rename, edit. Three-minute change, full ownership.</li>
-            <li class="reveal"><strong>Swap data sources.</strong> Replace generic web search with OpenAlex API; swap Google Scholar for Semantic Scholar; point at <em>your</em> Zotero library.</li>
-            <li class="reveal"><strong>Add discipline anchors.</strong> Replace generic "relevant papers" with "papers from JM, JMR, JCR, Marketing Science, IJRM, JAMS." Replace generic stimuli with category-specific ones.</li>
-            <li class="reveal"><strong>MUST/SHOULD/MAY priority.</strong> Sant'Anna's pattern: rewrite the workflow with explicit priorities so Claude knows what is non-negotiable.</li>
-        </ol>
-        <div class="callout callout--prompt">
-            <div class="callout__sticker" aria-hidden="true">💬</div>
-            <h4 class="callout__title">Discipline-anchor example (excerpt)</h4>
-            <div class="callout__body">
-<pre class="code code--inline" data-lang="text">## Workflow
-1. Search OpenAlex for the topic.
-2. Filter to journals: JM, JMR, JCR, Marketing Science, IJRM, JAMS.
-3. MUST verify every DOI at Crossref before output.
-4. SHOULD include working papers from NBER and SSRN if topic is recent.</pre>
-            </div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>Four adaptation patterns. The first three are mechanical; the fourth is conceptual.</p>
-        <p>Fork-and-rename is the entry move. You copy the SKILL.md into your own skills folder, rename it (so it does not collide with the upstream version), and start editing. This gives you full ownership immediately. If the upstream changes, you are not affected — which is both a feature and a bug. You may miss improvements.</p>
-        <p>Swapping data sources is the most common adaptation. A skill written for general web search becomes much more useful when pointed at an academic database. A skill written against Google Scholar becomes more reliable when pointed at OpenAlex or Semantic Scholar. A skill written for generic PDFs becomes personal when pointed at your own Zotero library.</p>
-        <p>Adding discipline anchors is what turns a generic skill into a marketing skill. Replace generic "relevant papers" with the actual journals you read. Replace generic "products" with categories your dissertation studies. Replace generic stimuli prompts with ones that mention the constructs you measure. The skill becomes yours through this kind of editing.</p>
-        <p>The MUST/SHOULD/MAY pattern comes from Pedro Sant'Anna's workflow template. The idea is that natural-language workflows benefit from explicit priorities. "MUST verify every DOI" is non-negotiable. "SHOULD include working papers" is recommended but flexible. "MAY check arXiv" is optional. This vocabulary makes the workflow legible to Claude and to your future self.</p>
-    </aside>
-</section>
-
-<!-- Slide 13: Why Building on the Ecosystem Pays Off (Benefits) -->
-<section class="slide">
-    <h2 class="slide__title">Why Building on the Ecosystem Pays Off</h2>
-    <div class="slide__body">
-        <div class="callout callout--concept">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">Five concrete benefits</h4>
-            <div class="callout__body">
-                <ul>
-                    <li><strong>Speed.</strong> Adopt in five minutes what would take weeks to write from scratch. Your dissertation timeline is finite.</li>
-                    <li class="reveal"><strong>Quality.</strong> Mature skills encode validation patterns the original authors refined over months — you inherit that work for free.</li>
-                    <li class="reveal"><strong>Reproducibility.</strong> A pinned external skill is a citable, installable artifact in your replication package. Reviewers can verify exactly what you ran.</li>
-                    <li class="reveal"><strong>Cross-pollination.</strong> Skills carry insights across disciplines — sociology's coding rigor migrates to marketing through Caren's <code class="inline">/text-analyst</code>. You did not have to re-derive it.</li>
-                    <li class="reveal"><strong>Visibility.</strong> Forking, improving, and publishing back builds your scholarly profile in computational research — a real signal for the academic job market.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="callout callout--key">
-            <div class="callout__sticker" aria-hidden="true">🔑</div>
-            <h4 class="callout__title">The compounding insight</h4>
-            <div class="callout__body"><p>Each external skill you adopt becomes a foundation for the next workflow you build. You spend cumulatively less time on infrastructure and cumulatively more on research insight — which is what your dissertation is actually graded on.</p></div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>Five reasons the ecosystem is a real research asset — not a backup, not a curiosity, but something you should actively be drawing on as a doctoral student.</p>
-        <p>Speed first. Your dissertation has a clock. Every week you spend rebuilding a workflow that someone else has already built and validated is a week you are not spending on the parts of the dissertation that are uniquely yours: the theory, the design, the interpretation. A skill that takes you five minutes to install and configure may have taken its author three months to refine. The arbitrage is enormous.</p>
-        <p>Quality. Mature skills are mature because the author used them on real research and fixed the failure modes they ran into. You inherit those fixes without paying their price. The skills in the catalog you will browse today have all been used by their authors on actual papers.</p>
-        <p>Reproducibility is the one I want you to internalize. A skill is a single text file. You can pin its commit hash, include it in your replication package, cite it the way you cite an R package. This is dramatically more reproducible than "and then I prompted ChatGPT and copy-pasted what it said." The skills ecosystem is, among other things, a movement toward AI use that is replicable enough to satisfy a journal reviewer.</p>
-        <p>Cross-pollination matters because marketing borrows from many disciplines. Sociology has worked on text-as-data longer than marketing has. Economics has worked on causal inference longer than marketing has. When a sociologist publishes a text-coding skill that encodes their field's rigor, you get to import that rigor by installing the skill. The disciplinary distance shrinks.</p>
-        <p>Visibility is the one most students underweight. Open-source contributions to research infrastructure are increasingly visible on the academic job market, especially for empirical and methods-oriented hires. A well-documented skill with real users is a portfolio piece. Forking and improving someone else's skill counts. Publishing a new one definitely counts.</p>
-        <p>The compounding insight at the bottom is the long-run case. Each skill you adopt becomes a foundation. The skills you build later assume the skills you adopted earlier. After a year of working this way, you have a research toolchain that is uniquely yours, but assembled mostly from work you did not have to do alone.</p>
-    </aside>
-</section>
-
-<!-- Slide 14: Key Takeaway -->
+<!-- Slide 12: Key Takeaway -->
 <section class="slide slide--takeaway">
     <h2 class="slide__title">Key Takeaway</h2>
     <div class="slide__body">
@@ -1490,13 +1395,37 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </ol>
     </div>
     <aside class="slide-notes" hidden>
-        <p>The core message is the asymmetry: your time is the scarce resource, the ecosystem is the abundant one. Spend your time on what is genuinely unique to your research — your theory, your design, your interpretation — and let other people's well-made skills handle the rest.</p>
-        <p>The three rules of thumb compress everything from the past forty minutes. Evaluate before installing: never install a skill without running the rubric. It takes thirty seconds and prevents hours of wasted work. Adapt before relying: do not deploy an external skill in your dissertation workflow without forking it, anchoring it to your domain, and adding the priorities you need. Document what you used: every external skill in your final pipeline appears in your replication package, with a pinned version. This is exactly what we will cover in Session 11.</p>
-        <p>The methodological tour aspect is worth restating. We are not going to have separate sessions on text-analysis depth or experimental-design methodology. The skills you saw today — and the ones you will browse in the exercise — encode much of that depth. If you adopt three or four of them carefully and adapt them to marketing research, you will have a working version of the toolchain a senior text-as-data researcher uses in practice. That is genuinely valuable and not something the syllabus alone could give you.</p>
+        <p>The asymmetry: your time is the scarce resource, the ecosystem is the abundant one. Spend your time on what is uniquely yours — theory, design, interpretation — and let other people's well-made skills handle the rest. Three rules: evaluate every skill against the rubric before installing; adapt and anchor before relying; pin every external skill in your replication package. The methodological depth of today's tour is also depth the calendar could not give you.</p>
     </aside>
 </section>
 
-<!-- Slide 15: Paper Discussion — Horton, Filippas, Manning (2023) -->
+<!-- Slide 13: Exercise Preview — Skill Foraging Expedition (BEFORE Paper Discussion) -->
+<section class="slide slide--exercise">
+    <h2 class="slide__title">Exercise Preview: Skill Foraging Expedition</h2>
+    <div class="slide__body">
+        <p style="font-size:0.95em;margin-bottom:var(--space-2)"><strong>Single focused exercise (30 minutes).</strong></p>
+        <p style="margin: 0 0 var(--space-2)"><strong>Browse 12 external skills built and shared by other researchers — then pick ONE and try it.</strong></p>
+        <ul style="font-size:0.9em;line-height:1.3;margin:0">
+            <li class="reveal">12 real GitHub repositories from your exercise handout: Caren's <code class="inline">social-data-analysis</code>, Galaxy-Dawn's <code class="inline">claude-scholar</code>, <code class="inline">hsantanna88/clo-author</code>, <code class="inline">lingzhi227/agent-research-skills</code>, the official <code class="inline">anthropics/skills</code></li>
+            <li class="reveal">You read <em>someone else's</em> <code class="inline">SKILL.md</code> — not mine</li>
+            <li class="reveal">Apply the six-criterion rubric to triage; pick <em>one</em> that fits your dissertation</li>
+            <li class="reveal">Install it on your laptop and run it on a small task</li>
+            <li class="reveal">The catalog is a starting point, not a boundary — search GitHub yourself for skills relevant to your dissertation</li>
+        </ul>
+        <div class="callout callout--key" style="margin-top:var(--space-3)">
+            <div class="callout__sticker" aria-hidden="true">🔑</div>
+            <h4 class="callout__title">One deliverable</h4>
+            <div class="callout__body">
+                <p style="margin:0">A 3-minute in-class share-out at the end of the block: name the skill you picked, the design trick that makes it work, what you observed when you ran it, and your one-line recommendation for the cohort. Nothing to upload — it counts when you actually deliver it.</p>
+            </div>
+        </div>
+    </div>
+    <aside class="slide-notes" hidden>
+        <p>The action half. The skills you read today are not mine — they are real GitHub repositories built by other researchers: Caren's <code>social-data-analysis</code> (recently renamed from <code>sociology-skillset</code>), the <code>claude-scholar</code> team, an econometrician adapting Pedro Sant'Anna's template, the official Anthropic team. Pick ONE skill, install it on your laptop, run it on a small task related to your dissertation, then tell the class what you found. One deliverable: the share-out itself — three minutes, the skill you picked, what you observed when you ran it, your recommendation. No written report this time. The whole point is hands-on engagement with someone else's work.</p>
+    </aside>
+</section>
+
+<!-- Slide 14: Paper Discussion — Horton, Filippas, Manning (2023) -->
 <section class="slide">
     <h2 class="slide__title">Paper Discussion: Horton, Filippas, Manning (2023)</h2>
     <div class="slide__body">
@@ -1516,14 +1445,11 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Horton, Filippas, and Manning's <em>Homo Silicus</em> is the conceptual companion to today's lecture. The paper argues that LLMs trained on the entirety of human written text contain an implicit computational model of human behavior — what they call <em>Homo silicus</em>, by analogy to the <em>Homo economicus</em> of theoretical economics. You can endow these models with preferences, drop them into experimental scenarios, and observe their responses. The behavior is not human behavior, but it is something — a simulation grounded in the regularities of training corpora.</p>
-        <p>The five experiments are deliberately classic. Kahneman, Knetsch, and Thaler on fairness in pricing. Charness and Rabin on social preferences. Samuelson and Zeckhauser on status quo bias. Oprea on complexity-driven risk attitudes. Horton's own labor-market experiments on minimum-wage substitution. In each case, the AI agents replicate the qualitative pattern of the original human results, sometimes with informative deviations.</p>
-        <p>The connection to today's lecture is direct. The Homo Silicus framework — a research insight published in 2023 — is now encoded in skills like the <code>edsl</code> Python package and similar synthetic-pretest workflows in the broader ecosystem. When an insight becomes reusable, it becomes a skill. When a skill is well designed, it becomes infrastructure. This is the logic by which the ecosystem grows.</p>
-        <p><strong>Crucial caveat for marketing research:</strong> synthetic participants are a pretest tool, not a data source. No JCR or JMR reviewer will accept LLM responses as your sample. Use the framework to refine designs and pilot stimuli; collect real data afterward.</p>
+        <p>Horton, Filippas, and Manning argue that LLMs trained on human written text contain an implicit computational model of human behavior — <em>Homo silicus</em>, by analogy to <em>Homo economicus</em>. Endow these models with preferences, drop them into experimental scenarios, observe responses. Five classic experiments: Kahneman fairness, Charness–Rabin social preferences, Samuelson–Zeckhauser status quo, Oprea complexity, Horton labor markets. AI agents replicate the qualitative pattern with informative deviations. <strong>Crucial caveat:</strong> synthetic participants are a pretest tool, not a data source — no JCR or JMR reviewer accepts them as your sample.</p>
     </aside>
 </section>
 
-<!-- Slide 16: Discussion Questions — Horton et al. (2023) -->
+<!-- Slide 15: Discussion Questions — Horton et al. (2023) (FINAL slide) -->
 <section class="slide">
     <h2 class="slide__title">Discussion Questions: Horton et al. (2023)</h2>
     <div class="slide__body">
@@ -1540,38 +1466,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         </div>
     </div>
     <aside class="slide-notes" hidden>
-        <p>Question one is the validity question. Replicating known results is a necessary but not sufficient demonstration. The harder question is whether <em>Homo silicus</em> can produce findings that real human studies later confirm — and whether the failures are informative versus systematic.</p>
-        <p>Question two pushes the framework into marketing terrain. LLMs likely simulate text-mediated decisions reasonably well: pricing framing, message processing, brand-narrative response. They likely simulate embodied or affective decisions poorly: hedonic consumption, sensory branding, in-store behavior. The mapping between domain and simulation fidelity is not yet well charted.</p>
-        <p>Question three is the bridge to today's lecture. Imagine encoding <em>Homo silicus</em> as a Claude skill — what would the SKILL.md need? Probably: a clear input schema (study scenario, agent endowments), a validation step (manipulation check on the simulated agents), an output format (data table with effect sizes). The exercise of designing such a skill clarifies what is sound and what is hand-waving in the original framework.</p>
-        <p>Question four is the methodological-norm question. Horton uses <em>Homo silicus</em> as a pre-flight simulator. If researchers run AI pre-tests, see promising effects, and then pre-register only those promising hypotheses, the published literature begins to reflect what the LLM predicts rather than what humans actually do. This is HARKing with extra steps. The disclosure norm has to catch up.</p>
-    </aside>
-</section>
-
-<!-- Slide 17: Exercise Preview — Skill Foraging Expedition (FINAL slide) -->
-<section class="slide slide--exercise">
-    <h2 class="slide__title">Exercise Preview: Skill Foraging Expedition</h2>
-    <div class="slide__body">
-        <p style="font-size:0.95em;margin-bottom:var(--space-2)"><strong>Single focused exercise (30 minutes).</strong></p>
-        <p style="margin: 0 0 var(--space-2)"><strong>Browse 12 external skills built and shared by other researchers — then go further.</strong></p>
-        <ol style="font-size:0.9em;line-height:1.3;margin:0">
-            <li class="reveal">Curated catalog at <code class="inline">4_html/session-09-exercise.html</code> links to real GitHub repositories: Caren's <code class="inline">sociology-skillset</code>, Galaxy-Dawn's <code class="inline">claude-scholar</code>, <code class="inline">hsantanna88/clo-author</code>, <code class="inline">lingzhi227/agent-research-skills</code>, the official <code class="inline">anthropics/skills</code></li>
-            <li class="reveal">You read <em>someone else's</em> <code class="inline">SKILL.md</code> — not mine</li>
-            <li class="reveal">Pick three skills from three different topics; apply the six-criterion rubric</li>
-            <li class="reveal">Write a structured report on each: what it does, the design trick, one adaptation for marketing PhD use, Yes/No on dissertation use</li>
-            <li class="reveal">Three-minute share-out at the end of the block</li>
-        </ol>
-        <div class="callout callout--concept" style="margin-top:var(--space-3)">
-            <div class="callout__sticker" aria-hidden="true">💡</div>
-            <h4 class="callout__title">The catalog is a starting point, not a boundary</h4>
-            <div class="callout__body"><p>If you have time, search GitHub yourself for skills relevant to your dissertation. Use the rubric to vet what you find. The point of this exercise is browsing what other researchers share — and learning to judge it.</p></div>
-        </div>
-    </div>
-    <aside class="slide-notes" hidden>
-        <p>This is the action half of the session, and I want you to internalize one thing about it: the skills you read today are <em>not</em> mine. They are real GitHub repositories built by other researchers — a sociologist at UNC, a team building <code>claude-scholar</code>, an econometrician adapting Pedro Sant'Anna's workflow template, the official Anthropic skills team. You are reading other researchers' work, not curated demonstrations I assembled to teach a point.</p>
-        <p>The catalog of twelve has a structure: three to four skills per topic across the five research-topic tour. The three-from-different-topics constraint forces you to look beyond your immediate dissertation focus. You may discover something you were not looking for — a Stata workflow you did not know existed, a citation-verification pattern that makes your lit review tighter, a humanizer pass that addresses concerns about AI-detection.</p>
-        <p>Each pick gets the same four-question report. What does it do, in your own words. What is the design trick — the architectural decision that makes it work, the thing you would not have thought of yourself. One adaptation you would make for marketing PhD use, usually swapping data sources or adding discipline anchors. And the bottom-line question: would you actually use this for your dissertation, yes or no, with one sentence of justification.</p>
-        <p>The conceptbox at the bottom is a permission slip. The catalog is a starting point, not a boundary. If you finish your three reports early, search GitHub yourself for skills relevant to your dissertation, apply the six-criterion rubric, and add a fourth or fifth report. The skills ecosystem is open, growing, and looking for users who can give it useful feedback.</p>
-        <p>The three-minute share-out at the end is the social half. You hear what your peers found, and that broadens everyone's view of what is out there.</p>
+        <p>Question one: replicating known results is necessary but not sufficient — can <em>Homo silicus</em> produce findings real human studies later confirm? Question two: which marketing phenomena does the framework simulate well? Likely text-mediated decisions like framing and pricing; not embodied or affective consumption. Question three is the bridge to today's lecture — imagine encoding <em>Homo silicus</em> as <code>/synthetic-pretest</code>; what does the SKILL.md need? Question four: if AI pretests shape hypotheses before pre-registration, this is HARKing with extra steps — disclosure norms have to catch up.</p>
     </aside>
 </section>
 
@@ -1581,7 +1476,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
     <span class="footer__session" data-session-num>Session 09</span>
     <span class="footer__title" data-session-title>Finding &amp; Adapting External Research Skills</span>
     <div class="footer__progress"><div class="footer__progress-bar" data-progress-bar></div></div>
-    <span class="footer__counter" data-counter>1 / 17</span>
+    <span class="footer__counter" data-counter>1 / 15</span>
     <span class="footer__hint">→ next  ·  P presenter  ·  Esc overview</span>
 </footer>
 
@@ -1724,6 +1619,7 @@ git clone https://github.com/nealcaren/sociology-skillset \
         if (!channel) return;
         const notes = slides[current].querySelector('.slide-notes');
         const title = slides[current].querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
+        const body = slides[current].querySelector('.slide__body');
         const next = slides[current + 1] || null;
         const nextTitle = next?.querySelector('.slide__title, h1, h2')?.textContent.trim() || '';
         channel.postMessage({
@@ -1732,40 +1628,67 @@ git clone https://github.com/nealcaren/sociology-skillset \
             total,
             title,
             notes: notes ? notes.innerHTML : '',
-            nextTitle
+            nextTitle,
+            slideHtml: '<h2>' + (title || 'Title slide') + '</h2>' + (body ? body.innerHTML : '')
         });
     }
 
     function buildPresenterHtml() {
         return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Presenter View</title>
 <style>
-body { margin: 0; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
-.grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; height: calc(100vh - 48px); }
-.left { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
-.right { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
-.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 16px; padding: 20px; box-shadow: 6px 6px 0 #ffd84d; }
-.box h2 { margin: 0 0 12px; font-size: 14px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
-.notes { flex: 1; overflow-y: auto; }
-.notes-content { font-size: 18px; line-height: 1.55; }
-.notes-content p { margin: 0 0 12px; }
-.timer { font-size: 64px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; }
-.next { font-size: 22px; line-height: 1.2; font-weight: 700; }
-.next-label { font-size: 12px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-.counter { font-size: 14px; color: #8a8a8a; }
-.counter strong { color: #ffd84d; font-size: 24px; font-weight: 800; }
+body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #0a0a0a; color: #f7f5f0; min-height: 100vh; box-sizing: border-box; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 16px; height: calc(100vh - 40px); }
+.slide-preview { grid-column: 1; grid-row: 1; }
+.meta { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; gap: 12px; }
+.notes-panel { grid-column: 1 / -1; grid-row: 2; min-height: 0; }
+.box { background: #1a1a1a; border: 2px solid #ffd84d; border-radius: 14px; padding: 16px; box-shadow: 4px 4px 0 #ffd84d; }
+.box h2 { margin: 0 0 10px; font-size: 12px; color: #ffd84d; text-transform: uppercase; letter-spacing: 0.08em; }
+.preview-frame { background: #f7f5f0; border-radius: 8px; padding: 16px 20px; color: #1a1a1a; max-height: 32vh; overflow: hidden; font-size: 13px; line-height: 1.35; }
+.preview-frame h2 { font-size: 17px; margin: 0 0 8px; color: #0046ad; font-weight: 800; }
+.preview-frame p { margin: 0 0 6px; }
+.preview-frame ul, .preview-frame ol { margin: 0 0 6px; padding-left: 18px; }
+.preview-frame li { margin-bottom: 3px; }
+.preview-frame strong { font-weight: 700; }
+.preview-frame em { font-style: italic; }
+.preview-frame code { background: #e4e4e4; padding: 1px 3px; border-radius: 3px; font-size: 12px; }
+.preview-frame .callout { border-left: 3px solid #0046ad; padding: 6px 10px; margin: 6px 0; background: #eef4ff; border-radius: 4px; }
+.preview-frame .callout--warning { border-left-color: #c00; background: #fff0f0; }
+.preview-frame .callout--key { border-left-color: #d48c00; background: #fff8e6; }
+.preview-frame .callout__title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.preview-frame .callout__sticker { display: none; }
+.preview-frame .slide-notes { display: none; }
+.preview-frame .reveal:not(.is-shown) { opacity: 0.25; }
+.preview-frame table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.preview-frame table th, .preview-frame table td { padding: 2px 4px; text-align: left; }
+.preview-frame .cols, .preview-frame .cols--three { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.preview-frame .cols--three { grid-template-columns: 1fr 1fr 1fr; }
+.preview-frame pre { background: #efefef; padding: 4px 6px; border-radius: 3px; font-size: 11px; overflow: hidden; white-space: pre-wrap; }
+.notes-panel { overflow-y: auto; }
+.notes-content { font-size: 17px; line-height: 1.5; columns: 2; column-gap: 24px; }
+.notes-content p { margin: 0 0 10px; break-inside: avoid; }
+.timer { font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; color: #ffd84d; line-height: 1; }
+.next { font-size: 16px; line-height: 1.2; font-weight: 600; }
+.counter { font-size: 13px; color: #8a8a8a; text-align: center; }
+.counter strong { color: #ffd84d; font-size: 20px; font-weight: 800; }
+.meta-row { display: flex; gap: 12px; }
+.meta-row .box { flex: 1; }
 </style>
 </head><body>
 <div class="grid">
-    <div class="left">
-        <div class="box notes">
-            <h2>🎙️ Speaker notes — <span id="title"></span></h2>
-            <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
-        </div>
+    <div class="box slide-preview">
+        <h2>Current slide</h2>
+        <div class="preview-frame" id="slide-preview"><em>Waiting...</em></div>
     </div>
-    <div class="right">
-        <div class="box"><h2>⏱️ Elapsed</h2><div class="timer" id="timer">00:00</div></div>
-        <div class="box"><h2>Next up</h2><div class="next" id="next"><em>—</em></div></div>
-        <div class="box"><div class="counter">Slide <strong id="counter">— / —</strong></div></div>
+    <div class="meta">
+        <div class="meta-row">
+            <div class="box"><h2>Elapsed</h2><div class="timer" id="timer">00:00</div></div>
+            <div class="box"><div class="counter">Slide <strong id="counter">-- / --</strong></div></div>
+        </div>
+        <div class="box" style="flex:1;"><h2>Next up</h2><div class="next" id="next"><em>--</em></div></div>
+    </div>
+    <div class="box notes-panel">
+        <h2>Speaker notes -- <span id="title"></span></h2>
+        <div class="notes-content" id="notes"><em>Waiting for state from main window...</em></div>
     </div>
 </div>
 <script>
@@ -1778,13 +1701,13 @@ channel.onmessage = e => {
     if (s.type !== 'state') return;
     document.getElementById('title').textContent = s.title || '';
     document.getElementById('notes').innerHTML = s.notes || '<em>No speaker notes.</em>';
-    document.getElementById('next').textContent = s.nextTitle || '—';
+    document.getElementById('next').textContent = s.nextTitle || '--';
     document.getElementById('counter').textContent = (s.current + 1) + ' / ' + s.total;
+    if (s.slideHtml) document.getElementById('slide-preview').innerHTML = s.slideHtml;
 };
 </` + `script>
 </body></html>`;
     }
-
     // Keyboard handlers
     document.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Session 09 — Skill Foraging Expedition — AI-Assisted Research Methods</title>
-<meta name="description" content="Browse a curated catalog of twelve external Claude Code skills across five research topics, pick three from three different topics, read each SKILL.md carefully, and write a structured report. The deliverable is your judgment, not an installation.">
+<meta name="description" content="Browse a curated catalog of twelve external Claude Code skills across five research topics — or look outside the catalog. Pick ONE, read its SKILL.md carefully, install it and run it on a small task, then share what you found with the class.">
 
 <style>
 /* ============================================================================
@@ -1834,7 +1834,7 @@ code.inline,
         <header class="study-header">
             <span class="study-header__session">Session 09 · Exercise</span>
             <h1>Skill Foraging Expedition</h1>
-            <p class="study-header__subtitle">Browse twelve external Claude Code skills across five research topics, pick three from three different topics, read each <code>SKILL.md</code> like a careful reviewer reads a paper, and write a structured report. The deliverable is your judgment — not an installation.</p>
+            <p class="study-header__subtitle">Browse twelve external Claude Code skills across five research topics — or look outside the catalog. Pick <strong>ONE</strong>, read its <code>SKILL.md</code> like a careful reviewer reads a paper, install it and run it on a small task, then share what you found with the class.</p>
             <div class="study-header__meta">
                 <span>👤 Kai Zhu</span>
                 <span>🏛️ Bocconi</span>
@@ -1852,13 +1852,13 @@ code.inline,
             </div>
             <div class="study-section__body">
                 <p>In the lecture you saw the open ecosystem of Claude Code skills — hundreds of repositories, wildly variable quality, and a five-topic tour of the strongest curated picks. You also saw a six-criterion evaluation rubric and four adaptation patterns.</p>
-                <p>Today's exercise is hands-on triage. Twelve external skills are catalogued below across five research topics. Your job is to <em>forage</em>: pick three skills from <strong>three different topics</strong>, read each <span class="glossary-term" data-term="SKILL.md">SKILL.md</span> carefully, and produce a structured report on what each one does and whether you would adopt it for your dissertation work.</p>
+                <p>Today's exercise is hands-on triage and a single hands-on trial. Twelve external skills are catalogued below across five research topics as a starting point — but <strong>looking outside the catalog is encouraged</strong>, and often the right move. Your job is to <em>forage</em>: pick <strong>ONE skill</strong> (from the catalog or your own search of GitHub, <code>awesome-claude-skills</code> lists, or skill marketplaces), read its <span class="glossary-term" data-term="SKILL.md">SKILL.md</span> carefully, install it and run it on a small task, then share what you found with the class.</p>
 
                 <div class="callout callout--prompt">
                     <div class="callout__sticker" aria-hidden="true">💬</div>
-                    <h4 class="callout__title">Evaluation, not implementation</h4>
+                    <h4 class="callout__title">Evaluation first, then a hands-on test</h4>
                     <div class="callout__body">
-                        <p><strong>This exercise is about evaluation, not implementation.</strong> You are not installing or running these skills today — you are reading them like a careful reviewer reads a paper. The deliverable is your judgment.</p>
+                        <p>Read your candidate <code>SKILL.md</code> like a careful reviewer reads a paper, <strong>install it, and run it</strong> on a small task. The single deliverable is your 3-minute share-out with the class — no written report.</p>
                     </div>
                 </div>
             </div>
@@ -1899,10 +1899,10 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">01</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/text-analyst</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/text-analyst</code> — Caren (social-data-analysis)</h4>
+                            <a class="skill-card__repo" href="https://github.com/nealcaren/social-data-analysis" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/nealcaren/social-data-analysis</span>
                             </a>
                         </div>
                     </div>
@@ -1926,25 +1926,25 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">02</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/prompt-optimizer</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/abductive-analyst</code> — Caren (social-data-analysis)</h4>
+                            <a class="skill-card__repo" href="https://github.com/nealcaren/social-data-analysis" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/nealcaren/social-data-analysis</span>
                             </a>
                         </div>
                     </div>
                     <div class="skill-card__fields">
                         <div class="skill-card__field">
                             <span class="skill-card__label">What it does</span>
-                            <span class="skill-card__value">Takes a draft classification prompt and a small labeled set, runs the prompt, identifies failures, proposes a refined prompt, and iterates until a target accuracy is met.</span>
+                            <span class="skill-card__value">Theory-generating qualitative analysis built on the Timmermans &amp; Tavory abductive approach. Reads qualitative data, surfaces <em>puzzles</em> — observations that conflict with existing theory — then iteratively builds new theoretical accounts to explain them.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Design trick</span>
-                            <span class="skill-card__value">The skill embodies the iterative-prompt-engineering practice that good text-as-data papers describe but few researchers actually do. The labeled-set requirement enforces honesty.</span>
+                            <span class="skill-card__value">Inverts the usual deductive flow (apply theory to data) by treating surprises as the unit of analysis. The abductive structure is hard-coded into the workflow rather than something the model has to remember to do.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Suggested adaptation</span>
-                            <span class="skill-card__value">Anchor the validation set on a published marketing scale (e.g., Tellis et al. brand authenticity items) so refinements stay anchored to the construct rather than drifting toward the model's preferred phrasing.</span>
+                            <span class="skill-card__value">Pre-load with marketing theoretical frameworks (consumer culture theory, brand relationship theory, service-dominant logic) so anomalies register against rich anchors. Maintain a running tracker of theoretical surprises separate from the codebook.</span>
                         </div>
                     </div>
                 </article>
@@ -1953,10 +1953,10 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">03</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/interview-analyst</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/interview-analyst</code> — Caren (social-data-analysis)</h4>
+                            <a class="skill-card__repo" href="https://github.com/nealcaren/social-data-analysis" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/nealcaren/social-data-analysis</span>
                             </a>
                         </div>
                     </div>
@@ -2046,10 +2046,10 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">06</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/lit-search</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/lit-review</code> — Caren (social-data-analysis)</h4>
+                            <a class="skill-card__repo" href="https://github.com/nealcaren/social-data-analysis" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/nealcaren/social-data-analysis</span>
                             </a>
                         </div>
                     </div>
@@ -2073,25 +2073,25 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">07</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/zotero-rag</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>zotero-mcp-skill</code> — Kerim (zotero-mcp-skill)</h4>
+                            <a class="skill-card__repo" href="https://github.com/kerim/zotero-mcp-skill" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/kerim/zotero-mcp-skill</span>
                             </a>
                         </div>
                     </div>
                     <div class="skill-card__fields">
                         <div class="skill-card__field">
                             <span class="skill-card__label">What it does</span>
-                            <span class="skill-card__value">Semantic search across the PDFs in your Zotero library. Embeds your collection, answers questions by retrieving relevant passages, and cites which paper each claim comes from.</span>
+                            <span class="skill-card__value">Multi-strategy search across your Zotero library via the Zotero MCP server. Chains metadata search, full-text PDF search, and annotation/highlight search, then reconciles results. Auto-activates when Claude detects you need bibliographic context — no slash command required.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Design trick</span>
-                            <span class="skill-card__value">Operates on <em>your</em> reading list rather than the open web. The retrieval is grounded in literature you have already curated, which dramatically reduces hallucination risk. (See: <span class="glossary-term" data-term="RAG">RAG</span>.)</span>
+                            <span class="skill-card__value">Unlike a one-shot <span class="glossary-term" data-term="RAG">RAG</span>, the skill teaches Claude to <em>chain</em> multiple search strategies and adapt to the environment (autonomous in Claude Code, batched and confirmation-prone in Claude Desktop). MCP handles auth and pagination natively, sparing the model from faking it.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Suggested adaptation</span>
-                            <span class="skill-card__value">Tag your Zotero collections by dissertation chapter so the skill can scope retrieval to the relevant subset (chapter-2 lit, chapter-3 lit, etc.) rather than treating the whole library as a single corpus.</span>
+                            <span class="skill-card__value">Tag your Zotero collections by dissertation chapter so search scopes to a chapter's relevant subset. Add a citation-extraction step that returns the BibTeX entry alongside the retrieved passage.</span>
                         </div>
                     </div>
                 </article>
@@ -2133,10 +2133,10 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">09</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/r-analyst</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/r-analyst</code> — Caren (social-data-analysis)</h4>
+                            <a class="skill-card__repo" href="https://github.com/nealcaren/social-data-analysis" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/nealcaren/social-data-analysis</span>
                             </a>
                         </div>
                     </div>
@@ -2193,25 +2193,25 @@ code.inline,
                     <div class="skill-card__header">
                         <span class="skill-card__num">11</span>
                         <div class="skill-card__title-block">
-                            <h4 class="skill-card__title"><code>/peer-reviewer</code> — Caren (sociology-skillset)</h4>
-                            <a class="skill-card__repo" href="https://github.com/nealcaren/sociology-skillset" target="_blank" rel="noopener">
+                            <h4 class="skill-card__title"><code>/review-paper</code> — Bäckman (AI-research-feedback)</h4>
+                            <a class="skill-card__repo" href="https://github.com/claesbackman/AI-research-feedback" target="_blank" rel="noopener">
                                 <svg aria-hidden="true"><use href="#icon-link"/></svg>
-                                <span>github.com/nealcaren/sociology-skillset</span>
+                                <span>github.com/claesbackman/AI-research-feedback</span>
                             </a>
                         </div>
                     </div>
                     <div class="skill-card__fields">
                         <div class="skill-card__field">
                             <span class="skill-card__label">What it does</span>
-                            <span class="skill-card__value">Simulated peer review of a manuscript draft. Generates a structured review report covering motivation, theoretical contribution, methods, results, writing, and an overall recommendation.</span>
+                            <span class="skill-card__value">Pre-submission review of an academic paper. Runs six specialised agents in parallel (motivation, theory, methods, results, writing, contribution) and aggregates their reports into a journal-style referee response.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Design trick</span>
-                            <span class="skill-card__value">Models the actual review structure of top journals. Forces the user to see their draft from a reviewer's perspective <em>before</em> the reviewer does.</span>
+                            <span class="skill-card__value">Six specialised agents in parallel, each focused on one review dimension, instead of one general-purpose reviewer that hedges across everything. The structure mirrors how strong journals actually distribute referee work — and catches more issues than a single pass would.</span>
                         </div>
                         <div class="skill-card__field">
                             <span class="skill-card__label">Suggested adaptation</span>
-                            <span class="skill-card__value">Calibrate to marketing-journal conventions: heavier weight on theoretical contribution (JCR, JM), on methodological rigor (JMR, Marketing Science), on managerial relevance (JM, JCR). Add field-specific concerns — construct validity for consumer behavior, identification strategy for marketing strategy.</span>
+                            <span class="skill-card__value">Calibrate the journal-profile parameter to marketing-journal conventions: heavier weight on theoretical contribution (JCR, JM), methodological rigor (JMR, Marketing Science), or managerial relevance (JM). Add a marketing-specific construct-validity reviewer to the agent panel.</span>
                         </div>
                     </div>
                 </article>
@@ -2252,7 +2252,7 @@ code.inline,
                 <h2>Browsing Protocol (30 minutes)</h2>
             </div>
             <div class="study-section__body">
-                <p>Five steps. Roughly thirty minutes total. The cross-topic constraint in Step 2 forces breadth — you must look beyond your immediate methodological comfort zone.</p>
+                <p>Five steps. Roughly thirty minutes total. The point is depth on a single pick, plus actually running it — not a survey of the catalogue.</p>
 
                 <div class="steplist">
                     <div class="steplist__item">
@@ -2265,17 +2265,17 @@ code.inline,
 
                     <div class="steplist__item">
                         <div class="steplist__num">2</div>
-                        <h3 class="steplist__title">Pick three from three different topics<span class="steplist__time">3 min</span></h3>
+                        <h3 class="steplist__title">Pick ONE skill<span class="steplist__time">3 min</span></h3>
                         <div class="steplist__body">
-                            <p>Pick <strong>three skills from three different topics</strong>. The cross-topic constraint forces breadth — you must look beyond your immediate focus.</p>
+                            <p>Pick <strong>ONE skill</strong> that looks most promising for your dissertation work. Quality over breadth — you will go deep on this one. <strong>Looking outside the catalog is encouraged.</strong> If a skill you find via GitHub search, an <code>awesome-claude-skills</code> list, or a marketplace fits your dissertation better than anything in the twelve below, use that instead — real foraging happens beyond the curated list.</p>
                         </div>
                     </div>
 
                     <div class="steplist__item">
                         <div class="steplist__num">3</div>
-                        <h3 class="steplist__title">Read each <code>SKILL.md</code> carefully<span class="steplist__time">15 min · 5 per skill</span></h3>
+                        <h3 class="steplist__title">Read its <code>SKILL.md</code> carefully<span class="steplist__time">8 min</span></h3>
                         <div class="steplist__body">
-                            <p>For each pick, open the linked repository and find the actual <code>SKILL.md</code> file. Read it carefully:</p>
+                            <p>Open the linked repository and find the actual <code>SKILL.md</code> file. Read it carefully:</p>
                             <ul>
                                 <li>The full <span class="glossary-term" data-term="YAML frontmatter">YAML frontmatter</span> (<code>name</code>, <code>description</code>, <code>allowed-tools</code>, etc.)</li>
                                 <li>The workflow steps in the body</li>
@@ -2287,119 +2287,47 @@ code.inline,
 
                     <div class="steplist__item">
                         <div class="steplist__num">4</div>
-                        <h3 class="steplist__title">Write your structured report<span class="steplist__time">8 min</span></h3>
+                        <h3 class="steplist__title">Install it and run it<span class="steplist__time">12 min</span></h3>
                         <div class="steplist__body">
-                            <p>Use the four-question scaffold in the next section. Aim for ~120–180 words per skill, ~500 words total.</p>
+                            <p><strong>Actually install it.</strong> Drop the <code>SKILL.md</code> (and any supporting files) into your local <code>~/.claude/skills/</code> folder. Run it on a small task related to your dissertation — a short piece of text, a small dataset, a draft paragraph. Capture: did it work, what failed, what would you change?</p>
                         </div>
                     </div>
 
                     <div class="steplist__item">
                         <div class="steplist__num">5</div>
-                        <h3 class="steplist__title">Three-minute share-out<span class="steplist__time">in class</span></h3>
+                        <h3 class="steplist__title">Sketch your share-out<span class="steplist__time">5 min</span></h3>
                         <div class="steplist__body">
-                            <p>After the writing block, each student shares for three minutes: name your three picks, the one most likely to land in your dissertation, and the one you would most want to see built better.</p>
+                            <p>Outline your 3-minute share-out: the skill, the design trick, what happened when you ran it, and your one-line recommendation for the cohort. Details in the next section.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== SECTION 5: Structured Report Template ===== -->
+        <!-- ===== SECTION 5: Share with the Class ===== -->
         <section class="study-section" id="s-5">
             <div class="study-section__header">
                 <span class="study-section__num">05</span>
-                <h2>Structured Report Template</h2>
+                <h2>Share with the Class</h2>
             </div>
             <div class="study-section__body">
-                <p>For <strong>each of the three skills</strong> you picked, complete the four-question report below. Aim for ~120–180 words per skill, ~500 words total. The textareas are browser-fillable if you want to draft in-page; otherwise replicate the scaffold in your Markdown file.</p>
+                <p>After the browsing block, each student delivers a <strong>3-minute share-out</strong> so the cohort benefits from everyone's foraging. Keep it tight — this is signal, not a presentation.</p>
 
-                <div class="callout callout--concept">
+                <h3>Cover four things</h3>
+                <ul>
+                    <li><strong>The skill.</strong> Name and a one-line description.</li>
+                    <li><strong>The design trick.</strong> What makes it work? (use the lecture rubric)</li>
+                    <li><strong>What happened when you ran it.</strong> Output quality, surprises, failures.</li>
+                    <li><strong>Your recommendation.</strong> Adopt / fork-and-adapt / leave it. One-sentence justification.</li>
+                </ul>
+
+                <h3>Listening protocol</h3>
+                <p>Take notes as classmates present. By the end of the block you should leave with at least <em>two</em> skills on your radar that you did not personally inspect today.</p>
+
+                <div class="callout callout--tip">
                     <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">Use the lecture rubric</h4>
-                    <div class="callout__body">
-                        <p><strong>The six criteria from the lecture</strong> (description clarity, dependencies, validation steps, output specificity, security, maintenance signal) are the lens through which to read each skill. Mention <strong>at least one rubric criterion per report</strong>.</p>
-                    </div>
-                </div>
-
-                <!-- Report scaffold #1 -->
-                <div class="report-scaffold">
-                    <h3 class="report-scaffold__title">Report 1 of 3</h3>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r1-skill"><span class="report-scaffold__q-num">i.</span>Skill name and topic <small>(e.g., <code>/lit-search</code> — Topic 3)</small></label>
-                        <textarea id="s09-r1-skill" class="report-scaffold__textarea report-scaffold__textarea--short" rows="1" placeholder="/skill-name — Topic from catalog"></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r1-q1"><span class="report-scaffold__q-num">1.</span>What it does (2 sentences in your own words).</label>
-                        <textarea id="s09-r1-q1" class="report-scaffold__textarea" rows="3" placeholder="Translate the SKILL.md description into how you would explain it to a fellow PhD student."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r1-q2"><span class="report-scaffold__q-num">2.</span>The design trick — what makes it work?</label>
-                        <textarea id="s09-r1-q2" class="report-scaffold__textarea" rows="3" placeholder="Cite at least one rubric criterion from the lecture: clarity, dependencies, validation, output, security, maintenance."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r1-q3"><span class="report-scaffold__q-num">3.</span>One adaptation you would make for marketing PhD use.</label>
-                        <textarea id="s09-r1-q3" class="report-scaffold__textarea" rows="3" placeholder="Specific to marketing/PhD work — generic adaptations are weak."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r1-q4"><span class="report-scaffold__q-num">4.</span>Would you actually use this for your dissertation? (Yes / No / Maybe + 1 sentence justification.)</label>
-                        <textarea id="s09-r1-q4" class="report-scaffold__textarea report-scaffold__textarea--short" rows="2" placeholder="Yes / No / Maybe — and one sentence of honest justification."></textarea>
-                    </div>
-                </div>
-
-                <!-- Report scaffold #2 -->
-                <div class="report-scaffold">
-                    <h3 class="report-scaffold__title">Report 2 of 3</h3>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r2-skill"><span class="report-scaffold__q-num">i.</span>Skill name and topic <small>(must be a different topic from Report 1)</small></label>
-                        <textarea id="s09-r2-skill" class="report-scaffold__textarea report-scaffold__textarea--short" rows="1" placeholder="/skill-name — Topic from catalog"></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r2-q1"><span class="report-scaffold__q-num">1.</span>What it does (2 sentences in your own words).</label>
-                        <textarea id="s09-r2-q1" class="report-scaffold__textarea" rows="3" placeholder="Translate the SKILL.md description into how you would explain it to a fellow PhD student."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r2-q2"><span class="report-scaffold__q-num">2.</span>The design trick — what makes it work?</label>
-                        <textarea id="s09-r2-q2" class="report-scaffold__textarea" rows="3" placeholder="Cite at least one rubric criterion from the lecture."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r2-q3"><span class="report-scaffold__q-num">3.</span>One adaptation you would make for marketing PhD use.</label>
-                        <textarea id="s09-r2-q3" class="report-scaffold__textarea" rows="3" placeholder="Specific to marketing/PhD work — generic adaptations are weak."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r2-q4"><span class="report-scaffold__q-num">4.</span>Would you actually use this for your dissertation? (Yes / No / Maybe + 1 sentence justification.)</label>
-                        <textarea id="s09-r2-q4" class="report-scaffold__textarea report-scaffold__textarea--short" rows="2" placeholder="Yes / No / Maybe — and one sentence of honest justification."></textarea>
-                    </div>
-                </div>
-
-                <!-- Report scaffold #3 -->
-                <div class="report-scaffold">
-                    <h3 class="report-scaffold__title">Report 3 of 3</h3>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r3-skill"><span class="report-scaffold__q-num">i.</span>Skill name and topic <small>(must be a third, different topic)</small></label>
-                        <textarea id="s09-r3-skill" class="report-scaffold__textarea report-scaffold__textarea--short" rows="1" placeholder="/skill-name — Topic from catalog"></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r3-q1"><span class="report-scaffold__q-num">1.</span>What it does (2 sentences in your own words).</label>
-                        <textarea id="s09-r3-q1" class="report-scaffold__textarea" rows="3" placeholder="Translate the SKILL.md description into how you would explain it to a fellow PhD student."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r3-q2"><span class="report-scaffold__q-num">2.</span>The design trick — what makes it work?</label>
-                        <textarea id="s09-r3-q2" class="report-scaffold__textarea" rows="3" placeholder="Cite at least one rubric criterion from the lecture."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r3-q3"><span class="report-scaffold__q-num">3.</span>One adaptation you would make for marketing PhD use.</label>
-                        <textarea id="s09-r3-q3" class="report-scaffold__textarea" rows="3" placeholder="Specific to marketing/PhD work — generic adaptations are weak."></textarea>
-                    </div>
-                    <div class="report-scaffold__field">
-                        <label class="report-scaffold__q" for="s09-r3-q4"><span class="report-scaffold__q-num">4.</span>Would you actually use this for your dissertation? (Yes / No / Maybe + 1 sentence justification.)</label>
-                        <textarea id="s09-r3-q4" class="report-scaffold__textarea report-scaffold__textarea--short" rows="2" placeholder="Yes / No / Maybe — and one sentence of honest justification."></textarea>
-                    </div>
-                </div>
-
-                <div class="callout callout--key">
-                    <div class="callout__sticker" aria-hidden="true">🔑</div>
-                    <h4 class="callout__title">In-page drafts do not auto-save</h4>
-                    <div class="callout__body"><p>The textareas above are convenience scratch space — they do not persist if you close the browser. Copy your finished answers into your Markdown submission file before you leave the page.</p></div>
+                    <h4 class="callout__title">Show the output</h4>
+                    <div class="callout__body"><p>If you can pull up a screenshot or a snippet of what the skill produced, do. Concrete evidence beats abstract description.</p></div>
                 </div>
             </div>
         </section>
@@ -2411,7 +2339,7 @@ code.inline,
                 <h2>Evaluation Criteria</h2>
             </div>
             <div class="study-section__body">
-                <p>How the report will be evaluated. The standard is whether your judgment would survive a methods-section reviewer's reading of it.</p>
+                <p>Your share-out is evaluated on:</p>
 
                 <div class="crit-grid">
                     <div class="crit-card">
@@ -2428,92 +2356,20 @@ code.inline,
                     </div>
                     <div class="crit-card">
                         <h4 class="crit-card__title">Honest judgment</h4>
-                        <p class="crit-card__body">Is your Yes / No / Maybe defensible given what the skill actually delivers?</p>
+                        <p class="crit-card__body">Is your adopt / fork-and-adapt / leave recommendation defensible given what the skill actually delivers?</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== SECTION 7: Submission ===== -->
+        <!-- ===== SECTION 7: Deliverable ===== -->
         <section class="study-section" id="s-7">
             <div class="study-section__header">
                 <span class="study-section__num">07</span>
-                <h2>Submission</h2>
+                <h2>Deliverable</h2>
             </div>
             <div class="study-section__body">
-                <p>Submit the following to the course portal by the end of the session.</p>
-
-                <div class="checklist" data-checklist-id="s09-submission">
-                    <div class="checklist__header">
-                        <h4 class="checklist__title">📋 Submission checklist</h4>
-                        <span class="checklist__progress">0 / 3 done</span>
-                    </div>
-                    <ul class="checklist__items">
-                        <li class="checklist__item" data-item-id="three-reports">
-                            <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>Three structured reports</strong> — one per skill picked, ~120–180 words each, addressing the four-question scaffold. Skills must come from three different topics.</span>
-                        </li>
-                        <li class="checklist__item" data-item-id="meta-paragraph">
-                            <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label"><strong>One ``meta'' paragraph</strong> (~100 words) summarising what you learned about the ecosystem from this exercise — surprises, gaps, where you would invest your time.</span>
-                        </li>
-                        <li class="checklist__item" data-item-id="filename">
-                            <span class="checklist__checkbox" aria-hidden="true"></span>
-                            <span class="checklist__label">Upload as <code>session09_[lastname]_skill_foraging.md</code></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <p style="margin-top: var(--space-5);">File-naming convention:</p>
-                <div class="code-block" data-lang="text">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">📋</span>
-                        <span class="code-block__lang">filename</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="code-block__code"><code>session09_[lastname]_skill_foraging.md</code></pre>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== SECTION 8: Bonus Challenge ===== -->
-        <section class="study-section" id="s-8">
-            <div class="study-section__header">
-                <span class="study-section__num">08</span>
-                <h2>Bonus Challenge (if time permits)</h2>
-            </div>
-            <div class="study-section__body">
-                <p>Pick one skill from the catalog and <em>actually install it</em> into your local <code>~/.claude/skills/</code> folder. Then:</p>
-
-                <ol>
-                    <li>Run it on a small task related to your dissertation.</li>
-                    <li>Document what worked, what failed, and what you would change.</li>
-                    <li>If you made any adaptations, note them as a diff against the original <code>SKILL.md</code>.</li>
-                    <li>If the skill produced output you would actually use, save the output and add a one-line provenance comment (skill name, version/commit, date of run).</li>
-                </ol>
-
-                <p>This exercise extends today's foraging into actual adoption — which is the workflow you will use throughout your dissertation.</p>
-
-                <div class="callout callout--concept">
-                    <div class="callout__sticker" aria-hidden="true">💡</div>
-                    <h4 class="callout__title">A sane provenance line</h4>
-                    <div class="callout__body"><p>One Markdown comment at the top of the output file is enough. Example:</p></div>
-                </div>
-
-                <div class="code-block" data-lang="text">
-                    <div class="code-block__header">
-                        <span class="code-block__icon">📋</span>
-                        <span class="code-block__lang">provenance comment</span>
-                        <button type="button" class="code-block__copy" data-copy-target=".code-block__code">
-                            <svg aria-hidden="true"><use href="#icon-copy"/></svg>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre class="code-block__code"><code>&lt;!-- generated by /text-analyst (sociology-skillset @commit a1b2c3d) on 2026-05-13 --&gt;</code></pre>
-                </div>
+                <p>The deliverable is your <strong>in-class share-out</strong> — a 3-minute talk during the share block: the skill you picked, the design trick, what you observed when you ran it, your recommendation. Nothing to upload. This counts when you actually deliver it in class.</p>
             </div>
         </section>
 
