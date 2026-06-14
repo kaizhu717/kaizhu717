@@ -3,23 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Kai Zhu</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Blog &mdash; Kai Zhu</title>
+<meta name="description" content="Notes, interactive research, and works in progress by Kai Zhu.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', -apple-system, sans-serif; color: #2D2D2D; background: #fff; font-size: 17px; line-height: 1.7; }
-  :root { --primary: #1B3A4B; --accent: #2E86AB; --subtle: #6B7B8D; --lightrule: #D0DCE5; }
-  nav { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--lightrule); padding: 14px 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-  nav .inner { max-width: 1060px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; }
-  nav .name { font-weight: 700; font-size: 18px; color: var(--primary); text-decoration: none; }
-  nav .links { display: flex; gap: 28px; }
-  nav .links a { color: var(--subtle); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
-  nav .links a:hover { color: var(--accent); }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #1B3A4B;
+    --accent: #2E86AB;
+    --subtle: #6B7B8D;
+    --body: #2D2D2D;
+    --light-bg: #F4F7FA;
+    --lightrule: #D0DCE5;
+  }
+  body {
+    font-family: 'Lora', Georgia, serif;
+    color: var(--body);
+    background: #fff;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 14px 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--lightrule);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  nav .inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .name {
+    color: var(--primary);
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  nav .links {
+    display: flex;
+    gap: 28px;
+    font-family: 'Inter', sans-serif;
+  }
+  nav .links a {
+    color: var(--subtle);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav .links a:hover,
+  nav .links a.active { color: var(--accent); }
   .container { max-width: 1060px; margin: 0 auto; padding: 0 32px; }
-  .content { padding: 56px 0; min-height: 60vh; }
-  h1 { font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
-  .subtitle { color: var(--subtle); font-size: 17px; }
-  footer { padding: 32px 0; text-align: center; color: var(--subtle); font-size: 14px; border-top: 1px solid var(--lightrule); }
+  .content { padding: 58px 0 72px; min-height: 72vh; }
+  .eyebrow {
+    margin-bottom: 5px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin-bottom: 6px;
+    color: var(--primary);
+    font-size: 36px;
+    line-height: 1.2;
+  }
+  .subtitle {
+    max-width: 650px;
+    color: var(--subtle);
+    font-size: 17px;
+  }
+  .posts { margin-top: 38px; }
+  .post-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+    overflow: hidden;
+    color: inherit;
+    background: #fff;
+    border: 1px solid var(--lightrule);
+    border-radius: 12px;
+    box-shadow: 0 14px 38px rgba(27, 58, 75, 0.09);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .post-card:hover {
+    transform: translateY(-3px);
+    border-color: #aac4d3;
+    box-shadow: 0 18px 44px rgba(27, 58, 75, 0.14);
+  }
+  .post-copy { padding: 34px 36px 36px; }
+  .post-meta {
+    margin-bottom: 12px;
+    color: var(--subtle);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .post-tag {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 3px 10px;
+    color: var(--accent);
+    background: var(--light-bg);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .post-card h2 {
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  .post-summary {
+    margin-bottom: 22px;
+    color: #43515b;
+    font-size: 16px;
+  }
+  .post-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 750;
+  }
+  .post-visual {
+    min-height: 330px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    background:
+      radial-gradient(circle at 78% 16%, rgba(78, 173, 210, 0.5), transparent 32%),
+      linear-gradient(145deg, #153341, #1B3A4B 55%, #255a70);
+  }
+  .visual-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .signal {
+    height: 110px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .signal span {
+    flex: 1;
+    min-width: 8px;
+    background: linear-gradient(to top, rgba(255,255,255,0.42), rgba(158,211,230,0.95));
+    border-radius: 4px 4px 0 0;
+  }
+  .signal span:nth-child(1) { height: 34%; }
+  .signal span:nth-child(2) { height: 58%; }
+  .signal span:nth-child(3) { height: 42%; }
+  .signal span:nth-child(4) { height: 83%; }
+  .signal span:nth-child(5) { height: 64%; }
+  .signal span:nth-child(6) { height: 100%; }
+  .signal span:nth-child(7) { height: 76%; }
+  .visual-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+  }
+  .visual-stat strong {
+    display: block;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .visual-stat span {
+    color: #c9dfe8;
+    font-size: 11px;
+  }
+  footer {
+    padding: 32px 0;
+    color: var(--subtle);
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid var(--lightrule);
+  }
+  @media (max-width: 760px) {
+    .container, nav .inner { padding-left: 20px; padding-right: 20px; }
+    nav .links { gap: 15px; }
+    nav .links a { font-size: 13px; }
+    .content { padding-top: 42px; }
+    .post-card { grid-template-columns: 1fr; }
+    .post-copy { padding: 28px 25px; }
+    .post-visual { min-height: 260px; padding: 26px; }
+  }
 </style>
 </head>
 <body>
@@ -29,17 +219,46 @@
     <div class="links">
       <a href="../#about">About</a>
       <a href="../#research">Research</a>
-      <a href="./">Blog</a>
-      <a href="../files/kaizhu-cv.pdf">CV ↓</a>
+      <a href="./" class="active">Blog</a>
+      <a href="../files/kaizhu-cv.pdf">CV &darr;</a>
     </div>
   </div>
 </nav>
-<div class="container">
+
+<main class="container">
   <div class="content">
+    <p class="eyebrow">Notes and interactive research</p>
     <h1>Blog</h1>
-    <p class="subtitle">Coming soon.</p>
+    <p class="subtitle">Research updates, exploratory tools, and occasional notes on digital markets, media, and society.</p>
+
+    <section class="posts" aria-label="Blog posts">
+      <a class="post-card" href="../app/gun_policy_coverage.html">
+        <div class="post-copy">
+          <div class="post-meta">
+            <span class="post-tag">Interactive data</span>
+            June 14, 2026
+          </div>
+          <h2>Mapping Gun Policy Coverage in U.S. Television News</h2>
+          <p class="post-summary">An interactive view of when and where television news discusses firearm-policy topics, spanning 18 policy queries, 195 observed media markets, and more than a decade of coverage.</p>
+          <span class="post-link">Explore the dashboard <span aria-hidden="true">&rarr;</span></span>
+        </div>
+        <div class="post-visual" aria-hidden="true">
+          <span class="visual-label">Policy coverage over time</span>
+          <div class="signal">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+          <div class="visual-stats">
+            <div class="visual-stat"><strong>18</strong><span>policy topics</span></div>
+            <div class="visual-stat"><strong>195</strong><span>observed DMAs</span></div>
+            <div class="visual-stat"><strong>2014-24</strong><span>coverage window</span></div>
+          </div>
+        </div>
+      </a>
+    </section>
   </div>
-</div>
+</main>
+
 <footer>
   <div class="container">
     Kai Zhu &middot; Bocconi University &middot; Milan, Italy

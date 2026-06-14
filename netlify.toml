@@ -13,3 +13,8 @@
   for = "*.pdf"
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/app/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

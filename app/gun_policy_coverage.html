@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gun Policy Coverage in U.S. Television News | Kai Zhu</title>
+<meta name="description" content="Interactive dashboard of television news coverage of firearm policy topics across U.S. media markets from 2014 to 2024.">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root {
+  --navy: #1b3a4b;
+  --steel: #2e86ab;
+  --ink: #1f2933;
+  --muted: #60717e;
+  --line: #d8e3ea;
+  --paper: #ffffff;
+  --wash: #f4f7fa;
+  --wash-2: #edf4f7;
+  --amber: #d95f02;
+  --teal: #1b9e77;
+  --shadow: 0 14px 34px rgba(27, 58, 75, 0.09);
+  --radius: 10px;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: Lora, Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #f8fafc;
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  width: min(1480px, 100%);
+  min-height: 58px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+  font-weight: 800;
+  text-decoration: none;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--navy);
+  border-radius: 8px;
+}
+.back-link {
+  color: var(--steel);
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+
+.hero {
+  color: #fff;
+  background:
+    radial-gradient(circle at 82% 14%, rgba(46, 134, 171, 0.42), transparent 34%),
+    linear-gradient(120deg, #132f3e, #1b3a4b 62%, #234f63);
+}
+.hero-inner {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+  padding: 42px 24px 38px;
+}
+.kicker {
+  margin: 0 0 8px;
+  color: #9ed3e6;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+h1, h2, h3, p { margin-top: 0; }
+h1 {
+  max-width: 950px;
+  margin-bottom: 12px;
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+.hero p {
+  max-width: 870px;
+  margin-bottom: 0;
+  color: #dcebf1;
+  font-family: var(--serif);
+  font-size: clamp(17px, 2vw, 21px);
+}
+
+.shell {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.controls {
+  position: sticky;
+  top: 82px;
+  padding: 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.controls h2 {
+  margin-bottom: 4px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 24px;
+}
+.control-intro {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.control-group {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.control-group:first-of-type { padding-top: 0; border-top: 0; }
+.control-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 800;
+}
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  background: var(--wash-2);
+  border-radius: 8px;
+}
+.segment {
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+}
+.segment.active {
+  color: #fff;
+  background: var(--navy);
+  box-shadow: 0 3px 8px rgba(27, 58, 75, 0.18);
+}
+.date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.date-grid label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+input[type="month"], select {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 4px;
+  padding: 7px 9px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #c9d7df;
+  border-radius: 7px;
+}
+.query-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.text-button {
+  padding: 0;
+  color: var(--steel);
+  background: transparent;
+  border: 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+.query-list {
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 3px 4px 3px 0;
+  scrollbar-width: thin;
+}
+.query-option {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 8px;
+  align-items: start;
+  padding: 6px 4px;
+  color: #384a56;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.query-option input { margin: 2px 0 0; accent-color: var(--steel); }
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #384a56;
+  font-size: 13px;
+  font-weight: 650;
+}
+.check-row input { accent-color: var(--steel); }
+.apply-button {
+  width: 100%;
+  min-height: 44px;
+  color: #fff;
+  background: var(--steel);
+  border: 0;
+  border-radius: 8px;
+  font-weight: 850;
+  box-shadow: 0 8px 18px rgba(46, 134, 171, 0.2);
+}
+.apply-button:hover { background: #247496; }
+.filter-message {
+  min-height: 20px;
+  margin: 9px 0 0;
+  color: #a33d32;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dashboard { min-width: 0; }
+.loading {
+  padding: 48px 24px;
+  color: var(--muted);
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.spinner {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 14px;
+  border: 3px solid var(--line);
+  border-top-color: var(--steel);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hidden { display: none !important; }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.metric {
+  padding: 16px 17px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.metric-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.metric-value {
+  display: block;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 25px;
+  font-weight: 700;
+}
+.card {
+  margin-bottom: 16px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 22px rgba(27, 58, 75, 0.05);
+}
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.card h2 {
+  margin-bottom: 2px;
+  color: var(--navy);
+  font-family: var(--serif);
+  font-size: 23px;
+}
+.card-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.plot { width: 100%; min-height: 390px; }
+#mapChart { min-height: 540px; }
+.timeline {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 4px 12px 8px;
+}
+.play-button {
+  min-width: 78px;
+  min-height: 36px;
+  color: var(--navy);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.timeline input { width: 100%; accent-color: var(--steel); }
+.period-label {
+  min-width: 76px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 850;
+  text-align: right;
+}
+.chart-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr);
+  gap: 16px;
+}
+.chart-grid .card { min-width: 0; }
+.detail-select {
+  width: min(330px, 100%);
+  margin-top: 0;
+}
+.method-note {
+  margin: 4px 0 0;
+  padding: 8px 4px 18px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+.method-note a { color: var(--steel); }
+
+@media (max-width: 1050px) {
+  .shell { grid-template-columns: 1fr; }
+  .controls { position: static; }
+  .query-list { max-height: 190px; }
+  .chart-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .topbar-inner, .hero-inner, .shell { padding-left: 16px; padding-right: 16px; }
+  .back-link { font-size: 12px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .card { padding: 14px 10px; }
+  .card-header { display: block; padding: 0 4px; }
+  #mapChart { min-height: 460px; }
+  .timeline { grid-template-columns: auto 1fr; }
+  .period-label { grid-column: 1 / -1; text-align: center; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html" aria-label="Kai Zhu home">
+      <span class="brand-mark" aria-hidden="true">KZ</span>
+      <span>Kai Zhu</span>
+    </a>
+    <a class="back-link" href="../index.html#research">Back to research</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="kicker">Interactive Research Dashboard</p>
+    <h1>Gun Policy Coverage in U.S. Television News</h1>
+    <p>Explore the geography and timing of television coverage across 18 firearm-policy topics and U.S. media markets, 2014-2024.</p>
+  </div>
+</section>
+
+<main class="shell">
+  <aside class="controls" aria-label="Dashboard filters">
+    <h2>Explore the data</h2>
+    <p class="control-intro">Choose a time window and policy topics, then update the figures.</p>
+
+    <div class="control-group">
+      <span class="control-label">Time aggregation</span>
+      <div class="segmented" id="aggregationButtons">
+        <button class="segment active" type="button" data-value="month">Month</button>
+        <button class="segment" type="button" data-value="quarter">Quarter</button>
+        <button class="segment" type="button" data-value="year">Year</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Date range</span>
+      <div class="date-grid">
+        <label>From<input id="startMonth" type="month"></label>
+        <label>To<input id="endMonth" type="month"></label>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span class="control-label">Policy topics</span>
+      <div class="query-actions">
+        <button class="text-button" id="selectAll" type="button">Select all</button>
+        <button class="text-button" id="clearAll" type="button">Clear</button>
+      </div>
+      <div class="query-list" id="queryList"></div>
+    </div>
+
+    <div class="control-group">
+      <label class="check-row">
+        <input id="logScale" type="checkbox" checked>
+        <span>Log color scale</span>
+      </label>
+    </div>
+
+    <button class="apply-button" id="applyFilters" type="button">Update dashboard</button>
+    <p class="filter-message" id="filterMessage" role="status"></p>
+  </aside>
+
+  <section class="dashboard" aria-live="polite">
+    <div class="loading" id="loading">
+      <div class="spinner" aria-hidden="true"></div>
+      <strong>Loading dashboard data...</strong>
+      <p>The first visit may take a few seconds.</p>
+    </div>
+
+    <div id="dashboardContent" class="hidden">
+      <div class="metrics">
+        <div class="metric"><span class="metric-label">Selected topics</span><span class="metric-value" id="metricQueries">-</span></div>
+        <div class="metric"><span class="metric-label">Periods</span><span class="metric-value" id="metricPeriods">-</span></div>
+        <div class="metric"><span class="metric-label">Observed DMAs</span><span class="metric-value" id="metricDmas">-</span></div>
+        <div class="metric"><span class="metric-label">TV segments</span><span class="metric-value" id="metricSegments">-</span></div>
+      </div>
+
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Policy Coverage by DMA</h2>
+            <p class="card-note">Counts sum the selected policy topics. Use the timeline to move through periods.</p>
+          </div>
+        </div>
+        <div id="mapChart" class="plot" aria-label="Map of policy coverage by designated market area"></div>
+        <div class="timeline">
+          <button class="play-button" id="playMap" type="button">Play</button>
+          <input id="periodSlider" type="range" min="0" max="0" value="0" aria-label="Map period">
+          <span class="period-label" id="periodLabel">-</span>
+        </div>
+      </article>
+
+      <div class="chart-grid">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h2>Coverage Over Time</h2>
+              <p class="card-note">National count of matching television segments by topic.</p>
+            </div>
+          </div>
+          <div id="trendChart" class="plot" aria-label="Policy coverage over time"></div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <h2>Total Count by Topic</h2>
+              <p class="card-note">Totals within the selected date range.</p>
+            </div>
+          </div>
+          <div id="totalChart" class="plot" aria-label="Total coverage by policy topic"></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>DMA Detail</h2>
+            <p class="card-note">Stacked topic breakdown for one television market.</p>
+          </div>
+          <select class="detail-select" id="dmaSelect" aria-label="Select a DMA"></select>
+        </div>
+        <div id="dmaChart" class="plot" aria-label="Coverage detail for selected DMA"></div>
+      </article>
+
+      <p class="method-note">Counts represent matching television news segments. Data are pre-aggregated by month for fast public access.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+const DATA_URL = "data/gun_policy_coverage.json";
+const GEO_URL = "data/gun_policy_dma.geojson";
+const COLORS = [
+  "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02",
+  "#a6761d", "#1f78b4", "#b2df8a", "#fb9a99", "#cab2d6", "#fdbf6f",
+  "#6a3d9a", "#b15928", "#2e86ab", "#8c564b", "#17becf", "#7f7f7f"
+];
+const PLOT_CONFIG = {
+  responsive: true,
+  displaylogo: false,
+  modeBarButtonsToRemove: ["lasso2d", "select2d"]
+};
+
+let dashboardData;
+let dmaGeojson;
+let aggregation = "month";
+let currentView = null;
+let playTimer = null;
+
+const byId = (id) => document.getElementById(id);
+const titleCase = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+const formatNumber = (value) => new Intl.NumberFormat("en-US").format(value);
+
+function periodForMonth(month, mode) {
+  const [yearText, monthText] = month.split("-");
+  const year = Number(yearText);
+  const monthNumber = Number(monthText);
+  if (mode === "year") return String(year);
+  if (mode === "quarter") return `${year} Q${Math.floor((monthNumber - 1) / 3) + 1}`;
+  return month;
+}
+
+function percentile(values, p) {
+  if (!values.length) return 1;
+  const sorted = values.slice().sort((a, b) => a - b);
+  const index = Math.min(sorted.length - 1, Math.floor(sorted.length * p));
+  return sorted[index] || 1;
+}
+
+function selectedQueryIndexes() {
+  return Array.from(document.querySelectorAll(".query-check:checked"))
+    .map((input) => Number(input.value));
+}
+
+function stopPlayback() {
+  if (playTimer) {
+    window.clearInterval(playTimer);
+    playTimer = null;
+  }
+  byId("playMap").textContent = "Play";
+}
+
+function buildView() {
+  const selectedQueries = selectedQueryIndexes();
+  const startIndex = dashboardData.months.indexOf(byId("startMonth").value);
+  const endIndex = dashboardData.months.indexOf(byId("endMonth").value);
+  const message = byId("filterMessage");
+  message.textContent = "";
+
+  if (!selectedQueries.length) {
+    message.textContent = "Select at least one policy topic.";
+    return null;
+  }
+  if (startIndex < 0 || endIndex < 0 || startIndex > endIndex) {
+    message.textContent = "Choose a valid date range.";
+    return null;
+  }
+
+  const labels = [];
+  const labelIndex = new Map();
+  const monthToPeriod = new Int16Array(dashboardData.months.length);
+  monthToPeriod.fill(-1);
+
+  for (let monthIndex = startIndex; monthIndex <= endIndex; monthIndex += 1) {
+    const label = periodForMonth(dashboardData.months[monthIndex], aggregation);
+    if (!labelIndex.has(label)) {
+      labelIndex.set(label, labels.length);
+      labels.push(label);
+    }
+    monthToPeriod[monthIndex] = labelIndex.get(label);
+  }
+
+  const queryPosition = new Map(selectedQueries.map((queryIndex, position) => [queryIndex, position]));
+  const mapCounts = Array.from(
+    { length: labels.length },
+    () => new Float64Array(dashboardData.dmas.length)
+  );
+  const queryCounts = Array.from(
+    { length: selectedQueries.length },
+    () => new Float64Array(labels.length)
+  );
+  const queryTotals = new Float64Array(selectedQueries.length);
+  let total = 0;
+
+  for (const [queryIndex, dmaIndex, monthIndex, count] of dashboardData.records) {
+    const queryPos = queryPosition.get(queryIndex);
+    const periodIndex = monthToPeriod[monthIndex];
+    if (queryPos === undefined || periodIndex < 0) continue;
+    mapCounts[periodIndex][dmaIndex] += count;
+    queryCounts[queryPos][periodIndex] += count;
+    queryTotals[queryPos] += count;
+    total += count;
+  }
+
+  const observedDmas = new Set();
+  mapCounts.forEach((period) => {
+    period.forEach((count, dmaIndex) => {
+      if (count > 0) observedDmas.add(dmaIndex);
+    });
+  });
+
+  return {
+    selectedQueries,
+    startIndex,
+    endIndex,
+    labels,
+    monthToPeriod,
+    mapCounts,
+    queryCounts,
+    queryTotals,
+    total,
+    observedDmas: observedDmas.size,
+    logScale: byId("logScale").checked
+  };
+}
+
+function renderMetrics(view) {
+  byId("metricQueries").textContent = formatNumber(view.selectedQueries.length);
+  byId("metricPeriods").textContent = formatNumber(view.labels.length);
+  byId("metricDmas").textContent = formatNumber(view.observedDmas);
+  byId("metricSegments").textContent = formatNumber(view.total);
+}
+
+function mapValues(rawValues, useLog) {
+  return Array.from(rawValues, (value) => useLog ? Math.log1p(value) : value);
+}
+
+function mapColorMax(view) {
+  const positive = [];
+  for (const period of view.mapCounts) {
+    for (const value of period) {
+      if (value > 0) positive.push(view.logScale ? Math.log1p(value) : value);
+    }
+  }
+  return percentile(positive, 0.99);
+}
+
+function renderMap(view) {
+  stopPlayback();
+  const initialIndex = view.labels.length - 1;
+  const raw = view.mapCounts[initialIndex];
+  const values = mapValues(raw, view.logScale);
+  const period = view.labels[initialIndex];
+  const dmaKeys = dashboardData.dmas.map((dma) => dma.key);
+  const dmaNames = dashboardData.dmas.map((dma) => dma.name);
+  const customdata = Array.from(raw, (count) => [count, period]);
+
+  const trace = {
+    type: "choroplethmap",
+    geojson: dmaGeojson,
+    locations: dmaKeys,
+    featureidkey: "properties.Key",
+    z: values,
+    zmin: 0,
+    zmax: mapColorMax(view),
+    text: dmaNames,
+    customdata,
+    colorscale: "YlOrRd",
+    marker: { opacity: 0.78, line: { width: 0.45, color: "rgba(255,255,255,0.7)" } },
+    colorbar: {
+      title: view.logScale ? "log(count+1)" : "Count",
+      thickness: 13,
+      len: 0.72,
+      outlinewidth: 0
+    },
+    hovertemplate: "<b>%{text}</b><br>Count: %{customdata[0]:,}<br>Period: %{customdata[1]}<extra></extra>"
+  };
+  const layout = {
+    height: 540,
+    margin: { l: 0, r: 0, t: 0, b: 0 },
+    map: {
+      style: "carto-positron",
+      center: { lat: 38, lon: -96 },
+      zoom: 2.75
+    },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { family: "Inter, sans-serif", color: "#384a56" },
+    uirevision: "gun-policy-map"
+  };
+
+  Plotly.react("mapChart", [trace], layout, PLOT_CONFIG);
+  byId("periodSlider").max = String(initialIndex);
+  byId("periodSlider").value = String(initialIndex);
+  byId("periodLabel").textContent = period;
+}
+
+function updateMapPeriod(index) {
+  if (!currentView) return;
+  const boundedIndex = Math.max(0, Math.min(index, currentView.labels.length - 1));
+  const raw = currentView.mapCounts[boundedIndex];
+  const period = currentView.labels[boundedIndex];
+  const values = mapValues(raw, currentView.logScale);
+  const customdata = Array.from(raw, (count) => [count, period]);
+  Plotly.restyle("mapChart", { z: [values], customdata: [customdata] });
+  byId("periodSlider").value = String(boundedIndex);
+  byId("periodLabel").textContent = period;
+}
+
+function renderTrend(view) {
+  const traces = view.selectedQueries.map((queryIndex, position) => ({
+    type: "scatter",
+    mode: "lines",
+    name: titleCase(dashboardData.queries[queryIndex]),
+    x: view.labels,
+    y: Array.from(view.queryCounts[position]),
+    line: { width: 2, color: COLORS[queryIndex % COLORS.length] },
+    hovertemplate: "%{fullData.name}<br>%{x}<br>Count: %{y:,}<extra></extra>"
+  }));
+  const layout = {
+    height: 420,
+    margin: { l: 58, r: 16, t: 14, b: 120 },
+    xaxis: { title: "", gridcolor: "#edf2f5", automargin: true },
+    yaxis: { title: "Segment count", gridcolor: "#edf2f5", rangemode: "tozero" },
+    legend: {
+      orientation: "h",
+      x: 0,
+      y: -0.3,
+      xanchor: "left",
+      yanchor: "top",
+      font: { size: 9 }
+    },
+    hovermode: "x unified",
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { family: "Inter, sans-serif", color: "#384a56" }
+  };
+  Plotly.react("trendChart", traces, layout, PLOT_CONFIG);
+}
+
+function renderTotals(view) {
+  const rows = view.selectedQueries.map((queryIndex, position) => ({
+    label: titleCase(dashboardData.queries[queryIndex]),
+    total: view.queryTotals[position],
+    color: COLORS[queryIndex % COLORS.length]
+  })).sort((a, b) => a.total - b.total);
+
+  const trace = {
+    type: "bar",
+    orientation: "h",
+    x: rows.map((row) => row.total),
+    y: rows.map((row) => row.label),
+    marker: { color: rows.map((row) => row.color) },
+    hovertemplate: "%{y}<br>Total: %{x:,}<extra></extra>"
+  };
+  const layout = {
+    height: 420,
+    margin: { l: 205, r: 15, t: 14, b: 45 },
+    xaxis: { title: "Segment count", gridcolor: "#edf2f5" },
+    yaxis: { title: "", tickfont: { size: 10 }, automargin: true },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { family: "Inter, sans-serif", color: "#384a56" }
+  };
+  Plotly.react("totalChart", [trace], layout, PLOT_CONFIG);
+}
+
+function renderDmaDetail() {
+  if (!currentView) return;
+  const dmaIndex = Number(byId("dmaSelect").value);
+  const counts = Array.from(
+    { length: currentView.selectedQueries.length },
+    () => new Float64Array(currentView.labels.length)
+  );
+  const queryPosition = new Map(
+    currentView.selectedQueries.map((queryIndex, position) => [queryIndex, position])
+  );
+
+  for (const [queryIndex, recordDmaIndex, monthIndex, count] of dashboardData.records) {
+    if (recordDmaIndex !== dmaIndex) continue;
+    const queryPos = queryPosition.get(queryIndex);
+    const periodIndex = currentView.monthToPeriod[monthIndex];
+    if (queryPos === undefined || periodIndex < 0) continue;
+    counts[queryPos][periodIndex] += count;
+  }
+
+  const traces = currentView.selectedQueries.map((queryIndex, position) => ({
+    type: "bar",
+    name: titleCase(dashboardData.queries[queryIndex]),
+    x: currentView.labels,
+    y: Array.from(counts[position]),
+    marker: { color: COLORS[queryIndex % COLORS.length] },
+    hovertemplate: "%{fullData.name}<br>%{x}<br>Count: %{y:,}<extra></extra>"
+  }));
+  const dmaName = dashboardData.dmas[dmaIndex].name;
+  const layout = {
+    height: 410,
+    barmode: "stack",
+    margin: { l: 55, r: 15, t: 34, b: 120 },
+    title: { text: `Coverage in ${dmaName}`, x: 0, font: { size: 15, color: "#1b3a4b" } },
+    xaxis: { title: "", gridcolor: "#edf2f5" },
+    yaxis: { title: "Segment count", gridcolor: "#edf2f5", rangemode: "tozero" },
+    legend: {
+      orientation: "h",
+      x: 0,
+      y: -0.3,
+      xanchor: "left",
+      yanchor: "top",
+      font: { size: 9 }
+    },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { family: "Inter, sans-serif", color: "#384a56" }
+  };
+  Plotly.react("dmaChart", traces, layout, PLOT_CONFIG);
+}
+
+function renderDashboard() {
+  const view = buildView();
+  if (!view) return;
+  currentView = view;
+  renderMetrics(view);
+  renderMap(view);
+  renderTrend(view);
+  renderTotals(view);
+  renderDmaDetail();
+}
+
+function initializeControls() {
+  const firstMonth = dashboardData.months[0];
+  const lastMonth = dashboardData.months[dashboardData.months.length - 1];
+  for (const id of ["startMonth", "endMonth"]) {
+    byId(id).min = firstMonth;
+    byId(id).max = lastMonth;
+  }
+  byId("startMonth").value = firstMonth;
+  byId("endMonth").value = lastMonth;
+
+  const queryList = byId("queryList");
+  dashboardData.queries.forEach((query, index) => {
+    const label = document.createElement("label");
+    label.className = "query-option";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "query-check";
+    checkbox.value = String(index);
+    checkbox.checked = true;
+    const text = document.createElement("span");
+    text.textContent = titleCase(query);
+    label.append(checkbox, text);
+    queryList.append(label);
+  });
+
+  const dmaSelect = byId("dmaSelect");
+  dashboardData.dmas.forEach((dma, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = dma.name;
+    if (dma.name === "New York NY") option.selected = true;
+    dmaSelect.append(option);
+  });
+
+  document.querySelectorAll(".segment").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".segment").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      aggregation = button.dataset.value;
+    });
+  });
+  byId("selectAll").addEventListener("click", () => {
+    document.querySelectorAll(".query-check").forEach((input) => { input.checked = true; });
+  });
+  byId("clearAll").addEventListener("click", () => {
+    document.querySelectorAll(".query-check").forEach((input) => { input.checked = false; });
+  });
+  byId("applyFilters").addEventListener("click", renderDashboard);
+  byId("dmaSelect").addEventListener("change", renderDmaDetail);
+  byId("periodSlider").addEventListener("input", (event) => {
+    stopPlayback();
+    updateMapPeriod(Number(event.target.value));
+  });
+  byId("playMap").addEventListener("click", () => {
+    if (playTimer) {
+      stopPlayback();
+      return;
+    }
+    byId("playMap").textContent = "Pause";
+    playTimer = window.setInterval(() => {
+      const slider = byId("periodSlider");
+      const next = Number(slider.value) >= Number(slider.max) ? 0 : Number(slider.value) + 1;
+      updateMapPeriod(next);
+    }, 650);
+  });
+}
+
+async function start() {
+  try {
+    const [dataResponse, geoResponse] = await Promise.all([fetch(DATA_URL), fetch(GEO_URL)]);
+    if (!dataResponse.ok || !geoResponse.ok) throw new Error("Dashboard assets could not be loaded.");
+    [dashboardData, dmaGeojson] = await Promise.all([dataResponse.json(), geoResponse.json()]);
+    initializeControls();
+    byId("loading").classList.add("hidden");
+    byId("dashboardContent").classList.remove("hidden");
+    renderDashboard();
+  } catch (error) {
+    byId("loading").innerHTML = `<strong>Unable to load the dashboard.</strong><p>${error.message}</p>`;
+    console.error(error);
+  }
+}
+
+start();
+</script>
+</body>
+</html>
