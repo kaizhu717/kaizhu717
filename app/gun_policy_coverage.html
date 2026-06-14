@@ -695,6 +695,7 @@ function renderMap(view) {
     text: dmaNames,
     customdata,
     colorscale: "YlOrRd",
+    reversescale: true,
     marker: { opacity: 0.78, line: { width: 0.45, color: "rgba(255,255,255,0.7)" } },
     colorbar: {
       title: view.logScale ? "log(count+1)" : "Count",
