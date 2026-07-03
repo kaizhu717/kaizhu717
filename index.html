@@ -94,6 +94,7 @@
   .status.review { background: #FFF3CD; color: #856404; }
   .status.rr { background: #D4EDDA; color: #155724; }
   .status.wip { background: var(--light-bg); color: var(--subtle); }
+  .status.new { background: #E63946; color: #fff; }
 
   /* Footer */
   footer { padding: 32px 0; text-align: center; color: var(--subtle); font-size: 14px; border-top: 1px solid var(--lightrule); }
@@ -228,6 +229,18 @@
 
     <div class="pub">
       <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
+        <div class="pub-title">How AI Search Rewrites the Web's Economic Bargain <span class="expand-icon">&#9654;</span></div>
+      </div>
+      <div class="pub-status"><span class="status new">New!</span></div>
+      <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Kai Gu (Bocconi University)</div>
+      <div class="pub-abstract">Search engines have long allocated attention on the web by routing users from queries to websites. AI search changes this arrangement because information needs can be resolved inside the intermediary. Using URL-level Comscore U.S. desktop clickstream, we compare ChatGPT and Google information-seeking occasions and exploit ChatGPT Search access expansions to estimate traditional search displacement. ChatGPT produces outbound clicks in only 5.2% of conversation sessions, far below Google's referral ratio. The remaining clicks are not a scaled-down Google stream: they skew toward specialized destinations and away from ad-supported sites. Wider access cuts search use by 9.4%, with search-referral losses largest for informational categories. Our findings identify a central economic shift in digital intermediation: AI search might satisfy information needs inside the intermediary while weakening the referral bargain that has linked search, traffic, and content production on the open web.</div>
+      <div class="pub-links">
+        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7035298" target="_blank">Paper</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-header" onclick="this.parentElement.classList.toggle('expanded')">
         <div class="pub-title">Adverse Selection in the AI Data Commons <span class="expand-icon">&#9654;</span></div>
       </div>
       <div class="pub-status"><span class="status rr">Revise &amp; Resubmit &middot; Marketing Science</span></div>
@@ -270,17 +283,13 @@
       </div>
     </div>
 
-    <div class="pub">
-      <div class="pub-title-static">Answering Without Referring: How AI Search Rewrites the Web's Economic Bargain</div>
-      <div class="pub-status"><span class="status wip">Working Paper</span></div>
-      <div class="pub-authors">with Qiaoni Shi (Bocconi University) and Kai Gu (Bocconi University)</div>
-      <div class="pub-links">
-        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7035298" target="_blank">Paper</a>
-      </div>
-    </div>
-
     <!-- Work in Progress -->
     <div class="subsection-title wip-section">Work in Progress (Selected)</div>
+
+    <div class="pub">
+      <div class="pub-title-static">Manufacturing Excludability: The Emergence of Markets for AI Data Access</div>
+      <div class="pub-status"><span class="status wip">In Progress</span></div>
+    </div>
 
     <div class="pub">
       <div class="pub-title-static">Welfare Effects of AI-powered Digital Content</div>
