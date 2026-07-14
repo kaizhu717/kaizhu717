@@ -3,798 +3,620 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selective Participation in the AI Data Commons - Interactive Guide</title>
-<meta name="description" content="Interactive guide to Kai Zhu's paper on selective participation in the AI data commons.">
+<title>Selective Participation in the AI Data Commons - Interactive Evidence</title>
+<meta name="description" content="Interactive evidence guide for Kai Zhu's paper Selective Participation in the AI Data Commons.">
 <style>
 :root {
   --navy: #1b3a4b;
-  --steel: #2e86ab;
-  --ink: #1f2933;
-  --muted: #5f6f7d;
-  --line: #d8e3ea;
+  --ink: #22313f;
+  --muted: #5f7080;
+  --line: #d9e3ea;
   --paper: #ffffff;
-  --wash: #f4f7fa;
-  --wash-2: #edf4f7;
-  --amber: #b7791f;
-  --coral: #c75146;
-  --green: #2f855a;
-  --violet: #6b5ca5;
-  --shadow: 0 16px 40px rgba(27, 58, 75, 0.11);
-  --radius: 8px;
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --serif: Lora, Georgia, "Times New Roman", serif;
+  --soft: #f4f7fa;
+  --blue: #2e86ab;
+  --teal: #1f9d8a;
+  --gold: #c58b21;
+  --red: #bc5a4f;
+  --shadow: 0 18px 48px rgba(27, 58, 75, 0.12);
 }
 
 * { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
-  font-family: var(--sans);
   color: var(--ink);
-  background: var(--paper);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  background: var(--soft);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+  letter-spacing: 0;
 }
-button, input { font: inherit; }
-button { cursor: pointer; }
+
 a { color: inherit; }
-svg { display: block; width: 100%; height: 100%; }
 
 .skip-link {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  padding: 8px 12px;
+  left: 16px;
+  top: -48px;
+  z-index: 10;
+  padding: 10px 14px;
   background: var(--navy);
-  color: #fff;
-  transform: translateY(-140%);
-  z-index: 20;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
 }
-.skip-link:focus { transform: translateY(0); }
+
+.skip-link:focus { top: 12px; }
 
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
 }
+
 .topbar-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 12px 24px;
+  min-height: 68px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 20px;
 }
+
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  text-decoration: none;
   color: var(--navy);
   font-weight: 800;
+  text-decoration: none;
   white-space: nowrap;
 }
+
 .brand-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--navy);
-  display: grid;
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
   place-items: center;
-  color: #fff;
+  border-radius: 8px;
+  color: white;
+  background: var(--navy);
 }
-.brand-mark svg { width: 18px; height: 18px; }
+
+.brand-mark svg { width: 19px; height: 19px; }
+
 .navlinks {
   display: flex;
   align-items: center;
-  gap: 4px;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
+
 .navlinks a {
-  text-decoration: none;
+  padding: 8px 11px;
   color: var(--muted);
-  padding: 8px 10px;
-  border-radius: 8px;
   font-size: 14px;
-  font-weight: 650;
-  white-space: nowrap;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 6px;
 }
-.navlinks a:hover,
-.navlinks a.active {
+
+.navlinks a.active,
+.navlinks a:hover {
   color: var(--navy);
-  background: var(--wash);
+  background: #eaf2f6;
 }
 
 .hero {
-  min-height: calc(100vh - 56px);
-  display: grid;
-  align-items: center;
-  background:
-    linear-gradient(120deg, rgba(244, 247, 250, 0.98), rgba(237, 244, 247, 0.88)),
-    radial-gradient(circle at 18% 16%, rgba(46, 134, 171, 0.16), transparent 36%),
-    radial-gradient(circle at 90% 72%, rgba(183, 121, 31, 0.16), transparent 32%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
   border-bottom: 1px solid var(--line);
 }
+
 .hero-inner {
   max-width: 1180px;
-  width: 100%;
+  min-height: calc(100vh - 68px);
   margin: 0 auto;
-  padding: 64px 24px 44px;
+  padding: 54px 24px 36px;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
-  gap: 42px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(440px, 1.18fr);
+  gap: 34px;
   align-items: center;
 }
+
 .kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--steel);
-  font-weight: 800;
+  color: var(--blue);
   font-size: 13px;
-  margin-bottom: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
-.kicker::before {
-  content: "";
-  width: 28px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--steel);
-}
+
 h1, h2, h3, p { margin-top: 0; }
+
 h1 {
-  font-family: var(--serif);
+  max-width: 720px;
+  margin: 12px 0 18px;
   color: var(--navy);
-  font-size: 58px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 54px;
   line-height: 1.04;
-  margin-bottom: 22px;
+  font-weight: 700;
 }
+
 .hero-lede {
-  font-family: var(--serif);
-  font-size: 22px;
-  color: #314654;
-  max-width: 660px;
-  margin-bottom: 26px;
+  max-width: 690px;
+  margin-bottom: 24px;
+  color: #3c4c59;
+  font-size: 18px;
 }
-.hero-actions {
+
+.actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
+
 .action {
+  min-height: 42px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 42px;
   padding: 10px 14px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 7px;
+  background: white;
   color: var(--navy);
-  background: #fff;
+  font-size: 14px;
   font-weight: 800;
   text-decoration: none;
 }
+
 .action.primary {
+  color: white;
   background: var(--navy);
   border-color: var(--navy);
-  color: #fff;
-}
-.action svg { width: 17px; height: 17px; }
-.stat-strip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.8);
-}
-.stat {
-  padding: 15px 14px;
-  border-right: 1px solid var(--line);
-}
-.stat:last-child { border-right: 0; }
-.stat-value {
-  font-family: var(--serif);
-  font-size: 31px;
-  font-weight: 800;
-  color: var(--navy);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.stat-label {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.35;
 }
 
-.commons-panel {
-  background: rgba(255, 255, 255, 0.86);
+.action svg { width: 17px; height: 17px; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  max-width: 620px;
+}
+
+.metric {
+  min-height: 94px;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.metric strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero-figure {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 20px;
+  background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: var(--shadow);
-  overflow: hidden;
 }
-.panel-head {
-  min-height: 54px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
+
+.hero-figure img {
+  display: block;
+  width: 100%;
+  max-height: 58vh;
+  object-fit: contain;
 }
-.panel-title {
-  color: var(--navy);
-  font-weight: 850;
-}
-.panel-note {
+
+.figure-caption {
+  margin-top: 14px;
   color: var(--muted);
   font-size: 13px;
 }
-.commons-body {
-  padding: 18px;
-}
-.flow {
-  display: grid;
-  grid-template-columns: 1fr 82px 1fr;
-  gap: 14px;
-  align-items: center;
-}
-.flow-stage {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  min-height: 330px;
-  background: #fff;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-}
-.stage-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-  color: var(--navy);
-  font-weight: 850;
-}
-.stage-label span {
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 12px;
-}
-.dot-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  align-content: start;
-}
-.site-dot {
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--steel);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-.site-dot.low { background: #c75146; }
-.site-dot.mixed { background: #b7791f; }
-.site-dot.mostly { background: #2e86ab; }
-.site-dot.high { background: #2f855a; }
-.site-dot.blocked {
-  opacity: 0.18;
-  background-image: linear-gradient(45deg, transparent 42%, #1f2933 44%, #1f2933 56%, transparent 58%);
-}
-.gate {
-  height: 210px;
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-.gate-line {
-  position: absolute;
-  inset: 8px 39px;
-  border-left: 3px solid var(--steel);
-  border-right: 3px solid var(--steel);
-}
-.gate-card {
-  position: relative;
-  width: 82px;
-  padding: 12px 8px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--navy);
-  text-align: center;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow: 0 10px 24px rgba(27, 58, 75, 0.1);
-}
-.legend {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 16px;
-  color: var(--muted);
-  font-size: 12px;
-}
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.legend-swatch {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.legend-swatch.low { background: #c75146; }
-.legend-swatch.mixed { background: #b7791f; }
-.legend-swatch.mostly { background: #2e86ab; }
-.legend-swatch.high { background: #2f855a; }
 
 section {
   border-bottom: 1px solid var(--line);
+  background: white;
 }
+
+section:nth-of-type(even) { background: #f8fbfd; }
+
 .section-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 76px 24px;
-}
-.section-head {
-  max-width: 780px;
-  margin-bottom: 32px;
-}
-.section-head h2 {
-  font-family: var(--serif);
-  font-size: 39px;
-  line-height: 1.12;
-  color: var(--navy);
-  margin-bottom: 12px;
-}
-.section-head p {
-  color: var(--muted);
-  font-size: 18px;
-  margin-bottom: 0;
-}
-.two-col {
-  display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr);
-  gap: 34px;
-  align-items: start;
-}
-.plain-list {
-  display: grid;
-  gap: 14px;
-}
-.plain-item {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 12px;
-  align-items: start;
-}
-.plain-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--wash);
-  display: grid;
-  place-items: center;
-  color: var(--steel);
-}
-.plain-icon svg { width: 19px; height: 19px; }
-.plain-item h3 {
-  color: var(--navy);
-  font-size: 18px;
-  margin-bottom: 4px;
-}
-.plain-item p {
-  color: var(--muted);
-  margin-bottom: 0;
+  padding: 58px 24px;
 }
 
-.lab {
-  background: var(--wash);
-}
-.lab-grid {
+.section-head {
   display: grid;
-  grid-template-columns: 330px minmax(0, 1fr);
-  gap: 22px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 0.7fr) minmax(320px, 1fr);
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 28px;
 }
-.controls,
-.chart-shell,
-.evidence-copy,
-.timeline-panel,
-.sim-copy {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
-.controls { padding: 18px; }
-.control-group + .control-group { margin-top: 18px; }
-.control-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.control-top label {
+
+.section-head h2 {
+  margin: 0;
   color: var(--navy);
-  font-weight: 850;
-  font-size: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  line-height: 1.12;
 }
-.control-value {
-  color: var(--steel);
-  font-weight: 850;
-  font-size: 14px;
-}
-input[type="range"] {
-  width: 100%;
-  accent-color: var(--steel);
-}
-.lab-metrics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 18px;
-}
-.mini-metric {
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--wash);
-}
-.mini-value {
-  font-family: var(--serif);
-  color: var(--navy);
-  font-size: 27px;
-  font-weight: 800;
-  line-height: 1;
-}
-.mini-label {
+
+.section-head p {
+  margin: 0;
   color: var(--muted);
-  font-size: 12px;
-  margin-top: 5px;
-}
-.chart-shell {
-  min-height: 440px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-}
-.chart-title {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: baseline;
-  margin-bottom: 12px;
-}
-.chart-title h3 {
-  color: var(--navy);
-  margin-bottom: 0;
-  font-size: 18px;
-}
-.chart-title span {
-  color: var(--muted);
-  font-size: 13px;
-}
-.chart-area {
-  flex: 1;
-  min-height: 320px;
+  font-size: 16px;
 }
 
 .evidence-layout {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
-  gap: 22px;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
 }
-.tablist {
+
+.segmented {
   display: grid;
   gap: 8px;
 }
-.tab-button {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 12px;
-  color: var(--navy);
-  font-weight: 850;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-align: left;
-}
-.tab-button svg {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-  color: var(--steel);
-}
-.tab-button.active {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: #fff;
-}
-.tab-button.active svg { color: #fff; }
-.evidence-copy {
-  padding: 18px;
-  margin-top: 14px;
-}
-.evidence-copy h3 {
-  color: var(--navy);
-  margin-bottom: 7px;
-  font-size: 18px;
-}
-.evidence-copy p {
-  color: var(--muted);
-  margin-bottom: 0;
+
+.segmented button,
+.thumb-list button,
+.table-tabs button {
+  font: inherit;
+  letter-spacing: 0;
 }
 
-.timeline {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 22px;
-}
-.timeline-panel {
-  padding: 18px;
-}
-.events {
-  position: relative;
-  display: grid;
-  gap: 14px;
-}
-.events::before {
-  content: "";
-  position: absolute;
-  top: 12px;
-  bottom: 12px;
-  left: 13px;
-  width: 2px;
-  background: var(--line);
-}
-.event {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 12px;
-  position: relative;
-}
-.event-dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid var(--steel);
-  background: #fff;
-  z-index: 1;
-}
-.event.important .event-dot {
-  background: var(--steel);
-  box-shadow: 0 0 0 5px rgba(46, 134, 171, 0.12);
-}
-.event h3 {
-  font-size: 16px;
-  color: var(--navy);
-  margin-bottom: 3px;
-}
-.event p {
+.segmented button {
+  min-height: 44px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
   color: var(--muted);
-  margin-bottom: 0;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 800;
 }
-.ratio-stack {
-  display: grid;
-  gap: 12px;
+
+.segmented button.active {
+  color: white;
+  background: var(--navy);
+  border-color: var(--navy);
 }
-.ratio {
+
+.figure-stage {
+  min-width: 0;
+  background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 12px;
-  background: var(--wash);
-}
-.ratio-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--navy);
-  font-weight: 850;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-.ratio-bar {
-  height: 10px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 999px;
   overflow: hidden;
 }
-.ratio-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--steel), var(--green));
-  border-radius: 999px;
+
+.figure-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  min-height: 560px;
 }
 
-.simulator {
-  background: var(--wash);
+.figure-viewer {
+  min-width: 0;
+  padding: 20px;
+  border-right: 1px solid var(--line);
 }
-.scenario-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
+
+.figure-viewer img {
+  display: block;
+  width: 100%;
+  max-height: 620px;
+  object-fit: contain;
+  background: white;
 }
-.scenario {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 11px 10px;
+
+.figure-meta {
+  padding: 20px;
+  background: #fbfdfe;
+}
+
+.figure-meta .tag,
+.table-note .tag {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
   color: var(--navy);
-  font-weight: 850;
-  min-height: 56px;
+  background: #e7f2f6;
+  font-size: 12px;
+  font-weight: 900;
 }
-.scenario.active {
+
+.figure-meta h3 {
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.figure-meta p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.figure-link {
+  display: inline-flex;
+  margin-top: 4px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.thumb-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+  background: #f3f7fa;
+  border-top: 1px solid var(--line);
+}
+
+.thumb-list button {
+  min-height: 74px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.thumb-list button.active {
+  color: var(--navy);
+  border-color: var(--blue);
+  box-shadow: inset 0 0 0 1px var(--blue);
+}
+
+.table-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.table-tabs button {
+  min-height: 38px;
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.table-tabs button.active {
+  color: white;
   background: var(--navy);
   border-color: var(--navy);
-  color: #fff;
-}
-.sim-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  gap: 22px;
-}
-.sim-copy {
-  padding: 18px;
-}
-.sim-copy h3 {
-  color: var(--navy);
-  font-size: 19px;
-  margin-bottom: 8px;
-}
-.sim-copy p {
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-.metric-list {
-  display: grid;
-  gap: 10px;
-}
-.metric-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-.metric-row:last-child { border-bottom: 0; }
-.metric-row span { color: var(--muted); }
-.metric-row strong {
-  color: var(--navy);
-  font-family: var(--serif);
-  font-size: 24px;
 }
 
-.implications-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
-.implication {
+.table-panel {
+  background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 18px;
-  background: #fff;
+  overflow: hidden;
 }
-.implication h3 {
+
+.table-note {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(280px, 1fr);
+  gap: 22px;
+  padding: 18px 20px;
+  background: #fbfdfe;
+  border-bottom: 1px solid var(--line);
+}
+
+.table-note h3 {
+  margin-bottom: 6px;
   color: var(--navy);
-  font-size: 18px;
-  margin-bottom: 8px;
+  font-size: 20px;
 }
-.implication p {
-  color: var(--muted);
+
+.table-note p {
   margin-bottom: 0;
-}
-.final-band {
-  background: var(--navy);
-  color: #fff;
-}
-.final-band .section-inner {
-  padding-top: 54px;
-  padding-bottom: 54px;
-}
-.final-band p {
-  font-family: var(--serif);
-  font-size: 26px;
-  line-height: 1.35;
-  max-width: 920px;
-  margin: 0;
-}
-footer {
-  padding: 26px 24px;
-  text-align: center;
   color: var(--muted);
   font-size: 13px;
 }
 
-.tooltip {
-  position: fixed;
-  pointer-events: none;
-  z-index: 30;
-  transform: translate(-50%, -110%);
-  background: var(--navy);
-  color: #fff;
-  padding: 7px 9px;
-  border-radius: 8px;
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e7eef3;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--navy);
+  background: #f4f7fa;
   font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.12s ease;
-  max-width: 220px;
+  text-transform: uppercase;
+}
+
+td.num, th.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.map-item {
+  padding: 18px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.map-item h3 {
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.map-item p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.accent-blue { border-top: 4px solid var(--blue); }
+.accent-teal { border-top: 4px solid var(--teal); }
+.accent-gold { border-top: 4px solid var(--gold); }
+.accent-red { border-top: 4px solid var(--red); }
+
+.final-band {
+  background: var(--navy);
+  color: white;
+  border-bottom: 0;
+}
+
+.final-band .section-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding-top: 38px;
+  padding-bottom: 38px;
+}
+
+.final-band h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+}
+
+.final-band p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.final-band .action {
+  color: var(--navy);
+  background: white;
+  border-color: white;
+}
+
+footer {
+  padding: 18px 24px;
+  color: var(--muted);
+  background: #edf3f7;
+  font-size: 13px;
   text-align: center;
 }
-.tooltip.visible { opacity: 1; }
 
 @media (max-width: 980px) {
   .hero-inner,
-  .two-col,
-  .lab-grid,
+  .section-head,
   .evidence-layout,
-  .timeline,
-  .sim-grid {
+  .figure-main,
+  .table-note {
     grid-template-columns: 1fr;
   }
-  .hero-inner { padding-top: 46px; }
-  h1 { font-size: 44px; }
-  .commons-panel { max-width: 760px; }
-  .scenario-row { grid-template-columns: repeat(2, 1fr); }
-  .implications-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .hero-inner {
+    min-height: auto;
+    padding-top: 36px;
+  }
+
+  h1 { font-size: 40px; }
+  .figure-viewer { border-right: 0; border-bottom: 1px solid var(--line); }
+  .thumb-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .map-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 680px) {
-  .topbar-inner { align-items: flex-start; flex-direction: column; padding: 10px 16px; }
-  .navlinks { width: 100%; }
-  .hero-inner,
-  .section-inner { padding-left: 16px; padding-right: 16px; }
+
+@media (max-width: 700px) {
+  .topbar-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .navlinks { justify-content: flex-start; }
+  .hero-inner, .section-inner { padding-left: 16px; padding-right: 16px; }
   h1 { font-size: 34px; }
-  .hero-lede { font-size: 18px; }
-  .section-head h2 { font-size: 30px; }
-  .stat-strip { grid-template-columns: 1fr 1fr; }
-  .stat:nth-child(2) { border-right: 0; }
-  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
-  .flow { grid-template-columns: 1fr; }
-  .gate { height: 82px; }
-  .gate-line { inset: 39px 8px; border-left: 0; border-right: 0; border-top: 3px solid var(--steel); border-bottom: 3px solid var(--steel); }
-  .flow-stage { min-height: 260px; }
-  .scenario-row,
-  .implications-grid,
-  .lab-metrics { grid-template-columns: 1fr; }
-  .chart-shell { min-height: 390px; }
-  .chart-area { min-height: 280px; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .hero-figure { padding: 12px; }
+  .final-band .section-inner { align-items: flex-start; flex-direction: column; }
 }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
 
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="../index.html#research" aria-label="Back to Kai Zhu research page">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18V6"/><path d="M20 18V6"/><path d="M8 7h8"/><path d="M8 12h8"/><path d="M8 17h8"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 6h14"/><path d="M5 12h14"/><path d="M5 18h14"/></svg>
       </span>
       <span>AI Data Commons</span>
     </a>
     <nav class="navlinks" aria-label="Page sections">
-      <a href="#motivation">Motivation</a>
-      <a href="#theory">Theory</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#dynamics">Dynamics</a>
-      <a href="#simulator">Simulator</a>
-      <a href="#implications">Implications</a>
+      <a href="#figures">Figures</a>
+      <a href="#tables">Tables</a>
+      <a href="#map">Evidence Map</a>
+      <a href="../index.html#research">Research</a>
     </nav>
   </div>
 </header>
@@ -803,525 +625,520 @@ footer {
   <section class="hero" id="overview">
     <div class="hero-inner">
       <div>
-        <div class="kicker">Interactive paper guide</div>
+        <div class="kicker">Interactive manuscript evidence</div>
         <h1>Selective Participation in the AI Data Commons</h1>
-        <p class="hero-lede">AI systems rely on web content, but access is increasingly governed by voluntary crawler restrictions. The paper shows that publisher access is sharply selective by quality and by use.</p>
-        <div class="hero-actions">
-          <a class="action primary" href="#theory">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-            Start the guide
-          </a>
-          <a class="action" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">
+        <p class="hero-lede">AI systems rely on web content, but access is increasingly governed by voluntary crawler restrictions. The updated paper shows that publisher access is sharply selective by quality and by use: credible publishers restrict training more than search, while misinformation sources and political-pole outlets become relatively more accessible.</p>
+        <div class="actions">
+          <a class="action primary" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
             Paper
           </a>
+          <a class="action" href="../files/slides/ai-data-commons-slides.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+            Slides
+          </a>
+          <a class="action" href="#figures">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 15 3-4 3 2 4-6"/></svg>
+            Figures
+          </a>
         </div>
-        <div class="stat-strip" aria-label="Key findings">
-          <div class="stat"><div class="stat-value">9,611</div><div class="stat-label">MBFC-rated media and news sites</div></div>
-          <div class="stat"><div class="stat-value">47%</div><div class="stat-label">High-factual outlets block AI crawlers</div></div>
-          <div class="stat"><div class="stat-value">8%</div><div class="stat-label">Low-factual sources block AI crawlers</div></div>
-          <div class="stat"><div class="stat-value">24.3%</div><div class="stat-label">Simulated decline in high-factual content share</div></div>
-        </div>
-      </div>
-
-      <div class="commons-panel" aria-label="AI data commons visualization">
-        <div class="panel-head">
-          <div class="panel-title">The commons after opt-out</div>
-          <div class="panel-note">Stylized from paper findings</div>
-        </div>
-        <div class="commons-body">
-          <div class="flow">
-            <div class="flow-stage">
-              <div class="stage-label">All media sites <span>before blocking</span></div>
-              <div class="dot-grid" id="allSites"></div>
-            </div>
-            <div class="gate" aria-hidden="true">
-              <div class="gate-line"></div>
-              <div class="gate-card">robots.txt<br>opt-out</div>
-            </div>
-            <div class="flow-stage">
-              <div class="stage-label">Accessible corpus <span>after blocking</span></div>
-              <div class="dot-grid" id="openSites"></div>
-            </div>
-          </div>
-          <div class="legend">
-            <span class="legend-item"><span class="legend-swatch low"></span>Low factual</span>
-            <span class="legend-item"><span class="legend-swatch mixed"></span>Mixed</span>
-            <span class="legend-item"><span class="legend-swatch mostly"></span>Mostly factual</span>
-            <span class="legend-item"><span class="legend-swatch high"></span>High factual</span>
-          </div>
+        <div class="stat-grid" aria-label="Manuscript sample sizes">
+          <div class="metric"><strong>9,611</strong><span>media and news sites in the live cross-section</span></div>
+          <div class="metric"><strong>7,002</strong><span>sites with training/search panel outcomes</span></div>
+          <div class="metric"><strong>272,458</strong><span>site-month observations from 2022 to 2026</span></div>
+          <div class="metric"><strong>23</strong><span>named crawlers in the bot-level scrape</span></div>
         </div>
       </div>
+      <figure class="hero-figure">
+        <img src="../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png" alt="Bar chart showing AI crawler restriction rates rising from low factual to high factual outlets.">
+        <figcaption class="figure-caption">Actual manuscript figure: high-factual outlets restrict AI crawlers at 47%, versus 8% among low-factual outlets.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section id="motivation">
-    <div class="section-inner two-col">
-      <div class="section-head">
-        <div class="kicker">Motivation</div>
-        <h2>AI training data is a market without a market.</h2>
-        <p>The paper frames accessible web content as an AI data commons: a shared input that improves models, search, summaries, recommendations, and downstream consumer information.</p>
-      </div>
-      <div class="plain-list">
-        <div class="plain-item">
-          <div class="plain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div><h3>No systematic compensation</h3><p>Licensing deals exist for some publishers, but most content producers receive no direct payment when their work contributes to training corpora.</p></div>
-        </div>
-        <div class="plain-item">
-          <div class="plain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></div>
-          <div><h3>Binary governance</h3><p>The practical tool is `robots.txt`: permit AI crawlers or block them. That simple choice replaces prices, contracts, and quality-sensitive bargaining.</p></div>
-        </div>
-        <div class="plain-item">
-          <div class="plain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 18 6-6 4 4 6-10"/><path d="M14 6h6v6"/></svg></div>
-          <div><h3>Composition matters</h3><p>The central question is not just how much content is blocked. It is which content exits and what remains available for AI systems.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="lab" id="theory">
+  <section id="figures">
     <div class="section-inner">
       <div class="section-head">
-        <div class="kicker">Theory lab</div>
-        <h2>Why high-quality producers exit first.</h2>
-        <p>In the model, quality raises both visibility benefits and appropriation costs. When uncompensated training makes appropriation costs grow faster, a threshold emerges: producers above it block.</p>
-      </div>
-      <div class="lab-grid">
-        <div class="controls" aria-label="Theory controls">
-          <div class="control-group">
-            <div class="control-top"><label for="appropriation">Appropriation cost</label><span class="control-value" id="appropriationValue"></span></div>
-            <input id="appropriation" type="range" min="35" max="120" value="86">
-          </div>
-          <div class="control-group">
-            <div class="control-top"><label for="visibility">Visibility benefit</label><span class="control-value" id="visibilityValue"></span></div>
-            <input id="visibility" type="range" min="25" max="100" value="58">
-          </div>
-          <div class="control-group">
-            <div class="control-top"><label for="compensation">Compensation</label><span class="control-value" id="compensationValue"></span></div>
-            <input id="compensation" type="range" min="0" max="70" value="0">
-          </div>
-          <div class="lab-metrics">
-            <div class="mini-metric"><div class="mini-value" id="thresholdMetric">0.00</div><div class="mini-label">Blocking threshold q*</div></div>
-            <div class="mini-metric"><div class="mini-value" id="remainingMetric">0%</div><div class="mini-label">Remaining quality loss</div></div>
-          </div>
-        </div>
-        <div class="chart-shell">
-          <div class="chart-title"><h3>Net incentive to remain accessible</h3><span>Above zero: block</span></div>
-          <div class="chart-area" id="theoryChart"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="evidence">
-    <div class="section-inner">
-      <div class="section-head">
-        <div class="kicker">Empirical evidence</div>
-        <h2>Six findings, one pattern: the commons tilts away from credible content.</h2>
-        <p>The study combines live `robots.txt` scraping with Media Bias/Fact Check ratings and a 45-month HTTP Archive panel from June 2022 to February 2026.</p>
+        <h2>Manuscript Figures</h2>
+        <p>The current figure set covers the paper's core empirical sequence: who restricts, which uses they restrict, and how the training-search differential evolved.</p>
       </div>
       <div class="evidence-layout">
-        <div>
-          <div class="tablist" role="tablist" aria-label="Evidence views">
-            <button class="tab-button active" type="button" data-view="quality" role="tab" aria-selected="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19V5"/><path d="M8 17V9"/><path d="M12 17V7"/><path d="M16 17v-5"/><path d="M20 17V4"/></svg>
-              Quality gradient
-            </button>
-            <button class="tab-button" type="button" data-view="misinfo" role="tab" aria-selected="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
-              Misinformation asymmetry
-            </button>
-            <button class="tab-button" type="button" data-view="ideology" role="tab" aria-selected="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18"/><path d="m5 8 7-4 7 4"/><path d="m5 16 7 4 7-4"/></svg>
-              Ideological sorting
-            </button>
-            <button class="tab-button" type="button" data-view="training" role="tab" aria-selected="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M7 4v6"/><path d="M17 14v6"/></svg>
-              Training vs search
-            </button>
+        <div class="segmented" id="figureGroups" role="tablist" aria-label="Figure groups"></div>
+        <div class="figure-stage">
+          <div class="figure-main">
+            <div class="figure-viewer">
+              <img id="activeFigure" src="" alt="">
+            </div>
+            <div class="figure-meta">
+              <span class="tag" id="figureTag"></span>
+              <h3 id="figureTitle"></h3>
+              <p id="figureCaption"></p>
+              <a class="figure-link" id="figureLink" href="#" target="_blank" rel="noopener">Open image</a>
+            </div>
           </div>
-          <div class="evidence-copy" id="evidenceCopy"></div>
-        </div>
-        <div class="chart-shell">
-          <div class="chart-title"><h3 id="evidenceTitle">Quality gradient</h3><span id="evidenceSubtitle">Blocking rates</span></div>
-          <div class="chart-area" id="evidenceChart"></div>
+          <div class="thumb-list" id="figureThumbs" aria-label="Figures in selected group"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="dynamics">
+  <section id="tables">
     <div class="section-inner">
       <div class="section-head">
-        <div class="kicker">Temporal dynamics</div>
-        <h2>The gradient appears when AI-specific opt-out becomes salient.</h2>
-        <p>Event studies trace the divergence to the August 2023 GPTBot announcement. Before that moment, blocking was uniformly low and the quality gradient was small.</p>
+        <h2>Manuscript Tables</h2>
+        <p>The current table set reports the main quality-gradient, use-specific access, timing, composition, taxonomy, and sample-denominator results.</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-panel">
-          <div class="events">
-            <div class="event"><div class="event-dot"></div><div><h3>June 2022</h3><p>Panel begins. AI-specific blocking is rare, with fewer than 10% of sites blocking any AI crawler.</p></div></div>
-            <div class="event important"><div class="event-dot"></div><div><h3>August 2023 - GPTBot announcement</h3><p>OpenAI makes AI-specific opt-out visible and actionable. High-factual sites move first and fastest.</p></div></div>
-            <div class="event"><div class="event-dot"></div><div><h3>December 2023 - NYT v. OpenAI</h3><p>Copyright concerns become more salient across the media sector.</p></div></div>
-            <div class="event"><div class="event-dot"></div><div><h3>July 2024 - one-click blocking</h3><p>Cloudflare lowers the operational cost of opting out of AI crawling.</p></div></div>
-            <div class="event"><div class="event-dot"></div><div><h3>February 2026</h3><p>The cross-section covers 9,611 sites; the panel covers 7,002 sites and 272,458 site-month observations.</p></div></div>
+      <div class="table-tabs" id="tableTabs" role="tablist" aria-label="Manuscript tables"></div>
+      <div class="table-panel">
+        <div class="table-note">
+          <div>
+            <span class="tag" id="tableTag"></span>
+            <h3 id="tableTitle"></h3>
           </div>
+          <p id="tableNote"></p>
         </div>
-        <div class="timeline-panel">
-          <div class="chart-title"><h3>Post-period amplification</h3><span>Mean coefficient ratio</span></div>
-          <div class="ratio-stack" id="ratioStack"></div>
-        </div>
+        <div class="table-wrap" id="tableWrap"></div>
       </div>
     </div>
   </section>
 
-  <section class="simulator" id="simulator">
+  <section id="map">
     <div class="section-inner">
       <div class="section-head">
-        <div class="kicker">Counterfactual simulator</div>
-        <h2>The problem is selective exit, not blocking alone.</h2>
-        <p>The paper's calibrated simulation compares blocking regimes with the same or different levels of total withdrawal. Random blocking removes volume; selective blocking removes quality.</p>
+        <h2>Evidence Map</h2>
+        <p>The updated paper is organized around selective participation, not a single binary opt-out story. Quality, use, and timing jointly determine what remains accessible.</p>
       </div>
-      <div class="scenario-row" role="tablist" aria-label="Simulation scenarios">
-        <button class="scenario" type="button" data-scenario="none">No blocking</button>
-        <button class="scenario active" type="button" data-scenario="current">Current observed</button>
-        <button class="scenario" type="button" data-scenario="random">Random blocking</button>
-        <button class="scenario" type="button" data-scenario="licensing">Licensing deal</button>
-        <button class="scenario" type="button" data-scenario="universal">Universal blocking</button>
-      </div>
-      <div class="sim-grid">
-        <div class="chart-shell">
-          <div class="chart-title"><h3 id="simTitle">Current observed</h3><span>Decline relative to no-blocking baseline</span></div>
-          <div class="chart-area" id="simChart"></div>
+      <div class="map-grid">
+        <div class="map-item accent-blue">
+          <h3>Quality selection</h3>
+          <p>High-factual and high-credibility publishers restrict AI crawlers at much higher rates than low-factual sources. The gradient holds across MBFC ratings, content-quality indices, and domain prominence.</p>
         </div>
-        <div class="sim-copy">
-          <h3 id="simCopyTitle">Observed selective blocking</h3>
-          <p id="simCopyText"></p>
-          <div class="metric-list">
-            <div class="metric-row"><span>Token-weighted quality decline</span><strong id="qualityDecline">0%</strong></div>
-            <div class="metric-row"><span>High-factual share decline</span><strong id="highDecline">0%</strong></div>
-            <div class="metric-row"><span>Volume withdrawn</span><strong id="volumeDecline">0%</strong></div>
-          </div>
+        <div class="map-item accent-teal">
+          <h3>Use-specific access</h3>
+          <p>Search-only restriction is nearly absent. The meaningful margin is training-only restriction: publishers preserve search-like access while blocking training-oriented crawlers.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="implications">
-    <div class="section-inner">
-      <div class="section-head">
-        <div class="kicker">Implications</div>
-        <h2>Binary opt-out creates a lemons equilibrium by design.</h2>
-        <p>The paper points to governance mechanisms that preserve the value of AI search while compensating content producers for training use.</p>
-      </div>
-      <div class="implications-grid">
-        <div class="implication"><h3>Licensing markets</h3><p>Replacing binary opt-out with compensation can recover most of the simulated high-factual content loss.</p></div>
-        <div class="implication"><h3>Collective bargaining</h3><p>Shared licensing infrastructure can reduce transaction costs between AI firms and publishers.</p></div>
-        <div class="implication"><h3>Crawler differentiation</h3><p>Publishers distinguish training crawlers from search crawlers, so governance should preserve that distinction.</p></div>
-        <div class="implication"><h3>Data composition</h3><p>Training data quality is endogenous to policy. The data commons changes when incentives change.</p></div>
+        <div class="map-item accent-gold">
+          <h3>Composition</h3>
+          <p>When high-quality publishers restrict training, the training-accessible pool shifts toward low-factual, questionable, and political-pole outlets.</p>
+        </div>
+        <div class="map-item accent-red">
+          <h3>Timing</h3>
+          <p>The training factual-rating gap opened first after the GPTBot announcement and later narrowed as search restrictions caught up by February 2026.</p>
+        </div>
+        <div class="map-item accent-blue">
+          <h3>Bot taxonomy</h3>
+          <p>The paper separates training-oriented crawlers, search/discovery crawlers, ambiguous bots, and legacy bots, then tests both clean and broad classifications.</p>
+        </div>
+        <div class="map-item accent-teal">
+          <h3>Governance implication</h3>
+          <p>The observed behavior points toward use-specific access design and compensated-training institutions rather than treating AI web access as a binary allow-or-block decision.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="final-band">
     <div class="section-inner">
-      <p>The quality of AI-mediated information depends not only on model design, but on whether the best sources have a reason to remain in the commons.</p>
+      <div>
+        <h2>Selective access is the central object.</h2>
+        <p>Publisher directives reveal who participates in the AI data commons and which AI uses they are willing to support.</p>
+      </div>
+      <div class="actions">
+        <a class="action" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">Paper</a>
+        <a class="action" href="../files/slides/ai-data-commons-slides.pdf" target="_blank" rel="noopener">Slides</a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  Interactive guide based on "Selective Participation in the AI Data Commons" by Kai Zhu. Figures are rendered from manuscript-reported statistics.
+  Interactive evidence guide based on "Selective Participation in the AI Data Commons" by Kai Zhu. Figures are exported from the current manuscript PDFs; tables are transcribed from the LaTeX table sources.
 </footer>
 
 <script>
-const icons = {
-  none: "",
-};
-
-const tooltip = document.getElementById("tooltip");
-function showTooltip(event, text) {
-  tooltip.textContent = text;
-  tooltip.style.left = event.clientX + "px";
-  tooltip.style.top = event.clientY + "px";
-  tooltip.classList.add("visible");
-}
-function hideTooltip() { tooltip.classList.remove("visible"); }
-
-function makeDots(containerId, afterBlocking) {
-  const container = document.getElementById(containerId);
-  const tiers = [
-    { cls: "low", count: 10, block: 0.08, label: "Low factual" },
-    { cls: "mixed", count: 17, block: 0.16, label: "Mixed factual" },
-    { cls: "mostly", count: 11, block: 0.29, label: "Mostly factual" },
-    { cls: "high", count: 62, block: 0.47, label: "High factual" }
-  ];
-  const dots = [];
-  tiers.forEach(tier => {
-    for (let i = 0; i < tier.count; i += 1) {
-      const blocked = i < Math.round(tier.count * tier.block);
-      dots.push({ cls: tier.cls, blocked, label: tier.label });
-    }
-  });
-  dots.forEach((dot, i) => {
-    const el = document.createElement("span");
-    el.className = "site-dot " + dot.cls + (afterBlocking && dot.blocked ? " blocked" : "");
-    el.setAttribute("tabindex", "0");
-    const status = afterBlocking && dot.blocked ? "blocked" : "accessible";
-    const text = dot.label + " site, " + status;
-    el.setAttribute("aria-label", text);
-    el.addEventListener("mousemove", e => showTooltip(e, text));
-    el.addEventListener("mouseleave", hideTooltip);
-    el.addEventListener("focus", e => showTooltip({ clientX: window.innerWidth / 2, clientY: 160 + (i % 10) * 4 }, text));
-    el.addEventListener("blur", hideTooltip);
-    container.appendChild(el);
-  });
-}
-makeDots("allSites", false);
-makeDots("openSites", true);
-
-function linePath(points, xScale, yScale) {
-  return points.map((p, i) => (i ? "L" : "M") + xScale(p.x).toFixed(2) + " " + yScale(p.y).toFixed(2)).join(" ");
-}
-function drawTheory() {
-  const appropriation = Number(document.getElementById("appropriation").value) / 100;
-  const visibility = Number(document.getElementById("visibility").value) / 100;
-  const compensation = Number(document.getElementById("compensation").value) / 100;
-  document.getElementById("appropriationValue").textContent = appropriation.toFixed(2);
-  document.getElementById("visibilityValue").textContent = visibility.toFixed(2);
-  document.getElementById("compensationValue").textContent = compensation.toFixed(2);
-
-  const points = [];
-  let threshold = 1;
-  for (let i = 0; i <= 120; i += 1) {
-    const q = i / 120;
-    const cost = appropriation * Math.pow(q, 2.15);
-    const benefit = visibility * Math.sqrt(q) + compensation * q;
-    const net = cost - benefit;
-    points.push({ x: q, y: net });
-    if (net > 0 && threshold === 1) threshold = q;
-  }
-  const blocked = points.filter(p => p.x >= threshold);
-  const open = points.filter(p => p.x < threshold);
-  const allAvg = points.reduce((s, p) => s + p.x, 0) / points.length;
-  const openAvg = open.length ? open.reduce((s, p) => s + p.x, 0) / open.length : 0;
-  const loss = Math.max(0, (allAvg - openAvg) / allAvg * 100);
-  document.getElementById("thresholdMetric").textContent = threshold >= 1 ? ">1.00" : threshold.toFixed(2);
-  document.getElementById("remainingMetric").textContent = Math.round(loss) + "%";
-
-  const w = 760, h = 360, pad = { l: 54, r: 24, t: 24, b: 44 };
-  const minY = Math.min(-0.45, ...points.map(p => p.y));
-  const maxY = Math.max(0.45, ...points.map(p => p.y));
-  const xScale = x => pad.l + x * (w - pad.l - pad.r);
-  const yScale = y => pad.t + (maxY - y) / (maxY - minY) * (h - pad.t - pad.b);
-  const path = linePath(points, xScale, yScale);
-  const zeroY = yScale(0);
-  const thresholdX = xScale(threshold);
-  const blockRect = threshold < 1 ? `<rect x="${thresholdX}" y="${pad.t}" width="${w - pad.r - thresholdX}" height="${h - pad.t - pad.b}" fill="rgba(199,81,70,0.09)"></rect>` : "";
-  document.getElementById("theoryChart").innerHTML = `
-    <svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Theory chart showing blocking threshold">
-      <rect x="0" y="0" width="${w}" height="${h}" fill="#fff"></rect>
-      ${blockRect}
-      <line x1="${pad.l}" x2="${w - pad.r}" y1="${zeroY}" y2="${zeroY}" stroke="#9fb4c1" stroke-width="1.5"></line>
-      <line x1="${pad.l}" x2="${pad.l}" y1="${pad.t}" y2="${h - pad.b}" stroke="#d8e3ea"></line>
-      <line x1="${pad.l}" x2="${w - pad.r}" y1="${h - pad.b}" y2="${h - pad.b}" stroke="#d8e3ea"></line>
-      <path d="${path}" fill="none" stroke="#2e86ab" stroke-width="4" stroke-linecap="round"></path>
-      ${threshold < 1 ? `<line x1="${thresholdX}" x2="${thresholdX}" y1="${pad.t}" y2="${h - pad.b}" stroke="#c75146" stroke-width="2" stroke-dasharray="6 6"></line>` : ""}
-      <text x="${pad.l}" y="${h - 14}" fill="#5f6f7d" font-size="13">Low quality</text>
-      <text x="${w - pad.r}" y="${h - 14}" fill="#5f6f7d" font-size="13" text-anchor="end">High quality</text>
-      <text x="${pad.l}" y="${pad.t - 6}" fill="#5f6f7d" font-size="13">Block</text>
-      <text x="${pad.l}" y="${zeroY + 18}" fill="#5f6f7d" font-size="13">Remain accessible</text>
-      ${threshold < 1 ? `<text x="${Math.min(w - 150, thresholdX + 10)}" y="${pad.t + 22}" fill="#c75146" font-size="13" font-weight="800">q* = ${threshold.toFixed(2)}</text>` : `<text x="${w - 170}" y="${pad.t + 22}" fill="#2f855a" font-size="13" font-weight="800">No producers block</text>`}
-    </svg>`;
-}
-["appropriation", "visibility", "compensation"].forEach(id => document.getElementById(id).addEventListener("input", drawTheory));
-drawTheory();
-
-const evidenceViews = {
-  quality: {
-    title: "Quality-blocking gradient",
-    subtitle: "Endpoint rates from MBFC quality measures",
-    copyTitle: "High-quality outlets exit first",
-    copy: "High-factual outlets block AI crawlers at 47%, compared with 8% for low-factual sources. The credibility dimension tells the same story: 45% versus 7%.",
-    color: "#2e86ab",
-    data: [
-      { label: "Low factual", value: 8, color: "#c75146" },
-      { label: "High factual", value: 47, color: "#2f855a" },
-      { label: "Low credibility", value: 7, color: "#b7791f" },
-      { label: "High credibility", value: 45, color: "#2e86ab" }
-    ],
-    unit: "%"
-  },
-  misinfo: {
-    title: "Misinformation asymmetry",
-    subtitle: "Questionable sources remain accessible",
-    copyTitle: "Reliable content withdraws faster",
-    copy: "Credible outlets block at 34.8%, while MBFC-flagged questionable sources block at 6.1%. That 5.7x asymmetry shifts accessible training data toward less reliable content.",
-    data: [
-      { label: "Questionable", value: 6.1, color: "#c75146" },
-      { label: "Credible", value: 34.8, color: "#2f855a" }
-    ],
-    unit: "%"
-  },
-  ideology: {
-    title: "Ideological sorting",
-    subtitle: "Blocking rates by political orientation",
-    copyTitle: "The center withdraws most",
-    copy: "Center outlets block at the highest rate, while the political extremes remain more accessible. The resulting corpus can become ideologically skewed toward the poles.",
-    data: [
-      { label: "Left", value: 23.7, color: "#6b5ca5" },
-      { label: "Left-center", value: 39.1, color: "#2e86ab" },
-      { label: "Center", value: 51.1, color: "#2f855a" },
-      { label: "Right-center", value: 48.8, color: "#b7791f" },
-      { label: "Right", value: 10.8, color: "#c75146" }
-    ],
-    unit: "%"
-  },
-  training: {
-    title: "Training versus search",
-    subtitle: "High-factual sites differentiate crawler purpose",
-    copyTitle: "Publishers target extraction, not visibility",
-    copy: "Among high-factual sites, 45.2% block training bots while 32.4% block search bots. Regression coefficients are about 38% larger for training than for search.",
-    data: [
-      { label: "Training bots", value: 45.2, color: "#c75146" },
-      { label: "Search bots", value: 32.4, color: "#2e86ab" },
-      { label: "Coefficient gap", value: 38, color: "#b7791f" }
-    ],
-    unit: "%"
-  }
-};
-
-function drawBarChart(targetId, view) {
-  const data = view.data;
-  const max = Math.max(55, ...data.map(d => d.value)) * 1.1;
-  const w = 760, h = 360, pad = { l: 52, r: 22, t: 22, b: 82 };
-  const plotW = w - pad.l - pad.r;
-  const plotH = h - pad.t - pad.b;
-  const bw = plotW / data.length * 0.58;
-  const gap = plotW / data.length;
-  const bars = data.map((d, i) => {
-    const x = pad.l + i * gap + (gap - bw) / 2;
-    const barH = d.value / max * plotH;
-    const y = pad.t + plotH - barH;
-    const label = d.label.replace("&", "&amp;");
-    return `
-      <g tabindex="0" aria-label="${label}: ${d.value}${view.unit}">
-        <rect x="${x}" y="${y}" width="${bw}" height="${barH}" rx="6" fill="${d.color}"></rect>
-        <text x="${x + bw / 2}" y="${y - 10}" text-anchor="middle" fill="#1b3a4b" font-size="18" font-weight="850">${d.value}${view.unit}</text>
-        <text x="${x + bw / 2}" y="${h - 48}" text-anchor="middle" fill="#425466" font-size="13">${label}</text>
-      </g>`;
-  }).join("");
-  const ticks = [0, 20, 40, 60];
-  const grid = ticks.map(t => {
-    const y = pad.t + plotH - t / max * plotH;
-    return `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y}" y2="${y}" stroke="#edf2f5"></line><text x="${pad.l - 12}" y="${y + 4}" text-anchor="end" fill="#5f6f7d" font-size="12">${t}%</text>`;
-  }).join("");
-  document.getElementById(targetId).innerHTML = `
-    <svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${view.title}">
-      <rect x="0" y="0" width="${w}" height="${h}" fill="#fff"></rect>
-      ${grid}
-      <line x1="${pad.l}" x2="${w - pad.r}" y1="${pad.t + plotH}" y2="${pad.t + plotH}" stroke="#d8e3ea"></line>
-      ${bars}
-    </svg>`;
-}
-
-function setEvidence(viewName) {
-  const view = evidenceViews[viewName];
-  document.getElementById("evidenceTitle").textContent = view.title;
-  document.getElementById("evidenceSubtitle").textContent = view.subtitle;
-  document.getElementById("evidenceCopy").innerHTML = `<h3>${view.copyTitle}</h3><p>${view.copy}</p>`;
-  drawBarChart("evidenceChart", view);
-  document.querySelectorAll(".tab-button").forEach(btn => {
-    const active = btn.dataset.view === viewName;
-    btn.classList.toggle("active", active);
-    btn.setAttribute("aria-selected", active ? "true" : "false");
-  });
-}
-document.querySelectorAll(".tab-button").forEach(btn => btn.addEventListener("click", () => setEvidence(btn.dataset.view)));
-setEvidence("quality");
-
-const ratios = [
-  { label: "MBFC credibility", value: 5.9 },
-  { label: "Content quality index", value: 5.7 },
-  { label: "MBFC factual", value: 5.5 },
-  { label: "Domain quality index", value: 3.9 }
+const figureGroups = [
+  { id: "quality", label: "Quality Gradient" },
+  { id: "use", label: "Training vs Search" },
+  { id: "timing", label: "Timing" },
+  { id: "composition", label: "Composition" }
 ];
-document.getElementById("ratioStack").innerHTML = ratios.map(r => `
-  <div class="ratio">
-    <div class="ratio-label"><span>${r.label}</span><strong>${r.value}x</strong></div>
-    <div class="ratio-bar"><div class="ratio-fill" style="width:${r.value / 6 * 100}%"></div></div>
-  </div>
-`).join("");
 
-const scenarios = {
-  none: {
-    title: "No blocking",
-    copyTitle: "Baseline commons",
-    copy: "The no-blocking case anchors the simulation. Quality and high-factual share are measured relative to this baseline.",
-    quality: 0.0,
-    high: 0.0,
-    volume: 0.8
+const figures = [
+  {
+    id: "per-bot",
+    group: "quality",
+    tag: "Crawler restrictions",
+    title: "Training-oriented crawlers are the most-restricted crawlers.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_per_bot_rates.png",
+    alt: "Bar chart of AI crawler blocking rates by bot.",
+    caption: "The per-bot scrape shows GPTBot, ClaudeBot, Google-Extended, and other training-oriented crawlers among the most restricted named crawlers."
   },
-  current: {
-    title: "Current observed",
-    copyTitle: "Observed selective blocking",
-    copy: "Current blocking withdraws about the same volume as random blocking, but it produces a 24.3% decline in high-factual content share because exit is quality-dependent.",
-    quality: 9.7,
-    high: 24.3,
-    volume: 41.3
+  {
+    id: "factual-gradient",
+    group: "quality",
+    tag: "MBFC factual reporting",
+    title: "Higher-factual outlets restrict AI crawlers more often.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png",
+    alt: "Bar chart of restriction rates by MBFC factual tier.",
+    caption: "Restriction rates rise from 8% for low-factual outlets to 47% for high-factual outlets in the February 2026 live cross-section."
   },
-  random: {
-    title: "Random blocking",
-    copyTitle: "Same volume, no quality decline",
-    copy: "When the same overall blocking rate is applied uniformly across quality tiers, the corpus shrinks but its composition does not degrade.",
-    quality: 0.0,
-    high: 0.0,
-    volume: 41.1
+  {
+    id: "credibility-gradient",
+    group: "quality",
+    tag: "MBFC credibility",
+    title: "The gradient also appears in credibility ratings.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_gradient_credibility.png",
+    alt: "Bar chart of restriction rates by MBFC credibility tier.",
+    caption: "Credibility and factual-reporting measures tell the same story: more reliable publishers are more likely to declare AI-crawler restrictions."
   },
-  licensing: {
-    title: "Licensing deal",
-    copyTitle: "Compensation repairs selection",
-    copy: "Halving blocking rates for High and Mostly Factual tiers recovers most of the loss: high-factual decline falls from 24.3% to 7.0%.",
-    quality: 2.7,
-    high: 7.0,
-    volume: 22.4
+  {
+    id: "misinfo-gap",
+    group: "composition",
+    tag: "Misinformation",
+    title: "Questionable sources declare fewer AI-crawler restrictions.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_gap.png",
+    alt: "Chart comparing restriction rates for questionable and non-questionable sources.",
+    caption: "MBFC-flagged questionable sources remain more accessible than non-questionable sources, shifting the accessible pool toward lower-reliability content."
   },
-  universal: {
-    title: "Universal blocking",
-    copyTitle: "High blocking without selection",
-    copy: "Even a high uniform blocking rate barely changes quality composition. The adverse-selection harm comes from asymmetric exit.",
-    quality: 0.0,
-    high: 0.0,
-    volume: 55.6
+  {
+    id: "misinfo-flags",
+    group: "composition",
+    tag: "Misinformation flags",
+    title: "Restriction patterns differ by misinformation flag.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_flags.png",
+    alt: "Bar chart of restriction rates by misinformation flag category.",
+    caption: "The detailed flag breakdown shows the same composition concern across misinformation classifications."
+  },
+  {
+    id: "political",
+    group: "composition",
+    tag: "Political orientation",
+    title: "Declared restrictions peak among centrist outlets.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_political.png",
+    alt: "Chart of AI crawler restriction rates by political orientation.",
+    caption: "Center outlets restrict most, while outlets at the political poles remain more accessible."
+  },
+  {
+    id: "access-states",
+    group: "use",
+    tag: "Access states",
+    title: "Search-only restrictions barely exist at any quality level.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_access_states.png",
+    alt: "Stacked access-state chart by quality tier.",
+    caption: "The relevant use-specific margin is training-only restriction, not search-only restriction."
+  },
+  {
+    id: "gap-coefficients",
+    group: "use",
+    tag: "Direct gap models",
+    title: "Higher quality predicts restricting training over search.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_gap_coefficients.png",
+    alt: "Coefficient plot for training-minus-search gap models.",
+    caption: "Across quality measures, the direct gap outcome D = training restriction minus search restriction is positive."
+  },
+  {
+    id: "pair-openai",
+    group: "use",
+    tag: "Within vendor",
+    title: "OpenAI pair: GPTBot versus OAI-SearchBot.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_pair_openai.png",
+    alt: "Within-publisher OpenAI training-search gap by quality.",
+    caption: "Within the same publisher and vendor family, higher-quality publishers are more likely to restrict GPTBot than OAI-SearchBot."
+  },
+  {
+    id: "pair-clean",
+    group: "use",
+    tag: "Clean taxonomy",
+    title: "Clean training/search baskets reproduce the gap.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_pair_clean.png",
+    alt: "Within-publisher clean-taxonomy training-search gap by quality.",
+    caption: "The training-over-search pattern is not unique to one vendor pair; it also appears in the clean taxonomy baskets."
+  },
+  {
+    id: "differential-event",
+    group: "timing",
+    tag: "Event-time differential",
+    title: "The training-search factual-rating differential rose and later narrowed.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_differential_event.png",
+    alt: "Event-time chart of training-search factual-rating differential.",
+    caption: "The training differential rose around the GPTBot announcement period, then narrowed as search restrictions caught up."
+  },
+  {
+    id: "event-gaps",
+    group: "timing",
+    tag: "High-minus-low gaps",
+    title: "Training and search gaps evolve separately over event time.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_event_gaps.png",
+    alt: "Event-time high-minus-low factual rating gaps for training and search restrictions.",
+    caption: "The high-minus-low factual-rating gap opened earlier for training restrictions than for search restrictions."
+  },
+  {
+    id: "timing-train",
+    group: "timing",
+    tag: "Training levels",
+    title: "Training restriction levels by factual tier.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_timing_train.png",
+    alt: "Line chart of training restrictions over time by factual tier.",
+    caption: "Training restrictions rose sharply among high-factual outlets after AI-specific crawler controls became salient."
+  },
+  {
+    id: "timing-search",
+    group: "timing",
+    tag: "Search levels",
+    title: "Search restriction levels by factual tier.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_timing_search.png",
+    alt: "Line chart of search restrictions over time by factual tier.",
+    caption: "Search restrictions rose later and narrowed the training-search differential by February 2026."
+  },
+  {
+    id: "differential-gradients",
+    group: "timing",
+    tag: "Monthly gradients",
+    title: "Monthly gradients of the direct gap on quality.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_differential_gradients.png",
+    alt: "Monthly gradients of the training-minus-search direct gap on quality.",
+    caption: "The direct training-minus-search quality gradient varies over time as use-specific restrictions diffuse."
+  },
+  {
+    id: "decomp-factual",
+    group: "composition",
+    tag: "Decomposition",
+    title: "Decomposition of the any-restriction gradient by factual tier.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_decomp_factual.png",
+    alt: "Decomposition chart by MBFC factual tier.",
+    caption: "The any-restriction gradient is decomposed into use-specific access states across factual-reporting tiers."
+  },
+  {
+    id: "decomp-quartile",
+    group: "composition",
+    tag: "Decomposition",
+    title: "Decomposition by content-quality quartile.",
+    src: "../files/paper/ai-data-commons/figures/r1_fig_decomp_quartile.png",
+    alt: "Decomposition chart by content-quality quartile.",
+    caption: "The same access-state decomposition appears when quality is measured with the composite content-quality index."
   }
-};
+];
 
-function drawSim(scenarioName) {
-  const s = scenarios[scenarioName];
-  document.getElementById("simTitle").textContent = s.title;
-  document.getElementById("simCopyTitle").textContent = s.copyTitle;
-  document.getElementById("simCopyText").textContent = s.copy;
-  document.getElementById("qualityDecline").textContent = s.quality.toFixed(1) + "%";
-  document.getElementById("highDecline").textContent = s.high.toFixed(1) + "%";
-  document.getElementById("volumeDecline").textContent = s.volume.toFixed(1) + "%";
-  const chart = {
-    title: s.title,
-    subtitle: "",
-    unit: "%",
-    data: [
-      { label: "Quality", value: s.quality, color: "#2e86ab" },
-      { label: "High factual", value: s.high, color: "#2f855a" },
-      { label: "Volume", value: s.volume, color: "#c75146" }
+const tables = [
+  {
+    id: "quality",
+    tag: "Table: quality gradient",
+    title: "The restriction gradient holds across four publisher measures",
+    note: "Linear probability models. Outcome is an indicator for restricting at least one of the 131 tracked AI-related crawler tokens in the February 2026 live cross-section. All models include category fixed effects with HC1 robust standard errors.",
+    columns: ["Quality measure", "Estimate", "SE", "N", "R2"],
+    numeric: [1, 2, 3, 4],
+    rows: [
+      ["MBFC factual reporting", "0.134***", "(0.003)", "9,611", "0.136"],
+      ["MBFC credibility", "0.197***", "(0.004)", "9,602", "0.151"],
+      ["Content-quality index", "0.176***", "(0.004)", "9,611", "0.151"],
+      ["Domain-prominence index", "0.078***", "(0.006)", "5,782", "0.025"]
     ]
-  };
-  drawBarChart("simChart", chart);
-  document.querySelectorAll(".scenario").forEach(btn => btn.classList.toggle("active", btn.dataset.scenario === scenarioName));
+  },
+  {
+    id: "states",
+    tag: "Table: access states",
+    title: "Use-specific access states by factual-reporting tier",
+    note: "Cross-section of 7,002 MBFC-rated media sites with nonmissing training/search outcomes in February 2026. Cells report row percentages with counts in parentheses.",
+    columns: ["Factual tier", "Sites", "Allows both", "Training only", "Search only", "Both"],
+    numeric: [1, 2, 3, 4, 5],
+    rows: [
+      ["Low", "847", "93.9% (795)", "3.8% (32)", "0.0% (0)", "2.4% (20)"],
+      ["Mixed", "1,490", "89.3% (1,330)", "4.8% (71)", "0.3% (4)", "5.7% (85)"],
+      ["Mostly Factual", "722", "73.1% (528)", "9.6% (69)", "0.1% (1)", "17.2% (124)"],
+      ["High", "3,943", "47.3% (1,867)", "11.2% (442)", "0.1% (3)", "41.4% (1,631)"]
+    ]
+  },
+  {
+    id: "gap",
+    tag: "Table: direct gap",
+    title: "Direct training-minus-search gap models",
+    note: "Outcome D equals the training-restriction indicator minus the search-restriction indicator, so positive coefficients mean higher quality predicts restricting training over search within the same site-month or site.",
+    columns: ["Sample", "Quality measure", "Training", "Search", "Gap D", "SE(D)", "N", "Clusters"],
+    numeric: [2, 3, 4, 5, 6, 7],
+    rows: [
+      ["Monthly panel", "MBFC factual", "0.093***", "0.068***", "0.025***", "(0.001)", "272,458", "7,002"],
+      ["Monthly panel", "MBFC credibility", "0.141***", "0.102***", "0.039***", "(0.002)", "272,331", "6,999"],
+      ["Monthly panel", "Content quality", "0.112***", "0.081***", "0.030***", "(0.002)", "272,458", "7,002"],
+      ["Monthly panel", "Domain prominence", "0.038***", "0.015***", "0.022***", "(0.002)", "239,534", "5,690"],
+      ["Feb. 2026 cross-section", "MBFC factual", "0.155***", "0.130***", "0.024***", "(0.002)", "7,002", ""],
+      ["Feb. 2026 cross-section", "MBFC credibility", "0.237***", "0.195***", "0.042***", "(0.003)", "6,999", ""],
+      ["Feb. 2026 cross-section", "Content quality", "0.207***", "0.172***", "0.034***", "(0.003)", "7,002", ""],
+      ["Feb. 2026 cross-section", "Domain prominence", "0.086***", "0.058***", "0.028***", "(0.004)", "5,690", ""]
+    ]
+  },
+  {
+    id: "timing",
+    tag: "Table: timing gaps",
+    title: "The training factual-rating gap rose earlier than the search factual-rating gap",
+    note: "Monthly panel of 7,002 sites. Entries are percentage-point differences between high- and low-MBFC-factual-rating site shares in the stated month. The table is descriptive and does not identify any event's causal effect.",
+    columns: ["Month", "Training gap", "Search gap", "Train - search"],
+    numeric: [1, 2, 3],
+    rows: [
+      ["2022-06", "2.6", "0.0", "2.6"],
+      ["2023-07", "2.3", "0.7", "1.5"],
+      ["2023-08", "1.9", "0.8", "1.2"],
+      ["2023-12", "36.4", "19.4", "17.0"],
+      ["2024-07", "42.3", "24.3", "18.0"],
+      ["2026-02", "45.3", "40.4", "5.0"]
+    ]
+  },
+  {
+    id: "composition",
+    tag: "Table: composition",
+    title: "Observed content composition differs across declared-access margins",
+    note: "Descriptive recalculation of observed February 2026 access states among the 7,002 sites with training/search outcomes.",
+    columns: ["Accessible pool", "Sites", "High-factual", "Low-factual", "Questionable", "Left/right pole"],
+    numeric: [1, 2, 3, 4, 5],
+    rows: [
+      ["All sites", "7,002", "56.3%", "12.1%", "15.1%", "19.1%"],
+      ["Search-accessible", "5,134", "45.0%", "16.1%", "20.1%", "25.2%"],
+      ["Training-accessible", "4,528", "41.3%", "17.6%", "22.0%", "27.5%"],
+      ["Licensing margin", "614", "72.0%", "5.2%", "5.7%", "13.3%"]
+    ]
+  },
+  {
+    id: "bots",
+    tag: "Table: crawler taxonomy",
+    title: "Crawler taxonomy used in the bot-level analyses",
+    note: "The 23 named crawlers in the February 2026 per-bot scrape. Blocking rates are shares of sites disallowing the crawler.",
+    columns: ["Bot", "Scraper label", "Clean taxonomy", "Panel role", "Blocking rate"],
+    numeric: [4],
+    rows: [
+      ["GPTBot", "training", "Training", "Training", "32.3%"],
+      ["CCBot", "legacy", "Excluded (legacy)", "--", "30.7%"],
+      ["ClaudeBot", "training", "Training", "Training", "30.0%"],
+      ["Google-Extended", "training", "Training", "Training", "28.1%"],
+      ["Bytespider", "training", "Ambiguous (excluded)", "--", "28.1%"],
+      ["anthropic-ai", "training", "Training", "--", "27.5%"],
+      ["Claude-Web", "search", "Search/discovery", "--", "26.4%"],
+      ["Applebot-Extended", "training", "Ambiguous (excluded)", "--", "26.1%"],
+      ["PerplexityBot", "search", "Search/discovery", "Search", "25.8%"],
+      ["ChatGPT-User", "search", "Ambiguous (excluded)", "--", "25.5%"],
+      ["Omgilibot", "other", "Ambiguous (excluded)", "--", "24.3%"],
+      ["Meta-ExternalAgent", "training", "Ambiguous (excluded)", "--", "22.6%"],
+      ["Cohere-ai", "training", "Ambiguous (excluded)", "--", "22.3%"],
+      ["PetalBot", "search", "Search/discovery", "--", "20.7%"],
+      ["FacebookBot", "training", "Ambiguous (excluded)", "--", "20.6%"],
+      ["OAI-SearchBot", "search", "Search/discovery", "Search", "20.2%"],
+      ["Diffbot", "training", "Ambiguous (excluded)", "--", "19.4%"],
+      ["Amazonbot", "search", "Ambiguous (excluded)", "--", "17.8%"],
+      ["YouBot", "search", "Search/discovery", "--", "17.7%"],
+      ["Ai2Bot-Dolma", "training", "Ambiguous (excluded)", "--", "16.3%"],
+      ["Timpibot", "training", "Ambiguous (excluded)", "--", "16.3%"],
+      ["Ai2Bot", "training", "Ambiguous (excluded)", "--", "16.0%"],
+      ["PanguBot", "training", "Ambiguous (excluded)", "--", "8.8%"]
+    ]
+  },
+  {
+    id: "sample",
+    tag: "Table: samples",
+    title: "Samples and denominators used in the paper",
+    note: "Every table and figure reports one of these denominators. The cross-section outcome and per-bot file are separate February 2026 scrape runs with different fetch stacks and retry behavior.",
+    columns: ["Sample", "Sites", "Observations", "Used for"],
+    numeric: [1, 2],
+    rows: [
+      ["Full MBFC media cross-section", "9,611", "9,611", "Primary quality gradient; secondary implications"],
+      ["Domain-prominence estimation sample", "5,782", "--", "Domain-prominence regressions; conditional models"],
+      ["Questionable-flagged subset", "1,984", "--", "Misinformation implication"],
+      ["Political-orientation subsample", "5,995", "--", "Political-orientation implication"],
+      ["Political + both quality indices", "4,650", "--", "Quality-controlled political regressions"],
+      ["Monthly HTTP Archive panel", "7,002", "272,458", "Timing; training/search outcomes; panel gap models"],
+      ["Training/search cross-section", "7,002", "--", "Access states; conditionals; composition; cross-sectional gap models"],
+      ["Balanced panel subset", "4,778", "215,010", "Quality-gradient and use-specific timing robustness"],
+      ["Per-bot live scrape", "7,256", "166,888", "Site-bot fixed effects; paired bot gaps; taxonomy robustness"]
+    ]
+  }
+];
+
+let activeGroup = "quality";
+let activeFigureId = figures.find(f => f.group === activeGroup).id;
+let activeTableId = tables[0].id;
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
-document.querySelectorAll(".scenario").forEach(btn => btn.addEventListener("click", () => drawSim(btn.dataset.scenario)));
-drawSim("current");
+
+function renderFigureGroups() {
+  const container = document.getElementById("figureGroups");
+  container.innerHTML = figureGroups.map(group => `
+    <button type="button" role="tab" class="${group.id === activeGroup ? "active" : ""}" aria-selected="${group.id === activeGroup}" data-group="${group.id}">
+      ${escapeHtml(group.label)}
+    </button>
+  `).join("");
+  container.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+      activeGroup = button.dataset.group;
+      activeFigureId = figures.find(figure => figure.group === activeGroup).id;
+      renderFigures();
+    });
+  });
+}
+
+function renderFigures() {
+  renderFigureGroups();
+  const groupFigures = figures.filter(figure => figure.group === activeGroup);
+  const active = groupFigures.find(figure => figure.id === activeFigureId) || groupFigures[0];
+  const image = document.getElementById("activeFigure");
+  image.src = active.src;
+  image.alt = active.alt;
+  document.getElementById("figureTag").textContent = active.tag;
+  document.getElementById("figureTitle").textContent = active.title;
+  document.getElementById("figureCaption").textContent = active.caption;
+  document.getElementById("figureLink").href = active.src;
+
+  const thumbs = document.getElementById("figureThumbs");
+  thumbs.innerHTML = groupFigures.map(figure => `
+    <button type="button" class="${figure.id === active.id ? "active" : ""}" data-figure="${figure.id}">
+      ${escapeHtml(figure.title)}
+    </button>
+  `).join("");
+  thumbs.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+      activeFigureId = button.dataset.figure;
+      renderFigures();
+    });
+  });
+}
+
+function renderTableTabs() {
+  const container = document.getElementById("tableTabs");
+  container.innerHTML = tables.map(table => `
+    <button type="button" role="tab" class="${table.id === activeTableId ? "active" : ""}" aria-selected="${table.id === activeTableId}" data-table="${table.id}">
+      ${escapeHtml(table.title.split(":")[0].replace("The ", ""))}
+    </button>
+  `).join("");
+  container.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+      activeTableId = button.dataset.table;
+      renderTables();
+    });
+  });
+}
+
+function renderTables() {
+  renderTableTabs();
+  const table = tables.find(item => item.id === activeTableId) || tables[0];
+  document.getElementById("tableTag").textContent = table.tag;
+  document.getElementById("tableTitle").textContent = table.title;
+  document.getElementById("tableNote").textContent = table.note;
+
+  const head = table.columns.map((column, index) => `<th class="${table.numeric.includes(index) ? "num" : ""}">${escapeHtml(column)}</th>`).join("");
+  const body = table.rows.map(row => `
+    <tr>
+      ${row.map((cell, index) => `<td class="${table.numeric.includes(index) ? "num" : ""}">${escapeHtml(cell)}</td>`).join("")}
+    </tr>
+  `).join("");
+  document.getElementById("tableWrap").innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
 
 const sections = [...document.querySelectorAll("main section[id]")];
-const navLinks = [...document.querySelectorAll(".navlinks a")];
+const navLinks = [...document.querySelectorAll(".navlinks a[href^='#']")];
+
 function updateNav() {
   const offset = window.scrollY + 120;
   let active = sections[0].id;
@@ -1333,9 +1150,11 @@ function updateNav() {
     link.classList.toggle("active", id === active);
   });
 }
-window.addEventListener("scroll", updateNav, { passive: true });
-window.addEventListener("resize", () => { drawTheory(); drawBarChart("evidenceChart", evidenceViews[document.querySelector(".tab-button.active").dataset.view]); drawSim(document.querySelector(".scenario.active").dataset.scenario); });
+
+renderFigures();
+renderTables();
 updateNav();
+window.addEventListener("scroll", updateNav, { passive: true });
 </script>
 </body>
 </html>
