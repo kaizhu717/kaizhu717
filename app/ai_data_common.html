@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selective Participation in the AI Data Commons - Interactive Evidence</title>
-<meta name="description" content="Interactive evidence guide for Kai Zhu's paper Selective Participation in the AI Data Commons.">
+<title>Selective Participation in the AI Data Commons - Story Guide</title>
+<meta name="description" content="A narrative evidence guide for Kai Zhu's paper Selective Participation in the AI Data Commons.">
 <style>
 :root {
   --navy: #1b3a4b;
   --ink: #22313f;
   --muted: #5f7080;
-  --line: #d9e3ea;
+  --line: #d8e4eb;
   --paper: #ffffff;
   --soft: #f4f7fa;
   --blue: #2e86ab;
-  --teal: #1f9d8a;
-  --gold: #c58b21;
-  --red: #bc5a4f;
-  --shadow: 0 18px 48px rgba(27, 58, 75, 0.12);
+  --teal: #168a7a;
+  --gold: #b9851c;
+  --red: #b85b51;
+  --shadow: 0 18px 46px rgba(27, 58, 75, 0.12);
 }
 
 * { box-sizing: border-box; }
@@ -37,22 +37,22 @@ a { color: inherit; }
 
 .skip-link {
   position: absolute;
+  top: -46px;
   left: 16px;
-  top: -48px;
-  z-index: 10;
+  z-index: 50;
   padding: 10px 14px;
-  background: var(--navy);
-  color: white;
-  text-decoration: none;
   border-radius: 6px;
+  color: white;
+  background: var(--navy);
+  text-decoration: none;
 }
 
-.skip-link:focus { top: 12px; }
+.skip-link:focus { top: 14px; }
 
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 40;
   background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
@@ -60,13 +60,13 @@ a { color: inherit; }
 
 .topbar-inner {
   max-width: 1180px;
-  margin: 0 auto;
   min-height: 68px;
+  margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 22px;
 }
 
 .brand {
@@ -74,7 +74,7 @@ a { color: inherit; }
   align-items: center;
   gap: 10px;
   color: var(--navy);
-  font-weight: 800;
+  font-weight: 900;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -89,29 +89,30 @@ a { color: inherit; }
   background: var(--navy);
 }
 
-.brand-mark svg { width: 19px; height: 19px; }
+.brand-mark svg,
+.action svg { width: 18px; height: 18px; }
 
 .navlinks {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 6px;
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 .navlinks a {
   padding: 8px 11px;
+  border-radius: 6px;
   color: var(--muted);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: none;
-  border-radius: 6px;
 }
 
 .navlinks a.active,
 .navlinks a:hover {
   color: var(--navy);
-  background: #eaf2f6;
+  background: #e8f1f6;
 }
 
 .hero {
@@ -123,9 +124,9 @@ a { color: inherit; }
   max-width: 1180px;
   min-height: calc(100vh - 68px);
   margin: 0 auto;
-  padding: 54px 24px 36px;
+  padding: 50px 24px 34px;
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(440px, 1.18fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(430px, 1.15fr);
   gap: 34px;
   align-items: center;
 }
@@ -140,7 +141,7 @@ a { color: inherit; }
 h1, h2, h3, p { margin-top: 0; }
 
 h1 {
-  max-width: 720px;
+  max-width: 740px;
   margin: 12px 0 18px;
   color: var(--navy);
   font-family: Georgia, "Times New Roman", serif;
@@ -150,9 +151,9 @@ h1 {
 }
 
 .hero-lede {
-  max-width: 690px;
+  max-width: 700px;
   margin-bottom: 24px;
-  color: #3c4c59;
+  color: #3b4d5b;
   font-size: 18px;
 }
 
@@ -170,10 +171,10 @@ h1 {
   padding: 10px 14px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: white;
   color: var(--navy);
+  background: white;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
   text-decoration: none;
 }
 
@@ -183,44 +184,42 @@ h1 {
   border-color: var(--navy);
 }
 
-.action svg { width: 17px; height: 17px; }
-
-.stat-grid {
+.arc {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin-top: 28px;
-  max-width: 620px;
 }
 
-.metric {
-  min-height: 94px;
-  padding: 16px;
-  background: white;
+.arc a {
+  min-height: 60px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
-}
-
-.metric strong {
-  display: block;
-  margin-bottom: 3px;
-  color: var(--navy);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 30px;
-  line-height: 1;
-}
-
-.metric span {
-  color: var(--muted);
+  color: var(--ink);
+  background: white;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
+  text-decoration: none;
 }
 
-.hero-figure {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.arc span {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  color: white;
+  background: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.hero-panel {
   min-width: 0;
   padding: 20px;
   background: white;
@@ -229,17 +228,49 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.hero-figure img {
+.hero-panel img {
   display: block;
   width: 100%;
-  max-height: 58vh;
+  max-height: 56vh;
   object-fit: contain;
 }
 
-.figure-caption {
-  margin-top: 14px;
+.caption {
+  margin: 12px 0 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 18px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stat {
+  min-height: 82px;
+  padding: 14px;
+  background: #fbfdfe;
+}
+
+.stat strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 section {
@@ -252,229 +283,206 @@ section:nth-of-type(even) { background: #f8fbfd; }
 .section-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 58px 24px;
+  padding: 56px 24px;
 }
 
-.section-head {
+.story-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.7fr) minmax(320px, 1fr);
+  grid-template-columns: 230px minmax(0, 1fr);
   gap: 28px;
-  align-items: end;
-  margin-bottom: 28px;
-}
-
-.section-head h2 {
-  margin: 0;
-  color: var(--navy);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 36px;
-  line-height: 1.12;
-}
-
-.section-head p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 16px;
-}
-
-.evidence-layout {
-  display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
-  gap: 18px;
   align-items: start;
 }
 
-.segmented {
+.story-nav {
+  position: sticky;
+  top: 88px;
   display: grid;
+  gap: 7px;
+}
+
+.story-nav a {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
   gap: 8px;
-}
-
-.segmented button,
-.thumb-list button,
-.table-tabs button {
-  font: inherit;
-  letter-spacing: 0;
-}
-
-.segmented button {
-  min-height: 44px;
-  padding: 11px 12px;
+  padding: 8px 10px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: white;
   color: var(--muted);
-  cursor: pointer;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 800;
+  background: white;
+  font-size: 12px;
+  font-weight: 850;
+  text-decoration: none;
 }
 
-.segmented button.active {
+.story-nav a.active {
+  color: var(--navy);
+  border-color: rgba(46, 134, 171, 0.55);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.story-nav .num {
+  width: 26px;
+  height: 26px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
   color: white;
   background: var(--navy);
-  border-color: var(--navy);
+  font-size: 11px;
 }
 
-.figure-stage {
-  min-width: 0;
+.story-list {
+  display: grid;
+  gap: 28px;
+}
+
+.story {
+  scroll-margin-top: 90px;
   background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 10px 28px rgba(27, 58, 75, 0.07);
 }
 
-.figure-main {
+.story-head {
+  padding: 24px 26px 20px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 290px;
-  min-height: 560px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdfe 100%);
+  border-bottom: 1px solid var(--line);
 }
 
-.figure-viewer {
+.story-number {
+  width: 64px;
+  height: 64px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  background: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.story-label {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.story h2 {
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  line-height: 1.14;
+}
+
+.story-deck {
+  max-width: 850px;
+  margin-bottom: 0;
+  color: #3b4d5b;
+  font-size: 17px;
+}
+
+.story-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  gap: 0;
+}
+
+.visual {
   min-width: 0;
   padding: 20px;
   border-right: 1px solid var(--line);
 }
 
-.figure-viewer img {
+.visual img {
   display: block;
   width: 100%;
-  max-height: 620px;
+  max-height: 600px;
   object-fit: contain;
   background: white;
 }
 
-.figure-meta {
-  padding: 20px;
+.evidence {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   background: #fbfdfe;
 }
 
-.figure-meta .tag,
-.table-note .tag {
-  display: inline-flex;
-  margin-bottom: 10px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  color: var(--navy);
-  background: #e7f2f6;
-  font-size: 12px;
-  font-weight: 900;
+.claim {
+  padding-left: 14px;
+  border-left: 4px solid var(--blue);
 }
 
-.figure-meta h3 {
-  margin-bottom: 8px;
+.claim strong {
+  display: block;
+  margin-bottom: 6px;
   color: var(--navy);
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 16px;
 }
 
-.figure-meta p {
+.claim p {
+  margin-bottom: 0;
   color: var(--muted);
   font-size: 14px;
 }
 
-.figure-link {
-  display: inline-flex;
-  margin-top: 4px;
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 900;
-  text-decoration: none;
-}
-
-.thumb-list {
+.chips {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  padding: 12px;
-  background: #f3f7fa;
-  border-top: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.thumb-list button {
-  min-height: 74px;
-  padding: 9px;
+.chip {
+  min-height: 76px;
+  padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 8px;
   background: white;
+}
+
+.chip strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.chip span {
   color: var(--muted);
-  cursor: pointer;
-  text-align: left;
   font-size: 12px;
   font-weight: 800;
 }
 
-.thumb-list button.active {
-  color: var(--navy);
-  border-color: var(--blue);
-  box-shadow: inset 0 0 0 1px var(--blue);
-}
-
-.table-tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-
-.table-tabs button {
-  min-height: 38px;
-  padding: 8px 11px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: white;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.table-tabs button.active {
-  color: white;
-  background: var(--navy);
-  border-color: var(--navy);
-}
-
-.table-panel {
+.mini-table {
+  overflow-x: auto;
   background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
-  overflow: hidden;
-}
-
-.table-note {
-  display: grid;
-  grid-template-columns: minmax(0, 0.55fr) minmax(280px, 1fr);
-  gap: 22px;
-  padding: 18px 20px;
-  background: #fbfdfe;
-  border-bottom: 1px solid var(--line);
-}
-
-.table-note h3 {
-  margin-bottom: 6px;
-  color: var(--navy);
-  font-size: 20px;
-}
-
-.table-note p {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.table-wrap {
-  overflow-x: auto;
 }
 
 table {
   width: 100%;
-  min-width: 760px;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 th, td {
-  padding: 10px 12px;
+  padding: 9px 10px;
   border-bottom: 1px solid #e7eef3;
   text-align: left;
   vertical-align: top;
@@ -482,8 +490,8 @@ th, td {
 
 th {
   color: var(--navy);
-  background: #f4f7fa;
-  font-size: 12px;
+  background: #f2f7fa;
+  font-size: 11px;
   text-transform: uppercase;
 }
 
@@ -494,35 +502,52 @@ td.num, th.num {
 
 tbody tr:last-child td { border-bottom: 0; }
 
-.map-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.map-item {
-  padding: 18px;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.map-item h3 {
-  margin-bottom: 8px;
-  color: var(--navy);
-  font-size: 18px;
-}
-
-.map-item p {
-  margin-bottom: 0;
+.source {
+  margin-top: -5px;
   color: var(--muted);
+  font-size: 12px;
+}
+
+.takeaway {
+  padding: 14px;
+  border-radius: 8px;
+  color: #24404e;
+  background: #eef6f9;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reading-path {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.path-item {
+  min-height: 80px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--blue);
+  border-radius: 8px;
+  background: white;
+}
+
+.path-item:nth-child(2n) { border-top-color: var(--teal); }
+.path-item:nth-child(3n) { border-top-color: var(--gold); }
+
+.path-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy);
   font-size: 14px;
 }
 
-.accent-blue { border-top: 4px solid var(--blue); }
-.accent-teal { border-top: 4px solid var(--teal); }
-.accent-gold { border-top: 4px solid var(--gold); }
-.accent-red { border-top: 4px solid var(--red); }
+.path-item span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
 
 .final-band {
   background: var(--navy);
@@ -532,9 +557,9 @@ tbody tr:last-child td { border-bottom: 0; }
 
 .final-band .section-inner {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
-  align-items: center;
   padding-top: 38px;
   padding-bottom: 38px;
 }
@@ -564,40 +589,51 @@ footer {
   text-align: center;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1040px) {
   .hero-inner,
-  .section-head,
-  .evidence-layout,
-  .figure-main,
-  .table-note {
+  .story-layout,
+  .story-body {
     grid-template-columns: 1fr;
   }
 
-  .hero-inner {
-    min-height: auto;
-    padding-top: 36px;
+  .hero-inner { min-height: auto; }
+  .story-nav {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  h1 { font-size: 40px; }
-  .figure-viewer { border-right: 0; border-bottom: 1px solid var(--line); }
-  .thumb-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .map-grid { grid-template-columns: 1fr; }
+  .visual {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .reading-path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .topbar-inner {
-    align-items: flex-start;
-    flex-direction: column;
+    min-height: 0;
     padding-top: 12px;
     padding-bottom: 12px;
+    align-items: flex-start;
+    flex-direction: column;
   }
-
   .navlinks { justify-content: flex-start; }
   .hero-inner, .section-inner { padding-left: 16px; padding-right: 16px; }
-  h1 { font-size: 34px; }
-  .stat-grid { grid-template-columns: 1fr; }
-  .hero-figure { padding: 12px; }
-  .final-band .section-inner { align-items: flex-start; flex-direction: column; }
+  h1 { font-size: 36px; }
+  .hero-lede { font-size: 17px; }
+  .arc,
+  .stat-strip,
+  .story-nav,
+  .story-head,
+  .chips,
+  .reading-path {
+    grid-template-columns: 1fr;
+  }
+  .story h2 { font-size: 28px; }
+  .story-head { gap: 12px; }
+  .final-band .section-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 </style>
 </head>
@@ -608,14 +644,13 @@ footer {
   <div class="topbar-inner">
     <a class="brand" href="../index.html#research" aria-label="Back to Kai Zhu research page">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 6h14"/><path d="M5 12h14"/><path d="M5 18h14"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
       </span>
       <span>AI Data Commons</span>
     </a>
     <nav class="navlinks" aria-label="Page sections">
-      <a href="#figures">Figures</a>
-      <a href="#tables">Tables</a>
-      <a href="#map">Evidence Map</a>
+      <a href="#story">Story</a>
+      <a href="#path">Evidence Path</a>
       <a href="../index.html#research">Research</a>
     </nav>
   </div>
@@ -625,9 +660,9 @@ footer {
   <section class="hero" id="overview">
     <div class="hero-inner">
       <div>
-        <div class="kicker">Interactive manuscript evidence</div>
+        <div class="kicker">A ten-part evidence story</div>
         <h1>Selective Participation in the AI Data Commons</h1>
-        <p class="hero-lede">AI systems rely on web content, but access is increasingly governed by voluntary crawler restrictions. The updated paper shows that publisher access is sharply selective by quality and by use: credible publishers restrict training more than search, while misinformation sources and political-pole outlets become relatively more accessible.</p>
+        <p class="hero-lede">The updated paper is not just about whether publishers block AI crawlers. It is about who remains in the accessible web corpus, which AI uses publishers distinguish, and how those choices change the quality composition of the AI data commons.</p>
         <div class="actions">
           <a class="action primary" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
@@ -637,102 +672,46 @@ footer {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
             Slides
           </a>
-          <a class="action" href="#figures">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m8 15 3-4 3 2 4-6"/></svg>
-            Figures
-          </a>
         </div>
-        <div class="stat-grid" aria-label="Manuscript sample sizes">
-          <div class="metric"><strong>9,611</strong><span>media and news sites in the live cross-section</span></div>
-          <div class="metric"><strong>7,002</strong><span>sites with training/search panel outcomes</span></div>
-          <div class="metric"><strong>272,458</strong><span>site-month observations from 2022 to 2026</span></div>
-          <div class="metric"><strong>23</strong><span>named crawlers in the bot-level scrape</span></div>
+        <div class="arc" aria-label="Story arc">
+          <a href="#s01"><span>01</span>The web becomes a declared-access regime</a>
+          <a href="#s02"><span>02</span>Quality predicts restriction</a>
+          <a href="#s04"><span>04</span>Lower-reliability sources remain accessible</a>
+          <a href="#s06"><span>06</span>Publishers distinguish training from search</a>
+          <a href="#s10"><span>10</span>Governance shifts toward use-specific design</a>
         </div>
       </div>
-      <figure class="hero-figure">
-        <img src="../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png" alt="Bar chart showing AI crawler restriction rates rising from low factual to high factual outlets.">
-        <figcaption class="figure-caption">Actual manuscript figure: high-factual outlets restrict AI crawlers at 47%, versus 8% among low-factual outlets.</figcaption>
+      <figure class="hero-panel">
+        <img src="../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png" alt="Bar chart showing AI crawler restriction rates increasing from low-factual to high-factual outlets.">
+        <figcaption class="caption">Manuscript Figure: High-factual outlets restrict AI crawlers at 47%, versus 8% among low-factual outlets.</figcaption>
+        <div class="stat-strip" aria-label="Core paper denominators">
+          <div class="stat"><strong>9,611</strong><span>live media cross-section</span></div>
+          <div class="stat"><strong>7,002</strong><span>training/search sites</span></div>
+          <div class="stat"><strong>272,458</strong><span>site-months</span></div>
+          <div class="stat"><strong>23</strong><span>named crawlers</span></div>
+        </div>
       </figure>
     </div>
   </section>
 
-  <section id="figures">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>Manuscript Figures</h2>
-        <p>The current figure set covers the paper's core empirical sequence: who restricts, which uses they restrict, and how the training-search differential evolved.</p>
-      </div>
-      <div class="evidence-layout">
-        <div class="segmented" id="figureGroups" role="tablist" aria-label="Figure groups"></div>
-        <div class="figure-stage">
-          <div class="figure-main">
-            <div class="figure-viewer">
-              <img id="activeFigure" src="" alt="">
-            </div>
-            <div class="figure-meta">
-              <span class="tag" id="figureTag"></span>
-              <h3 id="figureTitle"></h3>
-              <p id="figureCaption"></p>
-              <a class="figure-link" id="figureLink" href="#" target="_blank" rel="noopener">Open image</a>
-            </div>
-          </div>
-          <div class="thumb-list" id="figureThumbs" aria-label="Figures in selected group"></div>
-        </div>
-      </div>
+  <section id="story">
+    <div class="section-inner story-layout">
+      <nav class="story-nav" id="storyNav" aria-label="Story chapters"></nav>
+      <div class="story-list" id="storyList"></div>
     </div>
   </section>
 
-  <section id="tables">
+  <section id="path">
     <div class="section-inner">
-      <div class="section-head">
-        <h2>Manuscript Tables</h2>
-        <p>The current table set reports the main quality-gradient, use-specific access, timing, composition, taxonomy, and sample-denominator results.</p>
-      </div>
-      <div class="table-tabs" id="tableTabs" role="tablist" aria-label="Manuscript tables"></div>
-      <div class="table-panel">
-        <div class="table-note">
-          <div>
-            <span class="tag" id="tableTag"></span>
-            <h3 id="tableTitle"></h3>
-          </div>
-          <p id="tableNote"></p>
-        </div>
-        <div class="table-wrap" id="tableWrap"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="map">
-    <div class="section-inner">
-      <div class="section-head">
-        <h2>Evidence Map</h2>
-        <p>The updated paper is organized around selective participation, not a single binary opt-out story. Quality, use, and timing jointly determine what remains accessible.</p>
-      </div>
-      <div class="map-grid">
-        <div class="map-item accent-blue">
-          <h3>Quality selection</h3>
-          <p>High-factual and high-credibility publishers restrict AI crawlers at much higher rates than low-factual sources. The gradient holds across MBFC ratings, content-quality indices, and domain prominence.</p>
-        </div>
-        <div class="map-item accent-teal">
-          <h3>Use-specific access</h3>
-          <p>Search-only restriction is nearly absent. The meaningful margin is training-only restriction: publishers preserve search-like access while blocking training-oriented crawlers.</p>
-        </div>
-        <div class="map-item accent-gold">
-          <h3>Composition</h3>
-          <p>When high-quality publishers restrict training, the training-accessible pool shifts toward low-factual, questionable, and political-pole outlets.</p>
-        </div>
-        <div class="map-item accent-red">
-          <h3>Timing</h3>
-          <p>The training factual-rating gap opened first after the GPTBot announcement and later narrowed as search restrictions caught up by February 2026.</p>
-        </div>
-        <div class="map-item accent-blue">
-          <h3>Bot taxonomy</h3>
-          <p>The paper separates training-oriented crawlers, search/discovery crawlers, ambiguous bots, and legacy bots, then tests both clean and broad classifications.</p>
-        </div>
-        <div class="map-item accent-teal">
-          <h3>Governance implication</h3>
-          <p>The observed behavior points toward use-specific access design and compensated-training institutions rather than treating AI web access as a binary allow-or-block decision.</p>
-        </div>
+      <div class="kicker">Evidence path</div>
+      <h2 style="margin: 8px 0 10px; color: var(--navy); font-family: Georgia, 'Times New Roman', serif; font-size: 36px; line-height: 1.14;">The argument moves from access decisions to data composition.</h2>
+      <p style="max-width: 830px; color: var(--muted);">The figures and table rows are not separate exhibits. They accumulate into one mechanism: a voluntary, crawler-specific access regime lets higher-quality publishers restrict AI training while preserving search-like access, leaving the training-accessible pool less representative.</p>
+      <div class="reading-path">
+        <div class="path-item"><strong>Access regime</strong><span>Robots directives make publisher participation observable by crawler and use.</span></div>
+        <div class="path-item"><strong>Quality selection</strong><span>Credible and prominent publishers are more likely to restrict access.</span></div>
+        <div class="path-item"><strong>Composition</strong><span>Questionable and political-pole outlets become relatively more accessible.</span></div>
+        <div class="path-item"><strong>Use distinction</strong><span>Training access is restricted more than search access within publisher.</span></div>
+        <div class="path-item"><strong>Design implication</strong><span>Binary opt-out is too coarse for AI data governance.</span></div>
       </div>
     </div>
   </section>
@@ -740,8 +719,8 @@ footer {
   <section class="final-band">
     <div class="section-inner">
       <div>
-        <h2>Selective access is the central object.</h2>
-        <p>Publisher directives reveal who participates in the AI data commons and which AI uses they are willing to support.</p>
+        <h2>The commons changes when participation is selective.</h2>
+        <p>Use-specific access design follows from observed publisher behavior.</p>
       </div>
       <div class="actions">
         <a class="action" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">Paper</a>
@@ -752,307 +731,300 @@ footer {
 </main>
 
 <footer>
-  Interactive evidence guide based on "Selective Participation in the AI Data Commons" by Kai Zhu. Figures are exported from the current manuscript PDFs; tables are transcribed from the LaTeX table sources.
+  Narrative evidence guide based on "Selective Participation in the AI Data Commons" by Kai Zhu. Figures are exported from the current manuscript PDFs; table values are transcribed from the current LaTeX table sources.
 </footer>
 
 <script>
-const figureGroups = [
-  { id: "quality", label: "Quality Gradient" },
-  { id: "use", label: "Training vs Search" },
-  { id: "timing", label: "Timing" },
-  { id: "composition", label: "Composition" }
-];
-
-const figures = [
+const stories = [
   {
-    id: "per-bot",
-    group: "quality",
-    tag: "Crawler restrictions",
-    title: "Training-oriented crawlers are the most-restricted crawlers.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_per_bot_rates.png",
-    alt: "Bar chart of AI crawler blocking rates by bot.",
-    caption: "The per-bot scrape shows GPTBot, ClaudeBot, Google-Extended, and other training-oriented crawlers among the most restricted named crawlers."
+    id: "s01",
+    number: "01",
+    label: "Access Regime",
+    nav: "Access regime",
+    title: "The AI data commons is no longer a fixed open pool.",
+    deck: "The paper starts from a practical change in web governance: publishers can now declare crawler-specific restrictions. That makes participation observable, but also selective. The empirical object is not all web content; it is the content left accessible under declared AI-crawler rules.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_per_bot_rates.png",
+    alt: "Bar chart of named AI crawler blocking rates.",
+    figureNote: "Figure: Training-oriented crawlers are among the most restricted named crawlers.",
+    claim: "The unit of access is no longer simply a website. It is a site-crawler pair, and the crawler's use matters.",
+    chips: [
+      ["9,611", "sites in the live MBFC media cross-section"],
+      ["7,256", "successful robots.txt fetches in the per-bot scrape"],
+      ["23", "named crawlers measured in February 2026"],
+      ["166,888", "site-bot observations"]
+    ],
+    tableTitle: "Samples that anchor the access regime",
+    columns: ["Sample", "Sites", "Observations", "Used for"],
+    numeric: [1, 2],
+    rows: [
+      ["Full MBFC media cross-section", "9,611", "9,611", "Primary quality gradient"],
+      ["Training/search cross-section", "7,002", "--", "Access states and composition"],
+      ["Per-bot live scrape", "7,256", "166,888", "Site-bot and paired-bot gaps"]
+    ],
+    source: "From Table: Samples and denominators used in the paper.",
+    takeaway: "The story begins with measurement: declared restrictions reveal which publishers participate and which AI uses they permit."
   },
   {
-    id: "factual-gradient",
-    group: "quality",
-    tag: "MBFC factual reporting",
-    title: "Higher-factual outlets restrict AI crawlers more often.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png",
-    alt: "Bar chart of restriction rates by MBFC factual tier.",
-    caption: "Restriction rates rise from 8% for low-factual outlets to 47% for high-factual outlets in the February 2026 live cross-section."
+    id: "s02",
+    number: "02",
+    label: "Quality Selection",
+    nav: "Quality selection",
+    title: "The first pattern is stark: higher-factual outlets restrict more.",
+    deck: "If access were random, the factual quality of a publisher would not predict declared restriction. Instead, the gradient is large and monotone: high-factual publishers are far more likely to block AI crawlers than low-factual publishers.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png",
+    alt: "Bar chart of AI crawler restriction rates by MBFC factual-reporting tier.",
+    figureNote: "Figure: Restriction rates rise from low-factual to high-factual outlets.",
+    claim: "The accessible corpus is selected on factual quality. Higher-quality producers are more likely to withdraw from at least one AI crawler.",
+    chips: [
+      ["8%", "low-factual outlets restrict AI crawlers"],
+      ["47%", "high-factual outlets restrict AI crawlers"],
+      ["0.134***", "MBFC factual gradient estimate"],
+      ["9,611", "sites in the live cross-section"]
+    ],
+    tableTitle: "Quality gradient estimates",
+    columns: ["Quality measure", "Estimate", "SE", "N"],
+    numeric: [1, 2, 3],
+    rows: [
+      ["MBFC factual reporting", "0.134***", "(0.003)", "9,611"],
+      ["Content-quality index", "0.176***", "(0.004)", "9,611"],
+      ["Domain-prominence index", "0.078***", "(0.006)", "5,782"]
+    ],
+    source: "From Table: The restriction gradient holds across four publisher measures.",
+    takeaway: "The paper's selection claim is not rhetorical. It is visible in raw rates and regression gradients."
   },
   {
-    id: "credibility-gradient",
-    group: "quality",
-    tag: "MBFC credibility",
-    title: "The gradient also appears in credibility ratings.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_gradient_credibility.png",
-    alt: "Bar chart of restriction rates by MBFC credibility tier.",
-    caption: "Credibility and factual-reporting measures tell the same story: more reliable publishers are more likely to declare AI-crawler restrictions."
+    id: "s03",
+    number: "03",
+    label: "Credibility",
+    nav: "Credibility repeats",
+    title: "The same selection appears when quality is measured as credibility.",
+    deck: "The concern is not tied to one quality scale. Factual reporting, credibility, a content-quality index, and domain prominence all point in the same direction. More reliable and established publishers restrict more.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_gradient_credibility.png",
+    alt: "Bar chart of AI crawler restriction rates by MBFC credibility tier.",
+    figureNote: "Figure: The credibility gradient mirrors the factual-reporting gradient.",
+    claim: "The result is robust across publisher measures that capture different dimensions of quality.",
+    chips: [
+      ["0.197***", "MBFC credibility gradient estimate"],
+      ["9,602", "sites with credibility measure"],
+      ["0.151", "R2 for credibility model"],
+      ["4", "publisher measures in the main table"]
+    ],
+    tableTitle: "Cross-measure consistency",
+    columns: ["Quality measure", "Estimate", "R2"],
+    numeric: [1, 2],
+    rows: [
+      ["MBFC factual reporting", "0.134***", "0.136"],
+      ["MBFC credibility", "0.197***", "0.151"],
+      ["Content-quality index", "0.176***", "0.151"],
+      ["Domain-prominence index", "0.078***", "0.025"]
+    ],
+    source: "From Table: The restriction gradient holds across four publisher measures.",
+    takeaway: "Selection is a property of the access regime, not an artifact of one rating variable."
   },
   {
-    id: "misinfo-gap",
-    group: "composition",
-    tag: "Misinformation",
-    title: "Questionable sources declare fewer AI-crawler restrictions.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_gap.png",
-    alt: "Chart comparing restriction rates for questionable and non-questionable sources.",
-    caption: "MBFC-flagged questionable sources remain more accessible than non-questionable sources, shifting the accessible pool toward lower-reliability content."
+    id: "s04",
+    number: "04",
+    label: "Misinformation",
+    nav: "Misinformation",
+    title: "When credible outlets restrict, questionable sources become relatively more accessible.",
+    deck: "The paper then asks what is left behind. The answer matters for AI training and retrieval because the accessible pool tilts toward lower-reliability sources when higher-quality publishers restrict.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_gap.png",
+    alt: "Chart comparing AI crawler restriction rates for questionable and non-questionable sources.",
+    figureNote: "Figure: Questionable sources declare fewer AI-crawler restrictions.",
+    claim: "The mechanism is compositional: selective exit by reliable publishers raises the relative presence of questionable content in the accessible pool.",
+    chips: [
+      ["15.1%", "questionable share among all training/search sites"],
+      ["20.1%", "questionable share among search-accessible sites"],
+      ["22.0%", "questionable share among training-accessible sites"],
+      ["5.7%", "questionable share on the licensing margin"]
+    ],
+    tableTitle: "Questionable-source composition",
+    columns: ["Accessible pool", "Sites", "Questionable"],
+    numeric: [1, 2],
+    rows: [
+      ["All sites", "7,002", "15.1%"],
+      ["Search-accessible", "5,134", "20.1%"],
+      ["Training-accessible", "4,528", "22.0%"],
+      ["Licensing margin", "614", "5.7%"]
+    ],
+    source: "From Table: Observed content composition differs across declared-access margins.",
+    takeaway: "The issue is not just fewer sites. It is a changed mix of sites."
   },
   {
-    id: "misinfo-flags",
-    group: "composition",
-    tag: "Misinformation flags",
-    title: "Restriction patterns differ by misinformation flag.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_flags.png",
-    alt: "Bar chart of restriction rates by misinformation flag category.",
-    caption: "The detailed flag breakdown shows the same composition concern across misinformation classifications."
-  },
-  {
-    id: "political",
-    group: "composition",
-    tag: "Political orientation",
-    title: "Declared restrictions peak among centrist outlets.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_political.png",
+    id: "s05",
+    number: "05",
+    label: "Political Mix",
+    nav: "Political mix",
+    title: "The same composition concern appears across political orientation.",
+    deck: "Restriction rates peak among centrist outlets. That leaves outlets at the political poles more represented among declared-accessible sources, especially for training access.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_political.png",
     alt: "Chart of AI crawler restriction rates by political orientation.",
-    caption: "Center outlets restrict most, while outlets at the political poles remain more accessible."
+    figureNote: "Figure: Declared AI-crawler restrictions peak among centrist outlets.",
+    claim: "Access composition shifts not only by factual quality, but also by political orientation.",
+    chips: [
+      ["19.1%", "left/right-pole share among all sites"],
+      ["25.2%", "left/right-pole share among search-accessible sites"],
+      ["27.5%", "left/right-pole share among training-accessible sites"],
+      ["13.3%", "left/right-pole share on the licensing margin"]
+    ],
+    tableTitle: "Political-pole composition",
+    columns: ["Accessible pool", "High-factual", "Left/right pole"],
+    numeric: [1, 2],
+    rows: [
+      ["All sites", "56.3%", "19.1%"],
+      ["Search-accessible", "45.0%", "25.2%"],
+      ["Training-accessible", "41.3%", "27.5%"],
+      ["Licensing margin", "72.0%", "13.3%"]
+    ],
+    source: "From Table: Observed content composition differs across declared-access margins.",
+    takeaway: "Selective participation changes the civic-information mix of the accessible corpus."
   },
   {
-    id: "access-states",
-    group: "use",
-    tag: "Access states",
-    title: "Search-only restrictions barely exist at any quality level.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_access_states.png",
-    alt: "Stacked access-state chart by quality tier.",
-    caption: "The relevant use-specific margin is training-only restriction, not search-only restriction."
-  },
-  {
-    id: "gap-coefficients",
-    group: "use",
-    tag: "Direct gap models",
-    title: "Higher quality predicts restricting training over search.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_gap_coefficients.png",
-    alt: "Coefficient plot for training-minus-search gap models.",
-    caption: "Across quality measures, the direct gap outcome D = training restriction minus search restriction is positive."
-  },
-  {
-    id: "pair-openai",
-    group: "use",
-    tag: "Within vendor",
-    title: "OpenAI pair: GPTBot versus OAI-SearchBot.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_pair_openai.png",
-    alt: "Within-publisher OpenAI training-search gap by quality.",
-    caption: "Within the same publisher and vendor family, higher-quality publishers are more likely to restrict GPTBot than OAI-SearchBot."
-  },
-  {
-    id: "pair-clean",
-    group: "use",
-    tag: "Clean taxonomy",
-    title: "Clean training/search baskets reproduce the gap.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_pair_clean.png",
-    alt: "Within-publisher clean-taxonomy training-search gap by quality.",
-    caption: "The training-over-search pattern is not unique to one vendor pair; it also appears in the clean taxonomy baskets."
-  },
-  {
-    id: "differential-event",
-    group: "timing",
-    tag: "Event-time differential",
-    title: "The training-search factual-rating differential rose and later narrowed.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_differential_event.png",
-    alt: "Event-time chart of training-search factual-rating differential.",
-    caption: "The training differential rose around the GPTBot announcement period, then narrowed as search restrictions caught up."
-  },
-  {
-    id: "event-gaps",
-    group: "timing",
-    tag: "High-minus-low gaps",
-    title: "Training and search gaps evolve separately over event time.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_event_gaps.png",
-    alt: "Event-time high-minus-low factual rating gaps for training and search restrictions.",
-    caption: "The high-minus-low factual-rating gap opened earlier for training restrictions than for search restrictions."
-  },
-  {
-    id: "timing-train",
-    group: "timing",
-    tag: "Training levels",
-    title: "Training restriction levels by factual tier.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_timing_train.png",
-    alt: "Line chart of training restrictions over time by factual tier.",
-    caption: "Training restrictions rose sharply among high-factual outlets after AI-specific crawler controls became salient."
-  },
-  {
-    id: "timing-search",
-    group: "timing",
-    tag: "Search levels",
-    title: "Search restriction levels by factual tier.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_timing_search.png",
-    alt: "Line chart of search restrictions over time by factual tier.",
-    caption: "Search restrictions rose later and narrowed the training-search differential by February 2026."
-  },
-  {
-    id: "differential-gradients",
-    group: "timing",
-    tag: "Monthly gradients",
-    title: "Monthly gradients of the direct gap on quality.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_differential_gradients.png",
-    alt: "Monthly gradients of the training-minus-search direct gap on quality.",
-    caption: "The direct training-minus-search quality gradient varies over time as use-specific restrictions diffuse."
-  },
-  {
-    id: "decomp-factual",
-    group: "composition",
-    tag: "Decomposition",
-    title: "Decomposition of the any-restriction gradient by factual tier.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_decomp_factual.png",
-    alt: "Decomposition chart by MBFC factual tier.",
-    caption: "The any-restriction gradient is decomposed into use-specific access states across factual-reporting tiers."
-  },
-  {
-    id: "decomp-quartile",
-    group: "composition",
-    tag: "Decomposition",
-    title: "Decomposition by content-quality quartile.",
-    src: "../files/paper/ai-data-commons/figures/r1_fig_decomp_quartile.png",
-    alt: "Decomposition chart by content-quality quartile.",
-    caption: "The same access-state decomposition appears when quality is measured with the composite content-quality index."
-  }
-];
-
-const tables = [
-  {
-    id: "quality",
-    tag: "Table: quality gradient",
-    title: "The restriction gradient holds across four publisher measures",
-    note: "Linear probability models. Outcome is an indicator for restricting at least one of the 131 tracked AI-related crawler tokens in the February 2026 live cross-section. All models include category fixed effects with HC1 robust standard errors.",
-    columns: ["Quality measure", "Estimate", "SE", "N", "R2"],
+    id: "s06",
+    number: "06",
+    label: "Use-Specific Access",
+    nav: "Use distinction",
+    title: "Publishers are not simply rejecting AI access; they distinguish uses.",
+    deck: "The central update in the paper is use-specific selectivity. Search-only restriction is almost absent, while training-only restriction is meaningful and grows with factual quality.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_access_states.png",
+    alt: "Stacked access-state chart by factual-reporting tier.",
+    figureNote: "Figure: Search-only restrictions barely exist at any quality level.",
+    claim: "The economically relevant margin is training-only restriction: publishers block training while preserving search-like access.",
+    chips: [
+      ["11.2%", "high-factual sites restrict training only"],
+      ["0.1%", "high-factual sites restrict search only"],
+      ["41.4%", "high-factual sites restrict both"],
+      ["47.3%", "high-factual sites allow both"]
+    ],
+    tableTitle: "Access states by factual tier",
+    columns: ["Factual tier", "Allows both", "Training only", "Search only", "Both"],
     numeric: [1, 2, 3, 4],
     rows: [
-      ["MBFC factual reporting", "0.134***", "(0.003)", "9,611", "0.136"],
-      ["MBFC credibility", "0.197***", "(0.004)", "9,602", "0.151"],
-      ["Content-quality index", "0.176***", "(0.004)", "9,611", "0.151"],
-      ["Domain-prominence index", "0.078***", "(0.006)", "5,782", "0.025"]
-    ]
+      ["Low", "93.9% (795)", "3.8% (32)", "0.0% (0)", "2.4% (20)"],
+      ["Mixed", "89.3% (1,330)", "4.8% (71)", "0.3% (4)", "5.7% (85)"],
+      ["Mostly Factual", "73.1% (528)", "9.6% (69)", "0.1% (1)", "17.2% (124)"],
+      ["High", "47.3% (1,867)", "11.2% (442)", "0.1% (3)", "41.4% (1,631)"]
+    ],
+    source: "From Table: Use-specific access states by factual-reporting tier.",
+    takeaway: "The paper moves beyond binary opt-out: the same publisher can treat training and search differently."
   },
   {
-    id: "states",
-    tag: "Table: access states",
-    title: "Use-specific access states by factual-reporting tier",
-    note: "Cross-section of 7,002 MBFC-rated media sites with nonmissing training/search outcomes in February 2026. Cells report row percentages with counts in parentheses.",
-    columns: ["Factual tier", "Sites", "Allows both", "Training only", "Search only", "Both"],
-    numeric: [1, 2, 3, 4, 5],
+    id: "s07",
+    number: "07",
+    label: "Within Publisher",
+    nav: "Within publisher",
+    title: "The training-search gap appears within the same publisher.",
+    deck: "A clean test compares crawlers from the same vendor or a narrow crawler taxonomy. Higher-quality publishers are more likely to restrict training-oriented crawlers than search-oriented crawlers, even within publisher.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_pair_openai.png",
+    alt: "Within-publisher comparison of GPTBot and OAI-SearchBot restrictions by quality.",
+    figureNote: "Figure: OpenAI pair, GPTBot versus OAI-SearchBot.",
+    claim: "The use-specific pattern is not merely about some sites blocking more everything. It survives within-vendor comparisons.",
+    chips: [
+      ["0.053***", "OpenAI pair estimate for MBFC factual"],
+      ["0.071***", "OpenAI pair estimate for content quality"],
+      ["14,512", "site-bot observations per OpenAI row"],
+      ["7,256", "sites in each paired comparison"]
+    ],
+    tableTitle: "Within-vendor training versus search",
+    columns: ["Comparison", "Quality measure", "Estimate", "SE", "Sites"],
+    numeric: [2, 3, 4],
     rows: [
-      ["Low", "847", "93.9% (795)", "3.8% (32)", "0.0% (0)", "2.4% (20)"],
-      ["Mixed", "1,490", "89.3% (1,330)", "4.8% (71)", "0.3% (4)", "5.7% (85)"],
-      ["Mostly Factual", "722", "73.1% (528)", "9.6% (69)", "0.1% (1)", "17.2% (124)"],
-      ["High", "3,943", "47.3% (1,867)", "11.2% (442)", "0.1% (3)", "41.4% (1,631)"]
-    ]
+      ["OpenAI: GPTBot vs OAI-SearchBot", "MBFC factual", "0.053***", "(0.003)", "7,256"],
+      ["OpenAI: GPTBot vs OAI-SearchBot", "Content quality", "0.071***", "(0.003)", "7,256"],
+      ["Anthropic: ClaudeBot vs Claude-Web", "MBFC factual", "0.005**", "(0.002)", "7,256"],
+      ["Anthropic: ClaudeBot vs Claude-Web", "Content quality", "0.008***", "(0.002)", "7,256"]
+    ],
+    source: "From Table: Within-vendor training versus search comparisons.",
+    takeaway: "Publishers appear to value the distinction between model training and search-like discovery."
   },
   {
-    id: "gap",
-    tag: "Table: direct gap",
-    title: "Direct training-minus-search gap models",
-    note: "Outcome D equals the training-restriction indicator minus the search-restriction indicator, so positive coefficients mean higher quality predicts restricting training over search within the same site-month or site.",
-    columns: ["Sample", "Quality measure", "Training", "Search", "Gap D", "SE(D)", "N", "Clusters"],
-    numeric: [2, 3, 4, 5, 6, 7],
-    rows: [
-      ["Monthly panel", "MBFC factual", "0.093***", "0.068***", "0.025***", "(0.001)", "272,458", "7,002"],
-      ["Monthly panel", "MBFC credibility", "0.141***", "0.102***", "0.039***", "(0.002)", "272,331", "6,999"],
-      ["Monthly panel", "Content quality", "0.112***", "0.081***", "0.030***", "(0.002)", "272,458", "7,002"],
-      ["Monthly panel", "Domain prominence", "0.038***", "0.015***", "0.022***", "(0.002)", "239,534", "5,690"],
-      ["Feb. 2026 cross-section", "MBFC factual", "0.155***", "0.130***", "0.024***", "(0.002)", "7,002", ""],
-      ["Feb. 2026 cross-section", "MBFC credibility", "0.237***", "0.195***", "0.042***", "(0.003)", "6,999", ""],
-      ["Feb. 2026 cross-section", "Content quality", "0.207***", "0.172***", "0.034***", "(0.003)", "7,002", ""],
-      ["Feb. 2026 cross-section", "Domain prominence", "0.086***", "0.058***", "0.028***", "(0.004)", "5,690", ""]
-    ]
-  },
-  {
-    id: "timing",
-    tag: "Table: timing gaps",
-    title: "The training factual-rating gap rose earlier than the search factual-rating gap",
-    note: "Monthly panel of 7,002 sites. Entries are percentage-point differences between high- and low-MBFC-factual-rating site shares in the stated month. The table is descriptive and does not identify any event's causal effect.",
+    id: "s08",
+    number: "08",
+    label: "Timing",
+    nav: "Timing",
+    title: "Training restrictions moved first; search restrictions caught up later.",
+    deck: "Timing matters because the access regime changed as named AI crawler controls became salient. The training high-minus-low factual gap opened earlier, then narrowed as search restrictions spread.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_differential_event.png",
+    alt: "Event-time chart showing the training-search factual-rating differential rising and later narrowing.",
+    figureNote: "Figure: The training-search factual-rating differential rose and later narrowed.",
+    claim: "The observed sequence is use-specific: training restriction gaps rose before search gaps largely caught up.",
+    chips: [
+      ["17.0", "train-search gap in December 2023"],
+      ["18.0", "train-search gap in July 2024"],
+      ["5.0", "train-search gap in February 2026"],
+      ["272,458", "site-month observations in the panel"]
+    ],
+    tableTitle: "Selected high-minus-low factual-rating gaps",
     columns: ["Month", "Training gap", "Search gap", "Train - search"],
     numeric: [1, 2, 3],
     rows: [
       ["2022-06", "2.6", "0.0", "2.6"],
-      ["2023-07", "2.3", "0.7", "1.5"],
-      ["2023-08", "1.9", "0.8", "1.2"],
       ["2023-12", "36.4", "19.4", "17.0"],
       ["2024-07", "42.3", "24.3", "18.0"],
       ["2026-02", "45.3", "40.4", "5.0"]
-    ]
+    ],
+    source: "From Table: The training factual-rating gap rose earlier than the search factual-rating gap.",
+    takeaway: "Use-specific access did not emerge as a static snapshot. It diffused over time."
   },
   {
-    id: "composition",
-    tag: "Table: composition",
-    title: "Observed content composition differs across declared-access margins",
-    note: "Descriptive recalculation of observed February 2026 access states among the 7,002 sites with training/search outcomes.",
-    columns: ["Accessible pool", "Sites", "High-factual", "Low-factual", "Questionable", "Left/right pole"],
-    numeric: [1, 2, 3, 4, 5],
+    id: "s09",
+    number: "09",
+    label: "Composition",
+    nav: "What remains",
+    title: "The accessible training pool is materially different from the full pool.",
+    deck: "After use-specific restriction, training-accessible sites have lower high-factual representation and higher low-factual, questionable, and political-pole representation than the full site pool.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_decomp_factual.png",
+    alt: "Decomposition of the any-restriction gradient into access states by MBFC factual tier.",
+    figureNote: "Figure: Decomposition of the any-restriction gradient into access states.",
+    claim: "The consequences show up directly in the composition of declared-access pools.",
+    chips: [
+      ["56.3%", "high-factual share among all sites"],
+      ["41.3%", "high-factual share among training-accessible sites"],
+      ["12.1%", "low-factual share among all sites"],
+      ["17.6%", "low-factual share among training-accessible sites"]
+    ],
+    tableTitle: "Composition across access pools",
+    columns: ["Accessible pool", "Sites", "High-factual", "Low-factual", "Questionable"],
+    numeric: [1, 2, 3, 4],
     rows: [
-      ["All sites", "7,002", "56.3%", "12.1%", "15.1%", "19.1%"],
-      ["Search-accessible", "5,134", "45.0%", "16.1%", "20.1%", "25.2%"],
-      ["Training-accessible", "4,528", "41.3%", "17.6%", "22.0%", "27.5%"],
-      ["Licensing margin", "614", "72.0%", "5.2%", "5.7%", "13.3%"]
-    ]
+      ["All sites", "7,002", "56.3%", "12.1%", "15.1%"],
+      ["Search-accessible", "5,134", "45.0%", "16.1%", "20.1%"],
+      ["Training-accessible", "4,528", "41.3%", "17.6%", "22.0%"],
+      ["Licensing margin", "614", "72.0%", "5.2%", "5.7%"]
+    ],
+    source: "From Table: Observed content composition differs across declared-access margins.",
+    takeaway: "The accessible AI data commons is not a neutral remainder. It is shaped by who has incentives to restrict."
   },
   {
-    id: "bots",
-    tag: "Table: crawler taxonomy",
-    title: "Crawler taxonomy used in the bot-level analyses",
-    note: "The 23 named crawlers in the February 2026 per-bot scrape. Blocking rates are shares of sites disallowing the crawler.",
-    columns: ["Bot", "Scraper label", "Clean taxonomy", "Panel role", "Blocking rate"],
-    numeric: [4],
+    id: "s10",
+    number: "10",
+    label: "Design",
+    nav: "Design implication",
+    title: "The policy target is not generic access. It is use-specific participation.",
+    deck: "The final implication follows from the observed margin. High-quality publishers often preserve search while restricting training, so binary opt-out misses the actual institutional design problem.",
+    figure: "../files/paper/ai-data-commons/figures/r1_fig_gap_coefficients.png",
+    alt: "Coefficient plot for direct training-minus-search gap models.",
+    figureNote: "Figure: Higher quality predicts restricting training over search.",
+    claim: "Use-specific design is not an abstract recommendation. It is aligned with the behavior publishers already reveal.",
+    chips: [
+      ["0.025***", "monthly-panel D coefficient for MBFC factual"],
+      ["0.039***", "monthly-panel D coefficient for MBFC credibility"],
+      ["0.030***", "monthly-panel D coefficient for content quality"],
+      ["614", "training-only sites on the licensing margin"]
+    ],
+    tableTitle: "Direct training-minus-search gap models",
+    columns: ["Sample", "Quality measure", "Training", "Search", "Gap D"],
+    numeric: [2, 3, 4],
     rows: [
-      ["GPTBot", "training", "Training", "Training", "32.3%"],
-      ["CCBot", "legacy", "Excluded (legacy)", "--", "30.7%"],
-      ["ClaudeBot", "training", "Training", "Training", "30.0%"],
-      ["Google-Extended", "training", "Training", "Training", "28.1%"],
-      ["Bytespider", "training", "Ambiguous (excluded)", "--", "28.1%"],
-      ["anthropic-ai", "training", "Training", "--", "27.5%"],
-      ["Claude-Web", "search", "Search/discovery", "--", "26.4%"],
-      ["Applebot-Extended", "training", "Ambiguous (excluded)", "--", "26.1%"],
-      ["PerplexityBot", "search", "Search/discovery", "Search", "25.8%"],
-      ["ChatGPT-User", "search", "Ambiguous (excluded)", "--", "25.5%"],
-      ["Omgilibot", "other", "Ambiguous (excluded)", "--", "24.3%"],
-      ["Meta-ExternalAgent", "training", "Ambiguous (excluded)", "--", "22.6%"],
-      ["Cohere-ai", "training", "Ambiguous (excluded)", "--", "22.3%"],
-      ["PetalBot", "search", "Search/discovery", "--", "20.7%"],
-      ["FacebookBot", "training", "Ambiguous (excluded)", "--", "20.6%"],
-      ["OAI-SearchBot", "search", "Search/discovery", "Search", "20.2%"],
-      ["Diffbot", "training", "Ambiguous (excluded)", "--", "19.4%"],
-      ["Amazonbot", "search", "Ambiguous (excluded)", "--", "17.8%"],
-      ["YouBot", "search", "Search/discovery", "--", "17.7%"],
-      ["Ai2Bot-Dolma", "training", "Ambiguous (excluded)", "--", "16.3%"],
-      ["Timpibot", "training", "Ambiguous (excluded)", "--", "16.3%"],
-      ["Ai2Bot", "training", "Ambiguous (excluded)", "--", "16.0%"],
-      ["PanguBot", "training", "Ambiguous (excluded)", "--", "8.8%"]
-    ]
-  },
-  {
-    id: "sample",
-    tag: "Table: samples",
-    title: "Samples and denominators used in the paper",
-    note: "Every table and figure reports one of these denominators. The cross-section outcome and per-bot file are separate February 2026 scrape runs with different fetch stacks and retry behavior.",
-    columns: ["Sample", "Sites", "Observations", "Used for"],
-    numeric: [1, 2],
-    rows: [
-      ["Full MBFC media cross-section", "9,611", "9,611", "Primary quality gradient; secondary implications"],
-      ["Domain-prominence estimation sample", "5,782", "--", "Domain-prominence regressions; conditional models"],
-      ["Questionable-flagged subset", "1,984", "--", "Misinformation implication"],
-      ["Political-orientation subsample", "5,995", "--", "Political-orientation implication"],
-      ["Political + both quality indices", "4,650", "--", "Quality-controlled political regressions"],
-      ["Monthly HTTP Archive panel", "7,002", "272,458", "Timing; training/search outcomes; panel gap models"],
-      ["Training/search cross-section", "7,002", "--", "Access states; conditionals; composition; cross-sectional gap models"],
-      ["Balanced panel subset", "4,778", "215,010", "Quality-gradient and use-specific timing robustness"],
-      ["Per-bot live scrape", "7,256", "166,888", "Site-bot fixed effects; paired bot gaps; taxonomy robustness"]
-    ]
+      ["Monthly panel", "MBFC factual", "0.093***", "0.068***", "0.025***"],
+      ["Monthly panel", "MBFC credibility", "0.141***", "0.102***", "0.039***"],
+      ["Monthly panel", "Content quality", "0.112***", "0.081***", "0.030***"],
+      ["Feb. 2026 cross-section", "Content quality", "0.207***", "0.172***", "0.034***"]
+    ],
+    source: "From Table: Direct training-minus-search gap models.",
+    takeaway: "AI data governance should distinguish uses and evaluate compensation for high-quality participation rather than rely on binary allow-or-block access."
   }
 ];
-
-let activeGroup = "quality";
-let activeFigureId = figures.find(f => f.group === activeGroup).id;
-let activeTableId = tables[0].id;
 
 function escapeHtml(value) {
   return String(value)
@@ -1063,96 +1035,91 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function renderFigureGroups() {
-  const container = document.getElementById("figureGroups");
-  container.innerHTML = figureGroups.map(group => `
-    <button type="button" role="tab" class="${group.id === activeGroup ? "active" : ""}" aria-selected="${group.id === activeGroup}" data-group="${group.id}">
-      ${escapeHtml(group.label)}
-    </button>
-  `).join("");
-  container.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      activeGroup = button.dataset.group;
-      activeFigureId = figures.find(figure => figure.group === activeGroup).id;
-      renderFigures();
-    });
-  });
-}
-
-function renderFigures() {
-  renderFigureGroups();
-  const groupFigures = figures.filter(figure => figure.group === activeGroup);
-  const active = groupFigures.find(figure => figure.id === activeFigureId) || groupFigures[0];
-  const image = document.getElementById("activeFigure");
-  image.src = active.src;
-  image.alt = active.alt;
-  document.getElementById("figureTag").textContent = active.tag;
-  document.getElementById("figureTitle").textContent = active.title;
-  document.getElementById("figureCaption").textContent = active.caption;
-  document.getElementById("figureLink").href = active.src;
-
-  const thumbs = document.getElementById("figureThumbs");
-  thumbs.innerHTML = groupFigures.map(figure => `
-    <button type="button" class="${figure.id === active.id ? "active" : ""}" data-figure="${figure.id}">
-      ${escapeHtml(figure.title)}
-    </button>
-  `).join("");
-  thumbs.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      activeFigureId = button.dataset.figure;
-      renderFigures();
-    });
-  });
-}
-
-function renderTableTabs() {
-  const container = document.getElementById("tableTabs");
-  container.innerHTML = tables.map(table => `
-    <button type="button" role="tab" class="${table.id === activeTableId ? "active" : ""}" aria-selected="${table.id === activeTableId}" data-table="${table.id}">
-      ${escapeHtml(table.title.split(":")[0].replace("The ", ""))}
-    </button>
-  `).join("");
-  container.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      activeTableId = button.dataset.table;
-      renderTables();
-    });
-  });
-}
-
-function renderTables() {
-  renderTableTabs();
-  const table = tables.find(item => item.id === activeTableId) || tables[0];
-  document.getElementById("tableTag").textContent = table.tag;
-  document.getElementById("tableTitle").textContent = table.title;
-  document.getElementById("tableNote").textContent = table.note;
-
-  const head = table.columns.map((column, index) => `<th class="${table.numeric.includes(index) ? "num" : ""}">${escapeHtml(column)}</th>`).join("");
-  const body = table.rows.map(row => `
+function renderTable(story) {
+  const head = story.columns.map((column, index) => `<th class="${story.numeric.includes(index) ? "num" : ""}">${escapeHtml(column)}</th>`).join("");
+  const body = story.rows.map(row => `
     <tr>
-      ${row.map((cell, index) => `<td class="${table.numeric.includes(index) ? "num" : ""}">${escapeHtml(cell)}</td>`).join("")}
+      ${row.map((cell, index) => `<td class="${story.numeric.includes(index) ? "num" : ""}">${escapeHtml(cell)}</td>`).join("")}
     </tr>
   `).join("");
-  document.getElementById("tableWrap").innerHTML = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+  return `
+    <div>
+      <strong style="display:block; margin-bottom:8px; color:var(--navy);">${escapeHtml(story.tableTitle)}</strong>
+      <div class="mini-table">
+        <table>
+          <thead><tr>${head}</tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>
+      <div class="source">${escapeHtml(story.source)}</div>
+    </div>
+  `;
 }
 
-const sections = [...document.querySelectorAll("main section[id]")];
-const navLinks = [...document.querySelectorAll(".navlinks a[href^='#']")];
+function renderStories() {
+  const nav = document.getElementById("storyNav");
+  const list = document.getElementById("storyList");
+
+  nav.innerHTML = stories.map(story => `
+    <a href="#${story.id}" data-story="${story.id}">
+      <span class="num">${story.number}</span>
+      <span>${escapeHtml(story.nav)}</span>
+    </a>
+  `).join("");
+
+  list.innerHTML = stories.map(story => `
+    <article class="story" id="${story.id}">
+      <header class="story-head">
+        <div class="story-number">${story.number}</div>
+        <div>
+          <div class="story-label">${escapeHtml(story.label)}</div>
+          <h2>${escapeHtml(story.title)}</h2>
+          <p class="story-deck">${escapeHtml(story.deck)}</p>
+        </div>
+      </header>
+      <div class="story-body">
+        <figure class="visual">
+          <img src="${story.figure}" alt="${escapeHtml(story.alt)}">
+          <figcaption class="caption">${escapeHtml(story.figureNote)}</figcaption>
+        </figure>
+        <aside class="evidence" aria-label="Evidence for ${escapeHtml(story.title)}">
+          <div class="claim">
+            <strong>Claim</strong>
+            <p>${escapeHtml(story.claim)}</p>
+          </div>
+          <div class="chips">
+            ${story.chips.map(chip => `
+              <div class="chip">
+                <strong>${escapeHtml(chip[0])}</strong>
+                <span>${escapeHtml(chip[1])}</span>
+              </div>
+            `).join("")}
+          </div>
+          ${renderTable(story)}
+          <div class="takeaway">${escapeHtml(story.takeaway)}</div>
+        </aside>
+      </div>
+    </article>
+  `).join("");
+}
 
 function updateNav() {
   const offset = window.scrollY + 120;
-  let active = sections[0].id;
-  sections.forEach(section => {
-    if (section.offsetTop <= offset) active = section.id;
+  let activeId = stories[0].id;
+  stories.forEach(story => {
+    const el = document.getElementById(story.id);
+    if (el && el.offsetTop <= offset) activeId = story.id;
   });
-  navLinks.forEach(link => {
-    const id = link.getAttribute("href").slice(1);
-    link.classList.toggle("active", id === active);
+  document.querySelectorAll(".story-nav a").forEach(link => {
+    link.classList.toggle("active", link.dataset.story === activeId);
+  });
+  document.querySelectorAll(".navlinks a[href^='#']").forEach(link => {
+    const target = link.getAttribute("href").slice(1);
+    link.classList.toggle("active", target === "story" && activeId);
   });
 }
 
-renderFigures();
-renderTables();
+renderStories();
 updateNav();
 window.addEventListener("scroll", updateNav, { passive: true });
 </script>
