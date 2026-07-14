@@ -348,26 +348,18 @@ section:nth-of-type(even) { background: #f8fbfd; }
 }
 
 .story-head {
-  padding: 24px 26px 20px;
-  display: grid;
-  grid-template-columns: 88px minmax(0, 1fr);
-  gap: 22px;
-  align-items: start;
+  padding: 26px 28px 22px;
   background: linear-gradient(180deg, #ffffff 0%, #fbfdfe 100%);
   border-bottom: 1px solid var(--line);
 }
 
 .story-number {
-  width: 64px;
-  height: 64px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  background: var(--navy);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 25px;
-  line-height: 1;
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .story-label {
@@ -421,19 +413,19 @@ section:nth-of-type(even) { background: #f8fbfd; }
   background: #fbfdfe;
 }
 
-.claim {
+.reading {
   padding-left: 14px;
   border-left: 4px solid var(--blue);
 }
 
-.claim strong {
+.reading strong {
   display: block;
   margin-bottom: 6px;
   color: var(--navy);
   font-size: 16px;
 }
 
-.claim p {
+.reading p {
   margin-bottom: 0;
   color: var(--muted);
   font-size: 14px;
@@ -508,13 +500,19 @@ tbody tr:last-child td { border-bottom: 0; }
   font-size: 12px;
 }
 
-.takeaway {
+.meaning {
   padding: 14px;
   border-radius: 8px;
   color: #24404e;
   background: #eef6f9;
   font-size: 14px;
   font-weight: 700;
+}
+
+.meaning strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--navy);
 }
 
 .reading-path {
@@ -547,6 +545,64 @@ tbody tr:last-child td { border-bottom: 0; }
   color: var(--muted);
   font-size: 12px;
   font-weight: 750;
+}
+
+.economics {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.economics-prose {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.economics-prose h2 {
+  margin-bottom: 12px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  line-height: 1.14;
+}
+
+.economics-prose p {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.economics-prose p:last-child { margin-bottom: 0; }
+
+.economics-cards {
+  display: grid;
+  gap: 12px;
+}
+
+.econ-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--blue);
+  border-radius: 8px;
+  background: white;
+}
+
+.econ-card:nth-child(2) { border-left-color: var(--teal); }
+.econ-card:nth-child(3) { border-left-color: var(--gold); }
+.econ-card:nth-child(4) { border-left-color: var(--red); }
+
+.econ-card h3 {
+  margin-bottom: 7px;
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.econ-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .final-band {
@@ -592,7 +648,8 @@ footer {
 @media (max-width: 1040px) {
   .hero-inner,
   .story-layout,
-  .story-body {
+  .story-body,
+  .economics {
     grid-template-columns: 1fr;
   }
 
@@ -650,7 +707,8 @@ footer {
     </a>
     <nav class="navlinks" aria-label="Page sections">
       <a href="#story">Story</a>
-      <a href="#path">Evidence Path</a>
+      <a href="#path">Thread</a>
+      <a href="#economics">Economics</a>
       <a href="../index.html#research">Research</a>
     </nav>
   </div>
@@ -660,9 +718,9 @@ footer {
   <section class="hero" id="overview">
     <div class="hero-inner">
       <div>
-        <div class="kicker">A ten-part evidence story</div>
+        <div class="kicker">Follow the evidence</div>
         <h1>Selective Participation in the AI Data Commons</h1>
-        <p class="hero-lede">The updated paper is not just about whether publishers block AI crawlers. It is about who remains in the accessible web corpus, which AI uses publishers distinguish, and how those choices change the quality composition of the AI data commons.</p>
+        <p class="hero-lede">Start with a simple question: when publishers can decide whether AI crawlers may use their content, who stays in the shared pool? The answer is not random. The most reliable publishers are more likely to pull back, especially from training, and that changes what the AI data commons contains.</p>
         <div class="actions">
           <a class="action primary" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
@@ -674,11 +732,11 @@ footer {
           </a>
         </div>
         <div class="arc" aria-label="Story arc">
-          <a href="#s01"><span>01</span>The web becomes a declared-access regime</a>
-          <a href="#s02"><span>02</span>Quality predicts restriction</a>
-          <a href="#s04"><span>04</span>Lower-reliability sources remain accessible</a>
-          <a href="#s06"><span>06</span>Publishers distinguish training from search</a>
-          <a href="#s10"><span>10</span>Governance shifts toward use-specific design</a>
+          <a href="#s01"><span>1</span>Access becomes a choice</a>
+          <a href="#s02"><span>2</span>Reliable publishers move first</a>
+          <a href="#s04"><span>3</span>The remaining pool changes</a>
+          <a href="#s06"><span>4</span>Training and search split apart</a>
+          <a href="#economics"><span>5</span>The economics is a missing market</a>
         </div>
       </div>
       <figure class="hero-panel">
@@ -703,15 +761,44 @@ footer {
 
   <section id="path">
     <div class="section-inner">
-      <div class="kicker">Evidence path</div>
-      <h2 style="margin: 8px 0 10px; color: var(--navy); font-family: Georgia, 'Times New Roman', serif; font-size: 36px; line-height: 1.14;">The argument moves from access decisions to data composition.</h2>
-      <p style="max-width: 830px; color: var(--muted);">The figures and table rows are not separate exhibits. They accumulate into one mechanism: a voluntary, crawler-specific access regime lets higher-quality publishers restrict AI training while preserving search-like access, leaving the training-accessible pool less representative.</p>
+      <div class="kicker">The thread</div>
+      <h2 style="margin: 8px 0 10px; color: var(--navy); font-family: Georgia, 'Times New Roman', serif; font-size: 36px; line-height: 1.14;">The story is about selection into access.</h2>
+      <p style="max-width: 860px; color: var(--muted);">Each figure answers the next question in the chain. First, publishers can now declare access by crawler. Then the higher-quality publishers restrict more. Then the accessible pool shifts. Finally, the training/search split reveals what kind of market is missing: not a generic market for "web data," but a market that prices different AI uses differently.</p>
       <div class="reading-path">
-        <div class="path-item"><strong>Access regime</strong><span>Robots directives make publisher participation observable by crawler and use.</span></div>
-        <div class="path-item"><strong>Quality selection</strong><span>Credible and prominent publishers are more likely to restrict access.</span></div>
-        <div class="path-item"><strong>Composition</strong><span>Questionable and political-pole outlets become relatively more accessible.</span></div>
-        <div class="path-item"><strong>Use distinction</strong><span>Training access is restricted more than search access within publisher.</span></div>
-        <div class="path-item"><strong>Design implication</strong><span>Binary opt-out is too coarse for AI data governance.</span></div>
+        <div class="path-item"><strong>A new choice</strong><span>Robots directives turn AI access into a declared participation decision.</span></div>
+        <div class="path-item"><strong>Selective exit</strong><span>The publishers with more credible content are more likely to restrict.</span></div>
+        <div class="path-item"><strong>Changed pool</strong><span>The remaining accessible corpus tilts toward lower-reliability sources.</span></div>
+        <div class="path-item"><strong>Different uses</strong><span>Training is treated differently from search-like discovery.</span></div>
+        <div class="path-item"><strong>Market design</strong><span>The natural policy question is how to keep high-quality publishers participating.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="economics">
+    <div class="section-inner economics">
+      <div class="economics-prose">
+        <div class="kicker">Economic implication</div>
+        <h2>The core problem is a missing price for high-quality participation.</h2>
+        <p>Training access can use publisher content without sending readers back, without attribution that matters economically, and without systematic payment. Search-like access is different: it can still preserve discovery, citation, and traffic. Publishers reveal this distinction in their robots directives.</p>
+        <p>That is why binary opt-out is a poor institution. It gives publishers only a crude exit option. When high-quality publishers exit more, the accessible data commons becomes less representative, and AI systems that rely on declared-access content inherit that composition.</p>
+      </div>
+      <div class="economics-cards">
+        <div class="econ-card">
+          <h3>1. Selection, not just scarcity</h3>
+          <p>The risk is not merely that less content is available. The content that remains is selected: lower-factual, questionable, and more politically extreme outlets become more represented in the accessible pool.</p>
+        </div>
+        <div class="econ-card">
+          <h3>2. Training has a different bargain</h3>
+          <p>For publishers, model training can appropriate value with weak referral benefits. Search access can still help audiences find the publisher. The data show publishers understand this difference.</p>
+        </div>
+        <div class="econ-card">
+          <h3>3. The licensing margin is visible</h3>
+          <p>The training-only restrictors are the natural target for compensated access: they are saying no to training while still allowing search. That is a market-design clue.</p>
+        </div>
+        <div class="econ-card">
+          <h3>4. Better governance prices uses</h3>
+          <p>Pay-per-crawl, collective licensing, attribution rules, and use-tiered contracts should be evaluated by whether they keep credible publishers in the training-accessible pool.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -719,8 +806,8 @@ footer {
   <section class="final-band">
     <div class="section-inner">
       <div>
-        <h2>The commons changes when participation is selective.</h2>
-        <p>Use-specific access design follows from observed publisher behavior.</p>
+        <h2>The commons changes when high-quality producers leave first.</h2>
+        <p>The economic goal is to turn selective exit into compensated, use-specific participation.</p>
       </div>
       <div class="actions">
         <a class="action" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6438640" target="_blank" rel="noopener">Paper</a>
@@ -741,12 +828,12 @@ const stories = [
     number: "01",
     label: "Access Regime",
     nav: "Access regime",
-    title: "The AI data commons is no longer a fixed open pool.",
-    deck: "The paper starts from a practical change in web governance: publishers can now declare crawler-specific restrictions. That makes participation observable, but also selective. The empirical object is not all web content; it is the content left accessible under declared AI-crawler rules.",
+    title: "The web used to look open. AI crawlers made access a choice.",
+    deck: "For a long time, the open web felt like a shared reservoir: crawlers came, indexed, and learned. The paper begins where that picture breaks down. Publishers now leave crawler-specific instructions, so the relevant question becomes who still permits access, and for what kind of AI use.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_per_bot_rates.png",
     alt: "Bar chart of named AI crawler blocking rates.",
     figureNote: "Figure: Training-oriented crawlers are among the most restricted named crawlers.",
-    claim: "The unit of access is no longer simply a website. It is a site-crawler pair, and the crawler's use matters.",
+    claim: "The same publisher can treat GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, and other crawlers differently. That turns AI access from a yes-or-no website decision into a use-specific participation decision.",
     chips: [
       ["9,611", "sites in the live MBFC media cross-section"],
       ["7,256", "successful robots.txt fetches in the per-bot scrape"],
@@ -762,19 +849,19 @@ const stories = [
       ["Per-bot live scrape", "7,256", "166,888", "Site-bot and paired-bot gaps"]
     ],
     source: "From Table: Samples and denominators used in the paper.",
-    takeaway: "The story begins with measurement: declared restrictions reveal which publishers participate and which AI uses they permit."
+    takeaway: "The rest of the story follows from this institutional detail. Once access is declared crawler by crawler, the composition of the AI data commons becomes an empirical object."
   },
   {
     id: "s02",
     number: "02",
     label: "Quality Selection",
     nav: "Quality selection",
-    title: "The first pattern is stark: higher-factual outlets restrict more.",
-    deck: "If access were random, the factual quality of a publisher would not predict declared restriction. Instead, the gradient is large and monotone: high-factual publishers are far more likely to block AI crawlers than low-factual publishers.",
+    title: "The first clue is simple: reliability predicts exit.",
+    deck: "If restrictions were scattered randomly across the web, factual quality would not matter much. But it matters a lot. Low-factual outlets rarely restrict AI crawlers; high-factual outlets do so much more often.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_gradient_factual.png",
     alt: "Bar chart of AI crawler restriction rates by MBFC factual-reporting tier.",
     figureNote: "Figure: Restriction rates rise from low-factual to high-factual outlets.",
-    claim: "The accessible corpus is selected on factual quality. Higher-quality producers are more likely to withdraw from at least one AI crawler.",
+    claim: "The figure is the first warning sign. The publishers most valuable for factual and civic information are also the publishers most likely to declare restrictions.",
     chips: [
       ["8%", "low-factual outlets restrict AI crawlers"],
       ["47%", "high-factual outlets restrict AI crawlers"],
@@ -790,19 +877,19 @@ const stories = [
       ["Domain-prominence index", "0.078***", "(0.006)", "5,782"]
     ],
     source: "From Table: The restriction gradient holds across four publisher measures.",
-    takeaway: "The paper's selection claim is not rhetorical. It is visible in raw rates and regression gradients."
+    takeaway: "This is the selection problem in one picture: the accessible corpus is not just smaller; it is lower-quality along a dimension AI systems should care about."
   },
   {
     id: "s03",
     number: "03",
     label: "Credibility",
     nav: "Credibility repeats",
-    title: "The same selection appears when quality is measured as credibility.",
-    deck: "The concern is not tied to one quality scale. Factual reporting, credibility, a content-quality index, and domain prominence all point in the same direction. More reliable and established publishers restrict more.",
+    title: "It is not just one rating scale telling the story.",
+    deck: "A skeptical reader might worry that one measure is doing too much work. The paper checks that. Factual reporting, credibility, content quality, and domain prominence all point in the same direction.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_gradient_credibility.png",
     alt: "Bar chart of AI crawler restriction rates by MBFC credibility tier.",
     figureNote: "Figure: The credibility gradient mirrors the factual-reporting gradient.",
-    claim: "The result is robust across publisher measures that capture different dimensions of quality.",
+    claim: "The pattern survives when quality is measured in different ways. The gradient is about publisher type, not about a quirk of one dataset.",
     chips: [
       ["0.197***", "MBFC credibility gradient estimate"],
       ["9,602", "sites with credibility measure"],
@@ -819,19 +906,19 @@ const stories = [
       ["Domain-prominence index", "0.078***", "0.025"]
     ],
     source: "From Table: The restriction gradient holds across four publisher measures.",
-    takeaway: "Selection is a property of the access regime, not an artifact of one rating variable."
+    takeaway: "For researchers, this matters because the result is not fragile. For policy, it matters because the publishers leaving are exactly the ones that make the commons valuable."
   },
   {
     id: "s04",
     number: "04",
     label: "Misinformation",
     nav: "Misinformation",
-    title: "When credible outlets restrict, questionable sources become relatively more accessible.",
-    deck: "The paper then asks what is left behind. The answer matters for AI training and retrieval because the accessible pool tilts toward lower-reliability sources when higher-quality publishers restrict.",
+    title: "Now look at what remains after reliable outlets pull back.",
+    deck: "Selection has a consequence. If credible publishers restrict more, the accessible pool does not merely shrink. It changes shape. Questionable sources become more visible in the content that compliant crawlers can still reach.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_misinfo_gap.png",
     alt: "Chart comparing AI crawler restriction rates for questionable and non-questionable sources.",
     figureNote: "Figure: Questionable sources declare fewer AI-crawler restrictions.",
-    claim: "The mechanism is compositional: selective exit by reliable publishers raises the relative presence of questionable content in the accessible pool.",
+    claim: "The misinformation result is not a separate side finding. It is what selection produces: when high-quality sources leave at higher rates, low-reliability sources take up more of the accessible pool.",
     chips: [
       ["15.1%", "questionable share among all training/search sites"],
       ["20.1%", "questionable share among search-accessible sites"],
@@ -848,19 +935,19 @@ const stories = [
       ["Licensing margin", "614", "5.7%"]
     ],
     source: "From Table: Observed content composition differs across declared-access margins.",
-    takeaway: "The issue is not just fewer sites. It is a changed mix of sites."
+    takeaway: "This is why the paper treats access governance as a data-quality problem. The rules governing participation can change the information environment that AI systems see."
   },
   {
     id: "s05",
     number: "05",
     label: "Political Mix",
     nav: "Political mix",
-    title: "The same composition concern appears across political orientation.",
-    deck: "Restriction rates peak among centrist outlets. That leaves outlets at the political poles more represented among declared-accessible sources, especially for training access.",
+    title: "The accessible pool also shifts politically.",
+    deck: "Factual reliability is one part of the story. Political orientation is another. Restrictions are highest near the center, which means the declared-accessible pool becomes more weighted toward outlets at the political poles.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_political.png",
     alt: "Chart of AI crawler restriction rates by political orientation.",
     figureNote: "Figure: Declared AI-crawler restrictions peak among centrist outlets.",
-    claim: "Access composition shifts not only by factual quality, but also by political orientation.",
+    claim: "The political pattern reinforces the same message: crawler access is not neutral sampling from the web. It reflects publisher incentives and choices.",
     chips: [
       ["19.1%", "left/right-pole share among all sites"],
       ["25.2%", "left/right-pole share among search-accessible sites"],
@@ -877,19 +964,19 @@ const stories = [
       ["Licensing margin", "72.0%", "13.3%"]
     ],
     source: "From Table: Observed content composition differs across declared-access margins.",
-    takeaway: "Selective participation changes the civic-information mix of the accessible corpus."
+    takeaway: "For downstream AI answers, summaries, and retrieval, the relevant object is not the full media ecosystem. It is the subset that remains accessible under declared rules."
   },
   {
     id: "s06",
     number: "06",
     label: "Use-Specific Access",
     nav: "Use distinction",
-    title: "Publishers are not simply rejecting AI access; they distinguish uses.",
-    deck: "The central update in the paper is use-specific selectivity. Search-only restriction is almost absent, while training-only restriction is meaningful and grows with factual quality.",
+    title: "Then comes the key twist: publishers are not saying no to all AI.",
+    deck: "The paper's central update is that publishers distinguish training from search. Search-only restriction is almost absent. Training-only restriction is real. That tells us publishers are not simply anti-AI; they are responding to different economic bargains.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_access_states.png",
     alt: "Stacked access-state chart by factual-reporting tier.",
     figureNote: "Figure: Search-only restrictions barely exist at any quality level.",
-    claim: "The economically relevant margin is training-only restriction: publishers block training while preserving search-like access.",
+    claim: "The meaningful margin is training-only restriction. A publisher can block model training while still allowing search-like discovery that may preserve citation, indexing, and audience flow.",
     chips: [
       ["11.2%", "high-factual sites restrict training only"],
       ["0.1%", "high-factual sites restrict search only"],
@@ -906,19 +993,19 @@ const stories = [
       ["High", "47.3% (1,867)", "11.2% (442)", "0.1% (3)", "41.4% (1,631)"]
     ],
     source: "From Table: Use-specific access states by factual-reporting tier.",
-    takeaway: "The paper moves beyond binary opt-out: the same publisher can treat training and search differently."
+    takeaway: "This is where the economics starts to become clear. Training and search create different costs and benefits for publishers, so a single opt-out button is the wrong policy lens."
   },
   {
     id: "s07",
     number: "07",
     label: "Within Publisher",
     nav: "Within publisher",
-    title: "The training-search gap appears within the same publisher.",
-    deck: "A clean test compares crawlers from the same vendor or a narrow crawler taxonomy. Higher-quality publishers are more likely to restrict training-oriented crawlers than search-oriented crawlers, even within publisher.",
+    title: "The split survives when we compare crawlers within the same publisher.",
+    deck: "A natural concern is that some publishers just block everything. The paired-bot analysis addresses that concern by comparing training and search crawlers within the same publisher and, in the cleanest case, within the same vendor family.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_pair_openai.png",
     alt: "Within-publisher comparison of GPTBot and OAI-SearchBot restrictions by quality.",
     figureNote: "Figure: OpenAI pair, GPTBot versus OAI-SearchBot.",
-    claim: "The use-specific pattern is not merely about some sites blocking more everything. It survives within-vendor comparisons.",
+    claim: "Within publisher, higher-quality outlets are more likely to restrict training-oriented crawlers than search-oriented crawlers. The OpenAI pair makes the contrast especially transparent.",
     chips: [
       ["0.053***", "OpenAI pair estimate for MBFC factual"],
       ["0.071***", "OpenAI pair estimate for content quality"],
@@ -935,19 +1022,19 @@ const stories = [
       ["Anthropic: ClaudeBot vs Claude-Web", "Content quality", "0.008***", "(0.002)", "7,256"]
     ],
     source: "From Table: Within-vendor training versus search comparisons.",
-    takeaway: "Publishers appear to value the distinction between model training and search-like discovery."
+    takeaway: "The observed behavior looks like revealed preference: publishers are separating uses because the private payoff from allowing those uses is different."
   },
   {
     id: "s08",
     number: "08",
     label: "Timing",
     nav: "Timing",
-    title: "Training restrictions moved first; search restrictions caught up later.",
-    deck: "Timing matters because the access regime changed as named AI crawler controls became salient. The training high-minus-low factual gap opened earlier, then narrowed as search restrictions spread.",
+    title: "The timing shows the access regime diffusing over time.",
+    deck: "The pattern did not appear all at once. Training restrictions opened a large high-minus-low factual gap first. Later, search restrictions caught up, narrowing the training-search differential by February 2026.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_differential_event.png",
     alt: "Event-time chart showing the training-search factual-rating differential rising and later narrowing.",
     figureNote: "Figure: The training-search factual-rating differential rose and later narrowed.",
-    claim: "The observed sequence is use-specific: training restriction gaps rose before search gaps largely caught up.",
+    claim: "The sequence is consistent with publishers first reacting to training use, then broadening restrictions as crawler tools and search-substitution concerns spread.",
     chips: [
       ["17.0", "train-search gap in December 2023"],
       ["18.0", "train-search gap in July 2024"],
@@ -964,19 +1051,19 @@ const stories = [
       ["2026-02", "45.3", "40.4", "5.0"]
     ],
     source: "From Table: The training factual-rating gap rose earlier than the search factual-rating gap.",
-    takeaway: "Use-specific access did not emerge as a static snapshot. It diffused over time."
+    takeaway: "This timing helps explain why the current cross-section looks the way it does. It is the result of institutional diffusion, not a timeless feature of the web."
   },
   {
     id: "s09",
     number: "09",
     label: "Composition",
     nav: "What remains",
-    title: "The accessible training pool is materially different from the full pool.",
-    deck: "After use-specific restriction, training-accessible sites have lower high-factual representation and higher low-factual, questionable, and political-pole representation than the full site pool.",
+    title: "By the end, the training-accessible pool is a different pool.",
+    deck: "Put the pieces together. Reliable publishers restrict more. Questionable sources restrict less. Training is treated more skeptically than search. The result is a training-accessible pool that differs sharply from the full set of media sites.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_decomp_factual.png",
     alt: "Decomposition of the any-restriction gradient into access states by MBFC factual tier.",
     figureNote: "Figure: Decomposition of the any-restriction gradient into access states.",
-    claim: "The consequences show up directly in the composition of declared-access pools.",
+    claim: "The composition table gives the practical consequence: high-factual outlets are less represented in training-accessible content, while low-factual and questionable sources are more represented.",
     chips: [
       ["56.3%", "high-factual share among all sites"],
       ["41.3%", "high-factual share among training-accessible sites"],
@@ -993,19 +1080,19 @@ const stories = [
       ["Licensing margin", "614", "72.0%", "5.2%", "5.7%"]
     ],
     source: "From Table: Observed content composition differs across declared-access margins.",
-    takeaway: "The accessible AI data commons is not a neutral remainder. It is shaped by who has incentives to restrict."
+    takeaway: "For AI builders, the declared-access pool is not a neutral substitute for the web. For researchers, it is a selected sample created by publisher incentives."
   },
   {
     id: "s10",
     number: "10",
     label: "Design",
     nav: "Design implication",
-    title: "The policy target is not generic access. It is use-specific participation.",
-    deck: "The final implication follows from the observed margin. High-quality publishers often preserve search while restricting training, so binary opt-out misses the actual institutional design problem.",
+    title: "The policy lesson is not 'force access.' It is 'design better participation.'",
+    deck: "The evidence points to a more precise policy target. High-quality publishers often preserve search while restricting training. That means the central institution should not be a binary allow-or-block rule; it should be a way to price and govern different AI uses.",
     figure: "../files/paper/ai-data-commons/figures/r1_fig_gap_coefficients.png",
     alt: "Coefficient plot for direct training-minus-search gap models.",
     figureNote: "Figure: Higher quality predicts restricting training over search.",
-    claim: "Use-specific design is not an abstract recommendation. It is aligned with the behavior publishers already reveal.",
+    claim: "The training-search gap shows where a market could form: compensation, attribution, or licensing could target the training use that publishers are selectively withholding.",
     chips: [
       ["0.025***", "monthly-panel D coefficient for MBFC factual"],
       ["0.039***", "monthly-panel D coefficient for MBFC credibility"],
@@ -1022,7 +1109,7 @@ const stories = [
       ["Feb. 2026 cross-section", "Content quality", "0.207***", "0.172***", "0.034***"]
     ],
     source: "From Table: Direct training-minus-search gap models.",
-    takeaway: "AI data governance should distinguish uses and evaluate compensation for high-quality participation rather than rely on binary allow-or-block access."
+    takeaway: "The economic implication is straightforward: without a functioning market for AI data access, high-quality producers use opt-out as their outside option, and the commons deteriorates."
   }
 ];
 
@@ -1070,7 +1157,7 @@ function renderStories() {
   list.innerHTML = stories.map(story => `
     <article class="story" id="${story.id}">
       <header class="story-head">
-        <div class="story-number">${story.number}</div>
+        <div class="story-number">Chapter ${story.number}</div>
         <div>
           <div class="story-label">${escapeHtml(story.label)}</div>
           <h2>${escapeHtml(story.title)}</h2>
@@ -1083,8 +1170,8 @@ function renderStories() {
           <figcaption class="caption">${escapeHtml(story.figureNote)}</figcaption>
         </figure>
         <aside class="evidence" aria-label="Evidence for ${escapeHtml(story.title)}">
-          <div class="claim">
-            <strong>Claim</strong>
+          <div class="reading">
+            <strong>What to notice</strong>
             <p>${escapeHtml(story.claim)}</p>
           </div>
           <div class="chips">
@@ -1096,7 +1183,7 @@ function renderStories() {
             `).join("")}
           </div>
           ${renderTable(story)}
-          <div class="takeaway">${escapeHtml(story.takeaway)}</div>
+          <div class="meaning"><strong>Why this matters</strong>${escapeHtml(story.takeaway)}</div>
         </aside>
       </div>
     </article>
@@ -1106,6 +1193,10 @@ function renderStories() {
 function updateNav() {
   const offset = window.scrollY + 120;
   let activeId = stories[0].id;
+  let activeSection = "overview";
+  document.querySelectorAll("main section[id]").forEach(section => {
+    if (section.offsetTop <= offset) activeSection = section.id;
+  });
   stories.forEach(story => {
     const el = document.getElementById(story.id);
     if (el && el.offsetTop <= offset) activeId = story.id;
@@ -1115,7 +1206,7 @@ function updateNav() {
   });
   document.querySelectorAll(".navlinks a[href^='#']").forEach(link => {
     const target = link.getAttribute("href").slice(1);
-    link.classList.toggle("active", target === "story" && activeId);
+    link.classList.toggle("active", target === activeSection);
   });
 }
 
